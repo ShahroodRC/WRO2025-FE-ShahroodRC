@@ -172,7 +172,7 @@ This section provides a detailed overview of the parts used in the robot, includ
 - **Type**: Vision Sensor
 - **Feature**: Real-time object recognition
 - **Interface**: USB, UART, or I2C
-- **Use**: Used for object tracking and navigation
+- **Use**: Used for obstacle detection and color recognition
 - **Description**: The Pixy Cam is a highly efficient vision sensor that performs real-time object recognition. It is designed to detect and track objects based on color codes, making it ideal for tasks like obstacle detection and target tracking in robotics competitions. This sensor’s easy-to-use interface allows it to quickly communicate with the EV3 control brick, enabling rapid deployment in real-world environments. The Pixy Cam is highly effective for object tracking and is ideal for WRO-style challenges where precise object detection and navigation are crucial.
 
 
@@ -269,76 +269,183 @@ This section provides a detailed overview of the parts used in the robot, includ
 
 ## Mobility Management
 
-Our robot is built using LEGO components, primarily the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, along with additional **LEGO EV3 sets** and **wheels from the LEGO SPIKE Prime set** (Serial numbers 45678-1 and 45680-1). This setup ensures robust performance and maneuverability.
+The ShahroodRC robot is constructed using LEGO components, primarily the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**. This configuration ensures robust performance, reliability, and precise maneuverability tailored for the World Robot Olympiad (WRO) 2025 Future Engineers category.
 
-The robot’s dimensions are **19.5 cm (length)**, **13.5 cm (width)**, and **27 cm (height)**, optimized to fit within the competition's parking area. For mobility, we use a **differential drive system** powered by two motors at the rear axle, providing stable movement and steering control.
+The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized to fit within the competition’s parking area while maintaining stability and agility. The robot employs a **rear-wheel drive system with front-wheel steering**, powered by two **EV3 Medium Motors**, enabling smooth movement and precise directional control.
 
-The robot's **mobility system** integrates the **powertrain**, **steering mechanism**, and **chassis**, working together to ensure smooth and efficient movement during the competition.
-
+The **mobility system** integrates the **powertrain**, **steering mechanism**, and **chassis**, working together to ensure efficient navigation through various competition challenges, such as wall-following, obstacle avoidance, precise parking, and zone detection.
 
 ### 1. **Introduction to Mobility System**
 
-   - **Overview of the mobility system**: This section explains the type of movement the robot performs, such as wheel-based movement, omnidirectional, or other mechanisms, and the reasoning behind choosing this system.
-   - **Types of Movement**: Discusses how the robot moves (e.g., using four wheels, 360-degree rotation, independent control of each wheel, etc.).
-   - **Design Choices**: Explains the design choices made for the mobility system, such as the number of wheels, their placement, and how they are connected to the motors.
+**Overview of the Mobility System**  
+The ShahroodRC robot utilizes a **rear-wheel drive system with front-wheel steering**, featuring two powered wheels at the rear and two steerable wheels at the front. All four wheels are **LEGO Tire 49.5 x 20**, providing consistent traction and stability. This mobility system mimics the mechanics of a traditional vehicle, offering a balance of precision, stability, and agility. It is designed to excel in the dynamic environments of WRO 2025, including navigating wall-based tracks, avoiding obstacles, and parking in constrained spaces. The system’s reliance on a differential for propulsion and a dedicated steering motor ensures reliable and responsive control tailored for competition demands.
 
----
+**Types of Movement**  
+The rear-wheel drive and front-wheel steering system enables the following types of movement:
+- **Linear Motion**: Forward and backward movement is achieved by the rear wheels, driven by a single EV3 Medium Motor through a differential, ensuring synchronized power delivery.
+- **Steering and Turning**: The front wheels are controlled by a second EV3 Medium Motor, which adjusts their angle to the left or right, allowing for smooth and precise turns.
+- **Curved Navigation**: By combining propulsion from the rear wheels and angular adjustments of the front wheels, the robot can follow curved paths, essential for wall-following and obstacle avoidance tasks.
+
+The robot’s compact dimensions (20 cm length, 13.5 cm width, 17.5 cm height) and optimized design enhance its ability to maneuver in tight spaces while maintaining stability during high-speed navigation.
+
+**Design Choices**  
+The rear-wheel drive with front-wheel steering system was selected for the following reasons:
+1. **Precision in Steering**: The dedicated steering motor allows for fine-tuned directional control, critical for tasks like wall-following and parking in WRO challenges.
+2. **Efficient Power Distribution**: Using a differential for the rear wheels ensures balanced power delivery, reducing wheel slippage and improving traction on competition surfaces.
+3. **Compatibility with LEGO EV3**: The system leverages two **EV3 Medium Motors** (20 N·cm torque, 160 rpm speed), which provide adequate power and precision for both propulsion and steering.
+4. **Wheel Selection**: All four wheels are **LEGO Tire 49.5 x 20**, chosen for their 49.5 mm diameter and traction properties, optimizing grip and consistency on competition surfaces.
+5. **Chassis Design**: Constructed from LEGO MINDSTORMS Education Core Set components, the chassis is lightweight yet rigid, designed to support the motors, differential, steering mechanism, and sensors while maintaining a low center of gravity for stability.
+6. **Compliance with WRO Rules**: The system is fully compliant with the rules and restrictions of the WRO 2025 Future Engineers category, ensuring compatibility with competition requirements such as size limits, material constraints, and operational safety.
+
+The combination of these design choices ensures the robot is both robust and highly maneuverable, capable of meeting the diverse challenges of WRO 2025.
 
 ### 2. **Motors and Actuators**
 
-   - **Motor Types Used**: 
-     - Discusses the types of motors used in the robot (DC, Servo, Stepper) and why these motors were chosen for the mobility system.
-     - **Specifications**: Lists the specifications for each motor (e.g., speed, torque, voltage, etc.).
-   - **Motor Control Mechanism**: Describes the method used to control the movement of the motors (e.g., motor controllers, specific algorithms for adjusting speed and precision).
-   - **Motor Integration**: Explains how the motors are connected to other parts of the robot (e.g., wheels, arms, etc.).
+**Motor Types Used**  
+The ShahroodRC robot is equipped with two **LEGO EV3 Medium Motors** to drive its mobility system. These DC motors were selected for their compact size, balanced performance, and compatibility with the robot’s rear-wheel drive and front-wheel steering configuration. The key specifications of the EV3 Medium Motors are:
+- **Type**: DC Motor
+- **Voltage**: 9V
+- **Speed**: 160 rpm
+- **Torque**: 20 N·cm
+- **Weight**: 120 g
 
----
+The first motor powers the rear wheels through a differential, providing propulsion for forward and backward movement. The second motor controls the front-wheel steering mechanism, adjusting the angle of the front wheels for precise directional control. The choice of Medium Motors over alternatives (e.g., EV3 Large Motors) was driven by their lightweight design and sufficient power for the WRO 2025 tasks, ensuring agility and energy efficiency.
+
+**Motor Control Mechanism**  
+The motors are managed by the **LEGO EV3 Mindstorms Control Brick**, running the **ev3dev** operating system, which allows for precise control using Python-based programming. The propulsion motor delivers power to the rear wheels via a differential, ensuring balanced torque distribution and minimizing wheel slippage during turns or on varying surfaces. The steering motor adjusts the front wheels’ angle incrementally, enabling smooth and accurate navigation. Control algorithms, implemented in Python via ev3dev, include:
+- **Speed Regulation**: Maintains consistent velocity for linear motion using feedback loops, critical for tasks like wall-following and parking.
+- **Steering Calibration**: Adjusts the steering motor’s position based on sensor feedback to achieve precise turning angles, ensuring accurate navigation in complex WRO 2025 environments.
+
+**Motor Integration**  
+The propulsion motor is connected to a **differential mechanism**, which drives the two rear **LEGO Tire 49.5 x 20** wheels. The differential ensures synchronized yet flexible rotation, allowing the rear wheels to rotate at different speeds during turns, enhancing stability and traction. The steering motor is linked to the front axle, controlling the orientation of the two front **LEGO Tire 49.5 x 20** wheels. Both motors are securely mounted to the chassis, constructed from LEGO MINDSTORMS Education Core Set components, ensuring mechanical reliability and minimal vibration. The integration leverages standard LEGO connectors, maintaining compatibility with the EV3 Control Brick and simplifying maintenance.
 
 ### 3. **Sensor Integration for Mobility**
 
-   - **Sensors for Navigation and Obstacle Avoidance**: Discusses the sensors used for detecting obstacles and aiding navigation (e.g., **Ultrasonic Sensors**, **IR sensors**, **LIDAR**, **Pixy Cam**, etc.).
-   - **Real-time Feedback**: Describes how the robot processes the data received from sensors to adjust its movement in real-time.
-   - **Sensor Fusion**: If multiple sensors are used, explains how the data from these sensors is combined to improve accuracy and performance.
+**Sensors for Navigation and Obstacle Avoidance**  
+The ShahroodRC robot is equipped with three key sensors to enable precise navigation and obstacle avoidance in the WRO 2025 Future Engineers category: two **EV3 Ultrasonic Sensors**, one **EV3 Color Sensor**, and one **Pixy Cam**. Their roles and placements are as follows:
+- **EV3 Color Sensor**: Positioned at the front center of the robot, close to the ground, to detect blue and orange lines on the competition surface for specific WRO 2025 challenge tasks.
+- **EV3 Ultrasonic Sensors**: Two sensors mounted at the front, one facing right and one facing left, to measure distances to walls (range: 3 cm to 250 cm, accuracy: ±1 cm) for wall detection and wall-following tasks in all competition challenges.
+- **Pixy Cam**: Mounted above the LEGO EV3 Mindstorms Control Brick, angled to view the front of the robot, for real-time object recognition, specifically configured to detect the presence and color of obstacles in the WRO 2025 Obstacle Challenge.
 
----
+These sensors are strategically placed on the robot’s chassis to optimize their field of view and ensure accurate data collection for navigation tasks such as wall-following, obstacle avoidance, precise parking, and other WRO 2025 challenges.
+
+**Real-time Feedback**  
+Sensor data is processed by the **LEGO EV3 Mindstorms Control Brick** running the **ev3dev** operating system, using Python-based scripts. The Color Sensor provides continuous feedback by detecting blue and orange lines, contributing to specific challenge tasks as required by WRO 2025. The Ultrasonic Sensors measure distances to walls on the left and right, enabling the robot to maintain a consistent distance for wall-following tasks. The Pixy Cam delivers real-time data on the presence and color of obstacles, guiding navigation decisions in the Obstacle Challenge. The EV3 Control Brick processes these inputs to dynamically adjust the propulsion and steering motors, ensuring responsive and adaptive movement across all WRO 2025 challenges.
+
+**Sensor Fusion**  
+To enhance navigation accuracy, the robot combines data from the Color Sensor, Ultrasonic Sensors, and Pixy Cam in a coordinated manner. The Python scripts running on ev3dev manage sensor inputs based on the task:
+- **Challenge-specific Tasks**: The Color Sensor’s data, detecting blue and orange lines, is used for specific WRO challenge requirements, such as identifying track markers or zones.
+- **Wall-following**: The Ultrasonic Sensors’ distance measurements are prioritized to maintain alignment with walls, ensuring precise navigation in wall-following tasks.
+- **Obstacle Avoidance**: The Pixy Cam’s detection of obstacle presence and color is used to navigate around obstacles in the Obstacle Challenge, ensuring collision-free movement.
+- **Combined Tasks**: For challenges requiring multiple tasks (e.g., navigating a track with walls and obstacles or reaching specific zones), the system integrates data from all sensors to make informed decisions, balancing wall-following, obstacle detection, and task-specific objectives.
+
+This sensor fusion approach ensures robust and adaptive navigation, enabling the robot to handle all challenges in WRO 2025, including wall-following, obstacle avoidance, parking, and other task-specific requirements, effectively.
 
 ### 4. **Mobility Control Algorithms**
 
-   - **Control Algorithms**: Describes the algorithms used for controlling the robot’s mobility (e.g., **PID control**, **SLAM** for navigation, or other algorithms for controlling speed and direction).
-   - **Navigation Techniques**: Explains the navigation techniques employed by the robot (e.g., **Dead Reckoning**, **Line-following**, etc.).
-   - **Obstacle Avoidance**: Explains the algorithms used to avoid obstacles during movement (e.g., algorithms for obstacle avoidance and collision detection).
+**Control Algorithms**  
+The ShahroodRC robot employs Python-based control algorithms implemented via the **ev3dev** operating system to manage its mobility, ensuring precise and efficient navigation during WRO 2025 challenges. These algorithms govern the behavior of the two **EV3 Medium Motors** for propulsion and steering, enabling the robot to perform tasks such as wall-following, obstacle avoidance, and precise parking. The key control algorithms include:
+- **Speed Control**: Regulates the propulsion motor’s speed to maintain consistent velocity, critical for smooth linear motion and energy efficiency across various WRO tasks.
+- **Steering Control**: Adjusts the steering motor’s angle based on sensor inputs to achieve accurate directional control, ensuring precise navigation in confined spaces.
+- **Task-specific Control**: Coordinates propulsion and steering to address specific WRO challenge requirements, such as navigating to marked zones or parking accurately.
 
----
+These algorithms are designed to be adaptive, leveraging sensor data to dynamically adjust motor outputs for optimal performance in the dynamic environments of WRO 2025.
+
+**Navigation Techniques**  
+The robot employs the following navigation techniques to address WRO 2025 challenges:
+- **Wall-following**: Utilizes the two **EV3 Ultrasonic Sensors** to maintain a consistent distance from walls, ensuring stable navigation in tasks requiring wall-following. The sensors measure distances on the left and right, guiding the steering motor to adjust the robot’s path.
+- **Zone Detection**: Uses the **EV3 Color Sensor** to detect blue and orange lines, enabling the robot to identify specific track markers or zones as required by WRO challenges.
+- **Obstacle Avoidance**: Employs the **Pixy Cam** to detect the presence and color of obstacles, allowing the robot to navigate around them in the Obstacle Challenge.
+
+These techniques ensure the robot can handle the diverse navigation requirements of WRO 2025, from following walls to reaching designated areas.
+
+**Obstacle Avoidance**  
+The robot’s obstacle avoidance strategy relies on the **Pixy Cam** for real-time detection of obstacles in the WRO 2025 Obstacle Challenge:
+- **Detection**: The Pixy Cam identifies the presence and color of obstacles, providing critical data for navigation decisions.
+- **Decision-making**: Python scripts running on ev3dev process Pixy Cam data to adjust the robot’s speed and steering, enabling it to slow down, stop, or redirect around obstacles.
+- **Path Adjustment**: The algorithm recalculates the robot’s path to avoid obstacles while maintaining progress toward challenge goals, such as reaching a parking zone or navigating a track.
+
+The **EV3 Ultrasonic Sensors** complement this by focusing solely on wall-following, ensuring the robot maintains proper alignment with walls while the Pixy Cam handles obstacle avoidance. This integrated approach ensures robust and adaptive navigation, enabling the robot to handle all WRO 2025 challenges effectively.
 
 ### 5. **Energy Management for Mobility**
 
-- **Power Consumption**: The energy consumption for mobility is efficiently managed by the **LEGO EV3 Control Brick**, which regulates the power supplied to both the motors and sensors. The motors, which drive the robot's movement, and the sensors, which assist in navigation and obstacle detection, are powered directly through the EV3 system.
+**Power Consumption**  
+The ShahroodRC robot’s energy consumption is efficiently managed by the **LEGO EV3 Mindstorms Control Brick**, which regulates power supplied to the two **EV3 Medium Motors** and the sensors (**EV3 Color Sensor**, two **EV3 Ultrasonic Sensors**, and **Pixy Cam**). The propulsion motor, driving the rear wheels via a differential, and the steering motor, controlling the front wheels, are the primary consumers of power. The sensors, used for detecting blue and orange lines, wall-following, and obstacle detection, have relatively low power requirements. The EV3 Control Brick, running the **ev3dev** operating system, ensures stable power delivery to all components, maintaining consistent performance during WRO 2025 challenges.
 
-- **Battery and Power Supply**: The robot is powered by the official **LEGO EV3 Rechargeable Battery Pack**. This battery provides a stable power supply for all components, ensuring reliable operation throughout the competition. The EV3 system manages power distribution and ensures the motors and sensors receive the required voltage.
+**Battery and Power Supply**  
+The robot is powered by the official **LEGO EV3 Rechargeable Battery Pack** (DC 10V, 2050 mAh), providing a reliable power supply for all components. This battery supports the high demands of the EV3 Medium Motors (requiring 9V input, 20 N·cm torque, 160 rpm) and the sensors, ensuring uninterrupted operation throughout the competition. The EV3 Control Brick manages power distribution, delivering the required voltage and current to motors and sensors while preventing overloads or voltage drops during intensive tasks like wall-following, obstacle avoidance, and parking.
 
-- **Energy Optimization**: To optimize energy usage and extend battery life during the competition, the robot’s power consumption is carefully balanced between motor usage and sensor operation. The **LEGO EV3 Control Brick** dynamically adjusts power distribution based on the robot’s activity, ensuring that energy is utilized efficiently and that the battery lasts for the duration of the event.
+**Energy Optimization**  
+To optimize energy usage and extend battery life during WRO 2025 challenges, the robot’s power consumption is carefully balanced. Key strategies include:
+- **Dynamic Power Allocation**: The EV3 Control Brick, programmed via Python on ev3dev, adjusts power distribution based on task requirements. For example, during wall-following, power is prioritized to the propulsion motor and Ultrasonic Sensors, while during obstacle avoidance, the Pixy Cam receives sufficient power for reliable object detection.
+- **Efficient Motor Control**: The Python-based control algorithms minimize unnecessary motor activity, such as reducing propulsion speed when navigating stable paths or limiting steering adjustments during straight motion.
+- **Sensor Management**: The sensors operate only when needed, with Python scripts ensuring efficient polling to reduce power draw without compromising performance.
 
----
+These optimization techniques ensure that the robot maintains energy efficiency, allowing the **LEGO EV3 Rechargeable Battery Pack** to sustain the robot’s performance for the duration of WRO 2025 challenges, including wall-following, obstacle avoidance, and precise parking.
 
 ### 6. **System Integration for Mobility**
 
-   - **Integration with Other Systems**: Explains how the mobility system integrates with other systems in the robot (e.g., sensors, processors, etc.).
-   - **Control Unit**: Describes the control unit used for managing the mobility system (e.g., **LEGO EV3 Mindstorms Brick**, **Raspberry Pi**, **Arduino**, **ESP32**, etc.).
+**Integration with Other Systems**  
+The ShahroodRC robot’s mobility system is seamlessly integrated with its sensory and processing components to ensure cohesive operation during WRO 2025 challenges. The mobility system, consisting of a **rear-wheel drive with front-wheel steering** powered by two **EV3 Medium Motors**, works in tandem with the sensor suite (**EV3 Color Sensor**, two **EV3 Ultrasonic Sensors**, and **Pixy Cam**) and the **LEGO EV3 Mindstorms Control Brick**. Key integration aspects include:
+- **Sensor-to-Motor Integration**: The **EV3 Color Sensor**, detecting blue and orange lines, provides data for task-specific navigation (e.g., identifying track markers or zones). The two **EV3 Ultrasonic Sensors**, used for wall-following, measure distances to walls, guiding the steering motor to maintain alignment. The **Pixy Cam**, configured for obstacle detection and color recognition in the Obstacle Challenge, informs the propulsion and steering motors to navigate around obstacles.
+- **Real-time Data Processing**: Sensor data is processed by the EV3 Control Brick running **ev3dev**, which uses Python scripts to translate inputs into motor commands. For example, wall distance data from Ultrasonic Sensors adjusts the steering angle, while Pixy Cam data triggers obstacle avoidance maneuvers.
+- **Mechanical Integration**: The motors and sensors are mounted on a lightweight yet rigid chassis built from **LEGO MINDSTORMS Education Core Set** components. The chassis ensures stable alignment of the differential (for rear-wheel propulsion) and the front axle (for steering), minimizing vibrations and ensuring reliable sensor readings.
 
----
+This integration ensures that the mobility system operates in harmony with sensory inputs and processing capabilities, enabling the robot to perform complex tasks like wall-following, obstacle avoidance, and precise parking in WRO 2025.
+
+**Control Unit**  
+The **LEGO EV3 Mindstorms Control Brick** serves as the central control unit for the ShahroodRC robot’s mobility system. Running the **ev3dev** operating system with Python-based programming, the EV3 Brick manages all aspects of mobility, including:
+- **Motor Control**: The EV3 Brick sends PWM (Pulse Width Modulation) signals to the propulsion motor (driving the rear wheels via a differential) and the steering motor (controlling the front wheels), ensuring precise speed and directional adjustments.
+- **Sensor Processing**: The EV3 Brick processes real-time data from the Color Sensor, Ultrasonic Sensors, and Pixy Cam, using Python scripts to make navigation decisions based on task requirements (e.g., wall-following, obstacle avoidance, or zone detection).
+- **Power Management**: The EV3 Brick regulates power distribution from the **LEGO EV3 Rechargeable Battery Pack** (10V, 2050 mAh) to motors and sensors, optimizing energy usage to sustain performance throughout the competition.
+
+The choice of the EV3 Control Brick was driven by its compatibility with the LEGO MINDSTORMS ecosystem, robust processing capabilities, and support for ev3dev, which enables flexible and precise control through Python programming. This control unit ensures reliable integration of the mobility system with other components, allowing the robot to meet the diverse challenges of WRO 2025 effectively.
 
 ### 7. **Testing and Optimization**
 
-   - **Testing the Mobility System**: Describes how the mobility system was tested under different conditions and simulated environments.
-   - **Optimization for Efficiency**: Discusses how the mobility system was optimized for best performance in competitions.
-   - **Challenges and Solutions**: Outlines any challenges faced during the design and testing phase, along with solutions implemented to overcome them.
+**Testing the Mobility System**  
+The ShahroodRC robot’s mobility system was rigorously tested to ensure reliable performance across the WRO 2025 Future Engineers category challenges. The testing process involved evaluating the **rear-wheel drive with front-wheel steering** system, powered by two **EV3 Medium Motors**, under various conditions simulating competition environments. Key testing scenarios included:
+- **Wall-following Tests**: The robot was tested on surfaces with walls to verify the accuracy of the two **EV3 Ultrasonic Sensors** in maintaining consistent distances for wall-following tasks. Tests ensured the steering motor adjusted the front wheels accurately based on sensor feedback.
+- **Obstacle Avoidance Tests**: The **Pixy Cam** was tested in simulated Obstacle Challenge environments to confirm its ability to detect the presence and color of obstacles, with the propulsion and steering motors responding appropriately to navigate around them.
+- **Zone Detection Tests**: The **EV3 Color Sensor** was tested on surfaces with blue and orange lines to ensure reliable detection of track markers or zones, critical for specific WRO challenge tasks.
+- **Parking and Maneuverability Tests**: The robot was tested in confined spaces to evaluate its ability to perform precise parking and tight maneuvers, ensuring the differential and steering mechanisms worked seamlessly.
 
----
+Tests were conducted on surfaces mimicking WRO competition tracks (e.g., smooth surfaces with marked lines and obstacles) to validate the robot’s performance under realistic conditions.
+
+**Optimization for Efficiency**  
+The mobility system was optimized to achieve maximum performance and efficiency during WRO 2025 challenges. Key optimization strategies included:
+- **Motor Calibration**: The propulsion and steering motors were fine-tuned using Python scripts on **ev3dev** to balance speed and torque, ensuring smooth operation while minimizing energy consumption.
+- **Sensor Calibration**: The **EV3 Ultrasonic Sensors** were calibrated to optimize wall-following accuracy, while the **Pixy Cam** was adjusted to improve obstacle detection reliability under varying lighting conditions. The **EV3 Color Sensor** was tuned to accurately distinguish blue and orange lines.
+- **Software Optimization**: Python-based control algorithms were refined to reduce processing delays, ensuring rapid response to sensor inputs for tasks like wall-following and obstacle avoidance.
+- **Energy Efficiency**: The **LEGO EV3 Control Brick** was programmed to dynamically adjust power distribution, prioritizing active components (e.g., Ultrasonic Sensors during wall-following or Pixy Cam during obstacle avoidance) to extend the **LEGO EV3 Rechargeable Battery Pack** (10V, 2050 mAh) lifespan.
+
+These optimizations ensured the robot could perform reliably and efficiently throughout the competition, handling tasks like wall-following, obstacle avoidance, and precise parking with minimal resource usage.
+
+**Challenges and Solutions**  
+Several challenges were encountered during the design and testing of the mobility system, with solutions implemented to address them:
+- **Challenge: Inconsistent Wall-following**: Initial tests showed occasional deviations in wall-following due to sensor noise from the Ultrasonic Sensors.
+  - **Solution**: Adjusted the Python scripts to implement filtering techniques (e.g., averaging multiple sensor readings) to reduce noise and improve distance measurement accuracy.
+- **Challenge: Obstacle Detection in Varied Lighting**: The Pixy Cam’s performance was affected by inconsistent lighting in some test environments.
+  - **Solution**: Calibrated the Pixy Cam’s color detection parameters and tested it under multiple lighting conditions to ensure robust obstacle recognition.
+- **Challenge: Battery Drain During Intensive Tasks**: High motor and sensor activity during combined tasks (e.g., wall-following and obstacle avoidance) led to increased power consumption.
+  - **Solution**: Optimized Python scripts to reduce unnecessary motor and sensor activity, such as limiting steering adjustments during stable paths and polling sensors only when needed.
+
+These solutions enhanced the robot’s reliability and performance, ensuring it meets the rigorous demands of WRO 2025 challenges.
 
 ### 8. **Conclusion**
 
-   - **Summary of Mobility Features**: A summary of the key features of the mobility system and how they contribute to the robot's overall performance in competitions.
-   - **Future Improvements**: Suggestions for future improvements in the mobility system, if needed.
+**Summary of Mobility Features**  
+The ShahroodRC robot’s mobility system is a robust and efficient design tailored for the WRO 2025 Future Engineers category. The **rear-wheel drive with front-wheel steering** system, powered by two **EV3 Medium Motors**, provides precise and agile movement, enabling the robot to navigate complex competition environments. The integration of the **EV3 Color Sensor** (for detecting blue and orange lines for task-specific navigation), two **EV3 Ultrasonic Sensors** (for wall-following), and **Pixy Cam** (for obstacle detection and color recognition in the Obstacle Challenge) ensures accurate navigation and task execution. Controlled by the **LEGO EV3 Mindstorms Control Brick** running **ev3dev** with Python-based scripts, the system achieves seamless coordination between motors and sensors, optimizing performance for tasks like wall-following, obstacle avoidance, and precise parking. The **LEGO EV3 Rechargeable Battery Pack** (10V, 2050 mAh) supports energy-efficient operation, with dynamic power allocation enhancing battery life. This combination of mechanical design, sensor integration, and software control makes the ShahroodRC robot highly competitive, capable of meeting the diverse challenges of WRO 2025 with reliability and precision.
+
+**Future Improvements**  
+While the current mobility system performs effectively, several areas could be explored for future enhancements:
+- **Enhanced Sensor Calibration**: Further tuning of the **Pixy Cam** to improve obstacle detection accuracy under extreme lighting conditions could enhance performance in the Obstacle Challenge.
+- **Advanced Control Algorithms**: Implementing more sophisticated algorithms, such as PID control for steering or speed regulation, could improve precision and responsiveness during complex maneuvers.
+- **Battery Optimization**: Exploring higher-capacity batteries or more advanced power management techniques could extend operational time, particularly for longer competition rounds.
+- **Mechanical Refinements**: Strengthening the chassis or optimizing the differential mechanism could reduce wear and improve stability during high-speed or high-torque tasks.
+- **Sensor Fusion Enhancements**: Developing more advanced sensor fusion techniques, such as weighted data integration, could improve decision-making for combined tasks like wall-following and obstacle avoidance.
+
+These potential improvements aim to further enhance the robot’s performance, ensuring greater adaptability and competitiveness in future iterations of the WRO or similar competitions.
 
 
 ---
@@ -375,12 +482,12 @@ This section outlines how electrical power is distributed across the robot and h
 - **Central Control Unit**: All sensors, including the non-standard Pixy Cam, interface directly with the EV3 Brick.
 - **Port Allocation Table**:
 
-| Port | Sensor             | Function                                  |
-|------|--------------------|-------------------------------------------|
-| 1    | Color Sensor       | Ground line detection                     |
-| 2    | Ultrasonic Sensor  | Wall following / open challenge           |
-| 3    | Ultrasonic Sensor  | Secondary wall following / open challenge |
-| 4    | Pixy Cam           | Image processing / Obstacle detection     |
+| Port | Sensor             | Function                                                     |
+|------|--------------------|--------------------------------------------------------------|
+| 1    | Color Sensor       | Blue and orange lines for task-specific navigation detection |
+| 2    | Ultrasonic Sensor  | Wall following / open challenge                              |
+| 3    | Ultrasonic Sensor  | Secondary wall following / open challenge                    |
+| 4    | Pixy Cam           | Image processing / Obstacle detection                        |
 
 - **Polling Strategy**: Critical sensors like the color sensor are polled every **10ms**, while secondary inputs (e.g., Pixy or second ultrasonic) are polled at **50ms**.
 
@@ -423,7 +530,7 @@ This section outlines how electrical power is distributed across the robot and h
 
 - **Idle Power Saving**: Motors and sensors enter low-power mode when not in use.
 - **Sensor Prioritization**: The color and primary ultrasonic sensors are prioritized in polling frequency for real-time decisions.
-- **Dynamic Resource Allocation**: System resources are reassigned dynamically based on active tasks, such as switching between line-following and docking behaviors.
+- **Dynamic Resource Allocation**: System resources are reassigned dynamically based on active tasks, such as task-specific navigation.
 
 ---
 
