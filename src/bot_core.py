@@ -18,6 +18,16 @@ from telegram.ext import (
 )
 import main
 import config
+import mysql.connector
+from mysql.connector import Error
+
+def get_db_connection():
+    try:
+        conn = mysql.connector.connect(**config.MYSQL_CONFIG)
+        return conn
+    except Error as e:
+        print(f"خطا در اتصال به MySQL: {e}")
+        return None
 
 allowed_users = []
 temp_admins = {}  # user_id: last_active_timestamp
@@ -25,55 +35,108 @@ MESSAGE_COUNTS_FILE = "message_counts.json"
 
 
 def save_message_counts(counts):
-    with open(MESSAGE_COUNTS_FILE, "w", encoding="utf-8") as f:
-        json.dump(counts, f, ensure_ascii=False, indent=2)
+    conn = get_db_connection()
+    if not conn:
+        return
+    try:
+        cursor = conn.cursor()
+        for user_id, count in counts.items():
+            cursor.execute("""
+                INSERT INTO message_counts (user_id, count)
+                VALUES (%s, %s)
+                ON DUPLICATE KEY UPDATE count = %s
+            """, (user_id, count, count))
+        conn.commit()
+    except Error as e:
+        print(f"خطا در ذخیره شمارش پیام‌ها: {e}")
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
 
 user_message_counts = {}
-if os.path.exists(MESSAGE_COUNTS_FILE):
-    with open(MESSAGE_COUNTS_FILE, "r", encoding="utf-8") as f:
-        user_message_counts = json.load(f)
+
+def load_message_counts():
+    conn = get_db_connection()
+    if not conn:
+        return {}
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT user_id, count FROM message_counts")
+        return {str(row[0]): row[1] for row in cursor.fetchall()}
+    except Error as e:
+        print(f"خطا در بارگذاری شمارش پیام‌ها: {e}")
+        return {}
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
+user_message_counts = load_message_counts()
 
 def save_allowed_users(user_list):
-    with open(config.USERS_FILE, "w", encoding="utf-8") as f:
-        json.dump({"allowed_users": user_list}, f, ensure_ascii=False, indent=2)
+    conn = get_db_connection()
+    if not conn:
+        return
+    try:
+        cursor = conn.cursor()
+        # حذف همه کاربران قبلی
+        cursor.execute("DELETE FROM allowed_users")
+        # اضافه کردن کاربران جدید
+        for user_id in user_list:
+            cursor.execute("INSERT IGNORE INTO allowed_users (user_id) VALUES (%s)", (user_id,))
+        conn.commit()
+    except Error as e:
+        print(f"خطا در ذخیره کاربران مجاز: {e}")
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
 
 
 def load_allowed_users():
-    if not os.path.exists(config.USERS_FILE):
-        with open(config.USERS_FILE, "w", encoding="utf-8") as f:
-            json.dump({"allowed_users": [config.ADMIN_USER_ID]}, f, ensure_ascii=False, indent=2)
+    conn = get_db_connection()
+    if not conn:
+        print("اتصال به MySQL برقرار نشد. ادمین اصلی به صورت پیش‌فرض اضافه شد.")
         return [config.ADMIN_USER_ID]
-
-    with open(config.USERS_FILE, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    users = data.get("allowed_users", [])
-    if config.ADMIN_USER_ID not in users:
-        users.append(config.ADMIN_USER_ID)
-        save_allowed_users(users)
-    return users
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT user_id FROM allowed_users")
+        users = [row[0] for row in cursor.fetchall()]
+        if config.ADMIN_USER_ID not in users:
+            users.append(config.ADMIN_USER_ID)
+            save_allowed_users(users)
+        return users
+    except Error as e:
+        print(f"خطا در بارگذاری کاربران مجاز: {e}")
+        return [config.ADMIN_USER_ID]
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
 
 
 def check_all_users(user_id):
-    if not os.path.exists(config.ALL_USERS_FILE):
-        with open(config.ALL_USERS_FILE, "w", encoding="utf-8") as f:
-            json.dump({"all_users": [config.ADMIN_USER_ID]}, f, ensure_ascii=False, indent=2)
-        return [config.ADMIN_USER_ID]
-
-    with open(config.ALL_USERS_FILE, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    all_users = data.get("all_users", [])
-    if user_id not in all_users:
-        all_users.append(user_id)
-        with open(config.ALL_USERS_FILE, "w", encoding="utf-8") as f:
-            json.dump({"all_users": all_users}, f, ensure_ascii=False, indent=2)
-    return
+    conn = get_db_connection()
+    if not conn:
+        return
+    try:
+        cursor = conn.cursor()
+        cursor.execute("INSERT IGNORE INTO all_users (user_id) VALUES (%s)", (user_id,))
+        conn.commit()
+    except Error as e:
+        print(f"خطا در ثبت کاربر: {e}")
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
 
 
 def is_admin(user_id):
     last_active = temp_admins.get(user_id)
-    if user_id == config.ADMIN_USER_ID or (last_active and (time.time() - last_active < config.ADMIN_TIMEOUT_SECONDS)):
+    if user_id == config.ADMIN_USER_ID:
         return True
-    
+    if last_active and (time.time() - last_active < config.ADMIN_TIMEOUT_SECONDS):
+        return True
     return False
 
 
@@ -164,6 +227,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_input = update.message.text
     try:
         output = main.run_code(user_input)
+        pass
     except Exception as e:
         output = f"خطا در اجرای کد: {e}"
 
@@ -311,10 +375,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await set_commands_for_user(update, context)
     user_id = update.effective_user.id
     check_all_users(user_id)
-    if is_admin(user_id):
-        await log_message(update, context, "سلام. خوش اومدی ادمین!")
-    else:
-        await log_message(update, context, "سلام. خوش اومدی کاربر!")
+    
+    try:
+        if is_admin(user_id):
+            await log_message(update, context, "سلام. خوش اومدی ادمین!")
+        else:
+            await log_message(update, context, "سلام. خوش اومدی کاربر!")
+    except Exception as e:
+            await log_message(update, context, f"خطا در ارسال پیام شروع: {e}")
 
 
 @check_access
@@ -407,6 +475,7 @@ def run_bot(token):
     app.add_handler(CommandHandler("adminlogin", admin_login))
     app.add_handler(CommandHandler("adminlogout", admin_logout))
     app.add_handler(CommandHandler("help", help))
+    
 
 
     app.add_handler(MessageHandler(filters.Document.ALL | filters.VIDEO | filters.AUDIO | filters.PHOTO, handle_media))
