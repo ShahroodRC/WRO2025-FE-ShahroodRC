@@ -310,7 +310,7 @@ async def handle_response(update: Update, context: ContextTypes.DEFAULT_TYPE, ou
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await set_commands_for_user(update, context)
     user_id = update.effective_user.id
-    await check_all_users(user_id)
+    check_all_users(user_id)
     if is_admin(user_id):
         await log_message(update, context, "سلام. خوش اومدی ادمین!")
     else:
