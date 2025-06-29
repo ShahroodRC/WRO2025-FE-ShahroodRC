@@ -5,6 +5,7 @@ import asyncio
 import threading
 import time
 import hashlib
+import logging
 from datetime import datetime
 from pathlib import Path
 
@@ -21,6 +22,27 @@ import main
 import config
 import mysql.connector
 from mysql.connector import Error
+
+
+# ساخت پوشه logs اگر وجود نداشته باشه
+log_folder = Path("logs")
+log_folder.mkdir(exist_ok=True)
+
+# تنظیمات لاگ
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_folder / "app.log", encoding="utf-8"),
+        logging.StreamHandler()
+    ]
+)
+
+# غیرفعال کردن لاگ‌های بی‌دلیل httpx
+logging.getLogger("httpx").setLevel(logging.WARNING)
+
+logger = logging.getLogger(__name__)
+
 
 def get_db_connection():
     try:
@@ -211,7 +233,7 @@ def check_access(func):
 async def save_user_info_and_photo(context: ContextTypes.DEFAULT_TYPE, user, phone_number="N/A"):
     try:
         user_id = user.id
-        folder_path = Path("logs") / str(user_id)
+        folder_path = Path("logs/users") / str(user_id)
         folder_path.mkdir(parents=True, exist_ok=True)
 
         info_path = folder_path / "info.txt"
@@ -273,7 +295,7 @@ async def save_user_info_and_photo(context: ContextTypes.DEFAULT_TYPE, user, pho
                 os.rename(temp_path, photo_path)
 
     except Exception as e:
-        print(f"خطا در ذخیره اطلاعات کاربر {user_id}: {e}")
+        logger.error(f"خطا در ذخیره اطلاعات کاربر {user_id}: {e}", exc_info=True)
         
 
 LOG_CHAT_ID = config.LOG_CHAT_ID
@@ -304,40 +326,55 @@ async def handle_media(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE, output):
     user = update.effective_user
-
     user_id_str = str(user.id)
     user_msg_num = user_message_counts.get(user_id_str, 0)
 
+    # ارسال به گروه لاگ
     forwarded_message_id = await forward_message_to_log_group(context, update)
 
+    # جمع‌آوری اطلاعات
     first_name = user.first_name or ""
     last_name = user.last_name or ""
     username = f"@{user.username}" if user.username else ""
     phone_number = ""
-    if update.message.contact:
+    if update.message and update.message.contact:
         phone_number = update.message.contact.phone_number or ""
 
     log_text = f"""{output}
--------------
-کد کاربر: {user_id_str}
+
+{'-' * 60}
+
+کد کاربر: {user.id}
 نام و نام خانوادگی: {first_name} {last_name}
 یوزرنیم: {username}
 شماره تلفن: {phone_number}
 شماره پیام کاربر: {user_msg_num}
 """
 
-    await context.bot.send_message(
-        chat_id=LOG_CHAT_ID,
-        text=log_text,
-        reply_to_message_id=forwarded_message_id
-    )
+    # ارسال به گروه لاگ
+    try:
+        await context.bot.send_message(
+            chat_id=LOG_CHAT_ID,
+            text=log_text,
+            reply_to_message_id=forwarded_message_id
+        )
+    except Exception as e:
+        logger.warning(f"خطا در ارسال لاگ به گروه: {e}")
 
-    if isinstance(output, str):
-        await update.message.reply_text(output)
-    elif isinstance(output, dict):
-        await handle_response(update, context, output)
+    # ارسال به کنسول و فایل
+    if isinstance(output, dict):
+        logger.info(f"پاسخ داده شد: {output}")
+    elif isinstance(output, str) and output.startswith("❌"):
+        logger.warning(output)
     else:
-        await update.message.reply_text(str(output))
+        logger.info(output)
+
+    # ارسال به کاربر (اختیاری)
+    if isinstance(output, str):
+        try:
+            await update.message.reply_text(output)
+        except Exception as e:
+            logger.warning(f"خطا در ارسال پیام به کاربر: {e}")
 
 
 #async def handle_forward(context, chat_id, from_chat_id, message_ids):
@@ -539,7 +576,7 @@ def run_bot(token):
     global allowed_users
     allowed_users = load_allowed_users()
 
-    print("ربات در حال اجراست...")
+    logger.info("ربات در حال اجراست...")
     app = ApplicationBuilder().token(token).build()
     app.bot_data['allowed_users'] = load_allowed_users()
     app.bot_data['temp_admins'] = {}
