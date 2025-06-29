@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="telegram-base-bot",
-    version="1.2.0",  # به‌روز شده
+    version="1.3.0",  # ← نسخه بروز شد
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     include_package_data=True,

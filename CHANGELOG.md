@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2025-04-06
+
+### Added
+- استفاده از ماژول `logging` به جای `print()`
+- ذخیره تمام لاگ‌ها در فایل `logs/app.log`
+- غیرفعال کردن لاگ‌های بی‌دلیل از `httpx`
+- فرمت‌دهی استاندارد به لاگ‌ها (`%(asctime)s - %(name)s - %(levelname)s - %(message)s`)
+- مدیریت بهتر خطاها با `exc_info=True` در خطاهای مهم
+
+### Changed
+- تمام `print()` ها با `logger.info()` یا `logger.error()` جایگزین شدند
+- افزودن `handlers=[FileHandler(), StreamHandler()]` برای مدیریت لاگ
+
+### Fixed
+- حذف لاگ‌های HTTP اضافی مثل `getUpdates` از `httpx`
+- بهبود خوانایی لاگ در محیط توسعه
+
+---
+
 ## [1.2.0] - 2025-06-29
 
 ### Added
