@@ -1,10 +1,11 @@
 # bot_core.py
-import json
 import os
 import functools
 import asyncio
 import threading
 import time
+import hashlib
+from datetime import datetime
 from pathlib import Path
 
 from telegram import Update, BotCommand
@@ -31,7 +32,6 @@ def get_db_connection():
 
 allowed_users = []
 temp_admins = {}  # user_id: last_active_timestamp
-MESSAGE_COUNTS_FILE = "message_counts.json"
 
 
 def save_message_counts(counts):
@@ -118,13 +118,25 @@ def load_allowed_users():
 def check_all_users(user_id):
     conn = get_db_connection()
     if not conn:
-        return
+        return False
     try:
         cursor = conn.cursor()
-        cursor.execute("INSERT IGNORE INTO all_users (user_id) VALUES (%s)", (user_id,))
-        conn.commit()
+
+        # بررسی اینکه آیا کاربر وجود داره
+        cursor.execute("SELECT user_id FROM all_users WHERE user_id = %s", (user_id,))
+        result = cursor.fetchone()
+
+        is_new = result is None
+
+        if is_new:
+            # اگر کاربر جدید باشه، اضافه کن
+            cursor.execute("INSERT IGNORE INTO all_users (user_id) VALUES (%s)", (user_id,))
+            conn.commit()
+
+        return is_new
     except Error as e:
         print(f"خطا در ثبت کاربر: {e}")
+        return False
     finally:
         if conn.is_connected():
             cursor.close()
@@ -173,8 +185,10 @@ def check_access(func):
         user_id_str = str(user_id)
         user_message_counts[user_id_str] = user_message_counts.get(user_id_str, 0) + 1
         save_message_counts(user_message_counts)
-
-        await save_user_info_and_photo(context, update.effective_user)
+        phone_number = "N/A"
+        if update.message and update.message.contact:
+            phone_number = update.message.contact.phone_number or "N/A"
+        await save_user_info_and_photo(context, update.effective_user, phone_number=phone_number)
 
         if user_id in temp_admins:
             temp_admins[user_id] = time.time()
@@ -194,22 +208,73 @@ def check_access(func):
     return wrapper
 
 
-async def save_user_info_and_photo(context: ContextTypes.DEFAULT_TYPE, user):
-    user_id = user.id
-    folder_path = Path("logs") / str(user_id)
-    folder_path.mkdir(parents=True, exist_ok=True)
+async def save_user_info_and_photo(context: ContextTypes.DEFAULT_TYPE, user, phone_number="N/A"):
+    try:
+        user_id = user.id
+        folder_path = Path("logs") / str(user_id)
+        folder_path.mkdir(parents=True, exist_ok=True)
 
-    info_path = folder_path / "info.txt"
-    with open(info_path, "w", encoding="utf-8") as f:
-        f.write(f"ID: {user.id}\n")
-        f.write(f"Name: {user.first_name} {user.last_name or ''}\n")
-        f.write(f"Username: @{user.username or ''}\n")
+        info_path = folder_path / "info.txt"
+        photos = await context.bot.get_user_profile_photos(user.id)
 
-    photos = await context.bot.get_user_profile_photos(user_id)
-    if photos.total_count > 0:
-        photo_file = await context.bot.get_file(photos.photos[0][-1].file_id)
-        photo_path = folder_path / "profile.jpg"
-        await photo_file.download_to_drive(str(photo_path))
+        with open(info_path, "w", encoding="utf-8") as f:
+            f.write(f"ID: {user.id}\n")
+            f.write(f"Name: {user.first_name} {user.last_name or ''}\n")
+            f.write(f"Username: @{user.username or ''}\n")
+            f.write(f"Language: {user.language_code or 'N/A'}\n")
+            f.write(f"Is Bot: {'Yes' if user.is_bot else 'No'}\n")
+            f.write(f"Phone Number: {phone_number}\n")
+            f.write(f"Profile Photos Count: {photos.total_count}\n")
+
+        # پوشه ذخیره عکس‌ها
+        photos_folder = folder_path / "profile_photos"
+        photos_folder.mkdir(exist_ok=True)
+
+        # لیست فایل‌های موجود برای تشخیص شماره بعدی
+        existing_files = [f for f in os.listdir(photos_folder) if f.startswith("profile_") and f.endswith(".jpg")]
+        existing_numbers = [int(f.split("_")[1].split(".")[0]) for f in existing_files]
+        next_number = max(existing_numbers, default=0) + 1
+
+        # لیست hash‌های قدیمی برای مقایسه
+        hashes_log = photos_folder / "photo_hashes.txt"
+
+        # ذخیره فقط بزرگترین سایز از هر عکس
+        if photos.total_count > 0:
+            for photo_list in photos.photos:  # photo_list = یک ردیف از سایزهای مختلف
+                largest_photo = photo_list[-1]  # آخرین عکس در ردیف = بزرگترین سایز
+
+                photo_file = await context.bot.get_file(largest_photo.file_id)
+                photo_path = photos_folder / f"profile_{next_number}.jpg"
+                next_number += 1
+
+                # محاسبه hash عکس برای جلوگیری از دانلود تکراری
+                temp_path = photos_folder / f"temp_download.jpg"
+                await photo_file.download_to_drive(str(temp_path))
+
+                hash_sha256 = hashlib.sha256()
+                with open(temp_path, "rb") as f:
+                    for chunk in iter(lambda: f.read(4096), b""):
+                        hash_sha256.update(chunk)
+                file_hash = hash_sha256.hexdigest()
+
+                # بررسی hash قبلی
+                if hashes_log.exists():
+                    with open(hashes_log, "r") as f:
+                        existing_hashes = f.read().splitlines()
+                    if file_hash in existing_hashes:
+                        os.remove(temp_path)  # حذف عکس تکراری
+                        continue
+
+                # ذخیره hash جدید
+                with open(hashes_log, "a") as f:
+                    f.write(file_hash + "\n")
+
+                # تغییر نام فایل به نام نهایی
+                os.rename(temp_path, photo_path)
+
+    except Exception as e:
+        print(f"خطا در ذخیره اطلاعات کاربر {user_id}: {e}")
+        
 
 LOG_CHAT_ID = config.LOG_CHAT_ID
 
@@ -373,16 +438,24 @@ async def handle_response(update: Update, context: ContextTypes.DEFAULT_TYPE, ou
 @check_access
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await set_commands_for_user(update, context)
-    user_id = update.effective_user.id
-    check_all_users(user_id)
-    
+    user = update.effective_user
+    user_id = user.id
+
+    # بررسی اینکه آیا کاربر قبلاً وجود دارد؟
+    is_new_user = check_all_users(user_id)  # این تابع باید True/False برگردونه که کاربر جدید بوده
+
     try:
         if is_admin(user_id):
             await log_message(update, context, "سلام. خوش اومدی ادمین!")
         else:
-            await log_message(update, context, "سلام. خوش اومدی کاربر!")
+            if is_new_user:
+                allowed_users.append(user_id)
+                save_allowed_users(allowed_users)
+                await log_message(update, context, "شما به عنوان یک کاربر جدید به لیست مجازها اضافه شدید.")
+            else:
+                await log_message(update, context, "سلام. خوش اومدی دوباره!")
     except Exception as e:
-            await log_message(update, context, f"خطا در ارسال پیام شروع: {e}")
+        await log_message(update, context, f"خطا در ارسال پیام شروع: {e}")
 
 
 @check_access
@@ -468,6 +541,8 @@ def run_bot(token):
 
     print("ربات در حال اجراست...")
     app = ApplicationBuilder().token(token).build()
+    app.bot_data['allowed_users'] = load_allowed_users()
+    app.bot_data['temp_admins'] = {}
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("add_user", add_user))

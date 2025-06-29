@@ -1,7 +1,6 @@
 __pycache__
 *.pyc
 logs/
-data/*.json
 .env
 env/
 venv/
