@@ -175,12 +175,12 @@ def is_admin(user_id):
 
 
 ADMIN_COMMANDS = [
-    BotCommand("start", "شروع کار با ربات"),
-    BotCommand("help", "راهنما"),
-    BotCommand("adminlogin", "ورود به حالت ادمین موقت"),
-    BotCommand("adminlogout", "خروج از حالت ادمین موقت"),
-    BotCommand("add_user", "اضافه کردن کاربر"),
-    BotCommand("remove_user", "حذف کاربر"),
+    BotCommand("start", "🟢 شروع کار با ربات"),
+    BotCommand("help", "📘 راهنما"),
+    BotCommand("adminlogin", "🔐 ورود به حالت ادمین موقت"),
+    BotCommand("adminlogout", "🔓 خروج از حالت ادمین موقت"),
+    BotCommand("add_user", "➕ اضافه کردن کاربر"),
+    BotCommand("remove_user", "➖ حذف کاربر"),
 ]
 
 USER_COMMANDS = [
@@ -202,7 +202,7 @@ def check_access(func):
     async def wrapper(update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs):
         user_id = update.effective_user.id
         user_input = update.message.text if update.message else ''
-        print(f"پیام دریافت شد از کاربر {user_id}: {user_input}")
+        logger.info(f"پیام دریافت شد از کاربر {user_id}: {user_input}")
 
         user_id_str = str(user_id)
         user_message_counts[user_id_str] = user_message_counts.get(user_id_str, 0) + 1
@@ -217,12 +217,12 @@ def check_access(func):
 
         if func.__name__ in ["add_user", "remove_user"]:
             if not is_admin(user_id):
-                await log_message(update, context, "❌ فقط ادمین‌ها اجازه استفاده از این دستور را دارند.")
+                await log_message(update, context, 13)
                 return
 
         else:
             if user_id not in allowed_users and not is_admin(user_id):
-                await log_message(update, context, "❌ شما اجازه استفاده از ربات را ندارید. لطفاً با ادمین تماس بگیرید.")
+                await log_message(update, context, 42)
                 return
 
         return await func(update, context, *args, **kwargs)
@@ -314,20 +314,21 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_input = update.message.text
     try:
         output = main.run_code(user_input)
-        pass
     except Exception as e:
         output = f"خطا در اجرای کد: {e}"
 
     await log_message(update, context, output)
 
 async def handle_media(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("پشتیبانی از این نوع فایل هنوز پیاده‌سازی نشده است.")
+    await log_message(update, context, 21)
 
 
 async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE, output):
     user = update.effective_user
     user_id_str = str(user.id)
     user_msg_num = user_message_counts.get(user_id_str, 0)
+
+    await handle_response(update, context, output)
 
     # ارسال به گروه لاگ
     forwarded_message_id = await forward_message_to_log_group(context, update)
@@ -369,14 +370,6 @@ async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE, output
     else:
         logger.info(output)
 
-    # ارسال به کاربر (اختیاری)
-    if isinstance(output, str):
-        try:
-            await update.message.reply_text(output)
-        except Exception as e:
-            logger.warning(f"خطا در ارسال پیام به کاربر: {e}")
-
-
 #async def handle_forward(context, chat_id, from_chat_id, message_ids):
 #    for msg_id in message_ids:
 #        await context.bot.copy_message(chat_id=chat_id, from_chat_id=from_chat_id, message_id=msg_id)
@@ -384,11 +377,12 @@ async def log_message(update: Update, context: ContextTypes.DEFAULT_TYPE, output
 
 async def handle_response(update: Update, context: ContextTypes.DEFAULT_TYPE, output):
     if not output:
-        await update.message.reply_text("خروجی دریافت نشده است!")
-        return
+        await log_message(update, context, 6)
+        return None
 
     if isinstance(output, str):
         await update.message.reply_text(output)
+        
     elif isinstance(output, dict):
         typee = output.get('type')
         data = output.get('data')
@@ -400,64 +394,71 @@ async def handle_response(update: Update, context: ContextTypes.DEFAULT_TYPE, ou
 
             for msg_id in message_ids:
                 if forward_type == 'forward':
-                    await context.bot.forward_message(chat_id=update.effective_chat.id,
-                                                      from_chat_id=from_chat_id,
-                                                      message_id=msg_id)
-                else:
-                    await context.bot.copy_message(chat_id=update.effective_chat.id,
-                                                  from_chat_id=from_chat_id,
-                                                  message_id=msg_id)
+                    forwarded_message = await context.bot.forward_message(
+                        chat_id=update.effective_chat.id,
+                        from_chat_id=from_chat_id,
+                        message_id=msg_id
+                    )
+                    return forwarded_message  # یا متنش رو برگردون
+
+                elif forward_type == 'copy':
+                    copied_message = await context.bot.copy_message(
+                        chat_id=update.effective_chat.id,
+                        from_chat_id=config.MESSAGE_SOURCE_CHAT_ID,
+                        message_id=msg_id
+                    )
+                    return copied_message  # یا متنش رو برگردون
 
         elif typee == 'photo':
             if data:
                 await update.message.reply_photo(data)
             else:
-                await update.message.reply_text("عکس موجود نیست.")
+                await log_message(update, context, 34)
 
         elif typee == 'video':
             if data:
                 await update.message.reply_video(data)
             else:
-                await update.message.reply_text("ویدیو موجود نیست.")
+                await log_message(update, context, 33)
 
         elif typee == 'gif':
             if data:
                 await update.message.reply_animation(data)
             else:
-                await update.message.reply_text("گیف موجود نیست.")
+                await log_message(update, context, 32)
 
         elif typee == 'audio':
             if data:
                 await update.message.reply_audio(data)
             else:
-                await update.message.reply_text("فایل صوتی موجود نیست.")
-
+                await log_message(update, context, 31)
+        
         elif typee == 'voice':
             if data:
                 await update.message.reply_voice(data)
             else:
-                await update.message.reply_text("ویس موجود نیست.")
-
+                await log_message(update, context, 30)
+        
         elif typee == 'document':
             if data:
                 await update.message.reply_document(data)
             else:
-                await update.message.reply_text("فایل موجود نیست.")
-
+                await log_message(update, context, 29)
+        
         elif typee == 'location':
             lat = output.get('latitude')
             lon = output.get('longitude')
             if lat is not None and lon is not None:
                 await update.message.reply_location(latitude=lat, longitude=lon)
             else:
-                await update.message.reply_text("موقعیت مکانی معتبر نیست.")
-
+                await log_message(update, context, 28)
+        
         elif typee == 'sticker':
             if data:
                 await update.message.reply_sticker(data)
             else:
-                await update.message.reply_text("استیکر موجود نیست.")
-
+                await log_message(update, context, 27)
+        
         elif typee == 'contact':
             phone = output.get('phone_number')
             first_name = output.get('first_name', '')
@@ -465,9 +466,17 @@ async def handle_response(update: Update, context: ContextTypes.DEFAULT_TYPE, ou
             if phone:
                 await update.message.reply_contact(phone_number=phone, first_name=first_name, last_name=last_name)
             else:
-                await update.message.reply_text("اطلاعات مخاطب معتبر نیست.")
+                await log_message(update, context, 23)
+        
         else:
-            await update.message.reply_text("نوع پاسخ ناشناخته است.")
+            await log_message(update, context, 22)
+    
+    elif isinstance(output, int):
+        await context.bot.copy_message(
+                        chat_id=update.effective_chat.id,
+                        from_chat_id=config.MESSAGE_SOURCE_CHAT_ID,
+                        message_id=output
+                    )
     else:
         await update.message.reply_text(str(output))
 
@@ -483,14 +492,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     try:
         if is_admin(user_id):
-            await log_message(update, context, "سلام. خوش اومدی ادمین!")
+            await log_message(update, context, 7)
         else:
             if is_new_user:
                 allowed_users.append(user_id)
                 save_allowed_users(allowed_users)
-                await log_message(update, context, "شما به عنوان یک کاربر جدید به لیست مجازها اضافه شدید.")
+                await log_message(update, context, 9)
             else:
-                await log_message(update, context, "سلام. خوش اومدی دوباره!")
+                await log_message(update, context, 10)
+
     except Exception as e:
         await log_message(update, context, f"خطا در ارسال پیام شروع: {e}")
 
@@ -499,7 +509,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def add_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
     if not args or not args[0].isdigit():
-        await log_message(update, context, "لطفاً شناسه کاربری معتبر را وارد کنید. مثال: /add_user 123456789")
+        await log_message(update, context, 43)
         return
 
     new_user_id = int(args[0])
@@ -515,7 +525,7 @@ async def add_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def remove_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
     if not args or not args[0].isdigit():
-        await log_message(update, context, "لطفاً شناسه کاربری معتبر را وارد کنید. مثال: /remove_user 123456789")
+        await log_message(update, context, 44)
         return
 
     rem_user_id = int(args[0])
@@ -531,25 +541,25 @@ async def admin_login(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     args = context.args
     if not args:
-        await log_message(update, context, "لطفاً رمز عبور را وارد کنید. مثال: /adminlogin your_password")
+        await log_message(update, context, 37)
         return
     password = args[0]
     if password == config.ADMIN_PASSWORD:
         temp_admins[user_id] = time.time()
-        await log_message(update, context, "شما به عنوان ادمین موقت تایید شدید و ۵ دقیقه دسترسی دارید.")
+        await log_message(update, context, 38)
         await set_commands_for_user(update, context)
     else:
-        await log_message(update, context, "رمز عبور اشتباه است.")
+        await log_message(update, context, 39)
 
 
 async def admin_logout(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     if user_id in temp_admins:
         temp_admins.pop(user_id)
-        await log_message(update, context, "دسترسی ادمین موقت شما لغو شد.")
+        await log_message(update, context, 40)
         await set_commands_for_user(update, context)
     else:
-        await log_message(update, context, "شما ادمین موقت نیستید.")
+        await log_message(update, context, 41)
 
 
 async def admin_timeout_task_loop():
@@ -563,7 +573,10 @@ async def admin_timeout_task_loop():
 
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await log_message(update, context, "دستورات ربات:\n/start\n/help\n/adminlogin\n/adminlogout\n/add_user (ادمین‌ها)\n/remove_user (ادمین‌ها)")
+    if is_admin(update.effective_user.id):
+        await log_message(update, context, 11)
+    else:
+        await log_message(update, context, 12)
 
 
 
@@ -575,29 +588,26 @@ def start_background_loop(loop):
 def run_bot(token):
     global allowed_users
     allowed_users = load_allowed_users()
-
     logger.info("ربات در حال اجراست...")
+
     app = ApplicationBuilder().token(token).build()
+
+    # تنظیمات اولیه
     app.bot_data['allowed_users'] = load_allowed_users()
     app.bot_data['temp_admins'] = {}
+    private_chat_filter = filters.ChatType.PRIVATE
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("add_user", add_user))
-    app.add_handler(CommandHandler("remove_user", remove_user))
-    app.add_handler(CommandHandler("adminlogin", admin_login))
-    app.add_handler(CommandHandler("adminlogout", admin_logout))
-    app.add_handler(CommandHandler("help", help))
+    # ثبت دستورات
+    app.add_handler(CommandHandler("start", start, filters=private_chat_filter))
+    app.add_handler(CommandHandler("add_user", add_user, filters=private_chat_filter))
+    app.add_handler(CommandHandler("remove_user", remove_user, filters=private_chat_filter))
+    app.add_handler(CommandHandler("adminlogin", admin_login, filters=private_chat_filter))
+    app.add_handler(CommandHandler("adminlogout", admin_logout, filters=private_chat_filter))
+    app.add_handler(CommandHandler("help", help, filters=private_chat_filter))
     
-
-
     app.add_handler(MessageHandler(filters.Document.ALL | filters.VIDEO | filters.AUDIO | filters.PHOTO, handle_media))
 
-    app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & private_chat_filter, handle_message))
 
-    loop = asyncio.new_event_loop()
-    t = threading.Thread(target=start_background_loop, args=(loop,), daemon=True)
-    t.start()
-    asyncio.run_coroutine_threadsafe(admin_timeout_task_loop(), loop)
-
-    
-    app.run_polling()
+    # راه‌اندازی async
+    asyncio.run(app.run_polling())
