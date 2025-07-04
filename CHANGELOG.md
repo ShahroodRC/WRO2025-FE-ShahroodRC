@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.4.0] - 2025-07-01
+## [1.4.0] - 2025-07-04
 
 ### Added
 - پشتیبانی از فوروارد پیام‌ها از گروه منبع
@@ -23,7 +23,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.3.0] - 2025-04-06
+## [1.3.0] - 2025-06-29
 
 ### Added
 - استفاده از ماژول `logging` به جای `print()`
