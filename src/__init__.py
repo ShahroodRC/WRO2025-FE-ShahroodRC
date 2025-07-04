@@ -1,4 +1,4 @@
 #__init__.py
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 __author__ = "Sepehr Yavarzadeh"
-__description__ = "Telegram Base Bot - v1.4.0"
+__description__ = "Telegram Base Bot - v1.5.0"
