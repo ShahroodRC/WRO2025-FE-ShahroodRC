@@ -9,7 +9,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
-from telegram import Update, BotCommand
+from telegram import Update, BotCommand, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
     ContextTypes,
@@ -181,6 +181,7 @@ ADMIN_COMMANDS = [
     BotCommand("adminlogout", "🔓 خروج از حالت ادمین موقت"),
     BotCommand("add_user", "➕ اضافه کردن کاربر"),
     BotCommand("remove_user", "➖ حذف کاربر"),
+    BotCommand("panel", "مشاهده لیست کاربران")
 ]
 
 USER_COMMANDS = [
@@ -215,7 +216,7 @@ def check_access(func):
         if user_id in temp_admins:
             temp_admins[user_id] = time.time()
 
-        if func.__name__ in ["add_user", "remove_user"]:
+        if func.__name__ in ["add_user", "remove_user", "panel"]:
             if not is_admin(user_id):
                 await log_message(update, context, 13)
                 return
@@ -296,6 +297,59 @@ async def save_user_info_and_photo(context: ContextTypes.DEFAULT_TYPE, user, pho
 
     except Exception as e:
         logger.error(f"خطا در ذخیره اطلاعات کاربر {user_id}: {e}", exc_info=True)
+
+
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    user_id = query.from_user.id
+    if not is_admin(user_id):
+        await query.edit_message_text("❌ شما اجازه دسترسی به این قسمت را ندارید.")
+        return
+
+    data = query.data
+    allowed_users = context.bot_data.get('allowed_users', [])
+    
+    # گرفتن تمام کاربران از پوشه logs/users/
+    all_user_dirs = [d for d in os.listdir("logs/users") if os.path.isdir(os.path.join("logs/users", d))]
+    all_users_list = [int(uid) for uid in all_user_dirs]
+
+    if data == "all_users":
+        text = "👥 همه کاربران:\n\n"
+        users = all_users_list
+    elif data == "allowed_users":
+        text = "✅ کاربران مجاز:\n\n"
+        users = allowed_users
+    else:
+        text = "❓ نوع لیست ناشناخته است."
+        users = []
+
+    if not users:
+        text += "کاربری یافت نشد."
+    else:
+        for idx, user_id in enumerate(users, start=1):
+            try:
+                info_path = Path("logs/users") / str(user_id) / "info.txt"
+                if info_path.exists():
+                    with open(info_path, "r", encoding="utf-8") as f:
+                        lines = f.readlines()
+                        username_line = next((line for line in lines if line.startswith("Username:")), None)
+                        username = username_line.split(": ")[1].strip() if username_line else ""
+                    name_line = next((line for line in lines if line.startswith("Name:")), None)
+                    name = name_line.split(": ")[1].strip() if name_line else ""
+
+                    line = f"{idx}. {name}"
+                    if username:
+                        line += f" ({username})"
+                    line += f" (ID: {user_id})\n"
+                    text += line
+                else:
+                    text += f"{idx}. ID: {user_id}\n"
+            except Exception as e:
+                text += f"{idx}. ID: {user_id} (خطا: {e})\n"
+
+    await query.edit_message_text(text.strip(), parse_mode='Markdown')
         
 
 LOG_CHAT_ID = config.LOG_CHAT_ID
@@ -537,6 +591,18 @@ async def remove_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await log_message(update, context, f"کاربر با شناسه {rem_user_id} از لیست مجازها حذف شد.")
 
 
+@check_access
+async def panel(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    keyboard = [
+        [InlineKeyboardButton("همه کاربران", callback_data="all_users")],
+        [InlineKeyboardButton("کاربران مجاز", callback_data="allowed_users")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text("🔐 منو مدیریت:", reply_markup=reply_markup)
+
+
 async def admin_login(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     args = context.args
@@ -604,6 +670,9 @@ def run_bot(token):
     app.add_handler(CommandHandler("adminlogin", admin_login, filters=private_chat_filter))
     app.add_handler(CommandHandler("adminlogout", admin_logout, filters=private_chat_filter))
     app.add_handler(CommandHandler("help", help, filters=private_chat_filter))
+    app.add_handler(CommandHandler("panel", panel, filters=private_chat_filter))
+
+    app.add_handler(CallbackQueryHandler(button_handler))
     
     app.add_handler(MessageHandler(filters.Document.ALL | filters.VIDEO | filters.AUDIO | filters.PHOTO, handle_media))
 
