@@ -1,2 +1,5 @@
 python-telegram-bot==20.0
+mysql-connector-python
 python-dotenv
+pathlib
+asyncio
