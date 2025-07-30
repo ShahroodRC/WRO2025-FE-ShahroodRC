@@ -53,6 +53,7 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
     - [Visual Feedback](#visual-feedback)
   - [Notes](#notes-1)
 - [Robot Pictures](#robot-pictures)
+- [Repository Structure](#repository-structure)
 - [License](#license)
 
 ---
@@ -909,6 +910,8 @@ def amotor(degrese, cl=50):
 
 ### Open Challenge (Qualification Round)
 
+[Full Code](codes/open-challenge-code.py)
+
 In the open challenge, the robot navigates a track using a color sensor (`color_sensor`) to detect lines (blue: `cr1=2`, orange: `cr1=5`) and ultrasonic sensors (`rast` and `chap`) for distance-based steering. The robot determines its initial direction by detecting a line color and then follows a path, making turns when specific colors are detected. It uses a PID-like control for steering (`amotor`) to maintain a target distance (27 cm) from walls, adjusting based on the detected line color.
 
 ```python
@@ -988,6 +991,8 @@ elif cr1 == 5:
 ```
 
 ### Final Round with Obstacle Avoidance(Obstacle Challenge)
+
+[Full Code](codes/obstacle-challenge-code.py)
 
 In the final round, the robot builds on the open challenge logic by adding obstacle avoidance using a Pixy camera. It determines its initial direction (`al`) by comparing distances from two ultrasonic sensors (`rast` and `chap`) over 100 iterations. The robot then assigns color values (`rang` and `rangdovom`) for line detection and uses the Pixy camera to detect green (`sig=1`) or red (`sig=2`) obstacles, adjusting steering (`target`) based on their position (`x`) relative to predefined offsets (`green` or `red`). LEDs indicate detected obstacles (green for `sig=1`, red for `sig=2`).
 
@@ -1189,7 +1194,7 @@ elif sig == 0 and cr1 == 6:
 ---
 
 ## Repository Structure
-- `code/`: Contains Python scripts for Open Challenge and Obstacle Challenge.
+- `codes/`: Contains Python scripts for Open Challenge and Obstacle Challenge.
 - `team-photos/`: Images of team members and the whole team.
 - `robot-photos/`: Images of robot from front, back, up, down, right and left.
 - `3d-files/`: STL files for 3D model of the robot.
