@@ -4,14 +4,54 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
 
 ---
 
-## Table of Contents
 
+## Table of Contents
 - [The Team](#the-team)
 - [Our Path](#our-path)
 - [Robot Components Overview](#robot-components-overview)
+  - [LEGO EV3 Mindstorms Control Brick](#lego-ev3-mindstorms-control-brick)
+  - [Pixy Cam](#pixy-cam)
+  - [Ultrasonic Sensor EV3](#ultrasonic-sensor-ev3)
+  - [Color Sensor EV3](#color-sensor-ev3)
+  - [Medium Motor EV3](#medium-motor-ev3)
+- [Code For Each Component](#code-for-each-component)
+  - [Drive Motor Code](#drive-motor-code)
+  - [Pixy Camera Code](#pixy-camera-code)
+  - [Color Sensor Code](#color-sensor-code)
+  - [LED Indicator Code](#led-indicator-code)
+  - [Ultrasonic Sensor Code](#ultrasonic-sensor-code)
+  - [Button Control Code](#button-control-code)
+  - [Main Control Flow](#main-control-flow)
 - [Mobility Management](#mobility-management)
+  - [Introduction to Mobility System](#1-introduction-to-mobility-system)
+  - [Motors and Actuators](#2-motors-and-actuators)
+  - [Sensor Integration for Mobility](#3-sensor-integration-for-mobility)
+  - [Mobility Control Algorithms](#4-mobility-control-algorithms)
+  - [Energy Management for Mobility](#5-energy-management-for-mobility)
+  - [System Integration for Mobility](#6-system-integration-for-mobility)
+  - [Testing and Optimization](#7-testing-and-optimization)
+  - [Conclusion](#8-conclusion)
 - [Power and Sense Management](#power-and-sense-management)
-- [Obstacle Management](#obstacle-management)
+  - [Power Supply and Distribution](#1-power-supply-and-distribution)
+  - [Power Consumption Overview](#2-power-consumption-overview)
+  - [Sensor Architecture and Management](#3-sensor-architecture-and-management)
+  - [Wiring and Safety](#4-wiring-and-safety)
+  - [Diagnostics and Monitoring](#5-diagnostics-and-monitoring)
+  - [Optimization Techniques](#6-optimization-techniques)
+  - [Conclusion](#7-conclusion)
+- [Obstacle Management](#obstacle-avoidance-and-parking-managementobstacle-management)
+  - [Open Challenge (Qualification Round)](#open-challenge-qualification-round)
+    - [Line Detection and Navigation](#line-detection-and-navigation)
+  - [Final Round with Obstacle Avoidance(Obstacle Challenge)](#final-round-with-obstacle-avoidanceobstacle-challenge)
+    - [Obstacle Detection and Avoidance](#obstacle-detection-and-avoidance)
+    - [Parking Sequence](#parking-sequence)
+    - [Parking Wall Detection](#parking-wall-detection)
+  - [Additional Functions](#additional-functions)
+    - [Steering Control](#steering-control)
+    - [Stall Detection and Recovery](#stall-detection-and-recovery)
+    - [Color-Based Navigation](#color-based-navigation)
+    - [Visual Feedback](#visual-feedback)
+  - [Notes](#notes-1)
 - [Robot Pictures](#robot-pictures)
 - [License](#license)
 
@@ -22,15 +62,43 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
 
 We are the ShahroodRC team, a group of students passionate about robotics, electronics, and programming, working toward the WRO 2025 competition in the Future Engineers category.
 
-### Team Members:
+### 👨‍💼 Sepehr Yavarzadeh
+- Project Manager and Software Engineer. At 16 years old, this is his third year participating in the WRO competition.  
+- sepehryavarzadeh@gmail.com
+- [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
+- [Github](https://github.com/Sepehryy)
+- [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
-- 👨‍💼 **Sepehr Yavarzadeh**: Project Manager and Software Engineer. At 16 years old, this is his third year participating in the WRO competition.  
-- 🧑‍💻 **Amirparsa Saemi**: Lead Developer and Algorithm Designer. A 19-year-old computer science student with prior WRO experience.  
-- 👩‍🔧 **Nikan Bashiri**: Mechanical and Electronics Specialist. He is 17 years old and in his fourth year participating in WRO.
+![photo](/team-photos/name.jpg)
 
-### Coach:
 
-- **Mr. Sadeghi**: The team’s 23-year-old coach with a B.Sc. in Computer Engineering. He is a certified Advanced LEGO Robotics Coach in Iran and supports both strategic and technical development for the team.
+### 🧑‍💻 Amirparsa Saemi
+- Lead Developer and Algorithm Designer. A 19-year-old computer science student with prior WRO experience.  
+- sepehryavarzadeh@gmail.com
+- [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
+- [Github](https://github.com/Sepehryy)
+- [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
+
+![photo](/team-photos/name.jpg)
+
+
+### 👩‍🔧 Nikan Bashiri
+- Mechanical and Electronics Specialist. He is 17 years old and in his fourth year participating in WRO.
+- sepehryavarzadeh@gmail.com
+- [Instagram](https://www.instagram.com/nikanbsr/)
+
+![photo](/team-photos/name.jpg)
+
+
+### Mr. Sadeghi
+- The team’s 23-year-old coach with a B.Sc. in Computer Engineering. He is a certified Advanced LEGO Robotics Coach in Iran and supports both strategic and technical development for the team.
+- sepehryavarzadeh@gmail.com
+- [Instagram](https://www.instagram.com/_amir.reza.sd_/)
+
+![photo](/team-photos/name.jpg)
+
+#### Special Thanks
+Special thanks to **Ali Raeisi** for helping in algorithms and programming the robot.
 
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
@@ -263,6 +331,287 @@ This section provides a detailed overview of the parts used in the robot, includ
 - The **Medium Motor EV3** is connected to the motor ports on the EV3 control brick for driving the robot's wheels and other moving parts.
 - The LEGO EV3 platform offers easy programming through the LEGO Mindstorms software or other compatible development environments, which streamlines the development and troubleshooting process for the robot.
 - We no longer use the **HC-SR04 Ultrasonic Sensor**, as we switched to the more robust and reliable **EV3 Ultrasonic Sensor** for better integration and performance.
+
+---
+
+
+## Code for Each Component
+
+This section details the code implementation for each major component of our robot, explaining how they work together to achieve the competition objectives.
+
+### Drive Motor Code
+
+The drive motor (Motor B) is responsible for propelling the robot forward and backward. It uses a proportional control system to maintain consistent speed and respond to commands from the obstacle management system.
+
+```python
+from ev3dev2.motor import MediumMotor, OUTPUT_B, SpeedPercent
+
+# Initialize the drive motor
+motor_b = MediumMotor(OUTPUT_B)
+
+def drive_forward(speed_percent):
+    """
+    Function to drive the robot forward at a specified speed.
+    Args:
+        speed_percent (int): Speed percentage from 1 to 100
+    """
+    motor_b.on(speed_percent)
+
+def drive_backward(speed_percent):
+    """
+    Function to drive the robot backward at a specified speed.
+    Args:
+        speed_percent (int): Speed percentage from 1 to 100
+    """
+    motor_b.on(-speed_percent)
+
+def stop_drive():
+    """Function to stop the drive motor."""
+    motor_b.off()
+```
+**Implementation Notes:**
+- The drive motor operates on a simple on/off principle with speed control
+- We found that 60% speed provides optimal balance between stability and performance
+- For precise maneuvers, we use `on_for_degrees()` or `on_for_rotations()` methods
+
+### Steering Motor Code
+The steering motor (Motor A) controls the robot's direction by adjusting the front wheels. It implements a proportional control algorithm for smooth and accurate steering.
+```python
+from ev3dev2.motor import MediumMotor, OUTPUT_B, OUTPUT_D, SpeedPercent
+
+# Initialize the steering motor
+motor_a = MediumMotor(OUTPUT_B)
+motor_a.reset()
+
+def clamp(value, minimum, maximum):
+    """
+    Utility function to limit a value between minimum and maximum bounds.
+    Args:
+        value: The value to clamp
+        minimum: Minimum allowed value
+        maximum: Maximum allowed value
+    Returns:
+        Clamped value
+    """
+    if value > maximum: 
+        value = maximum
+    if value < minimum: 
+        value = minimum
+    return value
+
+def amotor(degrees, cl=50):
+    """
+    Function to control steering motor with proportional control.
+    Args:
+        degrees: Target position in degrees
+        cl: Control limit for maximum power (default 50)
+    """
+    diff = degrees - motor_a.position
+    diff = clamp(diff, -cl, cl)  
+    motor_a.on(diff)
+```
+**Control Algorithm Explanation:**
+The steering system uses a proportional control algorithm where the motor power is directly proportional to the difference between the target angle and current position. This provides smooth, oscillation-free steering adjustments.
+
+### Pixy Camera Code
+The Pixy camera is our primary sensor for detecting red and green pillars in the obstacle challenge. It communicates with the EV3 brick via I2C protocol.
+```python
+from ev3dev2.sensor import Sensor, INPUT_1
+
+# Initialize Pixy sensor
+pixy = Sensor(INPUT_1)
+pixy.mode = 'ALL'
+
+def get_pillar_data():
+    """
+    Function to read data from Pixy camera.
+    Returns:
+        tuple: (signature, x_position, y_position, size)
+    """
+    sig = pixy.value(1) * 256 + pixy.value(0)  # Color signature
+    x = pixy.value(2)  # X position
+    y = pixy.value(3)  # Y position  
+    size = pixy.value(4)  # Size of detected object
+    
+    return sig, x, y, size
+
+def detect_pillar():
+    """
+    Main function for pillar detection and response.
+    Returns:
+        int: 1 for red pillar, 2 for green pillar, 0 for no pillar
+    """
+    sig, x, y, size = get_pillar_data()
+    
+    # Filter out detections that are too far (low Y value)
+    if y < 75:
+        sig = 0
+        
+    return sig
+```
+**Detection Strategy:**
+- The Pixy is programmed to recognize two color signatures: red (signature 1) and green (signature 2)
+- We filter detections based on Y-position to avoid false positives from distant objects
+- The X-position is used to calculate steering corrections
+
+### Color Sensor Code
+The color sensor detects the colored lines on the track, which determine the robot's turning direction in the open challenge.
+```python
+from ev3dev2.sensor.lego import ColorSensor
+from ev3dev2.sensor import INPUT_4
+
+# Initialize color sensor
+color_sensor = ColorSensor(INPUT_4)
+
+def get_track_color():
+    """
+    Function to read the current track color.
+    Returns:
+        int: Color code (2=Green, 5=Red, 6=White, etc.)
+    """
+    return color_sensor.color
+
+def wait_for_color(target_color):
+    """
+    Function to wait until a specific color is detected.
+    Args:
+        target_color (int): Color code to wait for
+    """
+    current_color = get_track_color()
+    while current_color != target_color:
+        current_color = get_track_color()
+        sleep(0.01)  # Small delay to prevent excessive CPU usage
+```
+**Color Detection Logic:**
+- The robot uses color detection to determine when to start turning
+- Green line (color code 2) triggers a left turn sequence
+- Red line (color code 5) triggers a right turn sequence
+
+### LED Indicator Code
+The EV3 brick's LEDs provide visual feedback about the robot's state and detected obstacles.
+```python
+from ev3dev2.led import Leds
+
+# Initialize LEDs
+leds = Leds()
+
+def set_led_state(state):
+    """
+    Function to set LED colors based on robot state.
+    Args:
+        state (str): 'idle', 'red_pillar', 'green_pillar', 'turning'
+    """
+    if state == 'idle':
+        leds.set_color('LEFT', 'ORANGE')
+        leds.set_color('RIGHT', 'ORANGE')
+    elif state == 'red_pillar':
+        leds.set_color('LEFT', 'GREEN')
+        leds.set_color('RIGHT', 'GREEN')
+    elif state == 'green_pillar':
+        leds.set_color('LEFT', 'RED')
+        leds.set_color('RIGHT', 'RED')
+    elif state == 'turning':
+        leds.set_color('LEFT', 'AMBER')
+        leds.set_color('RIGHT', 'AMBER')
+```
+**LED State Logic:**
+- Orange: Robot is in idle/normal driving mode
+- Green: Red pillar detected, preparing for right turn
+- Red: Green pillar detected, preparing for left turn
+- Amber: Robot is executing a turn maneuver
+
+### Ultrasonic Sensor Code
+We use two ultrasonic sensors (left and right) for wall following and distance measurement.
+```python
+from ev3dev2.sensor.lego import UltrasonicSensor
+from ev3dev2.sensor import INPUT_2, INPUT_3
+
+# Initialize ultrasonic sensors
+rast = UltrasonicSensor(INPUT_2)  # Right sensor
+chap = UltrasonicSensor(INPUT_3)  # Left sensor
+
+def get_distances():
+    """
+    Function to read distances from both ultrasonic sensors.
+    Returns:
+        tuple: (right_distance, left_distance) in centimeters
+    """
+    right_distance = rast.distance_centimeters
+    left_distance = chap.distance_centimeters
+    return right_distance, left_distance
+
+def wall_following_control():
+    """
+    Main wall following control algorithm.
+    Returns:
+        float: Steering correction value
+    """
+    right_dist, left_dist = get_distances()
+    
+    # Calculate correction factors using square root function
+    # This provides non-linear response for better control
+    fr = (-2*(math.sqrt(11*(right_dist)))) + 100
+    fc = (-2*(math.sqrt(11*(left_dist)))) + 100
+    
+    # Combine corrections with weighting
+    target = (fc*1.3) - (fr*1.7)
+    
+    return clamp(target, -50, 50)
+```
+**Wall Following Algorithm:**
+Our wall following system uses a non-linear control function that provides more sensitive response at closer distances. The square root function in our correction algorithm ensures that small distance changes near the wall result in larger steering corrections, while larger distances result in more gradual adjustments.
+
+### Button Control Code
+The EV3 button is used to start the robot after manual positioning.
+```python
+from ev3dev2.button import Button
+
+# Initialize button
+btn = Button()
+
+def wait_for_start():
+    """
+    Function to wait for user to press the center button to start.
+    """
+    btn.wait_for_bump('enter')
+```
+**Start Procedure:**
+- The robot waits in a holding pattern until the center button is pressed
+- This allows for precise manual positioning before autonomous operation begins
+- After button press, the robot changes LED color to green to indicate readiness
+
+### Main Control Flow
+The main program integrates all components into a cohesive system:
+```python
+# Initialize all components
+initialize_components()
+
+# Wait for start signal
+wait_for_start()
+set_led_state('idle')
+
+# Main control loop
+while not challenge_complete:
+    # Check for color line (Open Challenge)
+    current_color = get_track_color()
+    
+    # Check for pillars (Obstacle Challenge)  
+    pillar_type = detect_pillar()
+    
+    # Execute appropriate behavior based on detections
+    if current_color in [2, 5]:  # Green or Red line
+        execute_turn_sequence(current_color)
+    elif pillar_type in [1, 2]:  # Red or Green pillar
+        execute_obstacle_avoidance(pillar_type)
+    else:
+        # Normal driving mode
+        normal_driving()
+        
+    # Continuous wall following adjustment
+    steering_correction = wall_following_control()
+    amotor(steering_correction)
+```
+This integrated approach ensures that all sensors and actuators work together harmoniously to navigate the competition course successfully.
 
 ---
 
@@ -538,8 +887,307 @@ This section outlines how electrical power is distributed across the robot and h
 
 The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware integration, clean custom wiring, and adaptive software routines. The direct EV3 port integration of the Pixy Cam without extra hardware shows that simple, well-tested solutions can achieve robust performance and maintain full compatibility for WRO 2025 challenges.
 
+---
+
+## Obstacle Avoidance and Parking Management(Obstacle Management)
+
+The robot’s mobility is managed through a combination of two medium motors (`motor_a` and `motor_b`) from the LEGO Mindstorms EV3 kit, selected for their balance of speed, torque, and compatibility with the EV3 platform. `motor_b` drives the robot’s forward and backward motion, while `motor_a` controls steering, enabling precise navigation and turning. The motors were chosen for their ability to deliver sufficient torque for navigating the obstacle course and performing the parking sequence, while maintaining energy efficiency for prolonged operation.
+
+The chassis is a modular LEGO EV3 structure, designed for stability and ease of component integration. The motors are mounted on a reinforced baseplate to ensure durability during high-speed navigation and obstacle avoidance. The steering mechanism uses a rack-and-pinion system, driven by `motor_a`, to achieve smooth and controlled turns. The chassis design prioritizes a low center of gravity to prevent tipping during sharp turns or sudden stops, as seen in the parking sequence.
+
+Engineering principles such as speed and torque were considered in the motor control logic. For instance, the `motor_b.on(speed)` function uses variable speed settings (e.g., 20, 40, 60, 70) to balance between fast navigation and precise maneuvers. The `amotor` function implements a PID-like control to adjust steering angles, ensuring accurate alignment with lines and walls. Assembly instructions are provided in the GitHub repository, including a step-by-step guide for mounting motors and sensors, along with STL files for 3D-printed sensor mounts to enhance component stability.
+
+```python
+def amotor(degrese, cl=50):
+    diff = degrese
+    diff = diff - motor_a.position
+    diff = clamp(diff, -cl, cl)
+    motor_a.on(diff)
+```
+
+*Improvements*: To enhance mobility, we optimized the gear ratio for `motor_b` to increase torque during the parking sequence, reducing strain on the motor. Future iterations could include a differential drive system for smoother turns.
+
+### Open Challenge (Qualification Round)
+
+In the open challenge, the robot navigates a track using a color sensor (`color_sensor`) to detect lines (blue: `cr1=2`, orange: `cr1=5`) and ultrasonic sensors (`rast` and `chap`) for distance-based steering. The robot determines its initial direction by detecting a line color and then follows a path, making turns when specific colors are detected. It uses a PID-like control for steering (`amotor`) to maintain a target distance (27 cm) from walls, adjusting based on the detected line color.
+
+```python
+cr1 = color_sensor.color
+while cr1 != 2 and cr1 != 5:
+    cr1 = color_sensor.color
+    motor_b.on(60)
+while g != 60:
+    motor_b.on(30)
+    r = rast.distance_centimeters
+    c = chap.distance_centimeters
+    fr = (-2 * (math.sqrt(11 * r))) + 100
+    fc = (-2 * (math.sqrt(11 * c))) + 100
+    target = (fc * 1.3) - (fr * 1.7)
+    amotor(clamp(target, -50, 50))
+    g = g + 1
+```
+
+#### Line Detection and Navigation
+The robot detects blue (`cr1=2`) or orange (`cr1=5`) lines to determine its path. Upon detecting a line, it stops, increments a turn counter (`a`), and resumes navigation. The robot completes 11 turns (`a == 11`) before entering a final straight-line navigation phase, maintaining a 27 cm distance from the wall using the appropriate ultrasonic sensor based on the initial line color.
+
+```python
+if cr1 == 2:
+    while True:
+        cr1 = color_sensor.color
+        if cr1 == 2:
+            while cr1 == 2:
+                cr1 = color_sensor.color
+                motor_b.on_for_degrees(80, 70)
+                motor_a.stop(stop_action='coast')
+                motor_b.stop(stop_action='coast')
+            a = a + 1
+        motor_b.on(60)
+        distance = chap.distance_centimeters
+        diff = ((distance - 27) * -2)
+        diff = diff - motor_a.position
+        diff = clamp(diff, -32, 32)
+        amotor(diff)
+        if a == 11:
+            i = 0
+            while i != 130:
+                motor_b.on(50)
+                distance = chap.distance_centimeters
+                diff = (distance - 27) * -2
+                diff = diff - motor_a.position
+                diff = clamp(diff, -27, 27)
+                amotor(diff)
+                i = i + 1
+            break
+elif cr1 == 5:
+    while True:
+        cr1 = color_sensor.color
+        if cr1 == 5:
+            while cr1 == 5:
+                cr1 = color_sensor.color
+                motor_b.on_for_degrees(80, 70)
+                motor_a.stop(stop_action='coast')
+                motor_b.stop(stop_action='coast')
+            a = a + 1
+        motor_b.on(60)
+        distance = rast.distance_centimeters
+        diff = (distance - 27) * 2
+        diff = diff - motor_a.position
+        diff = clamp(diff, -32, 32)
+        amotor(diff)
+        if a == 11:
+            i = 0
+            while i != 130:
+                motor_b.on(50)
+                distance = rast.distance_centimeters
+                diff = (distance - 27) * 2
+                diff = diff - motor_a.position
+                diff = clamp(diff, -27, 27)
+                amotor(diff)
+                i = i + 1
+            break
+```
+
+### Final Round with Obstacle Avoidance(Obstacle Challenge)
+
+In the final round, the robot builds on the open challenge logic by adding obstacle avoidance using a Pixy camera. It determines its initial direction (`al`) by comparing distances from two ultrasonic sensors (`rast` and `chap`) over 100 iterations. The robot then assigns color values (`rang` and `rangdovom`) for line detection and uses the Pixy camera to detect green (`sig=1`) or red (`sig=2`) obstacles, adjusting steering (`target`) based on their position (`x`) relative to predefined offsets (`green` or `red`). LEDs indicate detected obstacles (green for `sig=1`, red for `sig=2`).
+
+```python
+p = 0
+jahat = 0
+while p != 100:
+    r = rast.distance_centimeters
+    c = chap.distance_centimeters
+    if r > c:
+        jahat = 1 + jahat
+    else:
+        jahat = jahat - 1
+    p = p + 1
+if jahat > 0:
+    al = -1
+    green = 230
+    red = 20
+    rang = 5
+    rangdovom = 2
+else:
+    al = 1
+    green = 230
+    red = 5
+    rang = 2
+    rangdovom = 5
+```
+
+#### Obstacle Detection and Avoidance
+When an obstacle is detected, the robot adjusts its speed and steering. If the obstacle is close (`y < 110`), it slows down and tightens steering control. If no obstacle is detected (`sig == 0`), it uses ultrasonic sensors to maintain a dynamic distance (`fasele`) from walls.
+
+```python
+if y < 110 and (sig == 1):
+    leds.set_color('LEFT', 'GREEN')
+    leds.set_color('RIGHT', 'GREEN')
+    target = (x - 120) * 0.7
+    target = clamp(target, -20, 20)
+    amotor(target, 35)
+    speed = 40
+elif y < 110 and (sig == 2):
+    leds.set_color('LEFT', 'RED')
+    leds.set_color('RIGHT', 'RED')
+    target = (x - 100) * 0.7
+    target = clamp(target, -20, 20)
+    amotor(target, 35)
+    speed = 40
+elif sig == 1:
+    ghabeliat = True
+    target = (x - green) * 0.5
+    leds.set_color('LEFT', 'GREEN')
+    leds.set_color('RIGHT', 'GREEN')
+    amotor(target, 50)
+    speed = 22
+elif sig == 2:
+    ghabeliat = True
+    target = (x - red) * 0.5
+    leds.set_color('LEFT', 'RED')
+    leds.set_color('RIGHT', 'RED')
+    amotor(target, 50)
+    speed = 22
+elif sig == 0 and cr1 == 6:
+    leds.all_off()
+    speed = 33
+    r = rast.distance_centimeters
+    c = chap.distance_centimeters
+    if al == 1:
+        oltra = c
+    else:
+        oltra = r
+    out = (fasele - oltra) * al
+    out = clamp(out, -45, 45)
+    amotor(out)
+```
+
+#### Parking Sequence
+
+After completing the required laps (`a == door`), the robot enters a parking sequence. It aligns with the secondary line color (`rangdovom`) and uses the ultrasonic sensor (`rast`) to maintain a 15 cm distance from the wall. A series of precise motor movements positions the robot correctly within the parking area, ending with a final alignment to stop parallel to the wall.
+
+```python
+if al < 0:
+    navakht = 90
+    while cr1 != rangdovom:
+        motor_b.on(30)
+        amotor(0)
+        cr1 = color_sensor.color
+    motor_b.off()
+    motor_a.on_for_degrees((100), -120)
+    motor_b.on_for_degrees((-30), 300)
+    motor_a.on_for_degrees((90), -motor_a.position)
+    while True:
+        motor_b.on(speed)
+        r = rast.distance_centimeters
+        if r < 60 or cr1 == rangdovom:
+            break
+    fasele = 15
+    speed = 20
+    while motor_b.position < 1500:
+        motor_b.on(speed)
+        r = rast.distance_centimeters
+        out = (fasele - r) * 1.5 * al
+        out = clamp(out, -23, 23)
+        amotor(out)
+    motor_b.off()
+    motor_a.on_for_degrees((90), -90)
+    motor_b.on_for_rotations(-20, 1.72)
+    motor_a.on_for_degrees((90), -motor_a.position)
+    motor_b.on_for_rotations(-20, 3.5)
+    motor_a.on_for_degrees((90), 90)
+    motor_b.on_for_rotations(20, 0.7)
+    motor_a.on_for_degrees((90), -190)
+    motor_b.on_for_rotations(-20, 0.6)
+    motor_a.on_for_degrees((90), 190)
+    motor_b.on_for_rotations(20, 0.4)
+```
+
+#### Parking Wall Detection
+The ultrasonic sensor (`rast`) ensures the robot stays close to the wall during parking, while the color sensor confirms alignment with the parking line (`rangdovom`).
+
+### Additional Functions
+
+#### Steering Control
+The `amotor` function provides PID-like steering control, adjusting the motor angle based on the target position. The `clamp` function limits values to prevent oversteering.
+
+```python
+def clamp(value, minimum, maximum):
+    if value > maximum:
+        value = maximum
+    if value < minimum:
+        value = minimum
+    return value
+
+def amotor(degrese, cl=50):
+    diff = degrese
+    diff = diff - motor_a.position
+    diff = clamp(diff, -cl, cl)
+    motor_a.on(diff)
+```
+
+#### Stall Detection and Recovery
+The robot detects stalls by checking if the motor position (`lastpos`) remains unchanged for 0.3 seconds, initiating a recovery sequence by reversing and adjusting steering.
+
+```python
+if lastpos == motor_b.position:
+    if b_timer == 0:
+        b_timer = time.time()
+    if time.time() - b_timer > 0.3:
+        print("khokafez")
+        b_timer = 0
+        motor_a.on_for_degrees((40), -motor_a.position)
+        motor_b.on_for_rotations(-100, 1)
+        motor_a.on_for_degrees((40), 45 * al)
+        motor_b.on_for_rotations(100, 0.8)
+lastpos = motor_b.position
+```
+
+#### Color-Based Navigation
+The robot uses the color sensor to detect lines (`rang` and `rangdovom`) for navigation decisions. In the open challenge, it detects blue or orange lines to trigger turns, while in the final round, it uses these colors to navigate and park.
+
+```python
+if cr1 == rang:
+    fasele = 25
+    timeRang = time.time()
+    navakht = -40
+    while cr1 != rangdovom and sig == 0 and time.time() - timeRang < 4:
+        amotor(navakht * al)
+        if navakht <= 0:
+            navakht = navakht + 1
+        motor_b.on(20)
+        cr1 = color_sensor.color
+    timeRang = time.time()
+    while time.time() - timeRang < 0.7 and sig == 0:
+        amotor(-20 * al)
+        motor_b.on(70)
+    if a_timer == 0 or time.time() - a_timer > 4:
+        a_timer = time.time()
+        a = a + 1
+    fasele = 35
+```
+
+#### Visual Feedback
+LEDs provide visual feedback: green for green obstacles (`sig=1`), red for red obstacles (`sig=2`), and off when navigating without obstacles or during parking.
+
+```python
+if sig == 1:
+    leds.set_color('LEFT', 'GREEN')
+    leds.set_color('RIGHT', 'GREEN')
+elif sig == 2:
+    leds.set_color('LEFT', 'RED')
+    leds.set_color('RIGHT', 'RED')
+elif sig == 0 and cr1 == 6:
+    leds.all_off()
+```
+
+### Notes
+- **Robustness**: The combination of ultrasonic sensors, color sensors, and the Pixy camera ensures reliable navigation and obstacle avoidance.
+- **Adaptability**: The direction determination (`al`) and dynamic distance adjustment (`fasele`) allow adaptation to different track orientations.
+- **Limitations**: The code assumes consistent lighting for color detection and reliable ultrasonic readings. Variations may require recalibration of thresholds (`green`, `red`, `fasele`).
 
 ---
+
 
 ## License
 
