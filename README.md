@@ -70,7 +70,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - [Github](https://github.com/Sepehryy)
 - [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
-![photo](/team-photos/name.jpg)
+![photo](/team-photos/Sepehr-Yavarzadeh.jpg)
 
 
 ### 🧑‍💻 Amirparsa Saemi
@@ -96,7 +96,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ![photo](/team-photos/name.jpg)
 
 #### Special Thanks
-Special thanks to **Ali Raeisi** for helping in algorithms and programming the robot.
+Special thanks to [**Ali Raeisi**](https://github.com/SheykhAlii) for helping in algorithms and programming the robot.
 
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
