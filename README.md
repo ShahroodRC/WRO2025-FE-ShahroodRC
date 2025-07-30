@@ -75,23 +75,20 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 
 ### 🧑‍💻 Amirparsa Saemi
 - Lead Developer and Algorithm Designer. A 19-year-old computer science student with prior WRO experience.  
-- sepehryavarzadeh@gmail.com
-- [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
-- [Github](https://github.com/Sepehryy)
-- [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
-
-![photo](/team-photos/name.jpg)
+- amirparsa.saemi2021@gmail.com
+- [Instagram](https://www.instagram.com/hotaru_tempest/)
+![photo](/team-photos/Amirparsa-Saemi.jpg)
 
 
 ### 👩‍🔧 Nikan Bashiri
 - Mechanical and Electronics Specialist. He is 17 years old and in his fourth year participating in WRO.
-- sepehryavarzadeh@gmail.com
+- nikanbsr@gmail.com
 - [Instagram](https://www.instagram.com/nikanbsr/)
 
-![photo](/team-photos/name.jpg)
+![photo](/team-photos/Nikan-Bashiri.jpg)
 
 
-### Mr. Sadeghi
+### Mr.Sadeghi
 - The team’s 23-year-old coach with a B.Sc. in Computer Engineering. He is a certified Advanced LEGO Robotics Coach in Iran and supports both strategic and technical development for the team.
 - sepehryavarzadeh@gmail.com
 - [Instagram](https://www.instagram.com/_amir.reza.sd_/)
@@ -901,8 +898,13 @@ This section outlines how electrical power is distributed across the robot and h
 ### 1. **Power Supply and Distribution**
 
 - **Primary Power Source**: The robot is powered by the official **LEGO EV3 Rechargeable Battery Pack**, delivering a stable **10V** to the EV3 Intelligent Brick and all peripherals.
+- **Secondary Power Pack**: A custom 3-cell battery pack (approximately 11.1V, 1000 mAh) is integrated below the EV3 Brick and above the differential, dedicated exclusively to powering two additional components:
+
+    - **Cooling Fan**: A small fan (drawing ~50 mA) is positioned in front of the Pixy Cam to prevent overheating during prolonged operation, maintaining optimal performance (temperature kept below 45°C in tests).
+    - **Front LEDs**: Two LEDs (total draw ~30 mA) are mounted at the front to enhance visibility in low-light conditions, improving Pixy Cam obstacle detection accuracy by approximately 15% in dim environments (500 lux or less).
+    - This secondary power pack is isolated from the EV3 system to prevent interference, with wiring secured using insulated connectors and tested for stability under load.
 - **Internal Voltage Regulation**: The **EV3 Brick** handles internal voltage regulation and supplies power through four motor ports and four sensor ports. No external converters were required for standard LEGO components.
-- **Operational Stability**: During development and testing, voltage delivery remained stable (measured deviation < 0.2V) without signs of overheating — even under maximum motor and sensor load.
+- **Operational Stability**: During development and testing, voltage delivery remained stable (measured deviation < 0.2V) without signs of overheating — even under maximum motor and sensor load. The primary battery pack was tested for 5 minutes under full load (motors and sensors active), showing no performance degradation.
 
 ---
 
@@ -978,7 +980,7 @@ This section outlines how electrical power is distributed across the robot and h
 
 ### 7. **Conclusion**
 
-The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware integration, clean custom wiring, and adaptive software routines. The direct EV3 port integration of the Pixy Cam without extra hardware shows that simple, well-tested solutions can achieve robust performance and maintain full compatibility for WRO 2025 challenges.
+The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware integration, clean custom wiring, and adaptive software routines. The direct EV3 port integration of the Pixy Cam without extra hardware, combined with the secondary battery pack for the cooling fan and front LEDs, shows that simple, well-tested solutions can achieve robust performance and maintain full compatibility for WRO 2025 challenges.
 
 ---
 
@@ -1289,8 +1291,9 @@ elif sig == 0 and cr1 == 6:
 - `codes/`: Contains Python scripts for Open Challenge and Obstacle Challenge.
 - `team-photos/`: Images of team members and the whole team.
 - `robot-photos/`: Images of robot from front, back, up, down, right and left.
-- `3d-files/`: STL files for 3D model of the robot.
+- `3d-files/`: IO file for 3D model of the robot and robot's 3d model pictures.
 - `videos/`: Performance videos for both challenges.
+- `pictures/`: Other pictures that used in repository like components pictures.
 
 ---
 
