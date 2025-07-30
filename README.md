@@ -1188,6 +1188,15 @@ elif sig == 0 and cr1 == 6:
 
 ---
 
+## Repository Structure
+- `code/`: Contains Python scripts for Open Challenge and Obstacle Challenge.
+- `team-photos/`: Images of team members and the whole team.
+- `robot-photos/`: Images of robot from front, back, up, down, right and left.
+- `3d-files/`: STL files for 3D model of the robot.
+- `videos/`: Performance videos for both challenges.
+
+---
+
 
 ## License
 
