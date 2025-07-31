@@ -1319,16 +1319,16 @@ elif sig == 0 and cr1 == 6:
 ---
 
 ## Repository Structure
-- `codes/`: Contains Python scripts for Open Challenge and Obstacle Challenge.
-- `team-photos/`: Images of team members and the whole team.
-- `robot-photos/`: Images of robot from front, back, up, down, right and left.
-- `3d-files/`: IO file for 3D model of the robot and robot's 3d model pictures.
-- `videos/`: Performance videos for both challenges.
-- `pictures/`: Other pictures that used in repository like components pictures.
+- [`codes/`](/codes/): Contains Python scripts for Open Challenge and Obstacle Challenge.
+- [`team-photos/`](/team-photos/): Images of team members and the whole team.
+- [`robot-photos/`](/robot-photos/): Images of robot from front, back, top, bottom, right and left.
+- [`3d-files/`](/3d-files/): IO file for 3D model of the robot and robot's 3d model rendered pictures.
+- [`videos/`](/videos/): Performance videos for both challenges.
+- [`pictures/`](/pictures/): Other pictures that used in repository like components pictures.
 
 ---
 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
