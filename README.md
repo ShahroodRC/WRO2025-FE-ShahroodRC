@@ -8,7 +8,7 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
 ## Table of Contents
 - [The Team](#the-team)
 - [Our Path](#our-path)
-- [Picture](#pictures)
+- [Pictures](#pictures)
 - [Videos](#videos)
 - [Robot Components Overview](#robot-components-overview)
   - [LEGO EV3 Mindstorms Control Brick](#lego-ev3-mindstorms-control-brick)
@@ -41,12 +41,9 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
   - [Diagnostics and Monitoring](#5-diagnostics-and-monitoring)
   - [Optimization Techniques](#6-optimization-techniques)
   - [Conclusion](#7-conclusion)
-- [Obstacle Management](#obstacle-avoidance-and-parking-managementobstacle-management)
+- [Obstacle Management (Obstacle Avoidance and Parking Management)](#obstacle-management-obstacle-avoidance-and-parking-management)
   - [Open Challenge (Qualification Round)](#open-challenge-qualification-round)
   - [Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
-    - [Obstacle Detection and Avoidance](#obstacle-detection-and-avoidance)
-    - [Parking Sequence](#parking-sequence)
-    - [Parking Wall Detection](#parking-wall-detection)
   - [Additional Functions](#additional-functions)
     - [Steering Control](#steering-control)
     - [Stall Detection and Recovery](#stall-detection-and-recovery)
@@ -67,7 +64,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ### 👨‍💼 Sepehr Yavarzadeh
 - **Role**: Project Manager and Software Engineer.
 - **Age**: 16
-- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year i won the third place in our national competition in Robo Mission category. This year i wanted to have a new exprience. I love playing the piano and playing the tennis. I'm mad at programming, physics and math.  
+- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year i won the third place in our national competition in Robo Mission category. This year i wanted to have a new experience. I love playing the piano and playing the tennis. I'm passionate about programming, physics and math.  
 - sepehryavarzadeh@gmail.com
 - [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
 - [Github](https://github.com/Sepehryy)
@@ -77,7 +74,9 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 
 
 ### 🧑‍💻 Amirparsa Saemi
-- Lead Developer and Algorithm Designer. A 19-year-old computer science student with prior WRO experience.  
+- **Role**: Lead Developer and Algorithm Designer.
+- **Age**: 19
+- **Description**: 
 - amirparsa.saemi2021@gmail.com
 - [Instagram](https://www.instagram.com/hotaru_tempest/)
 
@@ -87,7 +86,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ### 👩‍🔧 Nikan Bashiri
 - **Role**: Mechanical and Electronics Specialist.
 - **Age**: 17
-- **Description**: Hi everyone! I'm Nikan from Iran. I'm I have experience participating in five WRO qualifying competition.
+- **Description**: Hi everyone! I'm Nikan from Iran. I'm an advanced LEGO robotics instructor at a training center, with experience participating in 5 WRO (World Robot Olympiad) selection rounds. My expertise focuses on mechanical/electronic systems and LEGO set design.  
 - nikanbsr@gmail.com
 - [Instagram](https://www.instagram.com/nikanbsr/)
 
@@ -96,7 +95,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 
 ### Amirreza Sadeghi
 - The team’s 23-year-old coach with a B.Sc. in Computer Engineering. He is a certified Advanced LEGO Robotics Coach in Iran and supports both strategic and technical development for the team.
-- sepehryavarzadeh@gmail.com
+- amirreza.sadeghi3506@gmail.com
 - [Instagram](https://www.instagram.com/_amir.reza.sd_/)
 
 <img src="team-photos/Amirreza-Sadeghi.jpg" alt="Amirreza Sadeghi" width="600"> 
@@ -531,6 +530,11 @@ def detect_pillar():
 
 - **Calibration**: The Pixy Cam was trained using **PixyMon** software to recognize red (signature 1) and green (signature 2) pillars under competition lighting (500–1000 lux), ensuring reliable detection.
 
+**Calibration Step By Step**:
+1. Connect Pixy Cam to a computer via USB and open PixyMon.
+2. Train signature 1 (red) and signature 2 (green) under 500–1000 lux lighting at 0.5–1.5 m distance.
+3. Adjust Y-position filter (`y < 75`) based on test runs to eliminate false positives.
+
 ### Color Sensor Code
 The color sensor detects the colored lines on the track, which determine the robot's turning direction in the open challenge.
 ```python
@@ -563,6 +567,11 @@ def wait_for_color(target_color):
 - The robot uses color detection to determine when to start turning
 - Green line (color code 2) triggers a left turn sequence
 - Red line (color code 5) triggers a right turn sequence
+
+**Calibration Step By Step**:
+1. Place the sensor 0.5–1 cm above the track surface.
+2. Use ev3dev’s `color_sensor.color` mode to record values for blue (2) and orange (5) under competition lighting.
+3. Adjust thresholds if detection accuracy drops below 90%.
 
 ### LED Indicator Code
 The EV3 brick's LEDs provide visual feedback about the robot's state and detected obstacles.
@@ -992,6 +1001,12 @@ This section outlines how electrical power is distributed across the robot and h
 
   This setup enabled direct power and I2C communication via EV3’s sensor port without needing external regulators or level converters. Continuity and voltage checks confirmed proper signal routing; runtime tests validated stable behavior in all modes.
 
+  **Warning**: Cutting and soldering EV3 sensor cables requires caution to avoid electrical hazards. Ensure the EV3 Brick is powered off and use insulated tools.
+  1. Cut one EV3 sensor cable and identify wires using a multimeter (Red=5V, Blue=GND, Yellow=SDA, Green=SCL).
+  2. Solder Red to Pixy 5V, Blue to GND, Yellow to SDA, Green to SCL.
+  3. Insulate White and Black wires with electrical tape.
+  4. Test connections with a multimeter before powering on.
+
 > ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both multimeter and long-duration load testing.*
 
 - **Heat and Overload Protection**: The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
@@ -1030,6 +1045,8 @@ The chassis is a modular LEGO EV3 structure with a reinforced baseplate for stab
 Engineering principles such as variable speed control and distance-based steering are implemented. For example, `motor_b` uses speed settings (20 to 80) to balance fast navigation and precise maneuvers, while `amotor` adjusts steering angles based on sensor feedback. Assembly instructions, including STL files for 3D-printed sensor mounts, are available in the GitHub repository to enhance component stability.
 
 *Improvements*: To enhance obstacle management, we optimized the gear ratio for `motor_b` to increase torque during parking, reducing motor strain. Future iterations could integrate an IMU for better turn stability or add an infrared sensor for improved parking precision.
+
+The Obstacle Challenge strategy is built upon the logic of the Open Challenge, expanded with the addition of the Pixy for obstacle detection.
 
 ---
 
@@ -1521,5 +1538,4 @@ motor_a.off()
 
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is ed under the MIT License, allowing free use, modification, and distribution with proper attribution. See the [LICENSE](LICENSE) file for full details.
