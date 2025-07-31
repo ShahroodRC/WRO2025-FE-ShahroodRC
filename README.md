@@ -43,8 +43,7 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
   - [Conclusion](#7-conclusion)
 - [Obstacle Management](#obstacle-avoidance-and-parking-managementobstacle-management)
   - [Open Challenge (Qualification Round)](#open-challenge-qualification-round)
-    - [Line Detection and Navigation](#line-detection-and-navigation)
-  - [Final Round with Obstacle Avoidance(Obstacle Challenge)](#final-round-with-obstacle-avoidanceobstacle-challenge)
+  - [Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
     - [Obstacle Detection and Avoidance](#obstacle-detection-and-avoidance)
     - [Parking Sequence](#parking-sequence)
     - [Parking Wall Detection](#parking-wall-detection)
@@ -1021,308 +1020,494 @@ The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware 
 
 ---
 
-## Obstacle Avoidance and Parking Management(Obstacle Management)
 
-The robot’s mobility is managed through a combination of two medium motors (`motor_a` and `motor_b`) from the LEGO Mindstorms EV3 kit, selected for their balance of speed, torque, and compatibility with the EV3 platform. `motor_b` drives the robot’s forward and backward motion, while `motor_a` controls steering, enabling precise navigation and turning. The motors were chosen for their ability to deliver sufficient torque for navigating the obstacle course and performing the parking sequence, while maintaining energy efficiency for prolonged operation.
+## Obstacle Management (Obstacle Avoidance and Parking Management)
 
-The chassis is a modular LEGO EV3 structure, designed for stability and ease of component integration. The motors are mounted on a reinforced baseplate to ensure durability during high-speed navigation and obstacle avoidance. The steering mechanism uses a rack-and-pinion system, driven by `motor_a`, to achieve smooth and controlled turns. The chassis design prioritizes a low center of gravity to prevent tipping during sharp turns or sudden stops, as seen in the parking sequence.
+The robot’s obstacle management and parking strategy is designed to handle both the Open Challenge and Obstacle Challenge in the WRO 2025 Future Engineers category. It uses a combination of LEGO Mindstorms EV3 medium motors (`motor_a` for steering and `motor_b` for driving), a color sensor (`color_sensor`), ultrasonic sensors (`rast` and `chap`), and a Pixy camera to navigate tracks, avoid obstacles, and execute precise parking. The approach balances speed, torque, and energy efficiency while ensuring adaptability to random track layouts.
 
-Engineering principles such as speed and torque were considered in the motor control logic. For instance, the `motor_b.on(speed)` function uses variable speed settings (e.g., 20, 40, 60, 70) to balance between fast navigation and precise maneuvers. The `amotor` function implements a PID-like control to adjust steering angles, ensuring accurate alignment with lines and walls. Assembly instructions are provided in the GitHub repository, including a step-by-step guide for mounting motors and sensors, along with STL files for 3D-printed sensor mounts to enhance component stability.
+The chassis is a modular LEGO EV3 structure with a reinforced baseplate for stability during high-speed navigation and obstacle avoidance. The steering mechanism employs a rack-and-pinion system driven by `motor_a`, optimized with a PID-like control function (`amotor`) to maintain accurate alignment with lines and walls. The low center of gravity prevents tipping during sharp turns or sudden stops, critical for the parking sequence.
 
-```python
-def amotor(degrese, cl=50):
-    diff = degrese
-    diff = diff - motor_a.position
-    diff = clamp(diff, -cl, cl)
-    motor_a.on(diff)
-```
+Engineering principles such as variable speed control and distance-based steering are implemented. For example, `motor_b` uses speed settings (20 to 80) to balance fast navigation and precise maneuvers, while `amotor` adjusts steering angles based on sensor feedback. Assembly instructions, including STL files for 3D-printed sensor mounts, are available in the GitHub repository to enhance component stability.
 
-*Improvements*: To enhance mobility, we optimized the gear ratio for `motor_b` to increase torque during the parking sequence, reducing strain on the motor. Future iterations could include a differential drive system for smoother turns.
+*Improvements*: To enhance obstacle management, we optimized the gear ratio for `motor_b` to increase torque during parking, reducing motor strain. Future iterations could integrate an IMU for better turn stability or add an infrared sensor for improved parking precision.
+
+---
 
 ### Open Challenge (Qualification Round)
 
-[Full Code](codes/open-challenge-code.py)
+[Full Open Challenge Code](/codes/open-challenge-code.py)
 
-In the open challenge, the robot navigates a track using a color sensor (`color_sensor`) to detect lines (blue: `cr1=2`, orange: `cr1=5`) and ultrasonic sensors (`rast` and `chap`) for distance-based steering. The robot determines its initial direction by detecting a line color and then follows a path, making turns when specific colors are detected. It uses a PID-like control for steering (`amotor`) to maintain a target distance (27 cm) from walls, adjusting based on the detected line color.
+In the Open Challenge, the robot navigates a random track using the color sensor to detect blue (`cr1=2`) or orange (`cr1=5`) lines and ultrasonic sensors for distance-based steering. It determines its initial direction by detecting the line color and follows the path, making turns when specific colors are detected. The PID-like `amotor` function maintains a target distance of 27 cm from walls, adjusting based on the detected line color.
 
+#### Flow Diagram
+```
+[Start] --> [Detect Line Color (Blue/Orange)] --> [Set Initial Direction]
+    --> [Follow Line with PID Control (27 cm)] --> [Detect Turn (Color Match)]
+    --> [Increment Turn Counter] --> [Repeat until 11 Turns]
+    --> [Final Straight Navigation (130 iterations)] --> [End]
+```
+
+#### Pseudo Code
+```
+BEGIN
+    WHILE (not 11 turns completed)
+        IF (color_sensor detects blue OR orange)
+            STOP motors
+            INCREMENT turn counter (a)
+            RESUME navigation
+        END IF
+        SET distance = ultrasonic reading
+        CALCULATE diff = (distance - 27) * direction factor
+        ADJUST steering with amotor(diff)
+    END WHILE
+    FOR (i = 0 to 130)
+        MAINTAIN 27 cm distance with PID
+        MOVE forward
+    END FOR
+END
+```
+
+#### Code with Comments
 ```python
-cr1 = color_sensor.color
-while cr1 != 2 and cr1 != 5:
+cr1 = color_sensor.color  # Read initial line color
+while cr1 != 2 and cr1 != 5:  # Wait for blue (2) or orange (5) detection
     cr1 = color_sensor.color
-    motor_b.on(60)
-while g != 60:
-    motor_b.on(30)
-    r = rast.distance_centimeters
-    c = chap.distance_centimeters
-    fr = (-2 * (math.sqrt(11 * r))) + 100
-    fc = (-2 * (math.sqrt(11 * c))) + 100
-    target = (fc * 1.3) - (fr * 1.7)
-    amotor(clamp(target, -50, 50))
-    g = g + 1
+    motor_b.on(60)  # Move forward at 60% speed
+g = 0
+while g != 60:  # Initial alignment loop
+    motor_b.on(30)  # Slow speed for alignment
+    r = rast.distance_centimeters  # Right ultrasonic reading
+    c = chap.distance_centimeters  # Left ultrasonic reading
+    fr = (-2 * (math.sqrt(11 * r))) + 100  # Right distance factor
+    fc = (-2 * (math.sqrt(11 * c))) + 100  # Left distance factor
+    target = (fc * 1.3) - (fr * 1.7)  # Calculate steering target
+    amotor(clamp(target, -50, 50))  # Apply steering with limit
+    g += 1
+
+a = 0  # Turn counter
+while True:
+    if cr1 == 2:  # Blue line detected
+        while True:
+            cr1 = color_sensor.color
+            if cr1 == 2:
+                while cr1 == 2:  # Stay on line
+                    cr1 = color_sensor.color
+                    motor_b.on_for_degrees(80, 70)  # Move 70 degrees at 80% speed
+                    motor_a.stop(stop_action='coast')
+                    motor_b.stop(stop_action='coast')
+                a += 1  # Increment turn count
+            motor_b.on(60)  # Resume forward motion
+            distance = chap.distance_centimeters  # Use left sensor for blue
+            diff = ((distance - 27) * -2)  # Adjust for direction
+            diff = diff - motor_a.position
+            diff = clamp(diff, -32, 32)
+            amotor(diff)  # Steer with PID-like control
+            if a == 11:  # 11 turns completed
+                i = 0
+                while i != 130:  # Final straight phase
+                    motor_b.on(50)  # Reduced speed
+                    distance = chap.distance_centimeters
+                    diff = (distance - 27) * -2
+                    diff = diff - motor_a.position
+                    diff = clamp(diff, -27, 27)
+                    amotor(diff)
+                    i += 1
+                break
+    elif cr1 == 5:  # Orange line detected
+        while True:
+            cr1 = color_sensor.color
+            if cr1 == 5:
+                while cr1 == 5:
+                    cr1 = color_sensor.color
+                    motor_b.on_for_degrees(80, 70)
+                    motor_a.stop(stop_action='coast')
+                    motor_b.stop(stop_action='coast')
+                a += 1
+            motor_b.on(60)
+            distance = rast.distance_centimeters  # Use right sensor for orange
+            diff = (distance - 27) * 2
+            diff = diff - motor_a.position
+            diff = clamp(diff, -32, 32)
+            amotor(diff)
+            if a == 11:
+                i = 0
+                while i != 130:
+                    motor_b.on(50)
+                    distance = rast.distance_centimeters
+                    diff = (distance - 27) * 2
+                    diff = diff - motor_a.position
+                    diff = clamp(diff, -27, 27)
+                    amotor(diff)
+                    i += 1
+                break
+    motor_b.off()
+    motor_a.off()
 ```
 
-#### Line Detection and Navigation
-The robot detects blue (`cr1=2`) or orange (`cr1=5`) lines to determine its path. Upon detecting a line, it stops, increments a turn counter (`a`), and resumes navigation. The robot completes 11 turns (`a == 11`) before entering a final straight-line navigation phase, maintaining a 27 cm distance from the wall using the appropriate ultrasonic sensor based on the initial line color.
+---
 
-```python
-if cr1 == 2:
-    while True:
-        cr1 = color_sensor.color
-        if cr1 == 2:
-            while cr1 == 2:
-                cr1 = color_sensor.color
-                motor_b.on_for_degrees(80, 70)
-                motor_a.stop(stop_action='coast')
-                motor_b.stop(stop_action='coast')
-            a = a + 1
-        motor_b.on(60)
-        distance = chap.distance_centimeters
-        diff = ((distance - 27) * -2)
-        diff = diff - motor_a.position
-        diff = clamp(diff, -32, 32)
-        amotor(diff)
-        if a == 11:
-            i = 0
-            while i != 130:
-                motor_b.on(50)
-                distance = chap.distance_centimeters
-                diff = (distance - 27) * -2
-                diff = diff - motor_a.position
-                diff = clamp(diff, -27, 27)
-                amotor(diff)
-                i = i + 1
-            break
-elif cr1 == 5:
-    while True:
-        cr1 = color_sensor.color
-        if cr1 == 5:
-            while cr1 == 5:
-                cr1 = color_sensor.color
-                motor_b.on_for_degrees(80, 70)
-                motor_a.stop(stop_action='coast')
-                motor_b.stop(stop_action='coast')
-            a = a + 1
-        motor_b.on(60)
-        distance = rast.distance_centimeters
-        diff = (distance - 27) * 2
-        diff = diff - motor_a.position
-        diff = clamp(diff, -32, 32)
-        amotor(diff)
-        if a == 11:
-            i = 0
-            while i != 130:
-                motor_b.on(50)
-                distance = rast.distance_centimeters
-                diff = (distance - 27) * 2
-                diff = diff - motor_a.position
-                diff = clamp(diff, -27, 27)
-                amotor(diff)
-                i = i + 1
-            break
+### Final Round with Obstacle Avoidance (Obstacle Challenge)
+
+[Full Obstacle Challenge Code](/codes/obstacle-challenge-code.py)
+
+In the Obstacle Challenge, the robot builds on the Open Challenge logic by adding obstacle avoidance with the Pixy camera. It determines its initial direction (`al`) by comparing `rast` and `chap` distances over 100 iterations. The robot assigns color values (`rang` and `rangdovom`) for line detection and uses the Pixy camera to detect green (`sig=1`) or red (`sig=2`) obstacles, adjusting steering (`target`) based on their `x` position relative to offsets (`green` or `red`). LEDs provide visual feedback, and a parking sequence aligns the robot parallel to the wall.
+
+#### Flow Diagram
+```
+[Start] --> [Determine Direction (100 iterations)] --> [Set Color Values]
+    --> [Navigate with Line Detection] --> [Detect Obstacle (Pixy)]
+    --> [IF Green Obstacle] --> [Adjust Steering (x - 230)]
+    --> [IF Red Obstacle] --> [Adjust Steering (x - 20)]
+    --> [IF No Obstacle] --> [Maintain 27 cm with Ultrasonic]
+    --> [After 12 Turns] --> [Execute Parking Sequence] --> [End]
 ```
 
-### Final Round with Obstacle Avoidance(Obstacle Challenge)
+#### Pseudo Code
+```
+BEGIN
+    FOR (p = 0 to 100)
+        IF (rast > chap) THEN jahat += 1
+        ELSE jahat -= 1
+    END FOR
+    IF (jahat > 0) THEN al = -1, green = 230, red = 20, rang = 5, rangdovom = 2
+    ELSE al = 1, green = 230, red = 5, rang = 2, rangdovom = 5
+    WHILE (not 12 turns completed)
+        IF (Pixy detects obstacle AND y < 110)
+            IF (sig = 1) THEN
+                SET target = (x - 120) * 0.7
+                ADJUST steering with amotor(target, 35)
+                SET speed = 40
+                SET LEDs to GREEN
+            ELSE IF (sig = 2) THEN
+                SET target = (x - 100) * 0.7
+                ADJUST steering with amotor(target, 35)
+                SET speed = 40
+                SET LEDs to RED
+            END IF
+        ELSE IF (sig = 1) THEN
+            SET target = (x - green) * 0.5
+            ADJUST steering with amotor(target, 50)
+            SET speed = 22
+            SET LEDs to GREEN
+        ELSE IF (sig = 2) THEN
+            SET target = (x - red) * 0.5
+            ADJUST steering with amotor(target, 50)
+            SET speed = 22
+            SET LEDs to RED
+        ELSE
+            SET distance = ultrasonic reading
+            CALCULATE out = (fasele - distance) * al
+            ADJUST steering with amotor(out)
+        END IF
+        IF (color_sensor detects rang) THEN INCREMENT turn counter
+        IF (12 turns completed) THEN START parking
+    END WHILE
+    ALIGN with rangdovom
+    MAINTAIN 15 cm distance
+    EXECUTE motor movements for parking
+END
+```
 
-[Full Code](codes/obstacle-challenge-code.py)
-
-In the final round, the robot builds on the open challenge logic by adding obstacle avoidance using a Pixy camera. It determines its initial direction (`al`) by comparing distances from two ultrasonic sensors (`rast` and `chap`) over 100 iterations. The robot then assigns color values (`rang` and `rangdovom`) for line detection and uses the Pixy camera to detect green (`sig=1`) or red (`sig=2`) obstacles, adjusting steering (`target`) based on their position (`x`) relative to predefined offsets (`green` or `red`). LEDs indicate detected obstacles (green for `sig=1`, red for `sig=2`).
-
+#### Code with Comments
 ```python
+# Initial direction determination
 p = 0
 jahat = 0
+sleep(0.2)
 while p != 100:
-    r = rast.distance_centimeters
-    c = chap.distance_centimeters
-    if r > c:
-        jahat = 1 + jahat
-    else:
-        jahat = jahat - 1
-    p = p + 1
+    r = rast.distance_centimeters  # Right distance
+    c = chap.distance_centimeters  # Left distance
+    if r > c: jahat += 1  # Increment if right is farther
+    else: jahat -= 1  # Decrement if left is farther
+    print(jahat)
+    p += 1
+al = 0
 if jahat > 0:
-    al = -1
-    green = 230
-    red = 20
-    rang = 5
-    rangdovom = 2
+    al = -1  # Left direction
+    green = 230  # Green offset for right avoidance
+    red = 20  # Red offset for left avoidance
+    rang = 5  # Orange line
+    rangdovom = 2  # Blue secondary line
 else:
-    al = 1
+    al = 1  # Right direction
     green = 230
     red = 5
-    rang = 2
-    rangdovom = 5
-```
+    rang = 2  # Blue line
+    rangdovom = 5  # Orange secondary line
+print(al)
 
-#### Obstacle Detection and Avoidance
-When an obstacle is detected, the robot adjusts its speed and steering. If the obstacle is close (`y < 110`), it slows down and tightens steering control. If no obstacle is detected (`sig == 0`), it uses ultrasonic sensors to maintain a dynamic distance (`fasele`) from walls.
+cr1 = color_sensor.color  # Initial color reading
+lastsig = 0
+a_timer = 0
+b_timer = 0
+lastpos = 0
+fasele = 35  # Initial distance target
+ghabeliat = False
 
-```python
-if y < 110 and (sig == 1):
-    leds.set_color('LEFT', 'GREEN')
-    leds.set_color('RIGHT', 'GREEN')
-    target = (x - 120) * 0.7
-    target = clamp(target, -20, 20)
-    amotor(target, 35)
-    speed = 40
-elif y < 110 and (sig == 2):
-    leds.set_color('LEFT', 'RED')
-    leds.set_color('RIGHT', 'RED')
-    target = (x - 100) * 0.7
-    target = clamp(target, -20, 20)
-    amotor(target, 35)
-    speed = 40
-elif sig == 1:
-    ghabeliat = True
-    target = (x - green) * 0.5
-    leds.set_color('LEFT', 'GREEN')
-    leds.set_color('RIGHT', 'GREEN')
-    amotor(target, 50)
-    speed = 22
-elif sig == 2:
-    ghabeliat = True
-    target = (x - red) * 0.5
-    leds.set_color('LEFT', 'RED')
-    leds.set_color('RIGHT', 'RED')
-    amotor(target, 50)
-    speed = 22
-elif sig == 0 and cr1 == 6:
-    leds.all_off()
-    speed = 33
-    r = rast.distance_centimeters
-    c = chap.distance_centimeters
-    if al == 1:
-        oltra = c
+# Initial alignment
+motor_a.on_for_seconds((-40) * al, 0.5)  # Initial turn
+motor_b.on_for_rotations(80, 1)  # Move forward
+motor_a.stop(stop_action='coast')
+sleep(0.2)
+sig = pixy.value(1) * 256 + pixy.value(0)  # Pixy signature
+y = pixy.value(3)  # Pixy y-position
+if y < 75:
+    sig = 0  # Ignore if too close
+
+# Initial obstacle handling
+if al > 0:
+    if sig == 0:
+        motor_a.stop(stop_action='coast')
+        motor_a.on_for_degrees(100, -motor_a.position)  # Reset steering
+        motor_b.on_for_rotations(60, 1.5)  # Move forward
+    elif sig == 2 and y > 100:
+        motor_a.stop(stop_action='coast')
+        motor_a.on_for_degrees(40, -motor_a.position)  # Adjust for red
+    elif sig == 1 and y > 100:
+        motor_b.on_for_degrees(30, 550)  # Turn for green
+        motor_a.on_for_seconds(40 * al, 0.5)
+        motor_b.on_for_rotations(60, 1.5)
+        motor_a.on_for_degrees(40, -motor_a.position)
+        motor_a.stop(stop_action='coast')
+        motor_b.stop(stop_action='coast')
+else:
+    if sig == 0:
+        motor_a.stop(stop_action='coast')
+        motor_a.on_for_degrees(100 * al, 60)
+        motor_b.on_for_rotations(60, 1.5)
+        motor_a.stop(stop_action='coast')
+        motor_a.on_for_degrees(100, motor_a.position)
+    elif sig == 1 and y > 100:
+        motor_a.stop(stop_action='coast')
+        motor_a.on_for_degrees(40, -motor_a.position)
+    elif sig == 2 and y > 100:
+        motor_b.on_for_degrees(30, 550)
+        motor_a.on_for_seconds(40 * al, 0.5)
+        motor_b.on_for_rotations(60, 1.5)
+        motor_a.on_for_degrees(40, -motor_a.position)
+        motor_a.stop(stop_action='coast')
+        motor_b.stop(stop_action='coast')
+
+sleep(0.5)
+a = 0  # Turn counter
+speed = 20
+door = 12  # Total turns (4 laps * 3)
+
+while True:
+    cr1 = color_sensor.color
+    print(a)
+    sig = pixy.value(1) * 256 + pixy.value(0)
+    x = pixy.value(2)  # Pixy x-position
+    y = pixy.value(3)
+    size = pixy.value(4)
+    motor_b.on(speed)
+
+    if sig != 0:
+        lastsig = sig
+        if y < 75:
+            sig = 0  # Ignore close objects
+
+    if cr1 == rang:  # Line detection
+        fasele = 25  # Adjust distance for turn
+        cr1 = color_sensor.color
+        sig = pixy.value(1) * 256 + pixy.value(0)
+        if y < 75:
+            sig = 0
+        if a == door - 1:
+            break
+        if sig == 0:
+            timeRang = time.time()
+            navakht = -40
+            while cr1 != rangdovom and sig == 0 and time.time() - timeRang < 4:
+                amotor(navakht * al)  # Turn adjustment
+                if navakht <= 0:
+                    navakht += 1
+                cr1 = color_sensor.color
+                sig = pixy.value(1) * 256 + pixy.value(0)
+                if y < 75:
+                    sig = 0
+                motor_b.on(20)
+                cr1 = color_sensor.color
+            timeRang = time.time()
+            while time.time() - timeRang < 0.7 and sig == 0:
+                amotor(-20 * al)  # Final turn
+                sig = pixy.value(1) * 256 + pixy.value(0)
+                if y < 75:
+                    sig = 0
+                motor_b.on(70)
+        if a_timer == 0 or time.time() - a_timer > 4:
+            a_timer = time.time()
+            a += 1
+        cr1 = color_sensor.color
+        fasele = 35
+
+    if y < 110 and sig == 1:  # Close green obstacle
+        cr1 = color_sensor.color
+        leds.set_color('LEFT', 'GREEN')
+        leds.set_color('RIGHT', 'GREEN')
+        target = (x - 120) * 0.7  # Adjust for center
+        target = clamp(target, -20, 20)
+        amotor(target, 35)  # Tight steering
+        speed = 40  # Slow down
+
+    elif y < 110 and sig == 2:  # Close red obstacle
+        cr1 = color_sensor.color
+        leds.set_color('LEFT', 'RED')
+        leds.set_color('RIGHT', 'RED')
+        target = (x - 100) * 0.7
+        target = clamp(target, -20, 20)
+        amotor(target, 35)
+        speed = 40
+
+    elif sig == 1:  # Green obstacle
+        ghabeliat = True
+        target = (x - green) * 0.5  # Offset for right avoidance
+        leds.set_color('LEFT', 'GREEN')
+        leds.set_color('RIGHT', 'GREEN')
+        amotor(target, 50)
+        speed = 22  # Reduced speed
+
+    elif sig == 2:  # Red obstacle
+        ghabeliat = True
+        target = (x - red) * 0.5  # Offset for left avoidance
+        leds.set_color('LEFT', 'RED')
+        leds.set_color('RIGHT', 'RED')
+        amotor(target, 50)
+        speed = 22
+
+    elif sig == 0 and ghabeliat and False:  # Post-obstacle adjustment (disabled)
+        if al < 0 and lastsig == 1:
+            motor_b.on_for_rotations(60, 0.9)
+            motor_b.off()
+            motor_a.on_for_degrees(40, -motor_a.position)
+            motor_a.on_for_degrees(40, 30 * al)
+            motor_b.on_for_rotations(60, 0.6)
+        elif al > 0 and lastsig == 2:
+            motor_b.on_for_rotations(60, 0.9)
+            motor_b.off()
+            motor_a.on_for_degrees(40, -motor_a.position)
+            motor_a.on_for_degrees(40, -30 * al)
+            motor_b.on_for_rotations(60, 0.6)
+        else:
+            pass
+        ghabeliat = False
+
+    elif sig == 0 and cr1 == 6:  # No obstacle, neutral state
+        leds.all_off()
+        speed = 33
+        r = rast.distance_centimeters
+        c = chap.distance_centimeters
+        if al == 1:
+            oltra = c  # Use left for right direction
+        else:
+            oltra = r  # Use right for left direction
+        out = (fasele - oltra) * al  # Distance adjustment
+        out = clamp(out, -45, 45)
+        amotor(out)
+
+    if lastsig == 2 and al > 0 and sig == 0:
+        fasele = 50  # Increase distance after red
+    if lastsig == 1 and al < 0 and sig == 0:
+        fasele = 50  # Increase distance after green
+
+    if fasele > 33:
+        fasele -= 0.09  # Gradually reduce distance
     else:
-        oltra = r
-    out = (fasele - oltra) * al
-    out = clamp(out, -45, 45)
-    amotor(out)
-```
+        fasele = 33
 
-#### Parking Sequence
+    if lastpos == motor_b.position:  # Stall detection
+        if b_timer == 0:
+            b_timer = time.time()
+        if time.time() - b_timer > 0.3:
+            print("khokafez")  # Stall detected
+            b_timer = 0
+            motor_a.on_for_degrees(40, -motor_a.position)
+            motor_b.on_for_rotations(-100, 1)  # Reverse
+            motor_a.on_for_degrees(40, 45 * al)  # Adjust steering
+            motor_b.on_for_rotations(100, 0.8)  # Move forward
+    lastpos = motor_b.position
 
-After completing the required laps (`a == door`), the robot enters a parking sequence. It aligns with the secondary line color (`rangdovom`) and uses the ultrasonic sensor (`rast`) to maintain a 15 cm distance from the wall. A series of precise motor movements positions the robot correctly within the parking area, ending with a final alignment to stop parallel to the wall.
+    if a == door:
+        break
+motor_a.off()
+motor_b.off()
 
-```python
+# Parking sequence
 if al < 0:
     navakht = 90
     while cr1 != rangdovom:
-        motor_b.on(30)
-        amotor(0)
+        motor_b.on(30)  # Slow approach
+        amotor(0)  # Straighten
+        if navakht <= 0:
+            navakht += 1
         cr1 = color_sensor.color
     motor_b.off()
-    motor_a.on_for_degrees((100), -120)
-    motor_b.on_for_degrees((-30), 300)
-    motor_a.on_for_degrees((90), -motor_a.position)
+    motor_a.on_for_degrees(100, -120)  # Initial turn
+    motor_b.on_for_degrees(-30, 300)  # Reverse
+    motor_b.off()
+    motor_a.on_for_degrees(90, -motor_a.position)  # Reset steering
+    speed = 8
     while True:
+        leds.all_off()
         motor_b.on(speed)
+        cr1 = color_sensor.color
         r = rast.distance_centimeters
         if r < 60 or cr1 == rangdovom:
             break
-    fasele = 15
+    fasele = 15  # Target distance for parking
     speed = 20
-    while motor_b.position < 1500:
+    timerse = time.time()
+    motor_b.off()
+    motor_b.reset()
+    while motor_b.position < 1500:  # Move into parking
+        leds.all_off()
         motor_b.on(speed)
         r = rast.distance_centimeters
         out = (fasele - r) * 1.5 * al
         out = clamp(out, -23, 23)
         amotor(out)
     motor_b.off()
-    motor_a.on_for_degrees((90), -90)
+    motor_a.on_for_degrees(90, -motor_a.position)
+    motor_b.on_for_rotations(-20, 0.6)  # Fine adjustment
+    motor_b.off()
+    cr1 = color_sensor.color
+    motor_a.on_for_degrees(90, -90)
     motor_b.on_for_rotations(-20, 1.72)
-    motor_a.on_for_degrees((90), -motor_a.position)
-    motor_b.on_for_rotations(-20, 3.5)
-    motor_a.on_for_degrees((90), 90)
+    motor_a.on_for_degrees(90, -motor_a.position)
+    motor_a.off()
+    i = 0
+    while i <= 50:
+        amotor(0)  # Hold position
+        i += 1
+    motor_a.off()
+    motor_b.on_for_rotations(-20, 3.5)  # Final reverse
+    motor_b.off()
+    motor_a.on_for_degrees(90, 90)
     motor_b.on_for_rotations(20, 0.7)
-    motor_a.on_for_degrees((90), -190)
+    motor_b.off()
+    motor_a.on_for_degrees(90, -190)
     motor_b.on_for_rotations(-20, 0.6)
-    motor_a.on_for_degrees((90), 190)
+    motor_b.off()
+    motor_a.on_for_degrees(90, 190)
     motor_b.on_for_rotations(20, 0.4)
+
+while True:
+    amotor(0)  # Maintain final position
+    motor_b.off()
+motor_b.off()
+motor_a.off()
 ```
-
-#### Parking Wall Detection
-The ultrasonic sensor (`rast`) ensures the robot stays close to the wall during parking, while the color sensor confirms alignment with the parking line (`rangdovom`).
-
-### Additional Functions
-
-#### Steering Control
-The `amotor` function provides PID-like steering control, adjusting the motor angle based on the target position. The `clamp` function limits values to prevent oversteering.
-
-```python
-def clamp(value, minimum, maximum):
-    if value > maximum:
-        value = maximum
-    if value < minimum:
-        value = minimum
-    return value
-
-def amotor(degrese, cl=50):
-    diff = degrese
-    diff = diff - motor_a.position
-    diff = clamp(diff, -cl, cl)
-    motor_a.on(diff)
-```
-
-#### Stall Detection and Recovery
-The robot detects stalls by checking if the motor position (`lastpos`) remains unchanged for 0.3 seconds, initiating a recovery sequence by reversing and adjusting steering.
-
-```python
-if lastpos == motor_b.position:
-    if b_timer == 0:
-        b_timer = time.time()
-    if time.time() - b_timer > 0.3:
-        print("khokafez")
-        b_timer = 0
-        motor_a.on_for_degrees((40), -motor_a.position)
-        motor_b.on_for_rotations(-100, 1)
-        motor_a.on_for_degrees((40), 45 * al)
-        motor_b.on_for_rotations(100, 0.8)
-lastpos = motor_b.position
-```
-
-#### Color-Based Navigation
-The robot uses the color sensor to detect lines (`rang` and `rangdovom`) for navigation decisions. In the open challenge, it detects blue or orange lines to trigger turns, while in the final round, it uses these colors to navigate and park.
-
-```python
-if cr1 == rang:
-    fasele = 25
-    timeRang = time.time()
-    navakht = -40
-    while cr1 != rangdovom and sig == 0 and time.time() - timeRang < 4:
-        amotor(navakht * al)
-        if navakht <= 0:
-            navakht = navakht + 1
-        motor_b.on(20)
-        cr1 = color_sensor.color
-    timeRang = time.time()
-    while time.time() - timeRang < 0.7 and sig == 0:
-        amotor(-20 * al)
-        motor_b.on(70)
-    if a_timer == 0 or time.time() - a_timer > 4:
-        a_timer = time.time()
-        a = a + 1
-    fasele = 35
-```
-
-#### Visual Feedback
-LEDs provide visual feedback: green for green obstacles (`sig=1`), red for red obstacles (`sig=2`), and off when navigating without obstacles or during parking.
-
-```python
-if sig == 1:
-    leds.set_color('LEFT', 'GREEN')
-    leds.set_color('RIGHT', 'GREEN')
-elif sig == 2:
-    leds.set_color('LEFT', 'RED')
-    leds.set_color('RIGHT', 'RED')
-elif sig == 0 and cr1 == 6:
-    leds.all_off()
-```
-
-### Notes
-- **Robustness**: The combination of ultrasonic sensors, color sensors, and the Pixy camera ensures reliable navigation and obstacle avoidance.
-- **Adaptability**: The direction determination (`al`) and dynamic distance adjustment (`fasele`) allow adaptation to different track orientations.
-- **Limitations**: The code assumes consistent lighting for color detection and reliable ultrasonic readings. Variations may require recalibration of thresholds (`green`, `red`, `fasele`).
 
 ---
+
+### Notes
+- **Robustness**: The combination of ultrasonic sensors, color sensor, and Pixy camera ensures reliable navigation and obstacle avoidance.
+- **Adaptability**: The direction determination (`al`) and dynamic distance adjustment (`fasele`) allow adaptation to different track orientations.
+- **Limitations**: The code assumes consistent lighting for color detection and reliable ultrasonic readings. Variations may require recalibration of thresholds (`green`, `red`, `fasele`).
+- **Calibration**: Before the competition, calibrate the color sensor and Pixy camera under expected lighting conditions.
+
+---
+
 
 ## Repository Structure
 - [`codes/`](/codes/): Contains Python scripts for Open Challenge and Obstacle Challenge.
