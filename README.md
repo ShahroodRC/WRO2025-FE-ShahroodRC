@@ -44,13 +44,7 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
 - [Obstacle Management (Obstacle Avoidance and Parking Management)](#obstacle-management-obstacle-avoidance-and-parking-management)
   - [Open Challenge (Qualification Round)](#open-challenge-qualification-round)
   - [Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
-  - [Additional Functions](#additional-functions)
-    - [Steering Control](#steering-control)
-    - [Stall Detection and Recovery](#stall-detection-and-recovery)
-    - [Color-Based Navigation](#color-based-navigation)
-    - [Visual Feedback](#visual-feedback)
   - [Notes](#notes-1)
-- [Robot Pictures](#robot-pictures)
 - [Repository Structure](#repository-structure)
 - [License](#license)
 
@@ -76,7 +70,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ### 🧑‍💻 Amirparsa Saemi
 - **Role**: Lead Developer and Algorithm Designer.
 - **Age**: 19
-- **Description**: 
+- **Description**: Hey! I'm Amirparsa and this is my third year competing in WRO. I'm a professional ping-pong player and super passionate about math and physics. I'm studying computer science at university and love diving into programming challenges.
 - amirparsa.saemi2021@gmail.com
 - [Instagram](https://www.instagram.com/hotaru_tempest/)
 
