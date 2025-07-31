@@ -672,6 +672,21 @@ This integrated approach ensures that all sensors and actuators work together ha
 ---
 
 
+<<<<<<< HEAD
+=======
+## Pictures
+| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="85%" /> | 
+| :--: | :--: | 
+| *Front* | *Back* |
+| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="85%" /> | 
+| *Left* | *Right* |
+| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="85%" /> | 
+| *Top* | *Bottom* |
+
+---
+
+
+>>>>>>> 638dc8a (readme bugs solved and videos updated)
 ## Mobility Management
 
 The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by two **EV3 Medium Motors**, enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
