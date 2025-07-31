@@ -77,7 +77,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 <img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="600"> 
 
 
-### 👩‍🔧 Nikan Bashiri
+### 👨🏼‍🔧 Nikan Bashiri
 - **Role**: Mechanical and Electronics Specialist.
 - **Age**: 17
 - **Description**: Hi everyone! I'm Nikan from Iran. I'm an advanced LEGO robotics instructor at a training center, with experience participating in 5 WRO (World Robot Olympiad) selection rounds. My expertise focuses on mechanical/electronic systems and LEGO set design.  
