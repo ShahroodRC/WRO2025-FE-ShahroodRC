@@ -98,12 +98,13 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - sepehryavarzadeh@gmail.com
 - [Instagram](https://www.instagram.com/_amir.reza.sd_/)
 
-![photo](/team-photos/name.jpg)
+![photo](/team-photos/Amirreza-Sadeghi.jpg)
 
 
 #### Special Thanks
 Special thanks to [**Ali Raeisi**](https://github.com/SheykhAlii) for helping in algorithms and programming the robot.
 
+![photo](/team-photos/team.jpg)
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
 ---
@@ -672,8 +673,6 @@ This integrated approach ensures that all sensors and actuators work together ha
 ---
 
 
-<<<<<<< HEAD
-=======
 ## Pictures
 | <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="85%" /> | 
 | :--: | :--: | 
@@ -686,7 +685,12 @@ This integrated approach ensures that all sensors and actuators work together ha
 ---
 
 
->>>>>>> 638dc8a (readme bugs solved and videos updated)
+## Videos
+You can see [Obstacle Challenge](https://youtu.be/7Ioj10wPPrw) and [Open Challenge](https://youtu.be/PhpbAQ0mky4) videos on Youtube. You can see them also here in [videos](videos/) folder.
+
+---
+
+
 ## Mobility Management
 
 The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by two **EV3 Medium Motors**, enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
