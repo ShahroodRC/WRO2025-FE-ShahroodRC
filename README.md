@@ -8,6 +8,8 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
 ## Table of Contents
 - [The Team](#the-team)
 - [Our Path](#our-path)
+- [Picture](#pictures)
+- [Videos](#videos)
 - [Robot Components Overview](#robot-components-overview)
   - [LEGO EV3 Mindstorms Control Brick](#lego-ev3-mindstorms-control-brick)
   - [Pixy Cam](#pixy-cam)
@@ -201,6 +203,25 @@ Each platform tested taught us critical lessons about system design, integration
 This journey was not a fallback but a strategic evolution, allowing us to focus on **strategy and performance** rather than hardware troubleshooting. For future projects, we plan to explore hybrid platforms (e.g., combining EV3 with a co-processor for advanced vision tasks) to further enhance performance while maintaining reliability.
 
 > By choosing EV3, we ensured our robot could reliably execute complex tasks like line following, obstacle avoidance, and parking, meeting WRO 2025’s demanding requirements with confidence.
+
+---
+
+
+## Pictures
+| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="85%" /> | 
+| :--: | :--: | 
+| *Front* | *Back* |
+| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="85%" /> | 
+| *Left* | *Right* |
+| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="85%" /> | 
+| *Top* | *Bottom* |
+
+---
+
+
+## Videos
+You can see [Obstacle Challenge](https://youtu.be/7Ioj10wPPrw) and [Open Challenge](https://youtu.be/PhpbAQ0mky4) videos on Youtube. You can see them also here in [videos](videos/) folder.
+
 ---
 
 
@@ -673,23 +694,6 @@ This integrated approach ensures that all sensors and actuators work together ha
 ---
 
 
-## Pictures
-| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="85%" /> | 
-| :--: | :--: | 
-| *Front* | *Back* |
-| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="85%" /> | 
-| *Left* | *Right* |
-| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="85%" /> | 
-| *Top* | *Bottom* |
-
----
-
-
-## Videos
-You can see [Obstacle Challenge](https://youtu.be/7Ioj10wPPrw) and [Open Challenge](https://youtu.be/PhpbAQ0mky4) videos on Youtube. You can see them also here in [videos](videos/) folder.
-
----
-
 
 ## Mobility Management
 
@@ -701,6 +705,7 @@ The **mobility system** integrates a **powertrain** (rear-wheel drive with a sim
 
 ### 1. Introduction to Mobility System
 The complete chassis design, detailed in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration. 
+<br>
 <img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300"> 
 <img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">  
 
@@ -865,8 +870,9 @@ The **EV3 Control Brick** (ARM9, 300 MHz, 64 MB RAM) runs **ev3dev**, coordinati
 ---
 
 ### 7. Testing and Optimization
-Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.    
-<img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">  
+Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.
+<br>
+<img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">
 <img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">    
 
 **Testing Methodology**  
