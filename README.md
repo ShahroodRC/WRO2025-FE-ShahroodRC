@@ -72,7 +72,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - [Github](https://github.com/Sepehryy)
 - [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
-![photo](/team-photos/Sepehr-Yavarzadeh.jpg)
+<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="600"> 
 
 
 ### 🧑‍💻 Amirparsa Saemi
@@ -80,7 +80,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - amirparsa.saemi2021@gmail.com
 - [Instagram](https://www.instagram.com/hotaru_tempest/)
 
-![photo](/team-photos/Amirparsa-Saemi.jpg)
+<img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="600"> 
 
 
 ### 👩‍🔧 Nikan Bashiri
@@ -90,7 +90,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - nikanbsr@gmail.com
 - [Instagram](https://www.instagram.com/nikanbsr/)
 
-![photo](/team-photos/Nikan-Bashiri.jpg)
+<img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="600"> 
 
 
 ### Amirreza Sadeghi
@@ -98,13 +98,13 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - sepehryavarzadeh@gmail.com
 - [Instagram](https://www.instagram.com/_amir.reza.sd_/)
 
-![photo](/team-photos/Amirreza-Sadeghi.jpg)
+<img src="team-photos/Amirreza-Sadeghi.jpg" alt="Amirreza Sadeghi" width="600"> 
 
 
 #### Special Thanks
 Special thanks to [**Ali Raeisi**](https://github.com/SheykhAlii) for helping in algorithms and programming the robot.
 
-![photo](/team-photos/team.jpg)
+<img src="team-photos/team.jpg" alt="Shahrood RC Team" width="600"> 
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
 ---
@@ -700,9 +700,9 @@ The **mobility system** integrates a **powertrain** (rear-wheel drive with a sim
 ---
 
 ### 1. Introduction to Mobility System
-The complete chassis design, detailed in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration.
-<img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300">
-<img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">
+The complete chassis design, detailed in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration. 
+<img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300"> 
+<img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">  
 
 **Overview**  
 The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by two **EV3 Medium Motors** (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is detailed in `3d-files/robot_complete.io`.
@@ -865,9 +865,9 @@ The **EV3 Control Brick** (ARM9, 300 MHz, 64 MB RAM) runs **ev3dev**, coordinati
 ---
 
 ### 7. Testing and Optimization
-Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.
-<img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">
-<img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">
+Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.    
+<img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">  
+<img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">    
 
 **Testing Methodology**  
 Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/obstacles):  
