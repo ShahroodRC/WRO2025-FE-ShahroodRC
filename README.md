@@ -58,7 +58,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ### 👨‍💼 Sepehr Yavarzadeh
 - **Role**: Project Manager and Software Engineer.
 - **Age**: 16
-- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year i won the third place in our national competition in Robo Mission category. This year i wanted to have a new experience. I love playing the piano and playing the tennis. I'm passionate about programming, physics and math.  
+- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year I won the third place in our national competition in Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing the tennis. I'm passionate about programming, physics and math.  
 - sepehryavarzadeh@gmail.com
 - [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
 - [Github](https://github.com/Sepehryy)
