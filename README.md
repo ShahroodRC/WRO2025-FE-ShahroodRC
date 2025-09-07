@@ -65,8 +65,10 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
 - [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
-<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="300"> 
-
+<div align="center">
+<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="50%"> 
+<p>Sepehr Yavarzadeh</p>
+</div>
 
 ### 🧑‍💻 Amirparsa Saemi
 - **Role**: Lead Developer and Algorithm Designer.
