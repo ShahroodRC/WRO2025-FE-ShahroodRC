@@ -12,7 +12,7 @@ This repository provides a detailed overview of the ShahroodRC team's robot deve
 - [Videos](#videos)
 - [Robot Components Overview](#robot-components-overview)
   - [LEGO EV3 Mindstorms Control Brick](#lego-ev3-mindstorms-control-brick)
-  - [Pixy Cam](#pixy-cam)
+  - [Pixy Cam 2.1](#pixy-cam)
   - [Ultrasonic Sensor EV3](#ultrasonic-sensor-ev3)
   - [Color Sensor EV3](#color-sensor-ev3)
   - [Medium Motor EV3](#medium-motor-ev3)
@@ -88,19 +88,22 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 <img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="300"> 
 
 
-### Ali Raeesian
-- 
-- raeesianali@gmail.com
+### 👨🏻‍🏫 Ali Raeesian
+- **Role**: Coach
+- **Age**: 24
+- **Description**: Ali Raeisian, a B.Sc. graduate in Computer Engineering, is currently pursuing a Master’s degree in Computer Science with a focus on software. A former WRO competitor, he participated in the 2016 WRO global competition in India in the robot soccer category. Now, he specializes in game development, contributing his expertise to both technical and creative aspects of the field.
 
+- raeesianali@gmail.com
 - [Github](https://github.com/SheykhAlii)
 - [Instagram](https://www.instagram.com/ali_raeesiian/)
+
 <img src="team-photos\Ali-Raeesian.jpg" alt="Ali Raeesian" width="300"> 
 
+---
 
-#### Special Thanks
-Special thanks to [**Ali Raeisi**](https://github.com/SheykhAlii) for helping in algorithms and programming the robot.
-
+### Shahrood RC Team
 <img src="team-photos/team.jpg" alt="Shahrood RC Team" width="300"> 
+
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
 ---
