@@ -64,7 +64,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - [Github](https://github.com/Sepehryy)
 - [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
-<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="600"> 
+<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="300"> 
 
 
 ### 🧑‍💻 Amirparsa Saemi
@@ -74,7 +74,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - amirparsa.saemi2021@gmail.com
 - [Instagram](https://www.instagram.com/hotaru_tempest/)
 
-<img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="600"> 
+<img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="300"> 
 
 
 ### 👨🏼‍🔧 Nikan Bashiri
@@ -84,7 +84,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - nikanbsr@gmail.com
 - [Instagram](https://www.instagram.com/nikanbsr/)
 
-<img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="600"> 
+<img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="300"> 
 
 
 ### Amirreza Sadeghi
@@ -92,13 +92,13 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - amirreza.sadeghi3506@gmail.com
 - [Instagram](https://www.instagram.com/_amir.reza.sd_/)
 
-<img src="team-photos/Amirreza-Sadeghi.jpg" alt="Amirreza Sadeghi" width="600"> 
+<img src="team-photos/Amirreza-Sadeghi.jpg" alt="Amirreza Sadeghi" width="300"> 
 
 
 #### Special Thanks
 Special thanks to [**Ali Raeisi**](https://github.com/SheykhAlii) for helping in algorithms and programming the robot.
 
-<img src="team-photos/team.jpg" alt="Shahrood RC Team" width="600"> 
+<img src="team-photos/team.jpg" alt="Shahrood RC Team" width="300"> 
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
 ---
