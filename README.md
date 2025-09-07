@@ -60,8 +60,9 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - **Age**: 16
 - **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year I won the third place in our national competition in Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing the tennis. I'm passionate about programming, physics and math.  
 - sepehryavarzadeh@gmail.com
-- [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
+
 - [Github](https://github.com/Sepehryy)
+- [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
 - [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
 <img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="300"> 
@@ -87,12 +88,13 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 <img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="300"> 
 
 
-### Amirreza Sadeghi
-- The team’s 23-year-old coach with a B.Sc. in Computer Engineering. He is a certified Advanced LEGO Robotics Coach in Iran and supports both strategic and technical development for the team.
-- amirreza.sadeghi3506@gmail.com
-- [Instagram](https://www.instagram.com/_amir.reza.sd_/)
+### Ali Raeesian
+- 
+- raeesianali@gmail.com
 
-<img src="team-photos/Amirreza-Sadeghi.jpg" alt="Amirreza Sadeghi" width="300"> 
+- [Github](https://github.com/SheykhAlii)
+- [Instagram](https://www.instagram.com/ali_raeesiian/)
+<img src="team-photos\Ali-Raeesian.jpg" alt="Ali Raeesian" width="300"> 
 
 
 #### Special Thanks
