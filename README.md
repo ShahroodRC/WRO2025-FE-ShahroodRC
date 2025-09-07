@@ -66,19 +66,11 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
 <div align="center">
-<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="50%"> 
+<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="60%"> 
 <p>Sepehr Yavarzadeh</p>
 </div>
 
-### 🧑‍💻 Amirparsa Saemi
-- **Role**: Lead Developer and Algorithm Designer.
-- **Age**: 19
-- **Description**: Hey! I'm Amirparsa and this is my third year competing in WRO. I'm a professional ping-pong player and super passionate about math and physics. I'm studying computer science at university and love diving into programming challenges.
-- amirparsa.saemi2021@gmail.com
-- [Instagram](https://www.instagram.com/hotaru_tempest/)
-
-<img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="300"> 
-
+---
 
 ### 👨🏼‍🔧 Nikan Bashiri
 - **Role**: Mechanical and Electronics Specialist.
@@ -87,8 +79,26 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - nikanbsr@gmail.com
 - [Instagram](https://www.instagram.com/nikanbsr/)
 
-<img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="300"> 
+<div align="center">
+<img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="60%"> 
+<p>Nikan Bashiri</p>
+</div>
 
+---
+
+### 🧑‍💻 Amirparsa Saemi
+- **Role**: Lead Developer and Algorithm Designer.
+- **Age**: 19
+- **Description**: Hey! I'm Amirparsa and this is my third year competing in WRO. I'm a professional ping-pong player and super passionate about math and physics. I'm studying computer science at university and love diving into programming challenges.
+- amirparsa.saemi2021@gmail.com
+- [Instagram](https://www.instagram.com/hotaru_tempest/)
+
+<div align="center">
+<img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="60%"> 
+<p>Amirparsa Saemi</p>
+</div>
+
+---
 
 ### 👨🏻‍🏫 Ali Raeesian
 - **Role**: Coach
@@ -98,13 +108,34 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - raeesianali@gmail.com
 - [Github](https://github.com/SheykhAlii)
 - [Instagram](https://www.instagram.com/ali_raeesiian/)
+  
+<div align="center">
+<img src="team-photos\Ali-Raeesian.jpg" alt="Ali Raeesian" width="60%"> 
+<p>Ali Raeesian</p>
+</div>
 
-<img src="team-photos\Ali-Raeesian.jpg" alt="Ali Raeesian" width="300"> 
+---
+
+### 👨🏻‍🏫 Hossein Bagheri
+- **Role**: Manager
+- **Age**: 50
+- **Description**: 
+
+- 
+- [Instagram](https://www.instagram.com/ho.bagheri/)
+  
+<div align="center">
+<img src="team-photos\Hossein-Bagheri.jpg" alt="Hossein Bagheri" width="60%"> 
+<p>Hossein Bagheri</p>
+</div>
 
 ---
 
 ### Shahrood RC Team
-<img src="team-photos/team.jpg" alt="Shahrood RC Team" width="300"> 
+<div align="center">
+<img src="team-photos/team.jpg" alt="Shahrood RC" width="60%"> 
+<p>The Shahrood RC Team</p>
+</div> 
 
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
