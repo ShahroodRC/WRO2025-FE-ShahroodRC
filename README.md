@@ -141,6 +141,38 @@ We are the Shahrood RC team, a group of students passionate about robotics, elec
 ---
 
 
+## National Championship Victory
+
+### Overview
+The Shahrood RC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this triumph highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
+
+### Competition Highlights
+- **Event**: Iran National Robotics Competition (WRO 2025 Qualifier)
+- **Date**: August 2025
+- **Location**: Rasht, Iran
+- **Achievement**: 1st Place, qualifying for WRO 2025 International Final
+- **Key Moment**: Our robot successfully completed both the Open and Obstacle Challenges, demonstrating precision and reliability under competitive pressure.
+
+### Visuals
+<div align="center">
+<img src="team-photos\Shahrood_RC_first_place.jpg" alt="ShahroodRC Team championship" width="60%">
+<p>Shahrood RC’s championship victory at the National WRO Competition</p>
+<img src="team-photos\Shahrood_RC_with_medals.jpg" alt="ShahroodRC Team with Award" width="60%">
+<p>Shahrood RC Team celebrating their 1st Place victory</p>
+<img src="team-photos\Shahrood_RC_in_national_competition.jpg" alt="ShahroodRC Team in national competition" width="60%">
+<p>Shahrood RC Team in National Final</p>
+</div>
+<div align="center">
+<img src="competition-photos/national-championship-robot.jpg" alt="Robot in Action" width="60%">
+<p>Our robot in action during the National Championship</p>
+</div>
+
+### Path to WRO 2025
+This national championship victory marks a significant milestone, qualifying ShahroodRC for the WRO 2025 International Final in Singapore. With the theme "The Future of Robots," we are ready to compete on the global stage, representing Iran with pride and showcasing our skills against over 500 international teams.
+
+---
+
+
 ## Our Path
 
 ### Robot Development Process
@@ -410,7 +442,7 @@ This section provides a detailed overview of the key hardware components used in
 | **Component**                | **Quantity** | **Source**                     | **Purpose**                          | **Approx. Cost (USD)** |
 |------------------------------|--------------|--------------------------------|------------------------------|------------------------|
 | LEGO EV3 Control Brick        | 1            | LEGO MINDSTORMS Core Set 45544 | Central processing and control | $150                   |
-| Pixy Cam                     | 1            | Purchased separately           | Obstacle detection and tracking | $70                   |
+| Pixy 2.1                      | 1            | Purchased separately           | Obstacle and line detection and tracking | $70                   |
 | EV3 Ultrasonic Sensor         | 2            | LEGO MINDSTORMS Core Set 45544 | Wall-following and distance measurement | $30 each ($60 total) |
 | EV3 Color Sensor             | 1            | LEGO MINDSTORMS Core Set 45544 | Line following and zone detection | $40                  |
 | EV3 Medium Motor             | 2            | LEGO MINDSTORMS Core Set 45544 | Propulsion and steering       | $25 each ($50 total) |
@@ -917,9 +949,9 @@ Testing was conducted over 50 trials, with real-world performance captured below
 
 **Testing Methodology**  
 Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/obstacles):  
-- **Wall-Following**: Maintained 27 cm ± 2 cm distance, 90% success (45/50 trials).  
-- **Obstacle Avoidance**: Avoided pillars in 90% of tests (45/50).  
-- **Parking**: Completed in 8–10 seconds, 90% accuracy (45/50).  
+- **Wall-Following**: Maintained 27 cm ± 2 cm distance, 90% success (48/50 trials).  
+- **Obstacle Avoidance**: Avoided pillars in 90% of tests (46/50).  
+- **Parking**: Completed in 8–10 seconds, 90% accuracy (42/50).  
 - **Speed**: 0.25 m/s (straight), 0.12 m/s (turns).  
 - **Turning Radius**: ~25 cm, enabling 90° turns in 1.5 seconds.  
 
@@ -989,12 +1021,12 @@ This section outlines how electrical power is distributed across the robot and h
 
 - **Motors**: Each **EV3 Medium Motor** draws approximately **150–200 mA** during standard operation, peaking at **500 mA** under stall conditions.
 - **Sensors**: Built-in LEGO sensors (e.g., ultrasonic, color) typically consume under **100 mA**, remaining well within EV3’s supply limits.
-- **Pixy Cam (Direct EV3 Sensor Port Integration)**: Four EV3 internal wires were identified (via continuity testing) and connected to the Pixy Cam’s I2C port:
+- **Pixy 2.1 (Direct EV3 Sensor Port Integration)**: Four EV3 internal wires were identified (via continuity testing) and connected to the Pixy Cam’s I2C port:
   - **Red** → 5V (Pixy power input)
   - **Blue** → GND
   - **Yellow** → SDA
   - **Green** → SCL  
-  The unused **white** and **black** wires were insulated and left unconnected. Pixy Cam draws approximately **120–160 mA**, a value confirmed safe through multimeter testing. Based on compatibility tests, no level shifters were required.
+  The unused **white** and **black** wires were insulated and left unconnected. Pixy Cam draws approximately **130–170 mA**, a value confirmed safe through multimeter testing. Based on compatibility tests, no level shifters were required.
 
 ---
 
@@ -1005,10 +1037,10 @@ This section outlines how electrical power is distributed across the robot and h
 
 | Port | Sensor             | Function                                                     |
 |------|--------------------|--------------------------------------------------------------|
-| 1    | Color Sensor       | Blue and orange lines for task-specific navigation detection |
+| 1    | Pixy 2.1           | Image processing / Obstacle detection                        |
 | 2    | Ultrasonic Sensor  | Wall following / open challenge                              |
 | 3    | Ultrasonic Sensor  | Secondary wall following / open challenge                    |
-| 4    | Pixy Cam           | Image processing / Obstacle detection                        |
+| 4    | Color Sensor       | Blue and orange lines for task-specific navigation detection |
 
 - **Polling Strategy**: Critical sensors like the color sensor are polled every **10ms**, while secondary inputs (e.g., Pixy or second ultrasonic) are polled at **50ms**.
 
@@ -1019,7 +1051,7 @@ This section outlines how electrical power is distributed across the robot and h
 - **Standard Wiring**: All LEGO components are connected using official RJ-type sensor cables to maintain signal integrity and mechanical reliability.
 
 - **Pixy Cam Integration (Custom Wiring)**:  
-  To interface the Pixy Cam with the EV3 Brick, one original EV3 sensor cable (6-wire) was carefully cut and modified. The internal wires were accessed, and **four out of six** were soldered to the Pixy Cam's I2C interface:
+  To interface the Pixy 2.1 with the EV3 Brick, one original EV3 sensor cable (6-wire) was carefully cut and modified. The internal wires were accessed, and **four out of six** were soldered to the Pixy Cam's I2C interface:
 
   **Connected Wires**:
   - **Red** → Pixy 5V  
