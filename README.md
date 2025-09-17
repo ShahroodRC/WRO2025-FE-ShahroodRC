@@ -901,13 +901,12 @@ Python-based algorithms on **ev3dev** manage:
   target = (fc * 1.3) - (fr * 1.7)        # Weighted combination for steering target  
   ```  
   The square root function (`sqrt(11 * distance)`) provides a non-linear response: steeper corrections for closer distances (e.g., under 30 cm) to avoid collisions, and gentler adjustments for farther distances (e.g., over 50 cm) to prevent overshooting. The coefficients (e.g., -2, +100) were empirically tuned over 20 test runs to scale the output to a usable range (0–100), ensuring smooth convergence to the target wall distance of 27 cm. The weighting (1.3 for left, 1.7 for right) accounts for slight sensor asymmetries due to mounting positions. The target is clamped (±50) and fed to `amotor` for steering, with the propulsion motor at low speed (30%) to allow precise adjustments. This non-linear approach reduced initial alignment time by 25% compared to linear methods, achieving stability in under 2 seconds with 95% success in tests, making it ideal for startup or recovery from large deviations.  
-  <div align="center", style="display: flex; gap: 10px;">
-  <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="60%"> 
-  <p>Non Linear Function</p>
-  <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="60%"> 
-  <p>Non Linear Function</p>
+  <div align="center">
+    <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="45%"> 
+    <p>Non Linear Function</p>
+    <img src="pictures\non_linear_flow_diagram.svg" alt="Non Linear Function" width="45%"> 
+    <p>Non Linear Function</p>
   </div>
-
   #### Linear Control for Sustained Navigation  
   For ongoing wall-following after initial alignment (used in the main loop for both Open and Obstacle Challenges), the robot switches to a simpler proportional (linear) control for efficiency and reduced computational load. The correction is calculated as:  
   ```python  
