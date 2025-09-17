@@ -61,7 +61,7 @@ while g != 60:
     r=rast.distance_centimeters
     c=chap.distance_centimeters
     fr=(-2*(math.sqrt(11*(r))))+100
-    fc=(-2*(math.sqrt(11*(c))))+100
+    fc=ی
     target=(fc*1.3)-(fr*1.7)
     print(target)
     amotor(clamp(target,-50,50))

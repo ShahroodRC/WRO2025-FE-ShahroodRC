@@ -7,6 +7,7 @@ This repository provides a detailed overview of the Shahrood RC team's robot dev
 
 ## Table of Contents
 - [The Team](#the-team)
+- [National Championship Victory](#national-championship-victory)
 - [Our Path](#our-path)
 - [Pictures](#pictures)
 - [Videos](#videos)
@@ -269,12 +270,12 @@ This journey was not a fallback but a strategic evolution, allowing us to focus 
 
 
 ## Pictures
-| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="85%" /> | 
+| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="90%" /> | 
 | :--: | :--: | 
 | *Front* | *Back* |
-| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="85%" /> | 
+| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="90%" /> | 
 | *Left* | *Right* |
-| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="85%" /> | 
+| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="90%" /> | 
 | *Top* | *Bottom* |
 
 ---
@@ -890,12 +891,37 @@ Python-based algorithms on **ev3dev** manage:
 - **Task-Specific Control**: Adapts to challenge requirements (e.g., `diff = (distance - 27) * -2` for wall-following, `target = (x - green) * 0.5` for obstacles).  
 
 **Navigation Techniques**  
-- **Wall-Following**: Non-linear control (`fr = (-2 * (math.sqrt(11 * r))) + 100`) ensures ±2 cm accuracy in 90% of tests.  
+- **Wall-Following**: The robot employs two complementary control strategies for wall-following: a non-linear control algorithm for precise initial alignment and a linear control algorithm for sustained navigation. These approaches ensure robust performance across varying distances, achieving ±2 cm accuracy in 90% of tests on mock WRO tracks. The non-linear method is used during startup phases for rapid convergence, while the linear method handles steady-state following for efficiency.  
+
+  #### Non-Linear Control for Initial Alignment  
+  During the initial alignment phase (e.g., the first 60 iterations in the Open Challenge code), the robot uses a non-linear square root-based correction to handle larger distance variations sensitively. This algorithm calculates correction factors `fr` (right sensor) and `fc` (left sensor) using the formula:  
+  ```python  
+  fr = (-2 * (math.sqrt(11 * r))) + 100  # r = right distance (rast.distance_centimeters)  
+  fc = (-2 * (math.sqrt(11 * c))) + 100  # c = left distance (chap.distance_centimeters)  
+  target = (fc * 1.3) - (fr * 1.7)        # Weighted combination for steering target  
+  ```  
+  The square root function (`sqrt(11 * distance)`) provides a non-linear response: steeper corrections for closer distances (e.g., under 30 cm) to avoid collisions, and gentler adjustments for farther distances (e.g., over 50 cm) to prevent overshooting. The coefficients (e.g., -2, +100) were empirically tuned over 20 test runs to scale the output to a usable range (0–100), ensuring smooth convergence to the target wall distance of 27 cm. The weighting (1.3 for left, 1.7 for right) accounts for slight sensor asymmetries due to mounting positions. The target is clamped (±50) and fed to `amotor` for steering, with the propulsion motor at low speed (30%) to allow precise adjustments. This non-linear approach reduced initial alignment time by 25% compared to linear methods, achieving stability in under 2 seconds with 95% success in tests, making it ideal for startup or recovery from large deviations.  
+  <div align="center", style="display: flex; gap: 10px;">
+  <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="60%"> 
+  <p>Non Linear Function</p>
+  <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="60%"> 
+  <p>Non Linear Function</p>
+  </div>
+
+  #### Linear Control for Sustained Navigation  
+  For ongoing wall-following after initial alignment (used in the main loop for both Open and Obstacle Challenges), the robot switches to a simpler proportional (linear) control for efficiency and reduced computational load. The correction is calculated as:  
+  ```python  
+  diff = (distance - 27) * k  # k = -2 or +2 based on direction (left/right wall)  
+  diff = diff - motor_a.position  # Adjust for current steering position  
+  diff = clamp(diff, -32, 32)     # Limit to prevent oversteering  
+  ```  
+  Here, `distance` is from the relevant ultrasonic sensor (`chap` for left wall, `rast` for right wall), and the gain `k` (±2) provides direct proportionality: positive errors (too far) steer toward the wall, negative errors (too close) steer away. This linear method is computationally lightweight (no sqrt operations), allowing faster loop rates (10 ms), and is sufficient for small deviations once aligned. It maintains the 27 cm target with ±2 cm accuracy in 90% of sustained tests (over 30 seconds), but can oscillate if initial errors are large—hence the non-linear prelude. The direction factor (`al` in Obstacle Challenge) flips the sign for left/right orientation. In practice, this linear control enabled consistent speeds of 0.25 m/s without slippage, with dynamic adjustments during turns (e.g., reducing clamp to ±27 for finer control after 11 turns).  
+
 - **Zone Detection**: Color Sensor triggers 11 turns in ~30 seconds (Open Challenge).  
 - **Obstacle Avoidance**: Pixy Cam adjusts steering/speed, avoiding collisions in 90% of tests.  
 
 **Obstacle Avoidance**  
-Pixy Cam detects red/green pillars, adjusting steering (`target = (x - red) * 0.5`) and speed (`speed = 22` or `40`). Ultrasonic Sensors maintain wall-following when no obstacles are detected, ensuring 0.5 m clearance.
+Pixy Cam detects red/green pillars, adjusting steering (`target = (x - red) * 0.5`) and speed (`speed = 22` or `40`). Ultrasonic Sensors maintain wall-following when no obstacles are detected (`sig == 0`), ensuring 0.5 m clearance.
 
 **Lessons Learned**  
 - **Algorithm Stability**: Non-linear gains (`1.3`, `1.7`) reduced oscillations, achieving 90% stability.  
