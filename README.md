@@ -907,6 +907,7 @@ Python-based algorithms on **ev3dev** manage:
     <img src="pictures\non_linear_flow_diagram.svg" alt="Non Linear Function" width="90%"> 
     <p>Non Linear Function</p>
   </div>
+  
   #### Linear Control for Sustained Navigation  
   For ongoing wall-following after initial alignment (used in the main loop for both Open and Obstacle Challenges), the robot switches to a simpler proportional (linear) control for efficiency and reduced computational load. The correction is calculated as:  
   ```python  
