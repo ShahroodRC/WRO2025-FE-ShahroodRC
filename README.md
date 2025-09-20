@@ -1,11 +1,22 @@
 # Shahrood RC
 
-This repository provides a detailed overview of the Shahrood RC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.
+<table>
+  <tr>
+    <td width="50%" style="text-align: left; vertical-align: top;">
+      <p>This repository provides a detailed overview of the Shahrood RC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
+    </td>
+    <td width="50%" style="text-align: left;">
+      <img src="pictures\shahrood_rc_logo.jpg" alt="LEGO EV3 Control Brick" width="100%">
+    </td>
+
+  </tr>
+</table>
 
 ---
 
 
 ## Table of Contents
+
 - [The Team](#the-team)
 - [National Championship Victory](#national-championship-victory)
 - [Our Path](#our-path)
@@ -43,7 +54,7 @@ This repository provides a detailed overview of the Shahrood RC team's robot dev
   - [Optimization Techniques](#6-optimization-techniques)
   - [Conclusion](#7-conclusion)
 - [Obstacle Management (Obstacle Avoidance and Parking Management)](#obstacle-management-obstacle-avoidance-and-parking-management)
-  - [Open Challenge (Qualification Round)](#open-challenge-qualification-round)
+  - [Qualification Round (Open Challenge)](#qualification-round-open-challenge)
   - [Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
   - [Notes](#notes-1)
 - [Repository Structure](#repository-structure)
@@ -907,7 +918,7 @@ Python-based algorithms on **ev3dev** manage:
     <img src="pictures\non_linear_flow_diagram.svg" alt="Non Linear Function" width="90%"> 
     <p>Non Linear Function</p>
   </div>
-  
+
   #### Linear Control for Sustained Navigation  
   For ongoing wall-following after initial alignment (used in the main loop for both Open and Obstacle Challenges), the robot switches to a simpler proportional (linear) control for efficiency and reduced computational load. The correction is calculated as:  
   ```python  
@@ -1140,7 +1151,7 @@ The Obstacle Challenge strategy is built upon the logic of the Open Challenge, e
 
 ---
 
-### Open Challenge (Qualification Round)
+### Qualification Round (Open Challenge)
 
 [Full Open Challenge Code](/codes/open-challenge-code.py)
 
