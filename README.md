@@ -293,7 +293,7 @@ This journey was not a fallback but a strategic evolution, allowing us to focus 
 
 
 ## Videos
-You can see [Obstacle Challenge](https://youtu.be/7Ioj10wPPrw) and [Open Challenge](https://youtu.be/PhpbAQ0mky4) videos on Youtube. You can see them also here in [videos](videos/) folder.
+You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/PhpbAQ0mky4) videos on Youtube. You can see them also here in [videos](videos/) folder.
 
 ---
 
