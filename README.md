@@ -1,9 +1,9 @@
-# Shahrood RC
+# ShahroodRC
 
 <table>
   <tr>
     <td width="50%" style="text-align: left; vertical-align: top;">
-      <p>This repository provides a detailed overview of the Shahrood RC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
+      <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
     </td>
     <td width="50%" style="text-align: left;">
       <img src="pictures\shahrood_rc_logo.jpg" alt="LEGO EV3 Control Brick" width="100%">
@@ -65,7 +65,7 @@
 
 ## The Team
 
-We are the Shahrood RC team, a group of students passionate about robotics, electronics, and programming, working toward the WRO 2025 competition in the Future Engineers category.
+We are the ShahroodRC team, a group of students passionate about robotics, electronics, and programming, working toward the WRO 2025 competition in the Future Engineers category.
 
 ### 👨‍💼 Sepehr Yavarzadeh
 - **Role**: Project Manager and Software Engineer.
@@ -142,10 +142,10 @@ We are the Shahrood RC team, a group of students passionate about robotics, elec
 
 ---
 
-### Shahrood RC Team
+### ShahroodRC Team
 <div align="center">
-<img src="team-photos/team.jpg" alt="Shahrood RC" width="60%"> 
-<p>The Shahrood RC Team</p>
+<img src="team-photos/team.jpg" alt="ShahroodRC" width="60%"> 
+<p>The ShahroodRC Team</p>
 </div> 
 
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
@@ -156,7 +156,7 @@ We are the Shahrood RC team, a group of students passionate about robotics, elec
 ## National Championship Victory
 
 ### Overview
-The Shahrood RC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this triumph highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
+The ShahroodRC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this triumph highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
 
 ### Competition Highlights
 - **Event**: Iran National Robotics Competition (WRO 2025 Qualifier)
@@ -168,11 +168,11 @@ The Shahrood RC team achieved a remarkable victory by securing **first place** i
 ### Visuals
 <div align="center">
 <img src="team-photos\Shahrood_RC_first_place.jpg" alt="ShahroodRC Team championship" width="60%">
-<p>Shahrood RC’s championship victory at the National WRO Competition</p>
+<p>ShahroodRC’s championship victory at the National WRO Competition</p>
 <img src="team-photos\Shahrood_RC_with_medals.jpg" alt="ShahroodRC Team with Award" width="60%">
-<p>Shahrood RC Team celebrating their 1st Place victory</p>
+<p>ShahroodRC Team celebrating their 1st Place victory</p>
 <img src="team-photos\Shahrood_RC_in_national_competition.jpg" alt="ShahroodRC Team in national competition" width="60%">
-<p>Shahrood RC Team in National Final</p>
+<p>ShahroodRC Team in National Final</p>
 </div>
 <div align="center">
 <img src="competition-photos/national-championship-robot.jpg" alt="Robot in Action" width="60%">
@@ -189,7 +189,7 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 ### Robot Development Process
 
-The Shahrood RC team embarked on a rigorous development process to identify the most efficient and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed account of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
+The ShahroodRC team embarked on a rigorous development process to identify the most efficient and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed account of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
 
 ---
 
@@ -300,7 +300,7 @@ You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challen
 
 ## Robot Components Overview
 
-This section provides a detailed overview of the key hardware components used in the Shahrood RC robot for the WRO 2025 Future Engineers category. Each component was carefully selected to ensure compatibility, reliability, and optimal performance for tasks like line following, obstacle avoidance, and precise parking. The components are seamlessly integrated with the LEGO EV3 platform, leveraging our team’s prior experience to streamline development and focus on competition performance.
+This section provides a detailed overview of the key hardware components used in the ShahroodRC robot for the WRO 2025 Future Engineers category. Each component was carefully selected to ensure compatibility, reliability, and optimal performance for tasks like line following, obstacle avoidance, and precise parking. The components are seamlessly integrated with the LEGO EV3 platform, leveraging our team’s prior experience to streamline development and focus on competition performance.
 
 ---
 
@@ -331,7 +331,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Type**: Main Controller Unit
 - **Feature**: Central hub for processing, motor control, and sensor integration
 - **Use**: Manages all robot operations, including logic processing, sensor data handling, motor control, and communication
-- **Description**: The LEGO EV3 Mindstorms Control Brick is the heart of the Shahrood RC robot, powered by a 300 MHz ARM9 processor and running the ev3dev operating system for flexible Python-based programming. It processes sensor data (e.g., Pixy Cam I2C inputs at 50 ms intervals, Color Sensor at 1 kHz) and controls two Medium Motors for propulsion and steering, ensuring real-time responsiveness for WRO 2025 challenges like wall-following and obstacle avoidance. Mounted centrally on the chassis, it connects to all components via four motor and sensor ports, eliminating external drivers. The team’s familiarity with EV3 from prior WRO competitions enabled rapid setup, while Bluetooth and USB connectivity facilitated debugging and code deployment. The built-in LCD display provided real-time diagnostics (e.g., battery voltage, sensor status).
+- **Description**: The LEGO EV3 Mindstorms Control Brick is the heart of the ShahroodRC robot, powered by a 300 MHz ARM9 processor and running the ev3dev operating system for flexible Python-based programming. It processes sensor data (e.g., Pixy Cam I2C inputs at 50 ms intervals, Color Sensor at 1 kHz) and controls two Medium Motors for propulsion and steering, ensuring real-time responsiveness for WRO 2025 challenges like wall-following and obstacle avoidance. Mounted centrally on the chassis, it connects to all components via four motor and sensor ports, eliminating external drivers. The team’s familiarity with EV3 from prior WRO competitions enabled rapid setup, while Bluetooth and USB connectivity facilitated debugging and code deployment. The built-in LCD display provided real-time diagnostics (e.g., battery voltage, sensor status).
 - **Lessons Learned**: The EV3’s robust port system and ev3dev’s Python support reduced development time compared to Arduino or Raspberry Pi setups. In future iterations, we could add a co-processor for enhanced vision processing while retaining EV3’s reliability.
 - **Implementation Impact**: The EV3’s stable power distribution and fast sensor polling (10 ms for Color Sensor, 50 ms for Pixy Cam) enabled precise navigation, such as maintaining a 27 cm wall distance in the Open Challenge and executing the parking sequence in under 10 seconds.
 
@@ -443,7 +443,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Feature**: Provides propulsion (rear wheels) and steering (front wheels)
 - **Interface**: LEGO EV3 Motor Port (OUTPUT_B for drive, OUTPUT_A for steering)
 - **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation
-- **Description**: Two EV3 Medium Motors power the Shahrood RC robot. The propulsion motor (OUTPUT_B, `motor_b`) drives the rear wheels through a differential, delivering 20 N·cm nominal torque (effective ~15 N·cm under the robot’s 1.2 kg load) at 160 rpm for smooth linear motion. The steering motor (OUTPUT_A, `motor_a`) adjusts the front wheels’ angle via a rack-and-pinion system, enabling precise turns with a PID-like control (`amotor`). Mounted on the chassis (included in `3d-files/robot_complete.io`), the motors were chosen over Large Motors for their lighter weight and sufficient power for WRO tasks. A 1:1.5 gear ratio for propulsion enhanced torque for parking maneuvers, reducing motor strain.
+- **Description**: Two EV3 Medium Motors power the ShahroodRC robot. The propulsion motor (OUTPUT_B, `motor_b`) drives the rear wheels through a differential, delivering 20 N·cm nominal torque (effective ~15 N·cm under the robot’s 1.2 kg load) at 160 rpm for smooth linear motion. The steering motor (OUTPUT_A, `motor_a`) adjusts the front wheels’ angle via a rack-and-pinion system, enabling precise turns with a PID-like control (`amotor`). Mounted on the chassis (included in `3d-files/robot_complete.io`), the motors were chosen over Large Motors for their lighter weight and sufficient power for WRO tasks. A 1:1.5 gear ratio for propulsion enhanced torque for parking maneuvers, reducing motor strain.
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
 
@@ -781,7 +781,7 @@ This integrated approach ensures that all sensors and actuators work together ha
 
 ## Mobility Management
 
-The Shahrood RC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by two **EV3 Medium Motors**, enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
+The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by two **EV3 Medium Motors**, enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
 
 The **mobility system** integrates a **powertrain** (rear-wheel drive with a simple differential), **steering mechanism** (front-wheel rack-and-pinion), and a **modular LEGO chassis**, designed to balance speed, torque, and stability while maintaining weight symmetry for optimal performance. This section provides comprehensive details on the system’s design, implementation, testing, and lessons learned, enabling another team to replicate the system and offering insights for further optimization.
 
@@ -794,7 +794,7 @@ The complete chassis design, detailed in `3d-files/robot_complete.io`, is visual
 <img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">  
 
 **Overview**  
-The Shahrood RC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by two **EV3 Medium Motors** (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is detailed in `3d-files/robot_complete.io`.
+The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by two **EV3 Medium Motors** (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is detailed in `3d-files/robot_complete.io`.
 
 **Types of Movement**  
 - **Linear Motion**: The rear wheels, driven by a single EV3 Medium Motor (`motor_b`) through a direct-coupled differential, provide forward and backward movement at adjustable speeds (20–80%, 0.1–0.25 m/s).  
@@ -1008,7 +1008,7 @@ Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/
 ### 8. Conclusion
 
 **Summary**  
-The Shahrood RC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by two **EV3 Medium Motors**, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
+The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by two **EV3 Medium Motors**, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
 
 **Lessons Learned**  
 - **Weight Symmetry**: Critical for 100% stability in turns.  
@@ -1132,7 +1132,7 @@ This section outlines how electrical power is distributed across the robot and h
 
 ### 7. **Conclusion**
 
-The Shahrood RC robot’s power and sensor systems demonstrate reliable hardware integration, clean custom wiring, and adaptive software routines. The direct EV3 port integration of the Pixy Cam without extra hardware, combined with the secondary battery pack for the cooling fan and front LEDs, shows that simple, well-tested solutions can achieve robust performance and maintain full compatibility for WRO 2025 challenges.
+The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware integration, clean custom wiring, and adaptive software routines. The direct EV3 port integration of the Pixy Cam without extra hardware, combined with the secondary battery pack for the cooling fan and front LEDs, shows that simple, well-tested solutions can achieve robust performance and maintain full compatibility for WRO 2025 challenges.
 
 ---
 
