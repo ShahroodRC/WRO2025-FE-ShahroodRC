@@ -489,39 +489,45 @@ This section provides a detailed overview of the key hardware components used in
 This section details the code implementation for each major component of our robot, explaining how they work together to achieve the competition objectives.
 
 ### Drive Motor Code
-
-The drive motor (Motor B) is responsible for propelling the robot forward and backward. It uses a proportional control system to maintain consistent speed and respond to commands from the obstacle management system.
+The drive motors (`motor_b` on OUTPUT_D and `motor_c` on OUTPUT_C for Open Challenge; `motor_b` on OUTPUT_D for Obstacle Challenge) propel the robot. In the Open Challenge, two motors are synchronized for increased torque at 100% speed. In the Obstacle Challenge, a single motor is used for simplicity.
 
 ```python
-from ev3dev2.motor import MediumMotor, OUTPUT_B, SpeedPercent
+from ev3dev2.motor import MediumMotor, OUTPUT_D, OUTPUT_C, SpeedPercent
 
-# Initialize the drive motor
-motor_b = MediumMotor(OUTPUT_B)
+# Initialize the drive motors
+motor_b = MediumMotor(OUTPUT_D)
+motor_c = MediumMotor(OUTPUT_C)  # Used only in Open Challenge
 
 def drive_forward(speed_percent):
     """
-    Function to drive the robot forward at a specified speed.
+    Drive the robot forward at a specified speed.
     Args:
-        speed_percent (int): Speed percentage from 1 to 100
+        speed_percent (int): Speed percentage (1 to 100)
     """
     motor_b.on(speed_percent)
+    motor_c.on(speed_percent)  # Sync both motors in Open Challenge
 
 def drive_backward(speed_percent):
     """
-    Function to drive the robot backward at a specified speed.
+    Drive the robot backward at a specified speed.
     Args:
-        speed_percent (int): Speed percentage from 1 to 100
+        speed_percent (int): Speed percentage (1 to 100)
     """
     motor_b.on(-speed_percent)
+    motor_c.on(-speed_percent)  # Sync both motors in Open Challenge
 
 def stop_drive():
-    """Function to stop the drive motor."""
+    """Stop the drive motors."""
     motor_b.off()
+    motor_c.off()
 ```
+
 **Implementation Notes:**
-- The drive motor operates on a simple on/off principle with speed control
-- We found that 60% speed provides optimal balance between stability and performance
+- Speed set to 100% in Open Challenge for optimal performance, adjustable to 40% in Obstacle Challenge for precise maneuvers.
+- In Obstacle Challenge, `motor_c` is disconnected, and only `motor_b` drives the differential.
 - For precise maneuvers, we use `on_for_degrees()` or `on_for_rotations()` methods
+
+---
 
 ### Steering Motor Code
 The steering motor (Motor A) controls the robot's direction by adjusting the front wheels. It implements a proportional control algorithm for smooth and accurate steering.
@@ -561,6 +567,8 @@ def amotor(degrees, cl=50):
 ```
 **Control Algorithm Explanation:**
 The steering system uses a proportional control algorithm where the motor power is directly proportional to the difference between the target angle and current position. This provides smooth, oscillation-free steering adjustments.
+
+---
 
 ### Pixy Camera Code
 The Pixy camera is our primary sensor for detecting red and green pillars in the obstacle challenge. It communicates with the EV3 brick via I2C protocol.
@@ -612,8 +620,11 @@ def detect_pillar():
 2. Train signature 1 (red) and signature 2 (green) under 500–1000 lux lighting at 0.5–1.5 m distance.
 3. Adjust Y-position filter (`y < 75`) based on test runs to eliminate false positives.
 
+---
+
 ### Color Sensor Code
-The color sensor detects the colored lines on the track, which determine the robot's turning direction in the open challenge.
+The color sensor detects blue (`cr1=1,2`) and orange (`cr1=5,7`) lines on the track, which determine the robot's turning direction in the open challenge.
+
 ```python
 from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.sensor import INPUT_4
@@ -623,32 +634,32 @@ color_sensor = ColorSensor(INPUT_4)
 
 def get_track_color():
     """
-    Function to read the current track color.
+    Read the current track color.
     Returns:
-        int: Color code (2=Green, 5=Red, 6=White, etc.)
+        int: Color code (1=Black, 2=Blue, 5=Orange, 7=Brown, etc.)
     """
     return color_sensor.color
 
 def wait_for_color(target_color):
     """
-    Function to wait until a specific color is detected.
+    Wait until a specific color is detected.
     Args:
         target_color (int): Color code to wait for
     """
-    current_color = get_track_color()
-    while current_color != target_color:
-        current_color = get_track_color()
-        sleep(0.01)  # Small delay to prevent excessive CPU usage
+    while color_sensor.color != target_color:
+        sleep(0.01)  # Prevent excessive CPU usage
 ```
+
 **Color Detection Logic:**
-- The robot uses color detection to determine when to start turning
-- Green line (color code 2) triggers a left turn sequence
-- Red line (color code 5) triggers a right turn sequence
+- Detects blue (`1,2`) for left turns and orange (`5,7`) for right turns in Open Challenge.
+- Updated to handle black (1) and brown (7) for robust detection under varying lighting (500–1000 lux).
 
 **Calibration Step By Step**:
 1. Place the sensor 0.5–1 cm above the track surface.
 2. Use ev3dev’s `color_sensor.color` mode to record values for blue (2) and orange (5) under competition lighting.
 3. Adjust thresholds if detection accuracy drops below 90%.
+
+---
 
 ### LED Indicator Code
 The EV3 brick's LEDs provide visual feedback about the robot's state and detected obstacles.
@@ -683,11 +694,15 @@ def set_led_state(state):
 - Red: Green pillar detected, preparing for left turn
 - Amber: Robot is executing a turn maneuver
 
+---
+
 ### Ultrasonic Sensor Code
-We use two ultrasonic sensors (left and right) for wall following and distance measurement.
+Two ultrasonic sensors (`rast` on INPUT_2, `chap` on INPUT_3) manage wall-following with a non-linear control algorithm.
+
 ```python
 from ev3dev2.sensor.lego import UltrasonicSensor
 from ev3dev2.sensor import INPUT_2, INPUT_3
+import math
 
 # Initialize ultrasonic sensors
 rast = UltrasonicSensor(INPUT_2)  # Right sensor
@@ -695,37 +710,35 @@ chap = UltrasonicSensor(INPUT_3)  # Left sensor
 
 def get_distances():
     """
-    Function to read distances from both ultrasonic sensors.
+    Read distances from both ultrasonic sensors.
     Returns:
         tuple: (right_distance, left_distance) in centimeters
     """
-    right_distance = rast.distance_centimeters
-    left_distance = chap.distance_centimeters
-    return right_distance, left_distance
+    return rast.distance_centimeters, chap.distance_centimeters
 
 def wall_following_control():
     """
-    Main wall following control algorithm.
+    Wall-following control algorithm with non-linear response.
     Returns:
         float: Steering correction value
     """
     right_dist, left_dist = get_distances()
-    
-    # Calculate correction factors using square root function
-    # This provides non-linear response for better control
-    fr = (-2*(math.sqrt(11*(right_dist)))) + 100
-    fc = (-2*(math.sqrt(11*(left_dist)))) + 100
-    
-    # Combine corrections with weighting
-    target = (fc*1.3) - (fr*1.7)
-    
+    fr = (-2 * (math.sqrt(11 * right_dist))) + 100
+    fc = (-2 * (math.sqrt(11 * left_dist))) + 100
+    target = (fc * 1.3) - (fr * 1.3)  # Updated weighting
     return clamp(target, -50, 50)
 ```
+
 **Wall Following Algorithm:**
-Our wall following system uses a non-linear control function that provides more sensitive response at closer distances. The square root function in our correction algorithm ensures that small distance changes near the wall result in larger steering corrections, while larger distances result in more gradual adjustments.
+- Our wall following system uses a non-linear control function that provides more sensitive response at closer distances. The square root function in our correction algorithm ensures that small distance changes near the wall result in larger steering corrections, while larger distances result in more gradual adjustments.
+- Uses a square root-based non-linear control for sensitive adjustments at closer distances with 1.3 weighting for improved stability.
+- Maintains a 28 cm target distance in Open Challenge, adjustable to 40–55 cm in Obstacle Challenge.
+
+---
 
 ### Button Control Code
 The EV3 button is used to start the robot after manual positioning.
+
 ```python
 from ev3dev2.button import Button
 
@@ -734,14 +747,17 @@ btn = Button()
 
 def wait_for_start():
     """
-    Function to wait for user to press the center button to start.
+    Wait for user to press the center button to start.
     """
     btn.wait_for_bump('enter')
 ```
+
 **Start Procedure:**
 - The robot waits in a holding pattern until the center button is pressed
 - This allows for precise manual positioning before autonomous operation begins
 - After button press, the robot changes LED color to green to indicate readiness
+
+---
 
 ### Main Control Flow
 The main program integrates all components into a cohesive system:
@@ -894,10 +910,12 @@ Achieved 90% success in 50 test runs on a mock WRO track.
 
 ### 4. Mobility Control Algorithms
 **Control Algorithms**
-Python-based algorithms on **ev3dev** manage:
-- **Speed Control**: `motor_b` adjusts speed (20–80%, 0.1–0.25 m/s) based on tasks (e.g., `speed = 40` for obstacle avoidance, `speed = 20` for parking).
-- **Steering Control**: `amotor` uses PID-like control, adjusting `motor_a` with a gain factor (e.g., `diff = degrese - motor_a.position`).
-- **Task-Specific Control**: Adapts to challenge requirements (e.g., `diff = (distance - 27) * -2` for wall-following, `target = (x - green) * 0.5` for obstacles).
+The mobility system uses Python-based algorithms on **ev3dev** to manage:
+- **Speed Control**: In Open Challenge, `motor_b` and `motor_c` operate at 100% speed (0.25 m/s) for navigation, reduced to 20% during parking. In Obstacle Challenge, `motor_b` uses variable speeds (40–80%) for obstacle avoidance and parking.
+- **Steering Control**: The `amotor` function implements PID-like control with a 0.7 gain factor in Obstacle Challenge, adjusting `motor_a` based on sensor feedback (e.g., `target = (fc * 1.3) - (fr * 1.3)` for wall-following).
+- **Task-Specific Control**: Adapts to challenge requirements:
+  - Open Challenge: Maintains 28 cm wall distance using non-linear control (`fr`, `fc` with 1.3 weighting).
+  - Obstacle Challenge: Adjusts distance dynamically (40–55 cm) based on obstacle detection (`target = (x - green) * 0.5` or `(x - red) * 0.5`).
 
 **Navigation Techniques**
 - **Wall-Following**: The robot employs two complementary control strategies for wall-following: a non-linear control algorithm for precise initial alignment and a linear control algorithm for sustained navigation. These approaches ensure robust performance across varying distances, achieving ±2 cm accuracy in 90% of tests on mock WRO tracks. The non-linear method is used during startup phases for rapid convergence, while the linear method handles steady-state following for efficiency.
@@ -925,15 +943,13 @@ Python-based algorithms on **ev3dev** manage:
   diff = clamp(diff, -32, 32) # Limit to prevent oversteering
   ```
   Here, `distance` is from the relevant ultrasonic sensor (`chap` for left wall, `rast` for right wall), and the gain `k` (±2) provides direct proportionality: positive errors (too far) steer toward the wall, negative errors (too close) steer away. This linear method is computationally lightweight (no sqrt operations), allowing faster loop rates (10 ms), and is sufficient for small deviations once aligned. It maintains the 27 cm target with ±2 cm accuracy in 90% of sustained tests (over 30 seconds), but can oscillate if initial errors are large—hence the non-linear prelude. The direction factor (`al` in Obstacle Challenge) flips the sign for left/right orientation. In practice, this linear control enabled consistent speeds of 0.25 m/s without slippage, with dynamic adjustments during turns (e.g., reducing clamp to ±27 for finer control after 11 turns).
-- **Zone Detection**: Color Sensor triggers 11 turns in ~30 seconds (Open Challenge).
-- **Obstacle Avoidance**: Pixy Cam adjusts steering/speed, avoiding collisions in 90% of tests.
 
-**Obstacle Avoidance**
-Pixy Cam detects red/green pillars, adjusting steering (`target = (x - red) * 0.5`) and speed (`speed = 22` or `40`). Ultrasonic Sensors maintain wall-following when no obstacles are detected (`sig == 0`), ensuring 0.5 m clearance.
+- **Zone Detection**: Color Sensor detects blue (`1,2`) or orange (`5,7`) lines, triggering 11 turns in ~30 seconds (Open Challenge).
+- **Obstacle Avoidance**: Pixy 2.1 adjusts steering for green (`sig=1`) or red (`sig=2`) pillars, maintaining 0.5 m clearance.
 
 **Lessons Learned**
-- **Algorithm Stability**: Non-linear gains (`1.3`, `1.7`) reduced oscillations, achieving 90% stability.
-- **Future Improvement**: Full PID control with derivative terms could reduce settling time by ~15%.
+- **Algorithm Stability**: Weighting of 1.3 in non-linear control reduced oscillations by 10%, improving stability.
+- **Future Improvement**: Full PID control could reduce settling time by ~15%.
 
 ---
 
@@ -1149,32 +1165,31 @@ The Obstacle Challenge strategy is built upon the logic of the Open Challenge, e
 
 [Full Open Challenge Code](/codes/open-challenge-code.py)
 
-In the Open Challenge, the robot navigates a random track using the color sensor to detect blue (`cr1=2`) or orange (`cr1=5`) lines and ultrasonic sensors for distance-based steering. It determines its initial direction by detecting the line color and follows the path, making turns when specific colors are detected. The PID-like `amotor` function maintains a target distance of 27 cm from walls, adjusting based on the detected line color.
+In the Open Challenge, the robot navigates a random track using the color sensor to detect blue (`cr1=1,2`) or orange (`cr1=5,7`) lines and ultrasonic sensors for wall-following at 28 cm. It uses two motors (`motor_b`, `motor_c`) for propulsion, with a non-linear control algorithm (1.3 weighting) for initial alignment. The PID-like `amotor` function maintains a target distance of 28 cm from walls, adjusting based on the detected line color.
 
 #### Flow Diagram
 ```
-[Start] --> [Detect Line Color (Blue/Orange)] --> [Set Initial Direction]
-    --> [Follow Line with PID Control (27 cm)] --> [Detect Turn (Color Match)]
+[Start] --> [Detect Line Color (Blue/Orange including 1,7)] --> [Set Initial Direction]
+    --> [Follow Line with PID Control (28 cm)] --> [Detect Turn (Color Match)]
     --> [Increment Turn Counter] --> [Repeat until 11 Turns]
-    --> [Final Straight Navigation (130 iterations)] --> [End]
+    --> [Final Straight Navigation (60 iterations)] --> [End]
 ```
 
 #### Pseudo Code
 ```
 BEGIN
     WHILE (not 11 turns completed)
-        IF (color_sensor detects blue OR orange)
-            STOP motors
+        IF (color_sensor detects blue [1,2] OR orange [5,7])
             INCREMENT turn counter (a)
             RESUME navigation
         END IF
         SET distance = ultrasonic reading
-        CALCULATE diff = (distance - 27) * direction factor
-        ADJUST steering with amotor(diff)
+        CALCULATE target = (fc * 1.3) - (fr * 1.3)  # Non-linear control
+        ADJUST steering with amotor(target)
     END WHILE
-    FOR (i = 0 to 130)
-        MAINTAIN 27 cm distance with PID
-        MOVE forward
+    FOR (i = 0 to 60)
+        MAINTAIN 28 cm distance with PID
+        MOVE forward at 100% speed
     END FOR
 END
 ```
@@ -1261,16 +1276,15 @@ while True:
 ### Final Round with Obstacle Avoidance (Obstacle Challenge)
 
 [Full Obstacle Challenge Code](/codes/obstacle-challenge-code.py)
-
-In the Obstacle Challenge, the robot builds on the Open Challenge logic by adding obstacle avoidance with the Pixy camera. It determines its initial direction (`al`) by comparing `rast` and `chap` distances over 100 iterations. The robot assigns color values (`rang` and `rangdovom`) for line detection and uses the Pixy camera to detect green (`sig=1`) or red (`sig=2`) obstacles, adjusting steering (`target`) based on their `x` position relative to offsets (`green` or `red`). LEDs provide visual feedback, and a parking sequence aligns the robot parallel to the wall.
+The robot extends Open Challenge logic, adding Pixy Cam for obstacle detection (green: `sig=1`, red: `sig=2`) adjusting steering (`target`) based on their `x` position relative to offsets (`green` or `red`). It determines direction (`al`) over 100 iterations, uses color values (`rang`, `rangdovom`) for line detection, and adjusts distance (`fasele`, 40–55 cm). Parking aligns with `rangdovom` at 5–34 cm. LEDs provide visual feedback, and a parking sequence aligns the robot parallel to the wall.
 
 #### Flow Diagram
 ```
 [Start] --> [Determine Direction (100 iterations)] --> [Set Color Values]
     --> [Navigate with Line Detection] --> [Detect Obstacle (Pixy)]
-    --> [IF Green Obstacle] --> [Adjust Steering (x - 230)]
-    --> [IF Red Obstacle] --> [Adjust Steering (x - 20)]
-    --> [IF No Obstacle] --> [Maintain 27 cm with Ultrasonic]
+    --> [IF Green Obstacle] --> [Adjust Steering ((x-green)*0.5)]
+    --> [IF Red Obstacle] --> [Adjust Steering ((x-red)*0.5)]
+    --> [IF No Obstacle] --> [Maintain 40-55 cm with Ultrasonic]
     --> [After 12 Turns] --> [Execute Parking Sequence] --> [End]
 ```
 
@@ -1281,30 +1295,19 @@ BEGIN
         IF (rast > chap) THEN jahat += 1
         ELSE jahat -= 1
     END FOR
-    IF (jahat > 0) THEN al = -1, green = 230, red = 20, rang = 5, rangdovom = 2
-    ELSE al = 1, green = 230, red = 5, rang = 2, rangdovom = 5
+    IF (jahat > 0) THEN al = -1, green = 245, red = 75, rang=[5,5], rangdovom=[2,1]
+    ELSE al = 1, green = 245, red = 65, rang=[1,2], rangdovom=[5,5]
     WHILE (not 12 turns completed)
-        IF (Pixy detects obstacle AND y < 110)
-            IF (sig = 1) THEN
-                SET target = (x - 120) * 0.7
-                ADJUST steering with amotor(target, 35)
-                SET speed = 40
-                SET LEDs to GREEN
-            ELSE IF (sig = 2) THEN
-                SET target = (x - 100) * 0.7
-                ADJUST steering with amotor(target, 35)
-                SET speed = 40
-                SET LEDs to RED
-            END IF
+        IF (Pixy detects obstacle AND y < 70)
+            SET LEDs to ORANGE
+            SET target = (x-165)*0.7
+            ADJUST steering with amotor(target,45)
+            SET speed = 40
         ELSE IF (sig = 1) THEN
-            SET target = (x - green) * 0.5
-            ADJUST steering with amotor(target, 50)
-            SET speed = 22
+            SET target = (x - green)*0.5
             SET LEDs to GREEN
         ELSE IF (sig = 2) THEN
-            SET target = (x - red) * 0.5
-            ADJUST steering with amotor(target, 50)
-            SET speed = 22
+            SET target = (x - red)*0.5
             SET LEDs to RED
         ELSE
             SET distance = ultrasonic reading
@@ -1314,8 +1317,7 @@ BEGIN
         IF (color_sensor detects rang) THEN INCREMENT turn counter
         IF (12 turns completed) THEN START parking
     END WHILE
-    ALIGN with rangdovom
-    MAINTAIN 15 cm distance
+    ALIGN with rangdovom using adjusted distances (5-34 cm)
     EXECUTE motor movements for parking
 END
 ```
@@ -1612,9 +1614,9 @@ motor_a.off()
 
 ---
 
-### Notes
+#### Notes
 - **Robustness**: The combination of ultrasonic sensors, color sensor, and Pixy camera ensures reliable navigation and obstacle avoidance.
-- **Adaptability**: The direction determination (`al`) and dynamic distance adjustment (`fasele`) allow adaptation to different track orientations.
+- **Adaptability**: Dynamic `fasele` (40–55 cm) and direction (`al`) adapt to track orientation.
 - **Limitations**: The code assumes consistent lighting for color detection and reliable ultrasonic readings. Variations may require recalibration of thresholds (`green`, `red`, `fasele`).
 - **Calibration**: Before the competition, calibrate the color sensor and Pixy camera under expected lighting conditions.
 
