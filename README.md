@@ -1196,79 +1196,134 @@ END
 
 #### Code with Comments
 ```python
-cr1 = color_sensor.color  # Read initial line color
-while cr1 != 2 and cr1 != 5:  # Wait for blue (2) or orange (5) detection
-    cr1 = color_sensor.color
-    motor_b.on(60)  # Move forward at 60% speed
-g = 0
-while g != 60:  # Initial alignment loop
-    motor_b.on(30)  # Slow speed for alignment
-    r = rast.distance_centimeters  # Right ultrasonic reading
-    c = chap.distance_centimeters  # Left ultrasonic reading
-    fr = (-2 * (math.sqrt(11 * r))) + 100  # Right distance factor
-    fc = (-2 * (math.sqrt(11 * c))) + 100  # Left distance factor
-    target = (fc * 1.3) - (fr * 1.7)  # Calculate steering target
-    amotor(clamp(target, -50, 50))  # Apply steering with limit
-    g += 1
+#!/usr/bin/env python3
+# Import required libraries for sensor and motor control
+from ev3dev2.sensor import INPUT_2, INPUT_4, INPUT_3
+from ev3dev2.sensor.lego import UltrasonicSensor, ColorSensor
+from ev3dev2.motor import MediumMotor, OUTPUT_B, OUTPUT_D, OUTPUT_C, SpeedPercent
+from time import sleep
+import math
+from ev3dev2.button import Button
+from ev3dev2.led import Leds
 
+# Initialize sensors and motors
+rast = UltrasonicSensor(INPUT_2)  # Right ultrasonic sensor for distance measurement
+chap = UltrasonicSensor(INPUT_3)  # Left ultrasonic sensor for distance measurement
+color_sensor = ColorSensor(INPUT_4)  # Color sensor for detecting track lines
+motor_a = MediumMotor(OUTPUT_B)  # Steering motor
+motor_b = MediumMotor(OUTPUT_D)  # Drive motor (right)
+motor_c = MediumMotor(OUTPUT_C)  # Drive motor (left)
+motor_a.reset()  # Reset steering motor position
+btn = Button()  # Button for start trigger
+leds = Leds()  # LED indicators for status
+
+# Set initial LED state to orange, indicating initialization
+leds.set_color('LEFT', 'ORANGE')
+leds.set_color('RIGHT', 'ORANGE')
+
+# Wait for user to press the center button to start the robot
+btn.wait_for_bump('enter')
+# Set LEDs to green, indicating start
+leds.set_color('LEFT', 'GREEN')
+leds.set_color('RIGHT', 'GREEN')
+
+# Utility function to clamp values within a range
+def clamp(value, minimum, maximum):
+    return max(minimum, min(value, maximum))
+
+# Utility function to control steering motor
+def amotor(degrese, cl=50):
+    diff = degrese - motor_a.position  # Calculate difference from target angle
+    diff = clamp(diff, -cl, cl)  # Limit steering adjustment
+    motor_a.on(diff)  # Apply steering correction
+
+# Line detection and turn counter
 a = 0  # Turn counter
+def lineChek():
+    global a
+    cr1 = color_sensor.color  # Read current color
+    # Increment turn counter if motor has moved significantly or first turn detected
+    if (motor_b.position > 1000 and cr1 in [1, 2, 5, 7]) or (a == 0 and cr1 in [1, 2, 5, 7]):
+        a += 1
+        motor_b.reset()  # Reset motor position for next turn
+
+# Define color codes for line detection
+abi = [1, 2]  # Blue line colors (including black)
+narengi = [5, 7]  # Orange line colors (including brown)
+cr1 = color_sensor.color  # Current color reading
+speed = 40  # Initial motor speed
+g = 0  # Counter for initial alignment phase
+
+# Initial alignment phase using non-linear control
+while g != 120:  # Run for 120 iterations to align with wall
+    if cr1 == 6:  # If no color detected (white), recheck
+        cr1 = color_sensor.color
+    else:
+        speed = 100  # Set speed to 100% for navigation
+    motor_b.on(speed)  # Drive right motor
+    motor_c.on(speed)  # Drive left motor
+    r = rast.distance_centimeters  # Read right distance
+    c = chap.distance_centimeters  # Read left distance
+    fr = (-2 * (math.sqrt(11 * r))) + 100  # Non-linear control for right sensor
+    fc = (-2 * (math.sqrt(11 * c))) + 100  # Non-linear control for left sensor
+    target = (fc * 1.3) - (fr * 1.3)  # Calculate steering correction with 1.3 weighting
+    amotor(clamp(target, -28, 28))  # Apply steering correction
+    g += 1  # Increment alignment counter
+
+# Main navigation loop
 while True:
-    if cr1 == 2:  # Blue line detected
+    if cr1 in abi:  # If blue line detected
         while True:
-            cr1 = color_sensor.color
-            if cr1 == 2:
-                while cr1 == 2:  # Stay on line
-                    cr1 = color_sensor.color
-                    motor_b.on_for_degrees(80, 70)  # Move 70 degrees at 80% speed
-                    motor_a.stop(stop_action='coast')
-                    motor_b.stop(stop_action='coast')
-                a += 1  # Increment turn count
-            motor_b.on(60)  # Resume forward motion
-            distance = chap.distance_centimeters  # Use left sensor for blue
-            diff = ((distance - 27) * -2)  # Adjust for direction
-            diff = diff - motor_a.position
-            diff = clamp(diff, -32, 32)
-            amotor(diff)  # Steer with PID-like control
-            if a == 11:  # 11 turns completed
+            lineChek()  # Check for turn
+            motor_b.on(100)  # Drive at 100% speed
+            motor_c.on(100)
+            distance = chap.distance_centimeters  # Read left distance
+            diff = (distance - 28) * -2  # Calculate error from target distance (28 cm)
+            diff = diff - motor_a.position  # Adjust for current steering position
+            diff = clamp(diff, -35, 35)  # Limit steering correction
+            amotor(diff)  # Apply steering
+            lineChek()  # Check for turn again
+            if a == 11:  # If 11 turns completed
                 i = 0
-                while i != 130:  # Final straight phase
-                    motor_b.on(50)  # Reduced speed
+                while i != 60:  # Final straight navigation for 60 iterations
+                    motor_b.on(100)
+                    motor_c.on(100)
                     distance = chap.distance_centimeters
-                    diff = (distance - 27) * -2
+                    diff = (distance - 28) * -2
                     diff = diff - motor_a.position
-                    diff = clamp(diff, -27, 27)
+                    diff = clamp(diff, -35, 35)
                     amotor(diff)
                     i += 1
                 break
-    elif cr1 == 5:  # Orange line detected
+    elif cr1 in narengi:  # If orange line detected
         while True:
-            cr1 = color_sensor.color
-            if cr1 == 5:
-                while cr1 == 5:
-                    cr1 = color_sensor.color
-                    motor_b.on_for_degrees(80, 70)
-                    motor_a.stop(stop_action='coast')
-                    motor_b.stop(stop_action='coast')
-                a += 1
-            motor_b.on(60)
-            distance = rast.distance_centimeters  # Use right sensor for orange
-            diff = (distance - 27) * 2
+            lineChek()  # Check for turn
+            motor_b.on(100)  # Drive at 100% speed
+            motor_c.on(100)
+            distance = rast.distance_centimeters  # Read right distance
+            diff = (distance - 28) * 2  # Calculate error from target distance (28 cm)
             diff = diff - motor_a.position
-            diff = clamp(diff, -32, 32)
-            amotor(diff)
-            if a == 11:
+            diff = clamp(diff, -35, 35)
+            amotor(diff)  # Apply steering
+            lineChek()  # Check for turn again
+            if a == 11:  # If 11 turns completed
                 i = 0
-                while i != 130:
-                    motor_b.on(50)
+                while i != 60:  # Final straight navigation for 60 iterations
+                    motor_b.on(100)
+                    motor_c.on(100)
                     distance = rast.distance_centimeters
-                    diff = (distance - 27) * 2
+                    diff = (distance - 28) * 2
                     diff = diff - motor_a.position
-                    diff = clamp(diff, -27, 27)
+                    diff = clamp(diff, -35, 35)
                     amotor(diff)
                     i += 1
                 break
-    motor_b.off()
-    motor_a.off()
+    break  # Exit main loop after navigation
+
+# Stop all motors
+motor_b.off()
+motor_a.off()
+motor_c.off()
 ```
 
 ---
@@ -1324,290 +1379,338 @@ END
 
 #### Code with Comments
 ```python
-# Initial direction determination
+#!/usr/bin/env python3
+# Import required libraries for sensor and motor control
+from ev3dev2.sensor import INPUT_2, INPUT_4, INPUT_3, INPUT_1
+from ev3dev2.sensor.lego import UltrasonicSensor, ColorSensor
+from ev3dev2.port import LegoPort
+from smbus import SMBus
+from ev3dev2.motor import MediumMotor, OUTPUT_B, OUTPUT_D, SpeedPercent
+from time import sleep
+import time
+import math
+from ev3dev2.led import Leds
+
+# Initialize sensors and motors
+rast = UltrasonicSensor(INPUT_2)  # Right ultrasonic sensor
+chap = UltrasonicSensor(INPUT_3)  # Left ultrasonic sensor
+color_sensor = ColorSensor(INPUT_4)  # Color sensor for line detection
+pixy = LegoPort(INPUT_1)  # Pixy Cam port for obstacle detection
+pixy.mode = 'other-i2c'  # Set Pixy to I2C mode
+address = 0x54  # Pixy I2C address
+bus = SMBus(3)  # I2C bus for Pixy communication
+motor_a = MediumMotor(OUTPUT_B)  # Steering motor
+motor_b = MediumMotor(OUTPUT_D)  # Drive motor
+motor_a.reset()  # Reset steering motor position
+motor_b.reset()  # Reset drive motor position
+leds = Leds()  # LED indicators for status
+
+# Set initial LED state to orange, then green to indicate start
+leds.set_color('LEFT', 'ORANGE')
+leds.set_color('RIGHT', 'ORANGE')
+leds.set_color('LEFT', 'GREEN')
+leds.set_color('RIGHT', 'GREEN')
+
+# Utility function to clamp values within a range
+def clamp(value, minimum, maximum):
+    return max(minimum, min(value, maximum))
+
+# Utility function to control steering motor with gain
+def amotor(degrese, cl=50):
+    diff = (degrese - motor_a.position) * 0.7  # Apply 0.7 gain to steering
+    motor_a.on(clamp(diff, -cl, cl))  # Apply limited steering correction
+
+# Utility function to parse Pixy data
+def get_block(type):
+    if type == "sig":
+        export = block[7] << 8 | block[6]  # Signature (object type)
+    elif type == "x":
+        export = block[9] << 8 | block[8]  # X-coordinate
+    elif type == "y":
+        export = block[11] << 8 | block[10]  # Y-coordinate
+    # Filter invalid values
+    if block[7] << 8 | block[6] > 7 or block[9] << 8 | block[8] > 3000 or block[11] << 8 | block[10] > 3000:
+        return 0
+    return export
+
+# Line detection and turn counter
+a = 0  # Turn counter
+def lineChek():
+    global a
+    cr1 = color_sensor.color  # Read current color
+    # Increment turn counter if motor moved significantly or first turn detected
+    if (motor_b.position > 1400 and cr1 in [1, 2, 5]) or (a == 0 and cr1 in [1, 2, 5]):
+        a += 1
+        motor_b.reset()  # Reset motor position
+
+# Determine initial direction (right or left) over 100 iterations
 p = 0
 jahat = 0
-sleep(0.2)
+sleep(0.2)  # Brief delay for sensor stabilization
 while p != 100:
     r = rast.distance_centimeters  # Right distance
     c = chap.distance_centimeters  # Left distance
-    if r > c: jahat += 1  # Increment if right is farther
-    else: jahat -= 1  # Decrement if left is farther
-    print(jahat)
+    if r > c:
+        jahat += 1  # Increment for right direction
+    else:
+        jahat -= 1  # Decrement for left direction
     p += 1
-al = 0
-if jahat > 0:
-    al = -1  # Left direction
-    green = 230  # Green offset for right avoidance
-    red = 20  # Red offset for left avoidance
-    rang = 5  # Orange line
-    rangdovom = 2  # Blue secondary line
-else:
-    al = 1  # Right direction
-    green = 230
-    red = 5
-    rang = 2  # Blue line
-    rangdovom = 5  # Orange secondary line
-print(al)
 
-cr1 = color_sensor.color  # Initial color reading
-lastsig = 0
-a_timer = 0
-b_timer = 0
-lastpos = 0
-fasele = 35  # Initial distance target
-ghabeliat = False
+# Set direction and color parameters based on initial direction
+al = -1 if jahat > 0 else 1  # Direction multiplier (-1 for right, 1 for left)
+green = 245  # Green obstacle X-coordinate target
+red = 75 if jahat > 0 else 65  # Red obstacle X-coordinate target
+rang = [5, 5] if jahat > 0 else [1, 2]  # Primary line colors
+rangdovom = [2, 1] if jahat > 0 else [5, 5]  # Secondary line colors
 
-# Initial alignment
-motor_a.on_for_seconds((-40) * al, 0.5)  # Initial turn
+# Initial movement to align robot
+cr1 = color_sensor.color  # Current color reading
+lastsig = 0  # Last detected obstacle signature
+fasele = 40  # Initial target distance (cm)
+Yignor = 50  # Minimum Y-coordinate for valid obstacle detection
+motor_a.on_for_seconds((-40) * al, 0.5)  # Initial steering adjustment
 motor_b.on_for_rotations(80, 1)  # Move forward
-motor_a.stop(stop_action='coast')
-sleep(0.2)
-sig = pixy.value(1) * 256 + pixy.value(0)  # Pixy signature
-y = pixy.value(3)  # Pixy y-position
-if y < 75:
-    sig = 0  # Ignore if too close
+motor_a.stop(stop_action='coast')  # Stop steering motor
 
-# Initial obstacle handling
+# Initialize Pixy Cam
+data = [174, 193, 32, 2, 3, 5]  # Pixy command to request block data
+bus.write_i2c_block_data(address, 0, data)  # Send command
+sleep(0.5)  # Wait for Pixy response
+block = bus.read_i2c_block_data(address, 0, 20)  # Read block data
+sleep(0.5)
+sig = get_block("sig")  # Get obstacle signature
+y = get_block("y")  # Get obstacle Y-coordinate
+if y < Yignor:
+    sig = 0  # Ignore obstacles too close to ground
+
+# Initial obstacle handling based on direction
 if al > 0:
-    if sig == 0:
+    if sig == 0:  # No obstacle
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees(100, -motor_a.position)  # Reset steering
+        motor_a.on_for_degrees((100) * al, 60)  # Adjust steering
         motor_b.on_for_rotations(60, 1.5)  # Move forward
-    elif sig == 2 and y > 100:
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees(40, -motor_a.position)  # Adjust for red
-    elif sig == 1 and y > 100:
-        motor_b.on_for_degrees(30, 550)  # Turn for green
-        motor_a.on_for_seconds(40 * al, 0.5)
-        motor_b.on_for_rotations(60, 1.5)
-        motor_a.on_for_degrees(40, -motor_a.position)
+        motor_a.on_for_degrees((100), -motor_a.position)  # Reset steering
+    elif sig == 2 and y > Yignor:  # Red obstacle
+        motor_a.stop(stop_action='coast')
+        motor_a.on_for_degrees((40), -motor_a.position)  # Adjust steering
+    elif sig == 1 and y > Yignor:  # Green obstacle
+        motor_b.on_for_degrees(30, 430)  # Move to avoid obstacle
+        motor_a.on_for_seconds((40), 0.5)  # Adjust steering
+        motor_b.on_for_rotations(60, 1.8)  # Continue forward
+        motor_a.on_for_degrees((40), -motor_a.position)  # Reset steering
         motor_a.stop(stop_action='coast')
         motor_b.stop(stop_action='coast')
 else:
-    if sig == 0:
+    if sig == 0:  # No obstacle
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees(100 * al, 60)
+        motor_a.on_for_degrees((100) * al, 60)
         motor_b.on_for_rotations(60, 1.5)
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees(100, motor_a.position)
-    elif sig == 1 and y > 100:
+        motor_a.on_for_degrees((100), -motor_a.position)
+    elif sig == 1 and y > Yignor:  # Green obstacle
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees(40, -motor_a.position)
-    elif sig == 2 and y > 100:
+        motor_a.on_for_degrees((40), -motor_a.position)
+    elif sig == 2 and y > Yignor:  # Red obstacle
         motor_b.on_for_degrees(30, 550)
-        motor_a.on_for_seconds(40 * al, 0.5)
+        motor_a.on_for_seconds((40) * al, 0.5)
         motor_b.on_for_rotations(60, 1.5)
-        motor_a.on_for_degrees(40, -motor_a.position)
+        motor_a.on_for_degrees((40), -motor_a.position)
         motor_a.stop(stop_action='coast')
         motor_b.stop(stop_action='coast')
 
-sleep(0.5)
-a = 0  # Turn counter
-speed = 20
-door = 12  # Total turns (4 laps * 3)
-
+# Main navigation loop
+speed = 45  # Default navigation speed
+motor_b.reset()  # Reset drive motor position
 while True:
-    cr1 = color_sensor.color
-    print(a)
-    sig = pixy.value(1) * 256 + pixy.value(0)
-    x = pixy.value(2)  # Pixy x-position
-    y = pixy.value(3)
-    size = pixy.value(4)
-    motor_b.on(speed)
+    bus.write_i2c_block_data(address, 0, data)  # Request Pixy data
+    block = bus.read_i2c_block_data(address, 0, 20)  # Read Pixy data
+    sig = get_block("sig")  # Get obstacle signature
+    y = get_block("y")  # Get obstacle Y-coordinate
+    if y < Yignor:
+        sig = 0  # Ignore obstacles too close
+    x = get_block("x")  # Get obstacle X-coordinate
+    motor_b.on(speed)  # Drive forward
 
     if sig != 0:
-        lastsig = sig
-        if y < 75:
-            sig = 0  # Ignore close objects
+        lastsig = sig  # Store last valid obstacle signature
+    cr1 = color_sensor.color  # Read current color
 
-    if cr1 == rang:  # Line detection
-        fasele = 25  # Adjust distance for turn
+    # Handle line detection and obstacle avoidance
+    if (cr1 in rang) and a != 12:  # If primary line detected and not 12 turns
         cr1 = color_sensor.color
-        sig = pixy.value(1) * 256 + pixy.value(0)
-        if y < 75:
+        sig = get_block("sig")
+        y = get_block("y")
+        if y < Yignor:
             sig = 0
-        if a == door - 1:
-            break
-        if sig == 0:
-            timeRang = time.time()
-            navakht = -40
-            while cr1 != rangdovom and sig == 0 and time.time() - timeRang < 4:
-                amotor(navakht * al)  # Turn adjustment
-                if navakht <= 0:
-                    navakht += 1
+        if sig == 0:  # No obstacle
+            timeRang = time.time()  # Start timer
+            navakht = -45  # Initial steering angle
+            while cr1 not in rangdovom and sig == 0 and time.time() - timeRang < 4 and a < 11:
+                lineChek()  # Check for turn
+                bus.write_i2c_block_data(address, 0, data)
+                block = bus.read_i2c_block_data(address, 0, 20)
+                motor_a.stop(stop_action='coast')
+                amotor(navakht * al)  # Adjust steering
+                if navakht <= 15:
+                    navakht += 3.9  # Increment steering angle
                 cr1 = color_sensor.color
-                sig = pixy.value(1) * 256 + pixy.value(0)
-                if y < 75:
+                sig = get_block("sig")
+                y = get_block("y")
+                if y < Yignor:
                     sig = 0
-                motor_b.on(20)
-                cr1 = color_sensor.color
+                if sig != 0:
+                    break
+                motor_b.on(20)  # Slow speed during turn
             timeRang = time.time()
-            while time.time() - timeRang < 0.7 and sig == 0:
-                amotor(-20 * al)  # Final turn
-                sig = pixy.value(1) * 256 + pixy.value(0)
-                if y < 75:
+            while time.time() - timeRang < 0.5 and sig == 0:  # Brief adjustment period
+                lineChek()
+                bus.write_i2c_block_data(address, 0, data)
+                block = bus.read_i2c_block_data(address, 0, 20)
+                amotor(0)  # Center steering
+                sig = get_block("sig")
+                y = get_block("y")
+                if y < Yignor:
                     sig = 0
-                motor_b.on(70)
-        if a_timer == 0 or time.time() - a_timer > 4:
-            a_timer = time.time()
-            a += 1
+                if sig != 0:
+                    break
+                motor_b.on(70)  # Resume normal speed
         cr1 = color_sensor.color
-        fasele = 35
+        fasele = 45  # Update target distance
 
-    if y < 110 and sig == 1:  # Close green obstacle
-        cr1 = color_sensor.color
-        leds.set_color('LEFT', 'GREEN')
-        leds.set_color('RIGHT', 'GREEN')
-        target = (x - 120) * 0.7  # Adjust for center
+    lineChek()  # Check for turn
+    if y < 70 and sig != 0:  # If obstacle close
+        leds.set_color('LEFT', 'ORANGE')
+        leds.set_color('RIGHT', 'ORANGE')
+        target = (x - 165) * 0.7  # Center obstacle in view
         target = clamp(target, -20, 20)
-        amotor(target, 35)  # Tight steering
-        speed = 40  # Slow down
-
-    elif y < 110 and sig == 2:  # Close red obstacle
-        cr1 = color_sensor.color
-        leds.set_color('LEFT', 'RED')
-        leds.set_color('RIGHT', 'RED')
-        target = (x - 100) * 0.7
-        target = clamp(target, -20, 20)
-        amotor(target, 35)
-        speed = 40
-
+        amotor(target, 35)  # Adjust steering
+        speed = 40  # Reduce speed
     elif sig == 1:  # Green obstacle
-        ghabeliat = True
-        target = (x - green) * 0.5  # Offset for right avoidance
+        target = (x - green) * 0.5  # Adjust to green target
         leds.set_color('LEFT', 'GREEN')
         leds.set_color('RIGHT', 'GREEN')
-        amotor(target, 50)
-        speed = 22  # Reduced speed
-
+        amotor(target, 45)
+        speed = 40
     elif sig == 2:  # Red obstacle
-        ghabeliat = True
-        target = (x - red) * 0.5  # Offset for left avoidance
+        target = (x - red) * 0.5  # Adjust to red target
         leds.set_color('LEFT', 'RED')
         leds.set_color('RIGHT', 'RED')
-        amotor(target, 50)
-        speed = 22
-
-    elif sig == 0 and ghabeliat and False:  # Post-obstacle adjustment (disabled)
-        if al < 0 and lastsig == 1:
-            motor_b.on_for_rotations(60, 0.9)
-            motor_b.off()
-            motor_a.on_for_degrees(40, -motor_a.position)
-            motor_a.on_for_degrees(40, 30 * al)
-            motor_b.on_for_rotations(60, 0.6)
-        elif al > 0 and lastsig == 2:
-            motor_b.on_for_rotations(60, 0.9)
-            motor_b.off()
-            motor_a.on_for_degrees(40, -motor_a.position)
-            motor_a.on_for_degrees(40, -30 * al)
-            motor_b.on_for_rotations(60, 0.6)
-        else:
-            pass
-        ghabeliat = False
-
-    elif sig == 0 and cr1 == 6:  # No obstacle, neutral state
+        amotor(target, 45)
+        speed = 40
+    elif sig == 0 and cr1 == 6:  # No obstacle, follow wall
         leds.all_off()
-        speed = 33
+        speed = 40
         r = rast.distance_centimeters
         c = chap.distance_centimeters
-        if al == 1:
-            oltra = c  # Use left for right direction
-        else:
-            oltra = r  # Use right for left direction
-        out = (fasele - oltra) * al  # Distance adjustment
+        oltra = c if al == 1 else r  # Select appropriate sensor
+        out = (fasele - oltra) * al  # Calculate error
         out = clamp(out, -45, 45)
-        amotor(out)
-
-    if lastsig == 2 and al > 0 and sig == 0:
-        fasele = 50  # Increase distance after red
-    if lastsig == 1 and al < 0 and sig == 0:
-        fasele = 50  # Increase distance after green
-
-    if fasele > 33:
-        fasele -= 0.09  # Gradually reduce distance
+        amotor(out)  # Apply steering correction
+    lineChek()  # Check for turn again
+    if lastsig == 2 and al > 0 and sig == 0:  # Adjust distance after red obstacle
+        fasele = 55
+    if lastsig == 1 and al < 0 and sig == 0:  # Adjust distance after green obstacle
+        fasele = 55
+    if fasele > 40:
+        fasele -= 0.09  # Gradually reduce target distance
     else:
-        fasele = 33
-
-    if lastpos == motor_b.position:  # Stall detection
-        if b_timer == 0:
-            b_timer = time.time()
-        if time.time() - b_timer > 0.3:
-            print("khokafez")  # Stall detected
-            b_timer = 0
-            motor_a.on_for_degrees(40, -motor_a.position)
-            motor_b.on_for_rotations(-100, 1)  # Reverse
-            motor_a.on_for_degrees(40, 45 * al)  # Adjust steering
-            motor_b.on_for_rotations(100, 0.8)  # Move forward
-    lastpos = motor_b.position
-
-    if a == door:
+        fasele = 40
+    if a == 12:  # If 12 turns completed, start parking
         break
-motor_a.off()
-motor_b.off()
 
 # Parking sequence
-if al < 0:
+motor_a.off()
+motor_b.off()
+cr1 = color_sensor.color
+if al < 0:  # Left direction parking
     navakht = 90
-    while cr1 != rangdovom:
-        motor_b.on(30)  # Slow approach
-        amotor(0)  # Straighten
-        if navakht <= 0:
-            navakht += 1
+    while cr1 not in rangdovom:  # Align with secondary line
+        motor_b.on(12)
+        amotor(0)
+        if navakht >= -20:
+            navakht -= 1
         cr1 = color_sensor.color
-    motor_b.off()
-    motor_a.on_for_degrees(100, -120)  # Initial turn
-    motor_b.on_for_degrees(-30, 300)  # Reverse
-    motor_b.off()
-    motor_a.on_for_degrees(90, -motor_a.position)  # Reset steering
-    speed = 8
-    while True:
-        leds.all_off()
-        motor_b.on(speed)
-        cr1 = color_sensor.color
-        r = rast.distance_centimeters
-        if r < 60 or cr1 == rangdovom:
-            break
-    fasele = 15  # Target distance for parking
-    speed = 20
-    timerse = time.time()
-    motor_b.off()
-    motor_b.reset()
-    while motor_b.position < 1500:  # Move into parking
-        leds.all_off()
-        motor_b.on(speed)
-        r = rast.distance_centimeters
-        out = (fasele - r) * 1.5 * al
-        out = clamp(out, -23, 23)
-        amotor(out)
-    motor_b.off()
-    motor_a.on_for_degrees(90, -motor_a.position)
-    motor_b.on_for_rotations(-20, 0.6)  # Fine adjustment
-    motor_b.off()
+    motor_b.stop()
+    sleep(0.1)
+    motor_a.on_for_degrees(90, 90)  # Adjust steering
+    motor_b.on_for_degrees(30, -290)  # Reverse
     cr1 = color_sensor.color
-    motor_a.on_for_degrees(90, -90)
-    motor_b.on_for_rotations(-20, 1.72)
-    motor_a.on_for_degrees(90, -motor_a.position)
-    motor_a.off()
-    i = 0
-    while i <= 50:
-        amotor(0)  # Hold position
-        i += 1
-    motor_a.off()
-    motor_b.on_for_rotations(-20, 3.5)  # Final reverse
-    motor_b.off()
-    motor_a.on_for_degrees(90, 90)
-    motor_b.on_for_rotations(20, 0.7)
-    motor_b.off()
-    motor_a.on_for_degrees(90, -190)
-    motor_b.on_for_rotations(-20, 0.6)
-    motor_b.off()
-    motor_a.on_for_degrees(90, 190)
-    motor_b.on_for_rotations(20, 0.4)
+    sleep(0.1)
+    motor_a.stop()
+    motor_b.stop()
+    out = 0
+    while cr1 not in rangdovom:  # Continue aligning
+        motor_b.on(16)
+        amotor(0)
+        cr1 = color_sensor.color
+    motor_a.on_for_degrees(90, -motor_a.position)  # Reset steering
+    c = chap.distance_centimeters
+    timeRang = time.time()
+    speed = 10
+    while c > 5 and time.time() - timeRang < 8:  # Approach wall
+        c = chap.distance_centimeters
+        cr1 = color_sensor.color
+        out = 60 if cr1 == 6 else -20  # Adjust steering based on color
+        amotor(out)
+        motor_b.on(speed)
+    motor_b.stop()
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, -motor_a.position)  # Final steering adjustments
+    motor_a.stop()
+    motor_a.on_for_degrees(60, 150)
+    motor_a.stop()
+    motor_b.on_for_degrees(-50, 500)  # Reverse
+    motor_b.stop()
+    sleep(0.1)
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, -300)
+    motor_a.stop()
+    motor_b.on_for_degrees(50, 500)  # Move forward
+    motor_b.stop()
+    fasele = 34
+    r = rast.distance_centimeters
+    motor_b.reset()
+    speed = 15
+    while motor_b.position < 1500:  # Fine-tune position
+        r = rast.distance_centimeters
+        if r <= fasele - 1:
+            out = -35
+        elif r >= fasele + 1:
+            out = 35
+        else:
+            out = 0
+        amotor(out)
+        motor_b.on(speed)
+    motor_a.stop()
+    motor_b.stop()
+    sleep(1)
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, -300)
+    motor_a.stop()
+    motor_b.on_for_degrees(25, 550)
+    motor_b.stop()
+    sleep(0.2)
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, 80)
+    motor_a.stop()
+    sleep(0.2)
+    motor_b.on_for_degrees(-15, 450)
+    motor_b.stop()
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, 150)
+    motor_a.stop()
+    motor_b.on_for_degrees(-15, 670)
+    motor_b.stop()
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, -300)
+    motor_a.stop()
+    motor_b.on_for_degrees(15, 121)
+    motor_b.stop()
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, -motor_a.position)
 
-while True:
-    amotor(0)  # Maintain final position
-    motor_b.off()
+# Stop all motors
 motor_b.off()
 motor_a.off()
 ```
