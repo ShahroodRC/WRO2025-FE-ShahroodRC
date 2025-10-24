@@ -443,6 +443,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Feature**: Provides propulsion (rear wheels) and steering (front wheels)
 - **Interface**: LEGO EV3 Motor Port (OUTPUT_B for drive, OUTPUT_A for steering)
 - **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation
+- **Configuration for Challenges**: In the Open Challenge, two Medium Motors are used for propulsion, connected to a single gear that drives a gearbox linked to the differential, enhancing torque for robust navigation. In the Obstacle Challenge, the gear connected to the second motor is removed, and only one Medium Motor is used for propulsion to simplify the system and reduce power consumption, while still meeting WRO 2025 rules as both configurations produce a single output via the differential.
 - **Description**: Two EV3 Medium Motors power the ShahroodRC robot. The propulsion motor (OUTPUT_B, `motor_b`) drives the rear wheels through a differential, delivering 20 N·cm nominal torque (effective ~15 N·cm under the robot’s 1.2 kg load) at 160 rpm for smooth linear motion. The steering motor (OUTPUT_A, `motor_a`) adjusts the front wheels’ angle via a rack-and-pinion system, enabling precise turns with a PID-like control (`amotor`). Mounted on the chassis (included in `3d-files/robot_complete.io`), the motors were chosen over Large Motors for their lighter weight and sufficient power for WRO tasks. A 1:1.5 gear ratio for propulsion enhanced torque for parking maneuvers, reducing motor strain.
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
@@ -457,7 +458,7 @@ This section provides a detailed overview of the key hardware components used in
 | Pixy 2.1                      | 1            | Purchased separately           | Obstacle and line detection and tracking | $70                   |
 | EV3 Ultrasonic Sensor         | 2            | LEGO MINDSTORMS Core Set 45544 | Wall-following and distance measurement | $30 each ($60 total) |
 | EV3 Color Sensor             | 1            | LEGO MINDSTORMS Core Set 45544 | Line following and zone detection | $40                  |
-| EV3 Medium Motor             | 2            | LEGO MINDSTORMS Core Set 45544 | Propulsion and steering       | $25 each ($50 total) |
+| EV3 Medium Motor | 3 | LEGO MINDSTORMS Core Set 45544 | Propulsion (two motors in Open Challenge, one in Obstacle Challenge) and steering (one motor) | $25 each ($75 total) |
 | LEGO Tire 49.5 x 20          | 4            | LEGO MINDSTORMS Core Set 45544 | Wheels for traction and mobility | $5 each ($20 total)  |
 | LEGO EV3 Rechargeable Battery | 1            | LEGO MINDSTORMS Core Set 45544 | Power supply                 | $80                   |
 |
@@ -780,7 +781,7 @@ This integrated approach ensures that all sensors and actuators work together ha
 
 ## Mobility Management
 
-The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by two **EV3 Medium Motors**, enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
+The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
 
 The **mobility system** integrates a **powertrain** (rear-wheel drive with a simple differential), **steering mechanism** (front-wheel rack-and-pinion), and a **modular LEGO chassis**, designed to balance speed, torque, and stability while maintaining weight symmetry for optimal performance. This section provides comprehensive details on the system’s design, implementation, testing, and lessons learned, enabling another team to replicate the system and offering insights for further optimization.
 
@@ -793,11 +794,11 @@ The complete chassis design, detailed in `3d-files/robot_complete.io`, is visual
 <img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">
 
 **Overview**
-The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by two **EV3 Medium Motors** (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is detailed in `3d-files/robot_complete.io`.
+The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering) (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is detailed in `3d-files/robot_complete.io`.
 
 **Types of Movement**
 - **Linear Motion**: The rear wheels, driven by one or two EV3 Medium Motors (depending on the challenge) through a direct-coupled differential, provide forward and backward movement at adjustable speeds (20–80%, 0.1–0.25 m/s).
-- **Steering and Turning**: The front wheels, controlled by a second EV3 Medium Motor (`motor_a`) via a rack-and-pinion system, enable a turning radius of approximately 25 cm, ideal for tight maneuvers.
+- **Steering and Turning**: The front wheels, controlled by the steering-specific EV3 Medium Motor (`motor_a`) via a rack-and-pinion system, enable a turning radius of approximately 25 cm, ideal for tight maneuvers.
 - **Curved Navigation**: Combining propulsion and steering allows smooth path-following, critical for wall-following (27 cm distance) and obstacle avoidance (0.5 m clearance).
 
 **Design Choices**
@@ -818,8 +819,8 @@ The mobility system was designed and built by the team’s mechanical specialist
 
 ### 2. Motors and Actuators
 **Motor Types**
-Two **LEGO EV3 Medium Motors** power the mobility system:
-- **Propulsion Motor(s) (`motor_b`, OUTPUT_B)**: In the Open Challenge, two motors drive the rear wheels via a single gear connected to a gearbox and differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
+Three **LEGO EV3 Medium Motors** are used in the mobility system (depending on the challenge configuration):
+- **Propulsion Motor(s) (`motor_b`, OUTPUT_B and OUTPUT_C)**: In the Open Challenge, two motors (connected to OUTPUT_B and OUTPUT_C) drive the rear wheels via a single gear connected to a gearbox and differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
 - **Steering Motor (`motor_a`, OUTPUT_A)**: Controls the front wheels’ angle via a rack-and-pinion system, offering a ±45° steering range with 1° resolution.
 - **Specifications**:
   - Voltage: 9V
@@ -843,7 +844,7 @@ def amotor(degrese, cl=50):
 ```
 
 **Motor Integration**
-- **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b`) are coupled to a single gear, which drives a gearbox connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
+- **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b` on `OUTPUT_B` and another on `OUTPUT_C`) are coupled to a single gear, which drives a gearbox connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
 - **Steering**: The steering motor (`motor_a`) drives a rack-and-pinion system, adjusting the front wheels with 1° precision. The system is mounted with LEGO Technic beams for rigidity.
 - **Mechanical Stability**: The chassis, detailed in `3d-files/robot_complete.io`, secures motors to minimize vibration at 0.25 m/s. Weight symmetry (50% front, 50% rear) ensures balance during sharp turns.
 
@@ -1001,7 +1002,7 @@ Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/
 
 ### 8. Conclusion
 **Summary**
-The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** (depending on the challenge), achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on,省**ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
+The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** for propulsion (depending on the challenge), plus one for steering, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on,**ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
 
 **Lessons Learned**
 - **Weight Symmetry**: Critical for 100% stability in turns.
@@ -1049,7 +1050,7 @@ This section outlines how electrical power is distributed across the robot and h
 
 ### 2. **Power Consumption Overview**
 
-- **Motors**: Each **EV3 Medium Motor** draws approximately **150–200 mA** during standard operation, peaking at **500 mA** under stall conditions.
+- **Motors**: In the **Open Challenge**, two **EV3 Medium Motors** for propulsion draw approximately **150–200 mA** each (total 300–400 mA) during standard operation, peaking at **500 mA** per motor under stall conditions. In the Obstacle Challenge, a single propulsion motor draws **150–200 mA**, peaking at **500 mA**. The steering motor draws approximately **100–150 mA**, peaking at **250 mA** for sharp turns.
 - **Sensors**: Built-in LEGO sensors (e.g., ultrasonic, color) typically consume under **100 mA**, remaining well within EV3’s supply limits.
 - **Pixy 2.1 (Direct EV3 Sensor Port Integration)**: Four EV3 internal wires were identified (via continuity testing) and connected to the Pixy Cam’s I2C port:
   - **Red** → 5V (Pixy power input)
