@@ -778,7 +778,6 @@ This integrated approach ensures that all sensors and actuators work together ha
 ---
 
 
-
 ## Mobility Management
 
 The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by two **EV3 Medium Motors**, enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
@@ -788,87 +787,86 @@ The **mobility system** integrates a **powertrain** (rear-wheel drive with a sim
 ---
 
 ### 1. Introduction to Mobility System
-The complete chassis design, detailed in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration. 
+The complete chassis design, detailed in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration.
 <br>
-<img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300"> 
-<img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">  
+<img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300">
+<img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">
 
-**Overview**  
+**Overview**
 The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by two **EV3 Medium Motors** (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is detailed in `3d-files/robot_complete.io`.
 
-**Types of Movement**  
-- **Linear Motion**: The rear wheels, driven by a single EV3 Medium Motor (`motor_b`) through a direct-coupled differential, provide forward and backward movement at adjustable speeds (20–80%, 0.1–0.25 m/s).  
-- **Steering and Turning**: The front wheels, controlled by a second EV3 Medium Motor (`motor_a`) via a rack-and-pinion system, enable a turning radius of approximately 25 cm, ideal for tight maneuvers.  
+**Types of Movement**
+- **Linear Motion**: The rear wheels, driven by one or two EV3 Medium Motors (depending on the challenge) through a direct-coupled differential, provide forward and backward movement at adjustable speeds (20–80%, 0.1–0.25 m/s).
+- **Steering and Turning**: The front wheels, controlled by a second EV3 Medium Motor (`motor_a`) via a rack-and-pinion system, enable a turning radius of approximately 25 cm, ideal for tight maneuvers.
 - **Curved Navigation**: Combining propulsion and steering allows smooth path-following, critical for wall-following (27 cm distance) and obstacle avoidance (0.5 m clearance).
 
-**Design Choices**  
-- **Rear-Wheel Drive**: A simple LEGO differential (1:1 ratio) ensures balanced torque distribution to the rear wheels, maintaining traction on competition surfaces (coefficient of friction ~0.7).  
-- **Front-Wheel Steering**: Provides precise directional control with a ±45° steering range, optimized for WRO’s curved tracks and parking tasks.  
-- **LEGO Tire 49.5 x 20**: Chosen for their 49.5 mm diameter and high traction, ensuring no slippage during 90% of test runs.  
-- **Chassis Design**: The modular LEGO chassis, reinforced with Technic beams, maintains weight symmetry (50% front, 50% rear) to enhance stability. The design, detailed in `3d-files/robot_complete.io`, integrates motors, sensors, and the EV3 Brick securely.  
-- **Weight Symmetry**: Equal weight distribution across the chassis minimizes tipping risks during high-speed turns, contributing to a 90% success rate in navigation tests.  
+**Design Choices**
+- **Rear-Wheel Drive**: A simple LEGO differential (1:1 ratio) ensures balanced torque distribution to the rear wheels, maintaining traction on competition surfaces (coefficient of friction ~0.7).
+- **Front-Wheel Steering**: Provides precise directional control with a ±45° steering range, optimized for WRO’s curved tracks and parking tasks.
+- **LEGO Tire 49.5 x 20**: Chosen for their 49.5 mm diameter and high traction, ensuring no slippage during 90% of test runs.
+- **Chassis Design**: The modular LEGO chassis, reinforced with Technic beams, maintains weight symmetry (50% front, 50% rear) to enhance stability. The design, detailed in `3d-files/robot_complete.io`, integrates motors, sensors, and the EV3 Brick securely.
+- **Weight Symmetry**: Equal weight distribution across the chassis minimizes tipping risks during high-speed turns, contributing to a 90% success rate in navigation tests.
 - **WRO Compliance**: The system uses only approved LEGO components and a 3D-printed sensor mount, adhering to WRO 2025 size and material rules.
+- **Motor Configuration for Challenges**:
+  - **Open Challenge**: The rear-wheel drive system utilizes **two EV3 Medium Motors** connected to a single gear, which is linked to a gearbox driving the differential. This dual-motor setup increases torque output for enhanced performance during navigation, while adhering to WRO rules since both motors contribute to a single output (the differential). This configuration ensures robust propulsion for the Open Challenge’s demanding track navigation.
+  - **Obstacle Challenge**: To optimize for simplicity and energy efficiency, the gear connected to the second motor is removed, and only one EV3 Medium Motor is used for propulsion. The single motor drives the differential directly, providing sufficient power for obstacle avoidance and parking tasks while reducing complexity and power consumption.
 
-**Development Process**  
+**Development Process**
 The mobility system was designed and built by the team’s mechanical specialist using prior WRO experience, resulting in a robust initial design that required no major revisions. The system’s stability and lack of slippage reflect lessons learned from past competitions, where weight distribution and traction were optimized early in the design phase.
 
 ---
 
 ### 2. Motors and Actuators
-
-**Motor Types**  
-Two **LEGO EV3 Medium Motors** power the mobility system:  
-- **Propulsion Motor (`motor_b`, OUTPUT_B)**: Drives the rear wheels via a direct-coupled differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed).  
-- **Steering Motor (`motor_a`, OUTPUT_A)**: Controls the front wheels’ angle via a rack-and-pinion system, offering a ±45° steering range with 1° resolution.  
-- **Specifications**:  
-  - Voltage: 9V  
-  - Nominal Torque: 20 N·cm  
-  - Effective Torque: ~12 N·cm  
-  - Speed: 160 rpm  
-  - Weight: 120 g  
+**Motor Types**
+Two **LEGO EV3 Medium Motors** power the mobility system:
+- **Propulsion Motor(s) (`motor_b`, OUTPUT_B)**: In the Open Challenge, two motors drive the rear wheels via a single gear connected to a gearbox and differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
+- **Steering Motor (`motor_a`, OUTPUT_A)**: Controls the front wheels’ angle via a rack-and-pinion system, offering a ±45° steering range with 1° resolution.
+- **Specifications**:
+  - Voltage: 9V
+  - Nominal Torque: 20 N·cm
+  - Effective Torque: ~12 N·cm
+  - Speed: 160 rpm
+  - Weight: 120 g
 - **Selection Rationale**: Medium Motors were chosen over Large Motors (170 g, 40 N·cm) for their lighter weight, reducing the robot’s mass by ~10% and energy consumption by ~15% (150–200 mA vs. 250–300 mA).
 
-**Motor Control Mechanism**  
-The motors are controlled by the **LEGO EV3 Mindstorms Control Brick** running **ev3dev** with Python scripts. The propulsion motor uses `motor_b.on(speed)` for variable speed control (20–80%) and `on_for_degrees` for precise movements (e.g., 70° rotation during line detection). The steering motor employs a PID-like algorithm (`amotor`) to adjust the front wheels’ angle based on sensor feedback (e.g., `target = (fc * 1.3) - (fr * 1.7)` for wall-following). The `clamp` function limits steering to ±50° to prevent oversteering. Code snippet from `codes/open-challenge-code.py`:
-
+**Motor Control Mechanism**
+The motors are controlled by the **LEGO EV3 Mindstorms Control Brick** running **ev3dev** with Python scripts. The propulsion motor(s) use `motor_b.on(speed)` for variable speed control (20–80%) and `on_for_degrees` for precise movements (e.g., 70° rotation during line detection). The steering motor employs a PID-like algorithm (`amotor`) to adjust the front wheels’ angle based on sensor feedback (e.g., `target = (fc * 1.3) - (fr * 1.7)` for wall-following). The `clamp` function limits steering to ±50° to prevent oversteering. Code snippet from `codes/open-challenge-code.py`:
 ```python
 def clamp(value, minimum, maximum):
     if value > maximum: value = maximum
     if value < minimum: value = minimum
     return value
-
 def amotor(degrese, cl=50):
     diff = degrese - motor_a.position
     diff = clamp(diff, -cl, cl)
     motor_a.on(diff)
 ```
 
-**Motor Integration**  
-- **Propulsion**: The propulsion motor (`motor_b`) is directly coupled to a LEGO differential (1:1 ratio), driving two rear **LEGO Tire 49.5 x 20** wheels. The direct coupling simplifies the design, ensuring reliable torque transfer with no slippage in 90% of tests.  
-- **Steering**: The steering motor (`motor_a`) drives a rack-and-pinion system, adjusting the front wheels with 1° precision. The system is mounted with LEGO Technic beams for rigidity.  
+**Motor Integration**
+- **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b`) are coupled to a single gear, which drives a gearbox connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
+- **Steering**: The steering motor (`motor_a`) drives a rack-and-pinion system, adjusting the front wheels with 1° precision. The system is mounted with LEGO Technic beams for rigidity.
 - **Mechanical Stability**: The chassis, detailed in `3d-files/robot_complete.io`, secures motors to minimize vibration at 0.25 m/s. Weight symmetry (50% front, 50% rear) ensures balance during sharp turns.
 
-**Lessons Learned**  
-- **Initial Design Success**: Leveraging prior WRO experience, the mechanical team designed a stable system from the outset, eliminating the need for major revisions.  
-- **Weight Symmetry**: Equal weight distribution was critical to achieving a 90% success rate in navigation tests, preventing tipping.  
+**Lessons Learned**
+- **Initial Design Success**: Leveraging prior WRO experience, the mechanical team designed a stable system from the outset, eliminating the need for major revisions.
+- **Weight Symmetry**: Equal weight distribution was critical to achieving a 90% success rate in navigation tests, preventing tipping.
 - **Future Improvement**: Positioning the front wheels closer together could reduce the turning radius to ~20 cm, improving maneuverability in tight spaces.
 
 ---
 
 ### 3. Sensor Integration for Mobility
+**Sensors Used**
+The mobility system integrates:
+- **EV3 Color Sensor (INPUT_4)**: Detects blue (`cr1=2`) and orange (`cr1=5`) lines for zone detection and turn triggers (1 kHz sampling, 0.5–1 cm distance).
+- **EV3 Ultrasonic Sensors (INPUT_2, INPUT_3)**: `rast` (right) and `chap` (left) measure wall distances (3–250 cm, ±1 cm accuracy) for wall-following.
+- **Pixy Cam (INPUT_1)**: Detects red (`sig=1`) and green (`sig=2`) pillars for obstacle avoidance (60 fps, 75° field of view).
 
-**Sensors Used**  
-The mobility system integrates:  
-- **EV3 Color Sensor (INPUT_4)**: Detects blue (`cr1=2`) and orange (`cr1=5`) lines for zone detection and turn triggers (1 kHz sampling, 0.5–1 cm distance).  
-- **EV3 Ultrasonic Sensors (INPUT_2, INPUT_3)**: `rast` (right) and `chap` (left) measure wall distances (3–250 cm, ±1 cm accuracy) for wall-following.  
-- **Pixy Cam (INPUT_1)**: Detects red (`sig=1`) and green (`sig=2`) pillars for obstacle avoidance (60 fps, 75° field of view).  
+**Sensor Placement**
+- **Color Sensor**: Mounted at the front center, 0.5–1 cm from the surface, for accurate line detection (included in `3d-files/robot_complete.io`).
+- **Ultrasonic Sensors**: Positioned at the front (left and right, 5 cm apart), angled 90° to walls for reliable distance measurement.
+- **Pixy Cam**: Elevated above the EV3 Brick, angled 10° downward for obstacle detection at 0.5–1.5 m.
 
-**Sensor Placement**  
-- **Color Sensor**: Mounted at the front center, 0.5–1 cm from the surface, for accurate line detection (included in `3d-files/robot_complete.io`).  
-- **Ultrasonic Sensors**: Positioned at the front (left and right, 5 cm apart), angled 90° to walls for reliable distance measurement.  
-- **Pixy Cam**: Elevated above the EV3 Brick, angled 10° downward for obstacle detection at 0.5–1.5 m.  
-
-**Real-time Feedback**  
+**Real-time Feedback**
 The **EV3 Control Brick** processes sensor data every 10 ms (Color Sensor, Ultrasonic Sensors) and 50 ms (Pixy Cam) via **ev3dev** Python scripts. The `amotor` function adjusts steering based on Ultrasonic Sensor data for wall-following, while the Color Sensor triggers turns (`cr1 == 2` or `5`). The Pixy Cam guides obstacle avoidance by adjusting steering and speed. Example from `codes/obstacle-challenge-code.py`:
 
 ```python
@@ -880,100 +878,96 @@ target = (fc * 1.3) - (fr * 1.7)
 amotor(clamp(target, -50, 50))
 ```
 
-**Sensor Fusion**  
-- **Open Challenge**: Color Sensor drives turn decisions, Ultrasonic Sensors maintain 27 cm wall distance.  
-- **Obstacle Challenge**: Pixy Cam prioritizes obstacle avoidance, Ultrasonic Sensors handle wall-following when `sig == 0`.  
-- **Parking**: Color Sensor aligns with `rangdovom`, Ultrasonic Sensors ensure 15 cm wall distance.  
+**Sensor Fusion**
+- **Open Challenge**: Color Sensor drives turn decisions, Ultrasonic Sensors maintain 27 cm wall distance.
+- **Obstacle Challenge**: Pixy Cam prioritizes obstacle avoidance, Ultrasonic Sensors handle wall-following when `sig == 0`.
+- **Parking**: Color Sensor aligns with `rangdovom`, Ultrasonic Sensors ensure 15 cm wall distance.
 Achieved 90% success in 50 test runs on a mock WRO track.
 
-**Lessons Learned**  
-- **Sensor Alignment**: Precise 90° alignment of Ultrasonic Sensors ensured 98% accurate distance readings.  
-- **Lighting Calibration**: Color Sensor recalibrated for 500–1000 lux lighting, achieving 90% detection accuracy.  
+**Lessons Learned**
+- **Sensor Alignment**: Precise 90° alignment of Ultrasonic Sensors ensured 98% accurate distance readings.
+- **Lighting Calibration**: Color Sensor recalibrated for 500–1000 lux lighting, achieving 90% detection accuracy.
 - **Future Improvement**: Closer front wheel placement could enhance steering responsiveness, reducing turn radius by ~20%.
 
 ---
 
 ### 4. Mobility Control Algorithms
+**Control Algorithms**
+Python-based algorithms on **ev3dev** manage:
+- **Speed Control**: `motor_b` adjusts speed (20–80%, 0.1–0.25 m/s) based on tasks (e.g., `speed = 40` for obstacle avoidance, `speed = 20` for parking).
+- **Steering Control**: `amotor` uses PID-like control, adjusting `motor_a` with a gain factor (e.g., `diff = degrese - motor_a.position`).
+- **Task-Specific Control**: Adapts to challenge requirements (e.g., `diff = (distance - 27) * -2` for wall-following, `target = (x - green) * 0.5` for obstacles).
 
-**Control Algorithms**  
-Python-based algorithms on **ev3dev** manage:  
-- **Speed Control**: `motor_b` adjusts speed (20–80%, 0.1–0.25 m/s) based on tasks (e.g., `speed = 40` for obstacle avoidance, `speed = 20` for parking).  
-- **Steering Control**: `amotor` uses PID-like control, adjusting `motor_a` with a gain factor (e.g., `diff = degrese - motor_a.position`).  
-- **Task-Specific Control**: Adapts to challenge requirements (e.g., `diff = (distance - 27) * -2` for wall-following, `target = (x - green) * 0.5` for obstacles).  
-
-**Navigation Techniques**  
-- **Wall-Following**: The robot employs two complementary control strategies for wall-following: a non-linear control algorithm for precise initial alignment and a linear control algorithm for sustained navigation. These approaches ensure robust performance across varying distances, achieving ±2 cm accuracy in 90% of tests on mock WRO tracks. The non-linear method is used during startup phases for rapid convergence, while the linear method handles steady-state following for efficiency.  
-
-  #### Non-Linear Control for Initial Alignment  
-  During the initial alignment phase (e.g., the first 60 iterations in the Open Challenge code), the robot uses a non-linear square root-based correction to handle larger distance variations sensitively. This algorithm calculates correction factors `fr` (right sensor) and `fc` (left sensor) using the formula:  
-  ```python  
-  fr = (-2 * (math.sqrt(11 * r))) + 100  # r = right distance (rast.distance_centimeters)  
-  fc = (-2 * (math.sqrt(11 * c))) + 100  # c = left distance (chap.distance_centimeters)  
-  target = (fc * 1.3) - (fr * 1.7)        # Weighted combination for steering target  
-  ```  
-  The square root function (`sqrt(11 * distance)`) provides a non-linear response: steeper corrections for closer distances (e.g., under 30 cm) to avoid collisions, and gentler adjustments for farther distances (e.g., over 50 cm) to prevent overshooting. The coefficients (e.g., -2, +100) were empirically tuned over 20 test runs to scale the output to a usable range (0–100), ensuring smooth convergence to the target wall distance of 27 cm. The weighting (1.3 for left, 1.7 for right) accounts for slight sensor asymmetries due to mounting positions. The target is clamped (±50) and fed to `amotor` for steering, with the propulsion motor at low speed (30%) to allow precise adjustments. This non-linear approach reduced initial alignment time by 25% compared to linear methods, achieving stability in under 2 seconds with 95% success in tests, making it ideal for startup or recovery from large deviations.  
+**Navigation Techniques**
+- **Wall-Following**: The robot employs two complementary control strategies for wall-following: a non-linear control algorithm for precise initial alignment and a linear control algorithm for sustained navigation. These approaches ensure robust performance across varying distances, achieving ±2 cm accuracy in 90% of tests on mock WRO tracks. The non-linear method is used during startup phases for rapid convergence, while the linear method handles steady-state following for efficiency.
+  
+  #### Non-Linear Control for Initial Alignment
+  During the initial alignment phase (e.g., the first 60 iterations in the Open Challenge code), the robot uses a non-linear square root-based correction to handle larger distance variations sensitively. This algorithm calculates correction factors `fr` (right sensor) and `fc` (left sensor) using the formula:
+  ```python
+  fr = (-2 * (math.sqrt(11 * r))) + 100 # r = right distance (rast.distance_centimeters)
+  fc = (-2 * (math.sqrt(11 * c))) + 100 # c = left distance (chap.distance_centimeters)
+  target = (fc * 1.3) - (fr * 1.7) # Weighted combination for steering target
+  ```
+  The square root function (`sqrt(11 * distance)`) provides a non-linear response: steeper corrections for closer distances (e.g., under 30 cm) to avoid collisions, and gentler adjustments for farther distances (e.g., over 50 cm) to prevent overshooting. The coefficients (e.g., -2, +100) were empirically tuned over 20 test runs to scale the output to a usable range (0–100), ensuring smooth convergence to the target wall distance of 27 cm. The weighting (1.3 for left, 1.7 for right) accounts for slight sensor asymmetries due to mounting positions. The target is clamped (±50) and fed to `amotor` for steering, with the propulsion motor at low speed (30%) to allow precise adjustments. This non-linear approach reduced initial alignment time by 25% compared to linear methods, achieving stability in under 2 seconds with 95% success in tests, making it ideal for startup or recovery from large deviations.
   <div align="center">
-    <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="90%"> 
+    <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="90%">
     <p>Non Linear Function</p>
-    <img src="pictures\non_linear_flow_diagram.svg" alt="Non Linear Function" width="90%"> 
+    <img src="pictures\non_linear_flow_diagram.svg" alt="Non Linear Function" width="90%">
     <p>Non Linear Function</p>
   </div>
 
-  #### Linear Control for Sustained Navigation  
-  For ongoing wall-following after initial alignment (used in the main loop for both Open and Obstacle Challenges), the robot switches to a simpler proportional (linear) control for efficiency and reduced computational load. The correction is calculated as:  
-  ```python  
-  diff = (distance - 27) * k  # k = -2 or +2 based on direction (left/right wall)  
-  diff = diff - motor_a.position  # Adjust for current steering position  
-  diff = clamp(diff, -32, 32)     # Limit to prevent oversteering  
-  ```  
-  Here, `distance` is from the relevant ultrasonic sensor (`chap` for left wall, `rast` for right wall), and the gain `k` (±2) provides direct proportionality: positive errors (too far) steer toward the wall, negative errors (too close) steer away. This linear method is computationally lightweight (no sqrt operations), allowing faster loop rates (10 ms), and is sufficient for small deviations once aligned. It maintains the 27 cm target with ±2 cm accuracy in 90% of sustained tests (over 30 seconds), but can oscillate if initial errors are large—hence the non-linear prelude. The direction factor (`al` in Obstacle Challenge) flips the sign for left/right orientation. In practice, this linear control enabled consistent speeds of 0.25 m/s without slippage, with dynamic adjustments during turns (e.g., reducing clamp to ±27 for finer control after 11 turns).  
+  #### Linear Control for Sustained Navigation
+  For ongoing wall-following after initial alignment (used in the main loop for both Open and Obstacle Challenges), the robot switches to a simpler proportional (linear) control for efficiency and reduced computational load. The correction is calculated as:
+  ```python
+  diff = (distance - 27) * k # k = -2 or +2 based on direction (left/right wall)
+  diff = diff - motor_a.position # Adjust for current steering position
+  diff = clamp(diff, -32, 32) # Limit to prevent oversteering
+  ```
+  Here, `distance` is from the relevant ultrasonic sensor (`chap` for left wall, `rast` for right wall), and the gain `k` (±2) provides direct proportionality: positive errors (too far) steer toward the wall, negative errors (too close) steer away. This linear method is computationally lightweight (no sqrt operations), allowing faster loop rates (10 ms), and is sufficient for small deviations once aligned. It maintains the 27 cm target with ±2 cm accuracy in 90% of sustained tests (over 30 seconds), but can oscillate if initial errors are large—hence the non-linear prelude. The direction factor (`al` in Obstacle Challenge) flips the sign for left/right orientation. In practice, this linear control enabled consistent speeds of 0.25 m/s without slippage, with dynamic adjustments during turns (e.g., reducing clamp to ±27 for finer control after 11 turns).
+- **Zone Detection**: Color Sensor triggers 11 turns in ~30 seconds (Open Challenge).
+- **Obstacle Avoidance**: Pixy Cam adjusts steering/speed, avoiding collisions in 90% of tests.
 
-- **Zone Detection**: Color Sensor triggers 11 turns in ~30 seconds (Open Challenge).  
-- **Obstacle Avoidance**: Pixy Cam adjusts steering/speed, avoiding collisions in 90% of tests.  
-
-**Obstacle Avoidance**  
+**Obstacle Avoidance**
 Pixy Cam detects red/green pillars, adjusting steering (`target = (x - red) * 0.5`) and speed (`speed = 22` or `40`). Ultrasonic Sensors maintain wall-following when no obstacles are detected (`sig == 0`), ensuring 0.5 m clearance.
 
-**Lessons Learned**  
-- **Algorithm Stability**: Non-linear gains (`1.3`, `1.7`) reduced oscillations, achieving 90% stability.  
+**Lessons Learned**
+- **Algorithm Stability**: Non-linear gains (`1.3`, `1.7`) reduced oscillations, achieving 90% stability.
 - **Future Improvement**: Full PID control with derivative terms could reduce settling time by ~15%.
 
 ---
 
 ### 5. Energy Management for Mobility
+**Power Consumption**
+- **Propulsion Motor(s)**: In the Open Challenge, two motors draw 150–200 mA each at 60% speed, peaking at 450 mA during parking. In the Obstacle Challenge, a single motor draws 150–200 mA, peaking at 450 mA.
+- **Steering Motor**: 100–150 mA, peaking at 250 mA for sharp turns.
+- **Total Load**: Maximum 450 mA (Open Challenge, dual motors) or 350 mA (Obstacle Challenge, single motor), within the 2050 mAh capacity of the EV3 Battery.
 
-**Power Consumption**  
-- **Propulsion Motor**: 150–200 mA at 60% speed, peaking at 450 mA during parking.  
-- **Steering Motor**: 100–150 mA, peaking at 250 mA for sharp turns.  
-- **Total Load**: Maximum 450 mA, within the 2050 mAh capacity of the EV3 Battery.  
-
-**Battery and Power Supply**  
+**Battery and Power Supply**
 The **LEGO EV3 Rechargeable Battery Pack** (10V, 2050 mAh) ensures stable 9.8–10.2V delivery during 5-minute runs, supporting ~25 minutes of operation. The EV3 Brick regulates power to prevent drops.
 
-**Energy Optimization**  
-- **Dynamic Speed**: Reduces speed to 20% during parking, saving ~25% power.  
-- **Sensor Polling**: Limits Pixy Cam polling to 50 ms when idle, saving ~10 mA.  
-- **Idle Mode**: Motors stop (`motor_b.off()`) when idle, extending battery life by ~15%.  
+**Energy Optimization**
+- **Dynamic Speed**: Reduces speed to 20% during parking, saving ~25% power.
+- **Sensor Polling**: Limits Pixy Cam polling to 50 ms when idle, saving ~10 mA.
+- **Idle Mode**: Motors stop (`motor_b.off()`) when idle, extending battery life by ~15%.
 
-**Lessons Learned**  
-- **Power Stability**: Weight symmetry reduced motor strain, maintaining consistent power draw.  
+**Lessons Learned**
+- **Power Stability**: Weight symmetry reduced motor strain, maintaining consistent power draw.
 - **Future Improvement**: A capacitor could mitigate 5% voltage drops during high-torque tasks.
 
 ---
 
 ### 6. System Integration for Mobility
+**Integration with Other Systems**
+The mobility system integrates with:
+- **Sensors**: Color Sensor, Ultrasonic Sensors, and Pixy Cam adjust `motor_b` and `motor_a` in real-time.
+- **EV3 Brick**: Processes data in 10 ms loops, sending PWM signals to motors.
+- **Chassis**: LEGO structure (`3d-files/robot_complete.io`) ensures alignment and stability.
 
-**Integration with Other Systems**  
-The mobility system integrates with:  
-- **Sensors**: Color Sensor, Ultrasonic Sensors, and Pixy Cam adjust `motor_b` and `motor_a` in real-time.  
-- **EV3 Brick**: Processes data in 10 ms loops, sending PWM signals to motors.  
-- **Chassis**: LEGO structure (`3d-files/robot_complete.io`) ensures alignment and stability.  
-
-**Control Unit**  
+**Control Unit**
 The **EV3 Control Brick** (ARM9, 300 MHz, 64 MB RAM) runs **ev3dev**, coordinating motor control and sensor processing with USB/Bluetooth deployment and LCD diagnostics.
 
-**Lessons Learned**  
-- **Integration Efficiency**: LEGO connectors eliminated wiring errors, ensuring 100% reliability.  
+**Lessons Learned**
+- **Integration Efficiency**: LEGO connectors eliminated wiring errors, ensuring 100% reliability.
 - **Future Improvement**: Closer front wheels could improve steering precision by ~10%.
 
 ---
@@ -982,53 +976,52 @@ The **EV3 Control Brick** (ARM9, 300 MHz, 64 MB RAM) runs **ev3dev**, coordinati
 Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.
 <br>
 <img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">
-<img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">    
+<img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">
 
-**Testing Methodology**  
-Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/obstacles):  
-- **Wall-Following**: Maintained 27 cm ± 2 cm distance, 90% success (48/50 trials).  
-- **Obstacle Avoidance**: Avoided pillars in 90% of tests (46/50).  
-- **Parking**: Completed in 8–10 seconds, 90% accuracy (42/50).  
-- **Speed**: 0.25 m/s (straight), 0.12 m/s (turns).  
-- **Turning Radius**: ~25 cm, enabling 90° turns in 1.5 seconds.  
+**Testing Methodology**
+Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/obstacles):
+- **Wall-Following**: Maintained 27 cm ± 2 cm distance, 90% success (48/50 trials).
+- **Obstacle Avoidance**: Avoided pillars in 90% of tests (46/50).
+- **Parking**: Completed in 8–10 seconds, 90% accuracy (42/50).
+- **Speed**: 0.25 m/s (straight), 0.12 m/s (turns).
+- **Turning Radius**: ~25 cm, enabling 90° turns in 1.5 seconds.
 
-**Optimization**  
-- **Steering Algorithm**: `clamp` limit of ±50° eliminated oscillations.  
-- **Weight Symmetry**: Balanced design prevented tipping in 100% of tests.  
-- **Software Efficiency**: 10 ms loop timing improved responsiveness by 20%.  
+**Optimization**
+- **Steering Algorithm**: `clamp` limit of ±50° eliminated oscillations.
+- **Weight Symmetry**: Balanced design prevented tipping in 100% of tests.
+- **Software Efficiency**: 10 ms loop timing improved responsiveness by 20%.
 
-**Challenges and Solutions**  
-- **Challenge**: Minor steering lag at 0.25 m/s.  
-  - **Solution**: Reduced gain in `amotor`, achieving 90% stability.  
-- **Challenge**: Lighting variations affected Color Sensor.  
-  - **Solution**: Calibrated for 500–1000 lux, ensuring 90% accuracy.  
+**Challenges and Solutions**
+- **Challenge**: Minor steering lag at 0.25 m/s.
+  - **Solution**: Reduced gain in `amotor`, achieving 90% stability.
+- **Challenge**: Lighting variations affected Color Sensor.
+  - **Solution**: Calibrated for 500–1000 lux, ensuring 90% accuracy.
 
 ---
 
 ### 8. Conclusion
+**Summary**
+The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** (depending on the challenge), achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on,省**ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
 
-**Summary**  
-The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by two **EV3 Medium Motors**, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
+**Lessons Learned**
+- **Weight Symmetry**: Critical for 100% stability in turns.
+- **Initial Design**: Prior WRO experience ensured a robust system with no revisions.
+- **Sensor Calibration**: Lighting adjustments achieved 90% reliability.
 
-**Lessons Learned**  
-- **Weight Symmetry**: Critical for 100% stability in turns.  
-- **Initial Design**: Prior WRO experience ensured a robust system with no revisions.  
-- **Sensor Calibration**: Lighting adjustments achieved 90% reliability.  
+**Future Improvements**
+- **Closer Front Wheels**: Reducing wheel spacing could lower the turning radius to ~20 cm.
+- **PID Control**: Adding integral/derivative terms could reduce settling time by 15%.
+- **Lightweight Materials**: A carbon-fiber chassis could reduce weight by 10%.
+- **Automated Calibration**: Machine learning for sensor thresholds could improve robustness by 10%.
 
-**Future Improvements**  
-- **Closer Front Wheels**: Reducing wheel spacing could lower the turning radius to ~20 cm.  
-- **PID Control**: Adding integral/derivative terms could reduce settling time by 15%.  
-- **Lightweight Materials**: A carbon-fiber chassis could reduce weight by 10%.  
-- **Automated Calibration**: Machine learning for sensor thresholds could improve robustness by 10%.  
-
-**Assembly Instructions**  
-1. Assemble the chassis using LEGO Technic beams per `3d-files/robot_complete.io`.  
-2. Mount `motor_b` to the rear axle with a 1:1 differential.  
-3. Attach `motor_a` to the front axle via a rack-and-pinion system.  
-4. Secure four **LEGO Tire 49.5 x 20** wheels.  
-5. Install sensors (Color Sensor at front center, Ultrasonic Sensors at front left/right, Pixy Cam above EV3 Brick).  
-6. Connect motors to OUTPUT_A (`motor_a`), OUTPUT_B (`motor_b`), and sensors to INPUT_1–4.  
-7. Upload scripts (`codes/open-challenge-code.py`, `codes/obstacle-challenge-code.py`) via USB/Bluetooth.  
+**Assembly Instructions**
+1. Assemble the chassis using LEGO Technic beams per `3d-files/robot_complete.io`.
+2. Mount `motor_b` (one or two motors, depending on challenge) to the rear axle with a 1:1 differential (Open Challenge: two motors via single gear and gearbox; Obstacle Challenge: single motor).
+3. Attach `motor_a` to the front axle via a rack-and-pinion system.
+4. Secure four **LEGO Tire 49.5 x 20** wheels.
+5. Install sensors (Color Sensor at front center, Ultrasonic Sensors at front left/right, Pixy Cam above EV3 Brick).
+6. Connect motors to OUTPUT_A (`motor_a`), OUTPUT_B (`motor_b`), and sensors to INPUT_1–4.
+7. Upload scripts (`codes/open-challenge-code.py`, `codes/obstacle-challenge-code.py`) via USB/Bluetooth.
 
 This documentation, with `3d-files/robot_complete.io` and `codes/`, enables full replication and optimization of the mobility system.
 
