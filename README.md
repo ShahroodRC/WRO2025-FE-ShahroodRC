@@ -6,7 +6,7 @@
       <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
     </td>
     <td width="50%" style="text-align: left;">
-      <img src="pictures\shahrood_rc_logo.jpg" alt="LEGO EV3 Control Brick" width="100%">
+      <img src="pictures/shahrood_rc_logo.jpg" alt="LEGO EV3 Control Brick" width="100%">
     </td>
 
   </tr>
@@ -70,7 +70,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ### 👨‍💼 Sepehr Yavarzadeh
 - **Role**: Project Manager and Software Engineer.
 - **Age**: 16
-- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year I won the third place in our national competition in Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing the tennis. I'm passionate about programming, physics and math.  
+- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year I won the third place in our national competition in Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing tennis. I'm passionate about programming, physics and math.  
 - sepehryavarzadeh@gmail.com
 
 - [Github](https://github.com/Sepehryy)
@@ -122,7 +122,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - [Instagram](https://www.instagram.com/ali_raeesiian/)
   
 <div align="center">
-<img src="team-photos\Ali-Raeesian.jpg" alt="Ali Raeesian" width="60%"> 
+<img src="team-photos/Ali-Raeesian.jpg" alt="Ali Raeesian" width="60%"> 
 <p>Ali Raeesian</p>
 </div>
 
@@ -136,7 +136,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - [Instagram](https://www.instagram.com/ho.bagheri/)
   
 <div align="center">
-<img src="team-photos\Hossein-Bagheri.jpg" alt="Hossein Bagheri" width="60%"> 
+<img src="team-photos/Hossein-Bagheri.jpg" alt="Hossein Bagheri" width="60%"> 
 <p>Hossein Bagheri</p>
 </div>
 
@@ -167,11 +167,11 @@ The ShahroodRC team achieved a remarkable victory by securing **first place** in
 
 ### Visuals
 <div align="center">
-<img src="team-photos\Shahrood_RC_first_place.jpg" alt="ShahroodRC Team championship" width="60%">
+<img src="team-photos/Shahrood_RC_first_place.jpg" alt="ShahroodRC Team championship" width="60%">
 <p>ShahroodRC’s championship victory at the National WRO Competition</p>
-<img src="team-photos\Shahrood_RC_with_medals.jpg" alt="ShahroodRC Team with Award" width="60%">
+<img src="team-photos/Shahrood_RC_with_medals.jpg" alt="ShahroodRC Team with Award" width="60%">
 <p>ShahroodRC Team celebrating their 1st Place victory</p>
-<img src="team-photos\Shahrood_RC_in_national_competition.jpg" alt="ShahroodRC Team in national competition" width="60%">
+<img src="team-photos/Shahrood_RC_in_national_competition.jpg" alt="ShahroodRC Team in national competition" width="60%">
 <p>ShahroodRC Team in National Final</p>
 </div>
 <div align="center">
@@ -340,7 +340,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures\pixy_2_1.jpg" alt="Pixy 2.1" width="100%">
+      <img src="pictures/pixy_2_1.jpg" alt="Pixy 2.1" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -929,9 +929,9 @@ The mobility system uses Python-based algorithms on **ev3dev** to manage:
   ```
   The square root function (`sqrt(11 * distance)`) provides a non-linear response: steeper corrections for closer distances (e.g., under 30 cm) to avoid collisions, and gentler adjustments for farther distances (e.g., over 50 cm) to prevent overshooting. The coefficients (e.g., -2, +100) were empirically tuned over 20 test runs to scale the output to a usable range (0–100), ensuring smooth convergence to the target wall distance of 27 cm. The weighting (1.3 for left, 1.7 for right) accounts for slight sensor asymmetries due to mounting positions. The target is clamped (±50) and fed to `amotor` for steering, with the propulsion motor at low speed (30%) to allow precise adjustments. This non-linear approach reduced initial alignment time by 25% compared to linear methods, achieving stability in under 2 seconds with 95% success in tests, making it ideal for startup or recovery from large deviations.
   <div align="center">
-    <img src="pictures\non_linear_function.jpg" alt="Non Linear Function" width="90%">
+    <img src="pictures/non_linear_function.jpg" alt="Non Linear Function" width="90%">
     <p>Non Linear Function</p>
-    <img src="pictures\non_linear_flow_diagram.svg" alt="Non Linear Function" width="90%">
+    <img src="pictures/non_linear_flow_diagram.svg" alt="Non Linear Function" width="90%">
     <p>Non Linear Function</p>
   </div>
 
@@ -1018,7 +1018,7 @@ Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/
 
 ### 8. Conclusion
 **Summary**
-The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** for propulsion (depending on the challenge), plus one for steering, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on,**ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
+The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** for propulsion (depending on the challenge), plus one for steering, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (`3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
 
 **Lessons Learned**
 - **Weight Symmetry**: Critical for 100% stability in turns.
@@ -1738,4 +1738,4 @@ motor_a.off()
 
 
 ## License
-This project is ed under the MIT License, allowing free use, modification, and distribution with proper attribution. See the [LICENSE](LICENSE) file for full details.
+This project is licensed under the MIT License, allowing free use, modification, and distribution with proper attribution. See the [LICENSE](LICENSE) file for full details.
