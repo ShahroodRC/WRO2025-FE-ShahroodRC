@@ -22,6 +22,7 @@
 - [Our Path](#our-path)
 - [Pictures](#pictures)
 - [Videos](#videos)
+- [Randomizer App](#randomizer-app)
 - [Robot Components Overview](#robot-components-overview)
   - [LEGO EV3 Mindstorms Control Brick](#lego-ev3-mindstorms-control-brick)
   - [Pixy 2.1](#pixy-21)
@@ -274,6 +275,8 @@ Each platform tested taught us critical lessons about system design, integration
 - **LEGO EV3**: Proved that a balance of stability, native integration, and community support is key for WRO success.
 
 This journey was not a fallback but a strategic evolution, allowing us to focus on **strategy and performance** rather than hardware troubleshooting. For future projects, we plan to explore hybrid platforms (e.g., combining EV3 with a co-processor for advanced vision tasks) to further enhance performance while maintaining reliability.
+
+During testing, we used our in-house [**Randomizer App**](randomizer.apk) to validate performance across hundreds of randomized scenarios, ensuring reliability under competition conditions.
 
 > By choosing EV3, we ensured our robot could reliably execute complex tasks like line following, obstacle avoidance, and parking, meeting WRO 2025’s demanding requirements with confidence.
 
@@ -1754,12 +1757,13 @@ motor_a.off()
 
 
 ## Repository Structure
-- [`codes/`](/codes/): Contains Python scripts for Open Challenge and Obstacle Challenge.
-- [`team-photos/`](/team-photos/): Images of team members and the whole team.
-- [`robot-photos/`](/robot-photos/): Images of robot from front, back, top, bottom, right and left.
 - [`3d-files/`](/3d-files/): IO file for 3D model of the robot and robot's 3d model rendered pictures.
-- [`videos/`](/videos/): Performance videos for both challenges.
+- [`codes/`](/codes/): Contains Python scripts for Open Challenge and Obstacle Challenge.
 - [`pictures/`](/pictures/): Other pictures that used in repository like components pictures.
+- [`robot-photos/`](/robot-photos/): Images of robot from front, back, top, bottom, right and left.
+- [`team-photos/`](/team-photos/): Images of team members and the whole team.
+- [`videos/`](/videos/): Performance videos for both challenges.
+- [`randomizer.apk`](randomizer.apk): Android application for generating WRO 2025-compliant random track and obstacle configurations.
 
 ---
 
