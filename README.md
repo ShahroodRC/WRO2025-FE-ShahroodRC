@@ -434,17 +434,17 @@ This section provides a detailed overview of the key hardware components used in
       <li>Speed: 160 rpm</li>
       <li>Torque: 20 N·cm (effective torque ~15 N·cm under robot’s 1.2 kg load)</li>
       <li>Weight: 120 g</li>
-      <li>Interface: LEGO EV3 Motor Port (OUTPUT_B for propulsion, OUTPUT_A for steering)</li>
+      <li>Interface: LEGO EV3 Motor Port (OUTPUT_C and OUTPUT_D for propulsion, OUTPUT_B for steering)</li>
     </td>
   </tr>
 </table>
 
 - **Type**: DC Motor (Medium)
 - **Feature**: Provides propulsion (rear wheels) and steering (front wheels)
-- **Interface**: LEGO EV3 Motor Port (OUTPUT_B for drive, OUTPUT_A for steering)
+- **Interface**: LEGO EV3 Motor Port (OUTPUT_C and OUTPUT_D for drive, OUTPUT_B for steering)
 - **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation
-- **Configuration for Challenges**: In the Open Challenge, two Medium Motors are used for propulsion, connected to a single gear that drives a gearbox linked to the differential, enhancing torque for robust navigation. In the Obstacle Challenge, the gear connected to the second motor is removed, and only one Medium Motor is used for propulsion to simplify the system and reduce power consumption, while still meeting WRO 2025 rules as both configurations produce a single output via the differential.
-- **Description**: Two EV3 Medium Motors power the ShahroodRC robot. The propulsion motor (OUTPUT_B, `motor_b`) drives the rear wheels through a differential, delivering 20 N·cm nominal torque (effective ~15 N·cm under the robot’s 1.2 kg load) at 160 rpm for smooth linear motion. The steering motor (OUTPUT_A, `motor_a`) adjusts the front wheels’ angle via a rack-and-pinion system, enabling precise turns with a PID-like control (`amotor`). Mounted on the chassis (included in `3d-files/robot_complete.io`), the motors were chosen over Large Motors for their lighter weight and sufficient power for WRO tasks. A 1:1.5 gear ratio for propulsion enhanced torque for parking maneuvers, reducing motor strain.
+- **Configuration for Challenges**: In the Open Challenge, two Medium Motors are used for propulsion, connected to a single gear that drives the differential, enhancing torque for robust navigation. In the Obstacle Challenge, the gear connected to the second motor is removed, and only one Medium Motor is used for propulsion to simplify the system and reduce power consumption, while still meeting WRO 2025 rules as both configurations produce a single output via the differential.
+- **Description**: Three EV3 Medium Motors power the ShahroodRC robot. The propulsion motors (OUTPUT_C, `motor_c` and OUTPUT_D, `motor_b`) drives the rear wheels through a differential, delivering 20 N·cm nominal torque (effective ~15 N·cm under the robot’s 1.2 kg load) at 160 rpm for smooth linear motion. The steering motor (OUTPUT_B, `motor_a`) adjusts the front wheels’ angle via a rack-and-pinion system, enabling precise turns with a PID-like control (`amotor`). Mounted on the chassis (included in `3d-files/robot_complete.io`), the motors were chosen over Large Motors for their lighter weight and sufficient power for WRO tasks. A 1:1.5 gear ratio for propulsion enhanced torque for parking maneuvers, reducing motor strain.
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
 
@@ -468,7 +468,7 @@ This section provides a detailed overview of the key hardware components used in
 ---
 
 ### 🛠 Notes
-- **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_A for steering, OUTPUT_B for propulsion) and four sensor ports (INPUT_1 for Color Sensor, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Pixy Cam). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
+- **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
 - **Component Placement**: The EV3 Brick is centrally mounted for balance, with the Color Sensor at the front center (0.5–1 cm from the surface), Ultrasonic Sensors on the front left and right, and Pixy Cam elevated above the Brick for optimal obstacle detection.
 - **Component Selection**: The EV3 platform was chosen for its robust ecosystem and compatibility, replacing less reliable options like the HC-SR04 Ultrasonic Sensor. The Medium Motors’ lighter weight (120 g vs. 170 g for Large Motors) optimized the robot’s 1.2 kg design for agility.
 - **Custom Parts**: A single 3D-printed model (`3d-files/robot_complete.io`) includes the chassis and integrated mounts for the Pixy Cam, Ultrasonic Sensors, and Color Sensor, ensuring stable positioning during high-speed navigation.
@@ -825,7 +825,7 @@ The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** confi
 - **Weight Symmetry**: Equal weight distribution across the chassis minimizes tipping risks during high-speed turns, contributing to a 90% success rate in navigation tests.
 - **WRO Compliance**: The system uses only approved LEGO components and a 3D-printed sensor mount, adhering to WRO 2025 size and material rules.
 - **Motor Configuration for Challenges**:
-  - **Open Challenge**: The rear-wheel drive system utilizes **two EV3 Medium Motors** connected to a single gear, which is linked to a gearbox driving the differential. This dual-motor setup increases torque output for enhanced performance during navigation, while adhering to WRO rules since both motors contribute to a single output (the differential). This configuration ensures robust propulsion for the Open Challenge’s demanding track navigation.
+  - **Open Challenge**: The rear-wheel drive system utilizes **two EV3 Medium Motors** connected to a single gear, which is driving the differential. This dual-motor setup increases torque output for enhanced performance during navigation, while adhering to WRO rules since both motors contribute to a single output (the differential). This configuration ensures robust propulsion for the Open Challenge’s demanding track navigation.
   - **Obstacle Challenge**: To optimize for simplicity and energy efficiency, the gear connected to the second motor is removed, and only one EV3 Medium Motor is used for propulsion. The single motor drives the differential directly, providing sufficient power for obstacle avoidance and parking tasks while reducing complexity and power consumption.
 
 **Development Process**
@@ -836,8 +836,8 @@ The mobility system was designed and built by the team’s mechanical specialist
 ### 2. Motors and Actuators
 **Motor Types**
 Three **LEGO EV3 Medium Motors** are used in the mobility system (depending on the challenge configuration):
-- **Propulsion Motor(s) (`motor_b`, OUTPUT_B and OUTPUT_C)**: In the Open Challenge, two motors (connected to OUTPUT_B and OUTPUT_C) drive the rear wheels via a single gear connected to a gearbox and differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
-- **Steering Motor (`motor_a`, OUTPUT_A)**: Controls the front wheels’ angle via a rack-and-pinion system, offering a ±45° steering range with 1° resolution.
+- **Propulsion Motor(s) (`motor_b` on OUTPUT_D and `motor_c` on OUTPUT_C)**: In the Open Challenge, two motors (connected to OUTPUT_D and OUTPUT_C) drive the rear wheels via a single gear connected to differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
+- **Steering Motor (`motor_a`, OUTPUT_B)**: Controls the front wheels’ angle via a rack-and-pinion system, offering a ±45° steering range with 1° resolution.
 - **Specifications**:
   - Voltage: 9V
   - Nominal Torque: 20 N·cm
@@ -860,7 +860,7 @@ def amotor(degrese, cl=50):
 ```
 
 **Motor Integration**
-- **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b` on `OUTPUT_B` and another on `OUTPUT_C`) are coupled to a single gear, which drives a gearbox connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
+- **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b` on `OUTPUT_D` and another on `OUTPUT_C`) are coupled to a single gear, which connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
 - **Steering**: The steering motor (`motor_a`) drives a rack-and-pinion system, adjusting the front wheels with 1° precision. The system is mounted with LEGO Technic beams for rigidity.
 - **Mechanical Stability**: The chassis, detailed in `3d-files/robot_complete.io`, secures motors to minimize vibration at 0.25 m/s. Weight symmetry (50% front, 50% rear) ensures balance during sharp turns.
 
@@ -1033,11 +1033,11 @@ The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-whee
 
 **Assembly Instructions**
 1. Assemble the chassis using LEGO Technic beams per `3d-files/robot_complete.io`.
-2. Mount `motor_b` (one or two motors, depending on challenge) to the rear axle with a 1:1 differential (Open Challenge: two motors via single gear and gearbox; Obstacle Challenge: single motor).
+2. Mount `motor_b` (one or two motors, depending on challenge) to the rear axle with a 1:1 differential (Open Challenge: two motors via single gear; Obstacle Challenge: single motor).
 3. Attach `motor_a` to the front axle via a rack-and-pinion system.
 4. Secure four **LEGO Tire 49.5 x 20** wheels.
 5. Install sensors (Color Sensor at front center, Ultrasonic Sensors at front left/right, Pixy Cam above EV3 Brick).
-6. Connect motors to OUTPUT_A (`motor_a`), OUTPUT_B (`motor_b`), and sensors to INPUT_1–4.
+6. Connect motors to OUTPUT_B (`motor_a`), OUTPUT_D (`motor_b`), and sensors to INPUT_1–4.
 7. Upload scripts (`codes/open-challenge-code.py`, `codes/obstacle-challenge-code.py`) via USB/Bluetooth.
 
 This documentation, with `3d-files/robot_complete.io` and `codes/`, enables full replication and optimization of the mobility system.
