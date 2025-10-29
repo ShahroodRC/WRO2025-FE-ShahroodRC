@@ -391,8 +391,8 @@ This section provides a detailed overview of the key hardware components used in
 - **Interface**: Custom I2C connection via EV3 sensor port (INPUT_1)
 - **Use**: Detects green (signature 1) and red (signature 2) pillars for obstacle avoidance in the Obstacle Challenge; potential for line tracking in Open Challenge
 - **Description**: The Pixy 2.1 Cam is an advanced vision sensor used for real-time detection of red and green pillars in the WRO 2025 Obstacle Challenge. Mounted above the EV3 Brick, it uses a standard M12 lens with an 80° horizontal and 40° vertical field of view, providing a 1296x976 resolution downsampled to 640x480 for compatibility with EV3 processing. Operating at up to 60 fps, it is optimized for WRO’s obstacle distances (0.5–1.5 m). Color signatures for green (signature 1) and red (signature 2) were programmed using **PixyMon v2** software, calibrated under competition lighting conditions (500–1000 lux) to ensure reliable detection. A custom I2C connection (Red=5V, Blue=GND, Yellow=SDA, Green=SCL) via a modified EV3 sensor cable ensures seamless integration with the EV3 Brick. Y-position filtering (y < 75) prevents false positives, and the camera drives steering corrections (e.g., `target = (x - green) * 0.5`). Pixy 2.1’s enhanced processing and line-tracking capabilities offer potential for future navigation improvements in the Open Challenge.
-- **Lessons Learned**: Manual calibration via PixyMon v2 required fewer iterations than Pixy 1 due to improved color detection algorithms, but consistent lighting (500–1000 lux) was critical. Future improvements could leverage Pixy 2.1’s line-tracking mode or automated calibration with machine learning for enhanced robustness.
-- **Implementation Impact**: Pixy 2.1 achieved 97% detection accuracy in test environments, improving obstacle avoidance reliability and reducing collision risks in the Obstacle Challenge compared to Pixy 1. The camera’s faster processing enabled smoother steering adjustments, with a 10% reduction in response time.
+- **Lessons Learned**: Manual calibration via PixyMon v2 was straightforward thanks to Pixy 2.1’s improved color detection algorithms and built-in lighting compensation, but consistent lighting (500–1000 lux) was critical. Future improvements could leverage Pixy 2.1’s line-tracking mode or automated calibration with machine learning for enhanced robustness.
+- **Implementation Impact**: Pixy 2.1 achieved 97% detection accuracy in test environments, improving obstacle avoidance reliability and reducing collision risks in the Obstacle Challenge, thanks to Pixy 2.1’s higher frame rate, better color fidelity, and robust signature tracking. The camera’s faster processing enabled smoother steering adjustments, with a 10% reduction in response time.
 
 #### **Ultrasonic Sensor EV3**
 
@@ -446,7 +446,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Feature**: Detects colors (e.g., blue=2, orange=5) and light intensity for navigation
 - **Interface**: LEGO EV3 Sensor Port (INPUT_1)
 - **Use**: Enables line following and zone detection for Open and Obstacle Challenges
-- **Description**: The EV3 Color Sensor, mounted at the robot’s front center (included in `3d-files/robot_complete.io`), detects blue (color code 2) and orange (color code 5) lines to guide navigation and trigger turns in the Open Challenge. Operating in color mode with a 1 kHz sampling rate, it requires a 0.5–1 cm distance from the surface for accurate detection (95% accuracy in tests under 500–1000 lux lighting). Connected to INPUT_1, it was calibrated to handle varying lighting conditions, ensuring reliable performance. The sensor drives navigation logic, such as stopping and turning upon detecting a line (`cr1 == 2` or `cr1 == 5`), and supports parking alignment in the Obstacle Challenge.
+- **Description**: The EV3 Color Sensor, mounted at the robot’s front center (included in `3d-files/robot_complete.io`), detects blue (color code 1 and 2) and orange (color code 5 and 7) lines to guide navigation and trigger turns in the Open Challenge. Operating in color mode with a 1 kHz sampling rate, it requires a 0.5–1 cm distance from the surface for accurate detection (95% accuracy in tests under 500–1000 lux lighting). Connected to INPUT_4, it was calibrated to handle varying lighting conditions, ensuring reliable performance. The sensor drives navigation logic, such as stopping and turning upon detecting a line (`cr1 == 2` or `cr1 == 5`), and supports parking alignment in the Obstacle Challenge.
 - **Lessons Learned**: Maintaining a 0.5–1 cm distance was critical for accurate color detection; variations in lighting required multiple calibration rounds. Future improvements could include adaptive thresholding for enhanced robustness.
 - **Implementation Impact**: The Color Sensor’s fast response enabled precise line-following, completing 11 turns in the Open Challenge and aligning for parking within 2 seconds.
 
@@ -504,7 +504,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Custom Parts**: A single 3D-printed model (`3d-files/robot_complete.io`) includes the chassis and integrated mounts for the Pixy Cam, Ultrasonic Sensors, and Color Sensor, ensuring stable positioning during high-speed navigation.
 - **Lessons Learned**: 
   - Precise alignment of Ultrasonic Sensors was critical to avoid false readings from reflective surfaces.
-  - PixyMon calibration for Pixy Cam required multiple iterations; automated tools could streamline this in the future.
+  - PixyMon v2 calibration for **Pixy 2.1** was efficient but still required manual tuning under competition lighting; future versions could integrate automated lighting-adaptive calibration.
   - Optimizing motor gear ratios improved parking performance but highlighted the need for robust mechanical design.
 - **Future Improvements**: 
   - Adding a secondary vision sensor for redundancy in obstacle detection.
@@ -601,54 +601,75 @@ The steering system uses a proportional control algorithm where the motor power 
 ---
 
 ### Pixy Camera Code
-The Pixy camera is our primary sensor for detecting red and green pillars in the obstacle challenge. It communicates with the EV3 brick via I2C protocol.
+
+The Pixy 2.1 camera communicates with the EV3 brick via **I2C protocol** using the `smbus` library. Unlike Pixy 1, Pixy 2.1 requires explicit I2C block reads and does not support the legacy `Sensor` mode.
 
 ```python
-from ev3dev2.sensor import Sensor, INPUT_1
+from ev3dev2.port import LegoPort
+from smbus import SMBus
 
-# Initialize Pixy sensor
-pixy = Sensor(INPUT_1)
-pixy.mode = 'ALL'
+# Configure EV3 sensor port for I2C
+pixy_port = LegoPort(address='in1:i2c8')
+pixy_port.mode = 'other-i2c'
+pixy_address = 0x54  # Default I2C address for Pixy 2
+bus = SMBus(3)       # EV3 uses I2C bus 3 for sensor ports
 
-def get_pillar_data():
+def read_pixy_block():
     """
-    Function to read data from Pixy camera.
+    Request and read a single object block from Pixy 2.1.
     Returns:
-        tuple: (signature, x_position, y_position, size)
+        dict: Contains 'signature', 'x', 'y', 'width', 'height'
     """
-    sig = pixy.value(1) * 256 + pixy.value(0)  # Color signature
-    x = pixy.value(2)  # X position
-    y = pixy.value(3)  # Y position  
-    size = pixy.value(4)  # Size of detected object
+    # Send request for 1 block of data (standard Pixy 2 I2C command)
+    request = [174, 193, 32, 2, 0, 0]  # Sync + get blocks command
+    bus.write_i2c_block_data(pixy_address, 0, request)
     
-    return sig, x, y, size
+    # Read 20-byte response (standard block size)
+    raw = bus.read_i2c_block_data(pixy_address, 0, 20)
+    
+    # Parse fields (little-endian format)
+    sig = raw[6] + (raw[7] << 8)
+    x = raw[8] + (raw[9] << 8)
+    y = raw[10] + (raw[11] << 8)
+    w = raw[12] + (raw[13] << 8)
+    h = raw[14] + (raw[15] << 8)
+    
+    # Validate data (Pixy 2 returns 0 for invalid fields)
+    if sig == 0 or x == 0:
+        return None
+        
+    return {'signature': sig, 'x': x, 'y': y, 'width': w, 'height': h}
 
 def detect_pillar():
     """
-    Main function for pillar detection and response.
+    Detect red (sig=2) or green (sig=1) pillars.
     Returns:
-        int: 1 for red pillar, 2 for green pillar, 0 for no pillar
+        int: 1 = green, 2 = red, 0 = none
     """
-    sig, x, y, size = get_pillar_data()
-    
-    # Filter out detections that are too far (low Y value)
-    if y < 75:
-        sig = 0
-        
-    return sig
+    block = read_pixy_block()
+    if block and block['y'] > 70:  # Filter close/false detections
+        return block['signature']
+    return 0
 ```
 
+**Key Notes:**
+- Pixy 2.1 must be configured in "I2C mode" using PixyMon before use.
+- The I2C address is 0x54 by default.
+- Data is read in 20-byte blocks; fields are little-endian.
+- Y-position filtering (y > 70) avoids ground-level noise.
+- This method is used in the actual [`obstacle-challenge-code.py`](codes/obstacle-challenge-code.py).
+
 **Detection Strategy:**
-- The Pixy is programmed to recognize two color signatures: red (signature 1) and green (signature 2)
+- The Pixy is programmed to recognize two color signatures: green (signature 1) and red (signature 2)
 - We filter detections based on Y-position to avoid false positives from distant objects
 - The X-position is used to calculate steering corrections
 
-- **Calibration**: The Pixy Cam was trained using **PixyMon** software to recognize red (signature 1) and green (signature 2) pillars under competition lighting (500–1000 lux), ensuring reliable detection.
+- **Calibration**: The Pixy Cam was trained using **PixyMon v2** software to recognize green (signature 1) and red (signature 2) pillars under competition lighting (500–1000 lux), ensuring reliable detection.
 
 **Calibration Step By Step**:
-1. Connect Pixy Cam to a computer via USB and open PixyMon.
-2. Train signature 1 (red) and signature 2 (green) under 500–1000 lux lighting at 0.5–1.5 m distance.
-3. Adjust Y-position filter (`y < 75`) based on test runs to eliminate false positives.
+1. Connect Pixy Cam to a computer via USB and open PixyMon v2.
+2. Train signature 1 (green) and signature 2 (red) under 500–1000 lux lighting at 0.5–1.5 m distance.
+3. Adjust Y-position filter (`y < 70`) based on test runs to eliminate false positives.
 
 ---
 
@@ -1139,6 +1160,11 @@ This section outlines how electrical power is distributed across the robot and h
   **Unused**:
   - **White** → not required  
   - **Black** → extra ground, left unconnected  
+
+    <div align="center">
+      <img src="pictures/pixy_cam_wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
+      <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
+    </div>
 
   This setup enabled direct power and I2C communication via EV3’s sensor port without needing external regulators or level converters. Continuity and voltage checks confirmed proper signal routing; runtime tests validated stable behavior in all modes.
 
