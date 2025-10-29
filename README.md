@@ -298,6 +298,33 @@ You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challen
 ---
 
 
+## Randomizer App
+
+To assist teams and judges in simulating the dynamic and unpredictable nature of the WRO 2025 Future Engineers challenges, the ShahroodRC team developed a custom **Randomizer Application** for Android devices. This app generates randomized track layouts and obstacle configurations that comply with official WRO 2025 rules for both the **Open Challenge** and the **Obstacle Challenge**.
+
+### Features
+- **Dual Challenge Support**: Generates valid configurations for both Open and Obstacle rounds.
+- **Rule-Compliant Outputs**: Ensures all generated layouts adhere to WRO 2025 regulations (e.g., number of turns, pillar placements, line colors).
+- **User-Friendly Interface**: Simple tap-to-generate design with clear visual feedback.
+- **Offline Functionality**: No internet required—ideal for competition environments.
+- **Export & Share**: Results can be viewed on-screen or shared as text for documentation.
+
+### Usage
+1. Install the APK file (`randomizer.apk`) on any Android device (min. Android 7.0 recommended).
+2. Open the app and select your desired challenge type (**Open** or **Obs**) to receive a randomized, competition-ready layout.
+4. Use the output to set up your practice arena or verify robot behavior.
+
+> 💡 **Note**: This tool was used internally during our development and testing phases to ensure our robot could handle any valid WRO 2025 scenario with robustness and adaptability.
+
+### Download
+The latest version of the Randomizer app is included directly in this repository:
+- [`randomizer.apk`](randomizer.apk)
+
+> ⚠️ **Security Note**: This APK is built and signed by the ShahroodRC team. Always scan files with your preferred antivirus before installation.
+
+---
+
+
 ## Robot Components Overview
 
 This section provides a detailed overview of the key hardware components used in the ShahroodRC robot for the WRO 2025 Future Engineers category. Each component was carefully selected to ensure compatibility, reliability, and optimal performance for tasks like line following, obstacle avoidance, and precise parking. The components are seamlessly integrated with the LEGO EV3 platform, leveraging our team’s prior experience to streamline development and focus on competition performance.
