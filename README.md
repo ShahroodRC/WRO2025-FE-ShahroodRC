@@ -1,16 +1,9 @@
 # ShahroodRC
 
-<table>
-  <tr>
-    <td width="50%" style="text-align: left; vertical-align: top;">
-      <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
-    </td>
-    <td width="50%" style="text-align: left;">
-      <img src="pictures/shahrood_rc_logo.jpg" alt="LEGO EV3 Control Brick" width="100%">
-    </td>
-
-  </tr>
-</table>
+<div align="center">
+    <img src="pictures/shahrood_rc_logo.jpg" alt="ShahroodRC's logo" width="%">
+    <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
+</div>
 
 ---
 
@@ -1162,7 +1155,7 @@ This section outlines how electrical power is distributed across the robot and h
   - **Black** → extra ground, left unconnected  
 
     <div align="center">
-      <img src="pictures/pixy_cam_wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
+      <img src="pictures/pixy_cam_wiring.jpg" alt="Pixy Cam Wiring Diagram" width="50%">
       <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
     </div>
 
