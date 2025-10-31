@@ -1,7 +1,7 @@
 # ShahroodRC
 
 <div align="center">
-    <img src="pictures/shahrood_rc_logo.jpg" alt="ShahroodRC's logo" width="%">
+    <img src="pictures/shahrood_rc_logo.jpg" alt="ShahroodRC's logo" width="80%">
     <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
 </div>
 
@@ -382,7 +382,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Type**: Vision Sensor
 - **Feature**: Real-time object recognition, color tracking, and line tracking
 - **Interface**: Custom I2C connection via EV3 sensor port (INPUT_1)
-- **Use**: Detects green (signature 1) and red (signature 2) pillars for obstacle avoidance in the Obstacle Challenge; potential for line tracking in Open Challenge
+- **Use**: Detects green (signature 1), red (signature 2), and purple (signature 3 for parking zone) pillars for obstacle avoidance in the Obstacle Challenge; potential for line tracking in Open Challenge
 - **Description**: The Pixy 2.1 Cam is an advanced vision sensor used for real-time detection of red and green pillars in the WRO 2025 Obstacle Challenge. Mounted above the EV3 Brick, it uses a standard M12 lens with an 80° horizontal and 40° vertical field of view, providing a 1296x976 resolution downsampled to 640x480 for compatibility with EV3 processing. Operating at up to 60 fps, it is optimized for WRO’s obstacle distances (0.5–1.5 m). Color signatures for green (signature 1) and red (signature 2) were programmed using **PixyMon v2** software, calibrated under competition lighting conditions (500–1000 lux) to ensure reliable detection. A custom I2C connection (Red=5V, Blue=GND, Yellow=SDA, Green=SCL) via a modified EV3 sensor cable ensures seamless integration with the EV3 Brick. Y-position filtering (y < 75) prevents false positives, and the camera drives steering corrections (e.g., `target = (x - green) * 0.5`). Pixy 2.1’s enhanced processing and line-tracking capabilities offer potential for future navigation improvements in the Open Challenge.
 - **Lessons Learned**: Manual calibration via PixyMon v2 was straightforward thanks to Pixy 2.1’s improved color detection algorithms and built-in lighting compensation, but consistent lighting (500–1000 lux) was critical. Future improvements could leverage Pixy 2.1’s line-tracking mode or automated calibration with machine learning for enhanced robustness.
 - **Implementation Impact**: Pixy 2.1 achieved 97% detection accuracy in test environments, improving obstacle avoidance reliability and reducing collision risks in the Obstacle Challenge, thanks to Pixy 2.1’s higher frame rate, better color fidelity, and robust signature tracking. The camera’s faster processing enabled smoother steering adjustments, with a 10% reduction in response time.
@@ -1384,45 +1384,84 @@ The robot extends Open Challenge logic, adding Pixy Cam for obstacle detection (
 
 #### Flow Diagram
 ```
-[Start] --> [Determine Direction (100 iterations)] --> [Set Color Values]
-    --> [Navigate with Line Detection] --> [Detect Obstacle (Pixy)]
-    --> [IF Green Obstacle] --> [Adjust Steering ((x-green)*0.5)]
-    --> [IF Red Obstacle] --> [Adjust Steering ((x-red)*0.5)]
-    --> [IF No Obstacle] --> [Maintain 40-55 cm with Ultrasonic]
-    --> [After 12 Turns] --> [Execute Parking Sequence] --> [End]
+[Start]
+  │
+  ▼
+[Determine Direction (100 ultrasonic samples)]
+  │
+  ▼
+[Set al, green/red targets, rang/rangdovom]
+  │
+  ▼
+[Main Loop: while a < 12]
+  ├───▶ [Read Pixy block & filter y < 50]
+  ├───▶ [IF y < 70 → Center Obstacle (LEDs=ORANGE)]
+  ├───▶ [ELSE IF sig=1 → Green Avoidance (LEDs=GREEN)]
+  ├───▶ [ELSE IF sig=2 → Red Avoidance (LEDs=RED)]
+  └───▶ [ELSE → Wall Following (fasele = 40–55 cm)]
+        │
+        ▼
+        [IF rang detected → Turn Maneuver (max 4s)]
+        │
+        ▼
+        [Dynamic fasele Adjustment]
+        │
+        ▼
+        [Stall Detection → Reverse if stuck]
+  │
+  ▼
+[Parking Sequence (al-dependent)]
+  │
+  ▼
+[End]
 ```
 
 #### Pseudo Code
 ```
 BEGIN
-    FOR (p = 0 to 100)
-        IF (rast > chap) THEN jahat += 1
+    // Determine initial direction using 100 ultrasonic samples
+    FOR p = 0 TO 100
+        IF rast.distance > chap.distance THEN jahat += 1
         ELSE jahat -= 1
     END FOR
-    IF (jahat > 0) THEN al = -1, green = 245, red = 75, rang=[5,5], rangdovom=[2,1]
-    ELSE al = 1, green = 245, red = 65, rang=[1,2], rangdovom=[5,5]
-    WHILE (not 12 turns completed)
-        IF (Pixy detects obstacle AND y < 70)
+    SET al = -1 IF jahat > 0 ELSE 1
+    SET green = 245, red = 75 IF al > 0 ELSE 65
+    SET rang = [5,5], rangdovom = [2,1] IF al > 0 ELSE [1,2], [5,5]
+
+    WHILE turn_counter < 12
+        READ Pixy block data via I2C
+        FILTER obstacle IF y < 50 (Yignor)
+
+        IF obstacle is VERY CLOSE (y < 70) THEN
             SET LEDs to ORANGE
-            SET target = (x-165)*0.7
-            ADJUST steering with amotor(target,45)
-            SET speed = 40
-        ELSE IF (sig = 1) THEN
-            SET target = (x - green)*0.5
+            STEER toward image center: target = (x - 165) * 0.7
+            LIMIT steering to ±20, speed = 40
+        ELSE IF sig == 1 (green pillar) THEN
             SET LEDs to GREEN
-        ELSE IF (sig = 2) THEN
-            SET target = (x - red)*0.5
+            STEER using: target = (x - green) * 0.5
+        ELSE IF sig == 2 (red pillar) THEN
             SET LEDs to RED
-        ELSE
-            SET distance = ultrasonic reading
-            CALCULATE out = (fasele - distance) * al
-            ADJUST steering with amotor(out)
+            STEER using: target = (x - red) * 0.5
+        ELSE IF no obstacle AND on white line (color == 6) THEN
+            WALL-FOLLOW using ultrasonic: out = (fasele - distance) * al
+            CLAMP steering to ±45
         END IF
-        IF (color_sensor detects rang) THEN INCREMENT turn counter
-        IF (12 turns completed) THEN START parking
+
+        IF primary line detected (color in rang) THEN
+            EXECUTE turn maneuver (max 4 seconds)
+            INCREMENT turn_counter
+        END IF
+
+        // Dynamically adjust target distance after obstacle clearance
+        IF (lastsig == 2 AND al > 0 AND sig == 0) OR (lastsig == 1 AND al < 0 AND sig == 0) THEN
+            fasele = 55
+        END IF
+        IF fasele > 40 THEN fasele -= 0.09
+
+        // Stall detection: if motor_b position unchanged for >0.3s, reverse and retry
     END WHILE
-    ALIGN with rangdovom using adjusted distances (5-34 cm)
-    EXECUTE motor movements for parking
+
+    EXECUTE parking sequence based on al
 END
 ```
 
@@ -1440,169 +1479,228 @@ import time
 import math
 from ev3dev2.led import Leds
 
-# Initialize sensors and motors
-rast = UltrasonicSensor(INPUT_2)  # Right ultrasonic sensor
-chap = UltrasonicSensor(INPUT_3)  # Left ultrasonic sensor
-color_sensor = ColorSensor(INPUT_4)  # Color sensor for line detection
-pixy = LegoPort(INPUT_1)  # Pixy Cam port for obstacle detection
-pixy.mode = 'other-i2c'  # Set Pixy to I2C mode
-address = 0x54  # Pixy I2C address
-bus = SMBus(3)  # I2C bus for Pixy communication
-motor_a = MediumMotor(OUTPUT_B)  # Steering motor
-motor_b = MediumMotor(OUTPUT_D)  # Drive motor
-motor_a.reset()  # Reset steering motor position
-motor_b.reset()  # Reset drive motor position
-leds = Leds()  # LED indicators for status
+# Initialize ultrasonic sensors for left and right distance measurement
+rast = UltrasonicSensor(INPUT_2)  # Right-side ultrasonic sensor
+chap = UltrasonicSensor(INPUT_3)  # Left-side ultrasonic sensor
 
-# Set initial LED state to orange, then green to indicate start
+# Total number of turns (doors) to complete before parking
+door = 12
+
+# Configure Pixy Cam on INPUT_1 using I2C mode
+pixy = LegoPort(INPUT_1)
+pixy.mode = 'other-i2c'  # Set EV3 sensor port to I2C mode
+address = 0x54           # Default I2C address for Pixy 2.1
+bus = SMBus(3)           # Use I2C bus 3 (corresponds to sensor port 1 on EV3)
+
+# Global variables for block data and turn counter
+global block
+global a
+a = 0  # Turn counter (starts at 0, max = 12)
+
+# Initialize color sensor and motors
+color_sensor = ColorSensor(INPUT_4)     # Color sensor for line detection
+motor_a = MediumMotor(OUTPUT_B)         # Steering motor (front wheels)
+motor_b = MediumMotor(OUTPUT_D)         # Drive motor (rear wheels)
+motor_a.reset()  # Reset steering motor encoder
+motor_b.reset()  # Reset drive motor encoder
+
+# Initialize LEDs for visual feedback
+leds = Leds()
 leds.set_color('LEFT', 'ORANGE')
 leds.set_color('RIGHT', 'ORANGE')
 leds.set_color('LEFT', 'GREEN')
 leds.set_color('RIGHT', 'GREEN')
 
-# Utility function to clamp values within a range
+# Utility function to clamp a value within a specified range
 def clamp(value, minimum, maximum):
-    return max(minimum, min(value, maximum))
+    if value > maximum:
+        value = maximum
+    if value < minimum:
+        value = minimum
+    return value
 
-# Utility function to control steering motor with gain
-def amotor(degrese, cl=50):
-    diff = (degrese - motor_a.position) * 0.7  # Apply 0.7 gain to steering
-    motor_a.on(clamp(diff, -cl, cl))  # Apply limited steering correction
+# Proportional steering control with gain factor (0.7)
+def amotor(target_degrees, clamp_limit=50):
+    """
+    Adjust steering motor position using proportional control.
+    Args:
+        target_degrees (float): Desired steering angle in degrees.
+        clamp_limit (int): Maximum power limit for motor (default: 50).
+    """
+    diff = (target_degrees - motor_a.position) * 0.7
+    motor_a.on(clamp(diff, -clamp_limit, clamp_limit))
 
-# Utility function to parse Pixy data
-def get_block(type):
-    if type == "sig":
-        export = block[7] << 8 | block[6]  # Signature (object type)
-    elif type == "x":
-        export = block[9] << 8 | block[8]  # X-coordinate
-    elif type == "y":
-        export = block[11] << 8 | block[10]  # Y-coordinate
-    # Filter invalid values
-    if block[7] << 8 | block[6] > 7 or block[9] << 8 | block[8] > 3000 or block[11] << 8 | block[10] > 3000:
+# Parse Pixy block data (little-endian format)
+def get_block(field_type):
+    """
+    Extract a specific field from the Pixy block data.
+    Args:
+        field_type (str): 'sig', 'x', or 'y'
+    Returns:
+        int: Parsed value or 0 if invalid.
+    """
+    if field_type == "sig":
+        export = block[7] << 8 | block[6]
+    elif field_type == "x":
+        export = block[9] << 8 | block[8]
+    elif field_type == "y":
+        export = block[11] << 8 | block[10]
+    # Filter out invalid or out-of-range values
+    if (block[7] << 8 | block[6] > 7 or
+        block[9] << 8 | block[8] > 3000 or
+        block[11] << 8 | block[10] > 3000):
         return 0
     return export
 
-# Line detection and turn counter
-a = 0  # Turn counter
+# Line detection and turn counter logic
 def lineChek():
+    """
+    Detect track lines and increment turn counter when a valid line is found.
+    Uses color codes: 1=Black, 2=Blue, 5=Orange.
+    """
     global a
-    cr1 = color_sensor.color  # Read current color
-    # Increment turn counter if motor moved significantly or first turn detected
+    cr1 = color_sensor.color
+    # Trigger turn if significant motor movement OR first detection
     if (motor_b.position > 1400 and cr1 in [1, 2, 5]) or (a == 0 and cr1 in [1, 2, 5]):
         a += 1
-        motor_b.reset()  # Reset motor position
+        motor_b.reset()  # Reset drive motor encoder for next segment
 
-# Determine initial direction (right or left) over 100 iterations
+# Determine initial driving direction using 100 ultrasonic samples
 p = 0
 jahat = 0
-sleep(0.2)  # Brief delay for sensor stabilization
+sleep(0.2)  # Allow sensors to stabilize
 while p != 100:
-    r = rast.distance_centimeters  # Right distance
-    c = chap.distance_centimeters  # Left distance
+    r = rast.distance_centimeters
+    c = chap.distance_centimeters
     if r > c:
-        jahat += 1  # Increment for right direction
+        jahat += 1
     else:
-        jahat -= 1  # Decrement for left direction
+        jahat -= 1
     p += 1
 
-# Set direction and color parameters based on initial direction
-al = -1 if jahat > 0 else 1  # Direction multiplier (-1 for right, 1 for left)
-green = 245  # Green obstacle X-coordinate target
-red = 75 if jahat > 0 else 65  # Red obstacle X-coordinate target
-rang = [5, 5] if jahat > 0 else [1, 2]  # Primary line colors
-rangdovom = [2, 1] if jahat > 0 else [5, 5]  # Secondary line colors
+# Set direction-dependent parameters
+al = -1 if jahat > 0 else 1  # Direction multiplier: -1 = right, +1 = left
+green = 245                  # X-coordinate target for green pillars
+red = 75 if jahat > 0 else 65  # X-coordinate target for red pillars
+# Define primary and secondary line colors based on direction
+rang = [5, 5] if jahat > 0 else [1, 2]        # Primary line (trigger turn)
+rangdovom = [2, 1] if jahat > 0 else [5, 5]   # Secondary line (end of turn)
 
-# Initial movement to align robot
-cr1 = color_sensor.color  # Current color reading
-lastsig = 0  # Last detected obstacle signature
-fasele = 40  # Initial target distance (cm)
-Yignor = 50  # Minimum Y-coordinate for valid obstacle detection
-motor_a.on_for_seconds((-40) * al, 0.5)  # Initial steering adjustment
-motor_b.on_for_rotations(80, 1)  # Move forward
-motor_a.stop(stop_action='coast')  # Stop steering motor
+print("Direction multiplier (al):", al)
 
-# Initialize Pixy Cam
-data = [174, 193, 32, 2, 3, 5]  # Pixy command to request block data
-bus.write_i2c_block_data(address, 0, data)  # Send command
-sleep(0.5)  # Wait for Pixy response
-block = bus.read_i2c_block_data(address, 0, 20)  # Read block data
+# Initial alignment movement before main navigation
+cr1 = color_sensor.color
+lastsig = 0
+a_timer = 0
+b_timer = 0
+lastpos = 0
+fasele = 40      # Target wall-following distance (cm)
+ghabeliat = False
+Yignor = 50      # Minimum valid Y-coordinate to ignore ground noise
+
+# Small initial steering correction and forward movement
+motor_a.on_for_seconds((-40) * al, 0.5)
+motor_b.on_for_rotations(80, 1)
+motor_a.stop(stop_action='coast')
+
+# Initialize Pixy communication
+data = [174, 193, 32, 2, 3, 5]  # Request 3 blocks, max 5 bytes each
+bus.write_i2c_block_data(address, 0, data)
 sleep(0.5)
-sig = get_block("sig")  # Get obstacle signature
-y = get_block("y")  # Get obstacle Y-coordinate
-if y < Yignor:
-    sig = 0  # Ignore obstacles too close to ground
+block = bus.read_i2c_block_data(address, 0, 20)
+sleep(0.5)
 
-# Initial obstacle handling based on direction
+# Read initial obstacle data
+sig = get_block("sig")
+y = get_block("y")
+print("Initial signature detected:", sig)
+# Ignore obstacles too close to the ground
+if y < Yignor:
+    sig = 0
+
+# Handle initial obstacle detection (first 1–2 seconds after start)
 if al > 0:
-    if sig == 0:  # No obstacle
+    if sig == 0:
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees((100) * al, 60)  # Adjust steering
-        motor_b.on_for_rotations(60, 1.5)  # Move forward
+        motor_a.on_for_degrees(100 * al, 60)
+        motor_b.on_for_rotations(60, 1.5)
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees((100), -motor_a.position)  # Reset steering
-    elif sig == 2 and y > Yignor:  # Red obstacle
+        motor_a.on_for_degrees(100, -motor_a.position)
+    elif sig == 2 and y > Yignor:  # Red pillar
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees((40), -motor_a.position)  # Adjust steering
-    elif sig == 1 and y > Yignor:  # Green obstacle
-        motor_b.on_for_degrees(30, 430)  # Move to avoid obstacle
-        motor_a.on_for_seconds((40), 0.5)  # Adjust steering
-        motor_b.on_for_rotations(60, 1.8)  # Continue forward
-        motor_a.on_for_degrees((40), -motor_a.position)  # Reset steering
+        motor_a.on_for_degrees(40, -motor_a.position)
+    elif sig == 1 and y > Yignor:  # Green pillar
+        motor_b.on_for_degrees(30, 430)
+        motor_a.on_for_seconds(40, 0.5)
+        motor_b.on_for_rotations(60, 1.8)
+        motor_a.on_for_degrees(40, -motor_a.position)
         motor_a.stop(stop_action='coast')
         motor_b.stop(stop_action='coast')
 else:
-    if sig == 0:  # No obstacle
+    if sig == 0:
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees((100) * al, 60)
+        motor_a.on_for_degrees(100 * al, 60)
         motor_b.on_for_rotations(60, 1.5)
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees((100), -motor_a.position)
-    elif sig == 1 and y > Yignor:  # Green obstacle
+        motor_a.on_for_degrees(100, -motor_a.position)
+    elif sig == 1 and y > Yignor:  # Green pillar
         motor_a.stop(stop_action='coast')
-        motor_a.on_for_degrees((40), -motor_a.position)
-    elif sig == 2 and y > Yignor:  # Red obstacle
+        motor_a.on_for_degrees(40, -motor_a.position)
+    elif sig == 2 and y > Yignor:  # Red pillar
         motor_b.on_for_degrees(30, 550)
-        motor_a.on_for_seconds((40) * al, 0.5)
+        motor_a.on_for_seconds(40 * al, 0.5)
         motor_b.on_for_rotations(60, 1.5)
-        motor_a.on_for_degrees((40), -motor_a.position)
+        motor_a.on_for_degrees(40, -motor_a.position)
         motor_a.stop(stop_action='coast')
         motor_b.stop(stop_action='coast')
 
-# Main navigation loop
-speed = 45  # Default navigation speed
-motor_b.reset()  # Reset drive motor position
+sleep(0.5)
+
+# Main navigation loop setup
+speed = 45
+a_timer = 0
+motor_b.reset()
+
+# Main control loop: navigate until 12 turns are completed
 while True:
-    bus.write_i2c_block_data(address, 0, data)  # Request Pixy data
-    block = bus.read_i2c_block_data(address, 0, 20)  # Read Pixy data
-    sig = get_block("sig")  # Get obstacle signature
-    y = get_block("y")  # Get obstacle Y-coordinate
+    bus.write_i2c_block_data(address, 0, data)
+    block = bus.read_i2c_block_data(address, 0, 20)
+
+    sig = get_block("sig")
+    y = get_block("y")
     if y < Yignor:
-        sig = 0  # Ignore obstacles too close
-    x = get_block("x")  # Get obstacle X-coordinate
-    motor_b.on(speed)  # Drive forward
+        sig = 0
+    x = get_block("x")
+    motor_b.on(speed)
 
     if sig != 0:
-        lastsig = sig  # Store last valid obstacle signature
-    cr1 = color_sensor.color  # Read current color
+        lastsig = sig  # Remember last valid obstacle
 
-    # Handle line detection and obstacle avoidance
-    if (cr1 in rang) and a != 12:  # If primary line detected and not 12 turns
+    cr1 = color_sensor.color
+
+    # Handle line detection and execute turn maneuver
+    if (cr1 in rang) and a != door:
         cr1 = color_sensor.color
         sig = get_block("sig")
         y = get_block("y")
         if y < Yignor:
             sig = 0
-        if sig == 0:  # No obstacle
-            timeRang = time.time()  # Start timer
-            navakht = -45  # Initial steering angle
-            while cr1 not in rangdovom and sig == 0 and time.time() - timeRang < 4 and a < 11:
-                lineChek()  # Check for turn
+
+        if sig == 0:
+            timeRang = time.time()
+            navakht = -45  # Initial aggressive steering angle
+            # Turn maneuver with increasing steering angle (max 4 seconds)
+            while (cr1 not in rangdovom and
+                   sig == 0 and
+                   time.time() - timeRang < 4 and
+                   a < door - 1):
+                lineChek()
                 bus.write_i2c_block_data(address, 0, data)
                 block = bus.read_i2c_block_data(address, 0, 20)
                 motor_a.stop(stop_action='coast')
-                amotor(navakht * al)  # Adjust steering
+                amotor(navakht * al)
                 if navakht <= 15:
-                    navakht += 3.9  # Increment steering angle
+                    navakht += 3.9  # Gradually reduce steering aggressiveness
                 cr1 = color_sensor.color
                 sig = get_block("sig")
                 y = get_block("y")
@@ -1611,8 +1709,10 @@ while True:
                 if sig != 0:
                     break
                 motor_b.on(20)  # Slow speed during turn
+
+            # Brief stabilization after turn
             timeRang = time.time()
-            while time.time() - timeRang < 0.5 and sig == 0:  # Brief adjustment period
+            while time.time() - timeRang < 0.5 and sig == 0:
                 lineChek()
                 bus.write_i2c_block_data(address, 0, data)
                 block = bus.read_i2c_block_data(address, 0, 20)
@@ -1624,104 +1724,295 @@ while True:
                 if sig != 0:
                     break
                 motor_b.on(70)  # Resume normal speed
-        cr1 = color_sensor.color
-        fasele = 45  # Update target distance
 
-    lineChek()  # Check for turn
-    if y < 70 and sig != 0:  # If obstacle close
+        cr1 = color_sensor.color
+        fasele = 45  # Reset target distance after turn
+
+    lineChek()
+
+    # Obstacle handling logic
+    if y < 70 and sig != 0:
+        # Very close obstacle: steer toward image center (x=165)
         leds.set_color('LEFT', 'ORANGE')
         leds.set_color('RIGHT', 'ORANGE')
-        target = (x - 165) * 0.7  # Center obstacle in view
+        target = (x - 165) * 0.7
         target = clamp(target, -20, 20)
-        amotor(target, 35)  # Adjust steering
-        speed = 40  # Reduce speed
-    elif sig == 1:  # Green obstacle
-        target = (x - green) * 0.5  # Adjust to green target
+        amotor(target, 35)
+        speed = 40
+    elif sig == 1:
+        # Green pillar: steer using calibrated offset
+        target = (x - green) * 0.5
         leds.set_color('LEFT', 'GREEN')
         leds.set_color('RIGHT', 'GREEN')
         amotor(target, 45)
         speed = 40
-    elif sig == 2:  # Red obstacle
-        target = (x - red) * 0.5  # Adjust to red target
+    elif sig == 2:
+        # Red pillar: steer using calibrated offset
+        target = (x - red) * 0.5
         leds.set_color('LEFT', 'RED')
         leds.set_color('RIGHT', 'RED')
         amotor(target, 45)
         speed = 40
-    elif sig == 0 and cr1 == 6:  # No obstacle, follow wall
+    elif sig == 0 and cr1 == 6:
+        # No obstacle: wall-follow using ultrasonic sensors
         leds.all_off()
         speed = 40
         r = rast.distance_centimeters
         c = chap.distance_centimeters
-        oltra = c if al == 1 else r  # Select appropriate sensor
-        out = (fasele - oltra) * al  # Calculate error
+        oltra = c if al == 1 else r  # Select correct sensor based on direction
+        out = (fasele - oltra) * al
         out = clamp(out, -45, 45)
-        amotor(out)  # Apply steering correction
-    lineChek()  # Check for turn again
-    if lastsig == 2 and al > 0 and sig == 0:  # Adjust distance after red obstacle
+        amotor(out)
+
+    lineChek()
+
+    # Increase safety distance after passing an obstacle
+    if (lastsig == 2 and al > 0 and sig == 0) or (lastsig == 1 and al < 0 and sig == 0):
         fasele = 55
-    if lastsig == 1 and al < 0 and sig == 0:  # Adjust distance after green obstacle
-        fasele = 55
+
+    # Gradually reduce distance back to baseline (40 cm)
     if fasele > 40:
-        fasele -= 0.09  # Gradually reduce target distance
+        fasele -= 0.09
     else:
         fasele = 40
-    if a == 12:  # If 12 turns completed, start parking
+
+    # Stall detection: if drive motor is stuck, reverse and retry
+    if lastpos == motor_b.position:
+        if b_timer == 0:
+            b_timer = time.time()
+        if time.time() - b_timer > 0.3:
+            b_timer = 0
+            motor_a.on_for_degrees(40, -motor_a.position)
+            motor_b.on_for_rotations(-100, 1)
+            motor_a.on_for_degrees(40, 45 * al)
+            motor_b.on_for_rotations(100, 0.8)
+    lastpos = motor_b.position
+
+    # Exit loop after completing all turns
+    if a == door:
         break
 
-# Parking sequence
+# Stop motors before parking sequence
 motor_a.off()
 motor_b.off()
 cr1 = color_sensor.color
-if al < 0:  # Left direction parking
-    navakht = 90
-    while cr1 not in rangdovom:  # Align with secondary line
+
+# Execute direction-specific parking sequence
+if al < 0:
+    # === LEFT-DIRECTION PARKING SEQUENCE ===
+    navakht = 40
+    # Align with secondary line (rangdovom)
+    while cr1 not in rangdovom:
         motor_b.on(12)
         amotor(0)
         if navakht >= -20:
             navakht -= 1
         cr1 = color_sensor.color
+
     motor_b.stop()
     sleep(0.1)
-    motor_a.on_for_degrees(90, 90)  # Adjust steering
-    motor_b.on_for_degrees(30, -290)  # Reverse
+
+    # Initial steering adjustment for parking
+    motor_a.on_for_degrees(90, 90)
+    motor_b.on_for_degrees(30, -350)  # Reverse slightly
+
     cr1 = color_sensor.color
     sleep(0.1)
+
     motor_a.stop()
     motor_b.stop()
     out = 0
-    while cr1 not in rangdovom:  # Continue aligning
+
+    # Fine alignment with secondary line
+    while cr1 not in rangdovom:
         motor_b.on(16)
         amotor(0)
         cr1 = color_sensor.color
+
     motor_a.on_for_degrees(90, -motor_a.position)  # Reset steering
+
+    # Approach right wall using ultrasonic sensor
+    r = rast.distance_centimeters
+    timeRang = time.time()
+    speed = 10
+    out = 0
+    while r > 5 and time.time() - timeRang < 8:
+        r = rast.distance_centimeters
+        cr1 = color_sensor.color
+        # Line-following logic during approach
+        out = -60 if cr1 == 6 else 20
+        amotor(out)
+        motor_b.on(speed)
+
+    motor_b.stop(stop_action='coast')
+    motor_a.stop(stop_action='coast')
+
+    # Final steering reset and wall alignment
+    motor_a.on_for_degrees(60, -motor_a.position)
+    motor_a.stop()
+    motor_a.on_for_degrees(-60, 150)
+    motor_a.stop()
+
+    # Reverse into parking spot
+    motor_b.on_for_degrees(-30, 1100)
+    motor_a.on_for_degrees(60, 150)
+    motor_b.on_for_degrees(-20, 260)
+
+    motor_b.stop()
+    sleep(0.1)
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(30, -motor_a.position)
+    motor_a.stop()
+    motor_b.on_for_degrees(30, 700)
+
+    # Wall-follow during exit preparation
+    fasele = 30
+    c = chap.distance_centimeters
+    motor_b.reset()
+    speed = 15
+    sig = 3
+    timersig = 0
+    khorog = True
+    sleep(0.03)
+    while khorog:
+        motor_b.on(speed)
+        data = [174, 193, 32, 2, 4, 5]  # Switch to signature 3 (parking zone)
+        sleep(0.02)
+        bus.write_i2c_block_data(address, 0, data)
+        block = bus.read_i2c_block_data(address, 0, 20)
+        sig = get_block("sig")
+        c = chap.distance_centimeters
+        # Wall-follow logic
+        if c <= fasele - 1:
+            out = 27
+        elif c >= fasele + 1:
+            out = -27
+        else:
+            out = 0
+        amotor(out)
+
+        # Exit loop when signature 3 is consistently detected
+        if sig != 3 and timersig == 0:
+            timersig = time.time()
+        elif sig == 3:
+            timersig = 0
+        if time.time() - timersig > 0.3 and timersig != 0:
+            khorog = False
+
+    # Final approach to parking spot
+    motor_b.reset()
+    motor_a.on_for_degrees(90, -motor_a.position)
+    while motor_b.position < 195:
+        motor_b.on(10)
+        c = chap.distance_centimeters
+        if c <= fasele - 1:
+            out = 20
+        elif c >= fasele + 1:
+            out = -20
+        else:
+            out = 0
+        amotor(out)
+        motor_b.on(speed)
+
+    motor_b.stop()
+    motor_a.stop()
+    motor_a.stop(stop_action='coast')
+
+    # Final adjustments
+    motor_a.on_for_degrees(60, -150)
+    motor_a.stop()
+    motor_b.on_for_degrees(-20, 500)
+    motor_b.stop()
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, -motor_a.position)
+    motor_a.stop()
+
+    # Reverse into final parking position
+    motor_b.reset()
+    mp = 0
+    while mp > -530:
+        motor_b.on(-15)
+        mp = motor_b.position
+        amotor(mp * -0.37)  # Dynamic steering during reverse
+    print("Parked successfully (left direction)")
+
+    motor_b.stop()
+    motor_a.stop(stop_action='coast')
+    motor_a.on_for_degrees(60, -motor_a.position)
+    motor_a.stop()
+    sleep(1)
+
+elif al > 0:
+    # === RIGHT-DIRECTION PARKING SEQUENCE ===
+    navakht = 40
+    # Align with secondary line (rangdovom)
+    while cr1 not in rangdovom:
+        motor_b.on(12)
+        amotor(0)
+        if navakht >= -20:
+            navakht -= 1
+        cr1 = color_sensor.color
+
+    motor_b.stop()
+    sleep(0.1)
+
+    # Initial steering adjustment for parking
+    motor_a.on_for_degrees(-90, 90)
+    motor_b.on_for_degrees(30, -290)  # Reverse slightly
+
+    cr1 = color_sensor.color
+    sleep(0.1)
+
+    motor_a.stop()
+    motor_b.stop()
+    out = 0
+
+    # Fine alignment with secondary line
+    while cr1 not in rangdovom:
+        motor_b.on(16)
+        amotor(0)
+        cr1 = color_sensor.color
+
+    motor_a.on_for_degrees(90, -motor_a.position)  # Reset steering
+
+    # Approach left wall using ultrasonic sensor
     c = chap.distance_centimeters
     timeRang = time.time()
     speed = 10
-    while c > 5 and time.time() - timeRang < 8:  # Approach wall
+    out = 0
+    while c > 5 and time.time() - timeRang < 8:
         c = chap.distance_centimeters
         cr1 = color_sensor.color
-        out = 60 if cr1 == 6 else -20  # Adjust steering based on color
+        # Line-following logic during approach
+        out = 60 if cr1 == 6 else -20
         amotor(out)
         motor_b.on(speed)
-    motor_b.stop()
+
+    motor_b.stop(stop_action='coast')
     motor_a.stop(stop_action='coast')
-    motor_a.on_for_degrees(60, -motor_a.position)  # Final steering adjustments
+
+    # Final steering reset and wall alignment
+    motor_a.on_for_degrees(60, -motor_a.position)
     motor_a.stop()
     motor_a.on_for_degrees(60, 150)
     motor_a.stop()
-    motor_b.on_for_degrees(-50, 500)  # Reverse
+
+    # Reverse and reposition
+    motor_b.on_for_degrees(-50, 500)
     motor_b.stop()
     sleep(0.1)
     motor_a.stop(stop_action='coast')
     motor_a.on_for_degrees(60, -300)
     motor_a.stop()
-    motor_b.on_for_degrees(50, 500)  # Move forward
+    motor_b.on_for_degrees(50, 500)
     motor_b.stop()
+
+    # Wall-follow toward parking zone
     fasele = 34
     r = rast.distance_centimeters
     motor_b.reset()
     speed = 15
-    while motor_b.position < 1500:  # Fine-tune position
+    while motor_b.position < 1500:
         r = rast.distance_centimeters
         if r <= fasele - 1:
             out = -35
@@ -1731,35 +2022,34 @@ if al < 0:  # Left direction parking
             out = 0
         amotor(out)
         motor_b.on(speed)
+
     motor_a.stop()
     motor_b.stop()
     sleep(1)
-    motor_a.stop(stop_action='coast')
+
+    # Final adjustments
     motor_a.on_for_degrees(60, -300)
     motor_a.stop()
     motor_b.on_for_degrees(25, 550)
     motor_b.stop()
     sleep(0.2)
-    motor_a.stop(stop_action='coast')
     motor_a.on_for_degrees(60, 80)
     motor_a.stop()
     sleep(0.2)
     motor_b.on_for_degrees(-15, 450)
     motor_b.stop()
-    motor_a.stop(stop_action='coast')
     motor_a.on_for_degrees(60, 150)
     motor_a.stop()
     motor_b.on_for_degrees(-15, 670)
     motor_b.stop()
-    motor_a.stop(stop_action='coast')
     motor_a.on_for_degrees(60, -300)
     motor_a.stop()
     motor_b.on_for_degrees(15, 121)
     motor_b.stop()
-    motor_a.stop(stop_action='coast')
     motor_a.on_for_degrees(60, -motor_a.position)
+    print("Parked successfully (right direction)")
 
-# Stop all motors
+# Final motor shutdown
 motor_b.off()
 motor_a.off()
 ```
