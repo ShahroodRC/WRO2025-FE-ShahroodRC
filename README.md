@@ -285,6 +285,11 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 | <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="90%" /> | 
 | *Top* | *Bottom* |
 
+<div align="center">
+    <img src="robot-photos/robot.jpg" alt="Three-Quarter View of the Robot" width="60%">
+    <p>Three-Quarter View of the Robot (from front, left, and top)</p>
+</div>
+
 ---
 
 
