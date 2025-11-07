@@ -1,7 +1,7 @@
 # ShahroodRC
 
 <div align="center">
-    <img src="pictures/shahrood_rc_logo.jpg" alt="ShahroodRC's logo" width="80%">
+    <img src="pictures/shahroodrc_logo.jpg" alt="ShahroodRC's logo" width="80%">
     <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
 </div>
 
@@ -547,15 +547,15 @@ def stop_drive():
 
 **Implementation Notes:**
 - Speed set to 100% in Open Challenge for optimal performance, adjustable to 40% in Obstacle Challenge for precise maneuvers.
-- In Obstacle Challenge, `motor_c` is disconnected, and only `motor_b` drives the differential.
+- In Obstacle Challenge, `motor_c` is disconnected, and only `motor_b` drives the differential to can to move more accurately.
 - For precise maneuvers, we use `on_for_degrees()` or `on_for_rotations()` methods
 
 ---
 
 ### Steering Motor Code
-The steering motor (Motor A) controls the robot's direction by adjusting the front wheels. It implements a proportional control algorithm for smooth and accurate steering.
+The steering motor (`motor_a` on OUTPUT_B) controls the robot's direction by adjusting the front wheels. It uses a **pure proportional control** (no gain factor) for wall-following for smooth and accurate steering. The target angle is directly compared to the current position.
 ```python
-from ev3dev2.motor import MediumMotor, OUTPUT_B, OUTPUT_D, SpeedPercent
+from ev3dev2.motor import MediumMotor, OUTPUT_B
 
 # Initialize the steering motor
 motor_a = MediumMotor(OUTPUT_B)
@@ -588,6 +588,8 @@ def amotor(degrees, cl=50):
     diff = clamp(diff, -cl, cl)  
     motor_a.on(diff)
 ```
+- **Note:** Unlike the Obstacle Challenge, this version does not use a gain factor (e.g., *0.7), as wall-following requires direct response.
+
 **Control Algorithm Explanation:**
 The steering system uses a proportional control algorithm where the motor power is directly proportional to the difference between the target angle and current position. This provides smooth, oscillation-free steering adjustments.
 
@@ -667,7 +669,7 @@ def detect_pillar():
 ---
 
 ### Color Sensor Code
-The color sensor detects blue (`cr1=1,2`) and orange (`cr1=5,7`) lines on the track, which determine the robot's turning direction in the open challenge.
+The color sensor detects **blue lines** (`color in [1, 2]`, stored as `abi`) and **orange lines** (`color in [5, 7]`, stored as `narengi`) on the track, which determine the robot's turning direction in the open challenge.
 
 ```python
 from ev3dev2.sensor.lego import ColorSensor
@@ -762,15 +764,17 @@ def get_distances():
 
 def wall_following_control():
     """
-    Wall-following control algorithm with non-linear response.
+    Non-linear control for initial alignment (first 120 iterations).
+    Uses square-root response for sensitivity at close range.
     Returns:
         float: Steering correction value
     """
-    right_dist, left_dist = get_distances()
-    fr = (-2 * (math.sqrt(11 * right_dist))) + 100
-    fc = (-2 * (math.sqrt(11 * left_dist))) + 100
-    target = (fc * 1.3) - (fr * 1.3)  # Updated weighting
-    return clamp(target, -50, 50)
+    r = rast.distance_centimeters
+    c = chap.distance_centimeters
+    fr = (-2 * math.sqrt(11 * r)) + 100
+    fc = (-2 * math.sqrt(11 * c)) + 100
+    target = (fc * 1.3) - (fr * 1.3)  # Symmetric weighting
+    return clamp(target, -28, 28)
 ```
 
 **Wall Following Algorithm:**
@@ -871,6 +875,10 @@ The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** confi
 - **Motor Configuration for Challenges**:
   - **Open Challenge**: The rear-wheel drive system utilizes **two EV3 Medium Motors** connected to a single gear, which is driving the differential. This dual-motor setup increases torque output for enhanced performance during navigation, while adhering to WRO rules since both motors contribute to a single output (the differential). This configuration ensures robust propulsion for the Open Challenge’s demanding track navigation.
   - **Obstacle Challenge**: To optimize for simplicity and energy efficiency, the gear connected to the second motor is removed, and only one EV3 Medium Motor is used for propulsion. The single motor drives the differential directly, providing sufficient power for obstacle avoidance and parking tasks while reducing complexity and power consumption.
+
+| <img src="pictures/gears_obstacle_placement.jpg" alt="Gears and Differential in Open Challenge" width="90%"> | <img src="pictures/gears_obstacle_placement.jpg" alt="Gears and Differential in Obstacle Challenge" width="90%"> |
+| :--: | :--: |
+| *Gears and Differential in Open Challenge* | *Gears and Differential in Obstacle Challenge* |
 
 **Development Process**
 The mobility system was designed and built by the team’s mechanical specialist using prior WRO experience, resulting in a robust initial design that required no major revisions. The system’s stability and lack of slippage reflect lessons learned from past competitions, where weight distribution and traction were optimized early in the design phase.
@@ -1155,7 +1163,7 @@ This section outlines how electrical power is distributed across the robot and h
   - **Black** → extra ground, left unconnected  
 
     <div align="center">
-      <img src="pictures/pixy_cam_wiring.jpg" alt="Pixy Cam Wiring Diagram" width="50%">
+      <img src="pictures/pixy_cam_wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
       <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
     </div>
 
@@ -1227,18 +1235,37 @@ In the Open Challenge, the robot navigates a random track using the color sensor
 #### Pseudo Code
 ```
 BEGIN
-    WHILE (not 11 turns completed)
-        IF (color_sensor detects blue [1,2] OR orange [5,7])
-            INCREMENT turn counter (a)
-            RESUME navigation
+    // Initial alignment (120 iterations)
+    FOR g = 0 TO 119
+        IF color != white THEN speed = 100
+        r = rast.distance, c = chap.distance
+        fr = (-2 * sqrt(11 * r)) + 100
+        fc = (-2 * sqrt(11 * c)) + 100
+        target = (fc * 1.3) - (fr * 1.3)
+        amotor(target)
+    END FOR
+
+    WHILE (turns < 11)
+        IF color in [1,2] (blue) THEN
+            WHILE turns < 11
+                lineChek()
+                distance = chap.distance
+                diff = (distance - 28) * -2 - motor_a.position
+                amotor(diff)
+            END WHILE
+        ELSE IF color in [5,7] (orange) THEN
+            WHILE turns < 11
+                lineChek()
+                distance = rast.distance
+                diff = (distance - 28) * 2 - motor_a.position
+                amotor(diff)
+            END WHILE
         END IF
-        SET distance = ultrasonic reading
-        CALCULATE target = (fc * 1.3) - (fr * 1.3)  # Non-linear control
-        ADJUST steering with amotor(target)
     END WHILE
-    FOR (i = 0 to 60)
-        MAINTAIN 28 cm distance with PID
-        MOVE forward at 100% speed
+
+    // Final straight segment (60 iterations)
+    FOR i = 0 TO 59
+        maintain 28 cm distance with linear control
     END FOR
 END
 ```
