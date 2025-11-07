@@ -9,9 +9,9 @@
 
 
 ## Table of Contents
-
 - [The Team](#the-team)
-- [National Championship Victory](#national-championship-victory)
+- [Achievements](#achievements)
+- [Mission Overview](#mission-overview)
 - [Our Path](#our-path)
 - [Pictures](#pictures)
 - [Videos](#videos)
@@ -146,6 +146,13 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 
 ---
 
+## Achievements
+- 🥇 **1st Place, National WRO Competition 2025** (Rasht, Iran) – Qualified for WRO International Final in Singapore.
+- 🌍 Representing Iran at WRO 2025 International Final (November 26–28, Singapore).
+- 🛠 Previous: 3rd Place in Robo Mission category (prior season).
+
+---
+
 
 ## National Championship Victory
 
@@ -177,6 +184,36 @@ The ShahroodRC team achieved a remarkable victory by securing **first place** in
 This national championship victory marks a significant milestone, qualifying ShahroodRC for the WRO 2025 International Final in Singapore. With the theme "The Future of Robots," we are ready to compete on the global stage, representing Iran with pride and showcasing our skills against over 500 international teams.
 
 ---
+
+
+## Mission Overview for WRO Future Engineers Rounds
+<table>
+  <tr>
+    <td width="50%" valign="top" align="left">
+      <h3>🏁 Qualification Round: Open Challenge</h3>
+      <p>Robot must complete laps on a track without obstacles, demonstrating precision in wall-following and line detection.</p>
+      <ul>
+        <li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 11 turns.</li>
+      </ul>
+      <div align="center">
+        <img src="pictures/open_challenge_track.jpg" alt="Open Challenge Track" width="250" />
+      </div>
+    </td>
+    <td width="50%" valign="top" align="left">
+      <h3>🏆 Final Round: Obstacle Challenge</h3>
+      <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in designated zone.</p>
+      <ul>
+        <li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li>
+      </ul>
+      <div align="center">
+        <img src="pictures/obstacle_challenge_track.jpg" alt="Obstacle Challenge Track" width="250" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+> [!IMPORTANT]
+> **WRO Future Engineers Rulebook**: Thoroughly read the rulebook for all guidelines. Official link: [WRO Future Engineers 2025 Rulebook](WRO-2025-Future-Engineers-Self-Driving-Cars-General-Rules.pdf). Key rules: Open – no obstacles, 3 laps; Obstacle – avoid pillars, park after laps.
 
 
 ## Our Path
@@ -479,17 +516,15 @@ This section provides a detailed overview of the key hardware components used in
 ---
 
 ### 📊 Bill of Materials (BOM)
-
-| **Component**                | **Quantity** | **Source**                     | **Purpose**                          | **Approx. Cost (USD)** |
-|------------------------------|--------------|--------------------------------|------------------------------|------------------------|
-| LEGO EV3 Control Brick        | 1            | LEGO MINDSTORMS Core Set 45544 | Central processing and control | $150                   |
-| Pixy 2.1                      | 1            | Purchased separately           | Obstacle and line detection and tracking | $70                   |
-| EV3 Ultrasonic Sensor         | 2            | LEGO MINDSTORMS Core Set 45544 | Wall-following and distance measurement | $30 each ($60 total) |
-| EV3 Color Sensor             | 1            | LEGO MINDSTORMS Core Set 45544 | Line following and zone detection | $40                  |
-| EV3 Medium Motor | 3 | LEGO MINDSTORMS Core Set 45544 | Propulsion (two motors in Open Challenge, one in Obstacle Challenge) and steering (one motor) | $25 each ($75 total) |
-| LEGO Tire 49.5 x 20          | 4            | LEGO MINDSTORMS Core Set 45544 | Wheels for traction and mobility | $5 each ($20 total)  |
-| LEGO EV3 Rechargeable Battery | 1            | LEGO MINDSTORMS Core Set 45544 | Power supply                 | $80                   |
-|
+| **Component** | **Quantity** | **Source** | **Purpose** | **Approx. Cost (USD)** | **Purchase Link** |
+|------------------------------|--------------|--------------------------------|------------------------------|------------------------|-------------------|
+| LEGO EV3 Control Brick | 1 | LEGO MINDSTORMS Core Set 45544 | Central processing and control | $150 | [Buy on Walmart](https://www.walmart.com/ip/LEGO-Mindstorms-EV3-Intelligent-Brick/450756441) |
+| Pixy 2.1 | 1 | Purchased separately | Obstacle and line detection | $70 | [Buy on RobotShop](https://www.robotshop.com/products/charmed-labs-pixy-21-robot-vision-image-sensor-rbc?qd=0f9af5b89bafa36ba5faaedb9b01fcd0) |
+| EV3 Ultrasonic Sensor | 2 | LEGO MINDSTORMS Core Set 45544 | Wall-following and distance | $35 each ($70 total) | [Buy on Walmart](https://www.walmart.com/ip/Lego-Mindstorms-Ev3-Ultrasonic-Sensor/612855102) |
+| EV3 Color Sensor | 1 | LEGO MINDSTORMS Core Set 45544 | Line following and zone detection | $30 each ($60 total) | [Buy on Walmart](https://www.walmart.com/ip/Mindstorms-EV3-Color-Sensor-45506-Program-Robot-Parts-Power-Functions-Compatible-with-LEGO/15817721064) |
+| EV3 Medium Motor | 3 | LEGO MINDSTORMS Core Set 45544 | Propulsion and steering | $25 each ($75 total) | [Buy on Walmart](https://www.walmart.com/ip/Electric-Motor-EV3-Medium/709251821) |
+| LEGO Tire 49.5 x 20 | 4 | LEGO MINDSTORMS Core Set 45544 | Wheels for traction | $5 each ($20 total) | [Buy on ToyPro](https://www.toypro.com/us/product/7953/tire-49-5-x-20/black?srsltid=AfmBOorr-6cqi7l8E_Rw6FM3TXYHy3gVoG3RpzxenvjeQpM_ZWOW59Z-) (~$2-5 each) |
+| LEGO EV3 Rechargeable Battery | 1 | LEGO MINDSTORMS Core Set 45544 | Power supply | $185 | [Buy on ElectricBricks](https://www.electricbricks.com/lego-lego-education-mindstorms-ev3-ev3-rechargeable-battery-p-6019.html?language=en) |
 
 **Note**: Approximate costs are based on standard market prices for LEGO MINDSTORMS components and Pixy Cam in 2025. Actual costs may vary depending on region and supplier.
 
