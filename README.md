@@ -5,6 +5,13 @@
     <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
 </div>
 
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/shahroodrc)
+[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtube.com/@shahroodrc)
+[![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ShahroodRC)
+
+## The Meaning Behind ShahroodRC
+ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like its mountains) with "RC" (Robotics Club). Inspired by the story of iteration, teamwork, and turning "what if" into "we did it." Behind the code and gears? The quiet support of families – our real "power source," fueling late nights and breakthroughs. ShahroodRC isn't just a robot; it's proof that passion + persistence = global stage.
+
 ---
 
 
@@ -333,6 +340,8 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 ## Videos
 You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/PhpbAQ0mky4) videos on Youtube. You can see them also here in [videos](videos/) folder.
 
+[![Video](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM)
+
 ---
 
 
@@ -525,6 +534,8 @@ This section provides a detailed overview of the key hardware components used in
 | EV3 Medium Motor | 3 | LEGO MINDSTORMS Core Set 45544 | Propulsion and steering | $25 each ($75 total) | [Buy on Walmart](https://www.walmart.com/ip/Electric-Motor-EV3-Medium/709251821) |
 | LEGO Tire 49.5 x 20 | 4 | LEGO MINDSTORMS Core Set 45544 | Wheels for traction | $5 each ($20 total) | [Buy on ToyPro](https://www.toypro.com/us/product/7953/tire-49-5-x-20/black?srsltid=AfmBOorr-6cqi7l8E_Rw6FM3TXYHy3gVoG3RpzxenvjeQpM_ZWOW59Z-) (~$2-5 each) |
 | LEGO EV3 Rechargeable Battery | 1 | LEGO MINDSTORMS Core Set 45544 | Power supply | $185 | [Buy on ElectricBricks](https://www.electricbricks.com/lego-lego-education-mindstorms-ev3-ev3-rechargeable-battery-p-6019.html?language=en) |
+
+**Grand Total:** **$630**
 
 **Note**: Approximate costs are based on standard market prices for LEGO MINDSTORMS components and Pixy Cam in 2025. Actual costs may vary depending on region and supplier.
 
@@ -916,7 +927,7 @@ The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** confi
   - **Open Challenge**: The rear-wheel drive system utilizes **two EV3 Medium Motors** connected to a single gear, which is driving the differential. This dual-motor setup increases torque output for enhanced performance during navigation, while adhering to WRO rules since both motors contribute to a single output (the differential). This configuration ensures robust propulsion for the Open Challenge’s demanding track navigation.
   - **Obstacle Challenge**: To optimize for simplicity and energy efficiency, the gear connected to the second motor is removed, and only one EV3 Medium Motor is used for propulsion. The single motor drives the differential directly, providing sufficient power for obstacle avoidance and parking tasks while reducing complexity and power consumption.
 
-| <img src="pictures/gears_obstacle_placement.jpg" alt="Gears and Differential in Open Challenge" width="90%"> | <img src="pictures/gears_obstacle_placement.jpg" alt="Gears and Differential in Obstacle Challenge" width="90%"> |
+| <img src="pictures/gears_open_placement.jpg" alt="Gears and Differential in Open Challenge" width="90%"> | <img src="pictures/gears_obstacle_placement.jpg" alt="Gears and Differential in Obstacle Challenge" width="90%"> |
 | :--: | :--: |
 | *Gears and Differential in Open Challenge* | *Gears and Differential in Obstacle Challenge* |
 
@@ -2146,3 +2157,5 @@ motor_a.off()
 
 ## License
 This project is licensed under the MIT License, allowing free use, modification, and distribution with proper attribution. See the [LICENSE](LICENSE) file for full details.
+
+© 2025 ShahroodRC
