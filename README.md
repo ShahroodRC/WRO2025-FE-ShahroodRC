@@ -1,7 +1,7 @@
 # ShahroodRC
 
 <div align="center">
-    <img src="pictures/shahroodrc_logo.jpg" alt="ShahroodRC's logo" width="80%">
+    <img src="pictures/shahroodrc-logo.jpg" alt="ShahroodRC's logo" width="80%">
     <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
 </div>
 
@@ -203,7 +203,7 @@ This national championship victory marks a significant milestone, qualifying Sha
         <li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 11 turns.</li>
       </ul>
       <div align="center">
-        <img src="pictures/open_challenge_track.jpg" alt="Open Challenge Track" width="250" />
+        <img src="pictures/open-challenge-track.jpg" alt="Open Challenge Track" width="250" />
       </div>
     </td>
     <td width="50%" valign="top" align="left">
@@ -213,7 +213,7 @@ This national championship victory marks a significant milestone, qualifying Sha
         <li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li>
       </ul>
       <div align="center">
-        <img src="pictures/obstacle_challenge_track.jpg" alt="Obstacle Challenge Track" width="250" />
+        <img src="pictures/obstacle-challenge-track.jpg" alt="Obstacle Challenge Track" width="250" />
       </div>
     </td>
   </tr>
@@ -349,25 +349,52 @@ You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challen
 
 To assist teams and judges in simulating the dynamic and unpredictable nature of the WRO 2025 Future Engineers challenges, the ShahroodRC team developed a custom **Randomizer Application** for Android devices. This app generates randomized track layouts and obstacle configurations that comply with official WRO 2025 rules for both the **Open Challenge** and the **Obstacle Challenge**.
 
+### App Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="pictures/randomizer-screenshots/welcome-screen.jpg" width="200"/></td>
+      <td><img src="pictures\randomizer-screenshots\main-menu.jpg" width="200"/></td>
+      <td><img src="pictures\randomizer-screenshots\challenge-selection.jpg" width="200"/></td>
+    </tr>
+    <tr>
+      <td align="center"><b>Welcome Screen</b></td>
+      <td align="center"><b>Main Menu</b></td>
+      <td align="center"><b>Challenge Selection</b></td>
+    </tr>
+    <tr>
+      <td><img src="pictures\randomizer-screenshots\obstacle-randomized.jpg" width="200"/></td>
+      <td><img src="pictures\randomizer-screenshots\open-randomized.jpg" width="200"/></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td align="center"><b>Obstacle Challenge</b></td>
+      <td align="center"><b>Open Challenge</b></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
 ### Features
 - **Dual Challenge Support**: Generates valid configurations for both Open and Obstacle rounds.
-- **Rule-Compliant Outputs**: Ensures all generated layouts adhere to WRO 2025 regulations (e.g., number of turns, pillar placements, line colors).
+- **Rule-Compliant Outputs**: Ensures all generated layouts adhere to WRO 2025 regulations.
 - **User-Friendly Interface**: Simple tap-to-generate design with clear visual feedback.
 - **Offline Functionality**: No internet required—ideal for competition environments.
-- **Export & Share**: Results can be viewed on-screen or shared as text for documentation.
+- **Export & Share**: Results can be viewed on-screen or shared as text.
 
 ### Usage
 1. Install the APK file (`randomizer.apk`) on any Android device (min. Android 7.0 recommended).
 2. Open the app and select your desired challenge type (**Open** or **Obs**) to receive a randomized, competition-ready layout.
-4. Use the output to set up your practice arena or verify robot behavior.
+3. Use the output to set up your practice arena or verify robot behavior.
 
-> 💡 **Note**: This tool was used internally during our development and testing phases to ensure our robot could handle any valid WRO 2025 scenario with robustness and adaptability.
+> **Note**: This tool was used internally during our development and testing phases to ensure our robot could handle any valid WRO 2025 scenario with robustness and adaptability.
 
 ### Download
 The latest version of the Randomizer app is included directly in this repository:
 - [`randomizer.apk`](randomizer.apk)
 
-> ⚠️ **Security Note**: This APK is built and signed by the ShahroodRC team. Always scan files with your preferred antivirus before installation.
+> **Security Note**: This APK is built and signed by the ShahroodRC team. Always scan files with your preferred antivirus before installation.
 
 ---
 
@@ -385,7 +412,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures/ev3_brick.jpg" alt="LEGO EV3 Control Brick" width="100%">
+      <img src="pictures\robot-components\ev3_brick.jpg" alt="LEGO EV3 Control Brick" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -414,7 +441,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures/pixy_2_1.jpg" alt="Pixy 2.1" width="100%">
+      <img src="pictures\robot-components\pixy_2_1.jpg" alt="Pixy 2.1" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -443,7 +470,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures/ultrasonic_ev3.jpg" alt="Ultrasonic Sensor EV3" width="100%">
+      <img src="pictures\robot-components\ultrasonic_ev3.jpg" alt="Ultrasonic Sensor EV3" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -471,7 +498,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures/color_sensor_ev3.jpg" alt="EV3 Color Sensor" width="100%">
+      <img src="pictures\robot-components\color_sensor_ev3.jpg" alt="EV3 Color Sensor" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -499,7 +526,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures/medium_motor_ev3.jpg" alt="EV3 Medium Motor" width="100%">
+      <img src="pictures\robot-components\medium_motor_ev3.jpg" alt="EV3 Medium Motor" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -927,7 +954,7 @@ The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** confi
   - **Open Challenge**: The rear-wheel drive system utilizes **two EV3 Medium Motors** connected to a single gear, which is driving the differential. This dual-motor setup increases torque output for enhanced performance during navigation, while adhering to WRO rules since both motors contribute to a single output (the differential). This configuration ensures robust propulsion for the Open Challenge’s demanding track navigation.
   - **Obstacle Challenge**: To optimize for simplicity and energy efficiency, the gear connected to the second motor is removed, and only one EV3 Medium Motor is used for propulsion. The single motor drives the differential directly, providing sufficient power for obstacle avoidance and parking tasks while reducing complexity and power consumption.
 
-| <img src="pictures/gears_open_placement.jpg" alt="Gears and Differential in Open Challenge" width="90%"> | <img src="pictures/gears_obstacle_placement.jpg" alt="Gears and Differential in Obstacle Challenge" width="90%"> |
+| <img src="robot-photos\gears-open-placement.jpg" alt="Gears and Differential in Open Challenge" width="90%"> | <img src="robot-photos\gears-obstacle-placement.jpg" alt="Gears and Differential in Obstacle Challenge" width="90%"> |
 | :--: | :--: |
 | *Gears and Differential in Open Challenge* | *Gears and Differential in Obstacle Challenge* |
 
@@ -1032,9 +1059,9 @@ The mobility system uses Python-based algorithms on **ev3dev** to manage:
   ```
   The square root function (`sqrt(11 * distance)`) provides a non-linear response: steeper corrections for closer distances (e.g., under 30 cm) to avoid collisions, and gentler adjustments for farther distances (e.g., over 50 cm) to prevent overshooting. The coefficients (e.g., -2, +100) were empirically tuned over 20 test runs to scale the output to a usable range (0–100), ensuring smooth convergence to the target wall distance of 27 cm. The weighting (1.3 for left, 1.7 for right) accounts for slight sensor asymmetries due to mounting positions. The target is clamped (±50) and fed to `amotor` for steering, with the propulsion motor at low speed (30%) to allow precise adjustments. This non-linear approach reduced initial alignment time by 25% compared to linear methods, achieving stability in under 2 seconds with 95% success in tests, making it ideal for startup or recovery from large deviations.
   <div align="center">
-    <img src="pictures/non_linear_function.jpg" alt="Non Linear Function" width="90%">
+    <img src="pictures/non-linear-function.jpg" alt="Non Linear Function" width="90%">
     <p>Non Linear Function</p>
-    <img src="pictures/non_linear_flow_diagram.svg" alt="Non Linear Function" width="90%">
+    <img src="pictures/non-linear-flow-diagram.svg" alt="Non Linear Function" width="90%">
     <p>Non Linear Function</p>
   </div>
 
@@ -1214,7 +1241,7 @@ This section outlines how electrical power is distributed across the robot and h
   - **Black** → extra ground, left unconnected  
 
     <div align="center">
-      <img src="pictures/pixy_cam_wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
+      <img src="robot-photos\pixy-cam-wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
       <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
     </div>
 
