@@ -1,6 +1,3 @@
-<!-- --------------------------------------------------------------- -->
-<!--                     ShahroodRC – WRO 2025                      -->
-<!-- --------------------------------------------------------------- -->
 <div align="center">
 
 <img src="pictures/shahroodrc-logo.jpg" alt="ShahroodRC logo" width="80%"/>
@@ -29,7 +26,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [The Team](#the-team)
 - [Achievements](#achievements)
 - [Mission Overview](#mission-overview)
-- [Our Path](#our-path)
+- [Our Path – Platform Evolution](#our-path--platform-evolution)
 - [Pictures](#pictures)
 - [Videos](#videos)
 - [Randomizer App](#randomizer-app)
@@ -203,6 +200,12 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 
 ## Mission Overview for WRO Future Engineers Rounds
+
+| Round | Goal | Key Tasks |
+|-------|------|-----------|
+| **Qualification – Open Challenge** | 3 laps, no obstacles | Wall-follow (27-28 cm), detect **blue/orange** lines, 11 turns |
+| **Final – Obstacle Challenge** | 3 laps + parking | Avoid **green (left)** & **red (right)** pillars, park in 25 × 25 cm zone |
+
 <table>
   <tr>
     <td width="50%" valign="top" align="left">
@@ -232,7 +235,7 @@ This national championship victory marks a significant milestone, qualifying Sha
 > **WRO Future Engineers Rulebook**: Thoroughly read the rulebook for all guidelines. Official link: [WRO Future Engineers 2025 Rulebook](WRO-2025-Future-Engineers-Self-Driving-Cars-General-Rules.pdf). Key rules: Open – no obstacles, 3 laps; Obstacle – avoid pillars, park after laps.
 
 
-## Our Path
+## Our Path – Platform Evolution
 
 ### Robot Development Process
 
@@ -349,12 +352,16 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 ## Videos
 You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/PhpbAQ0mky4) videos on Youtube. You can see them also here in [videos](videos/) folder.
 
-[![Video](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM)
+| Open Challenge | Obstacle Challenge |
+|----------------|--------------------|
+| [![Open](https://img.youtube.com/vi/Phpb0w_JzZM/hqdefault.jpg)](https://youtu.be/PhpbAQ0mky4) | [![Obstacle](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM) |
 
 ---
 
 
 ## Randomizer App
+
+> Generates **WRO-2025-compliant** random tracks for both challenges.
 
 To assist teams and judges in simulating the dynamic and unpredictable nature of the WRO 2025 Future Engineers challenges, the ShahroodRC team developed a custom **Randomizer Application** for Android devices. This app generates randomized track layouts and obstacle configurations that comply with official WRO 2025 rules for both the **Open Challenge** and the **Obstacle Challenge**.
 
@@ -1318,6 +1325,9 @@ In the Open Challenge, the robot navigates a random track using the color sensor
     --> [Increment Turn Counter] --> [Repeat until 11 Turns]
     --> [Final Straight Navigation (60 iterations)] --> [End]
 ```
+
+
+
 
 #### Pseudo Code
 ```
