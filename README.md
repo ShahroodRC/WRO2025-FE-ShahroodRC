@@ -1,13 +1,22 @@
-# ShahroodRC
-
+<!-- --------------------------------------------------------------- -->
+<!--                     ShahroodRC – WRO 2025                      -->
+<!-- --------------------------------------------------------------- -->
 <div align="center">
-    <img src="pictures/shahroodrc-logo.jpg" alt="ShahroodRC's logo" width="80%">
-    <p>This repository provides a detailed overview of the ShahroodRC team's robot developed for the 2025 World Robot Olympiad in the Future Engineers category. The robot was conceptualized, designed, and built by a dedicated team of three students.</p>
-</div>
+
+<img src="pictures/shahroodrc-logo.jpg" alt="ShahroodRC logo" width="80%"/>
+
+**ShahroodRC** – *Future Engineers 2025*  
+A self-driving robot built by three passionate students from Shahrood, Iran.  
+**1st place – Iran National WRO 2025** → **Qualified for the International Final in Singapore (26-28 Nov 2025)**
 
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/shahroodrc)
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtube.com/@shahroodrc)
 [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ShahroodRC)
+
+</div>
+
+---
+
 
 ## The Meaning Behind ShahroodRC
 ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like its mountains) with "RC" (Robotics Club). Inspired by the story of iteration, teamwork, and turning "what if" into "we did it." Behind the code and gears? The quiet support of families – our real "power source," fueling late nights and breakthroughs. ShahroodRC isn't just a robot; it's proof that passion + persistence = global stage.
@@ -16,6 +25,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 
 ## Table of Contents
+
 - [The Team](#the-team)
 - [Achievements](#achievements)
 - [Mission Overview](#mission-overview)
@@ -57,7 +67,6 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [Obstacle Management (Obstacle Avoidance and Parking Management)](#obstacle-management-obstacle-avoidance-and-parking-management)
   - [Qualification Round (Open Challenge)](#qualification-round-open-challenge)
   - [Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
-  - [Notes](#notes-1)
 - [Repository Structure](#repository-structure)
 - [License](#license)
 
@@ -355,8 +364,8 @@ To assist teams and judges in simulating the dynamic and unpredictable nature of
   <table>
     <tr>
       <td><img src="pictures/randomizer-screenshots/welcome-screen.jpg" width="200"/></td>
-      <td><img src="pictures\randomizer-screenshots\main-menu.jpg" width="200"/></td>
-      <td><img src="pictures\randomizer-screenshots\challenge-selection.jpg" width="200"/></td>
+      <td><img src="pictures/randomizer-screenshots/main-menu.jpg" width="200"/></td>
+      <td><img src="pictures/randomizer-screenshots/challenge-selection.jpg" width="200"/></td>
     </tr>
     <tr>
       <td align="center"><b>Welcome Screen</b></td>
@@ -364,8 +373,8 @@ To assist teams and judges in simulating the dynamic and unpredictable nature of
       <td align="center"><b>Challenge Selection</b></td>
     </tr>
     <tr>
-      <td><img src="pictures\randomizer-screenshots\obstacle-randomized.jpg" width="200"/></td>
-      <td><img src="pictures\randomizer-screenshots\open-randomized.jpg" width="200"/></td>
+      <td><img src="pictures/randomizer-screenshots/obstacle-randomized.jpg" width="200"/></td>
+      <td><img src="pictures/randomizer-screenshots/open-randomized.jpg" width="200"/></td>
       <td></td>
     </tr>
     <tr>
@@ -412,7 +421,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures\robot-components\ev3_brick.jpg" alt="LEGO EV3 Control Brick" width="100%">
+      <img src="pictures/robot-components/ev3_brick.jpg" alt="LEGO EV3 Control Brick" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -441,7 +450,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures\robot-components\pixy_2_1.jpg" alt="Pixy 2.1" width="100%">
+      <img src="pictures/robot-components/pixy_2_1.jpg" alt="Pixy 2.1" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -470,7 +479,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures\robot-components\ultrasonic_ev3.jpg" alt="Ultrasonic Sensor EV3" width="100%">
+      <img src="pictures/robot-components/ultrasonic_ev3.jpg" alt="Ultrasonic Sensor EV3" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -498,7 +507,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures\robot-components\color_sensor_ev3.jpg" alt="EV3 Color Sensor" width="100%">
+      <img src="pictures/robot-components/color_sensor_ev3.jpg" alt="EV3 Color Sensor" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -526,7 +535,7 @@ This section provides a detailed overview of the key hardware components used in
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
-      <img src="pictures\robot-components\medium_motor_ev3.jpg" alt="EV3 Medium Motor" width="100%">
+      <img src="pictures/robot-components/medium_motor_ev3.jpg" alt="EV3 Medium Motor" width="100%">
     </td>
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
@@ -954,7 +963,7 @@ The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** confi
   - **Open Challenge**: The rear-wheel drive system utilizes **two EV3 Medium Motors** connected to a single gear, which is driving the differential. This dual-motor setup increases torque output for enhanced performance during navigation, while adhering to WRO rules since both motors contribute to a single output (the differential). This configuration ensures robust propulsion for the Open Challenge’s demanding track navigation.
   - **Obstacle Challenge**: To optimize for simplicity and energy efficiency, the gear connected to the second motor is removed, and only one EV3 Medium Motor is used for propulsion. The single motor drives the differential directly, providing sufficient power for obstacle avoidance and parking tasks while reducing complexity and power consumption.
 
-| <img src="robot-photos\gears-open-placement.jpg" alt="Gears and Differential in Open Challenge" width="90%"> | <img src="robot-photos\gears-obstacle-placement.jpg" alt="Gears and Differential in Obstacle Challenge" width="90%"> |
+| <img src="robot-photos/gears-open-placement.jpg" alt="Gears and Differential in Open Challenge" width="90%"> | <img src="robot-photos/gears-obstacle-placement.jpg" alt="Gears and Differential in Obstacle Challenge" width="90%"> |
 | :--: | :--: |
 | *Gears and Differential in Open Challenge* | *Gears and Differential in Obstacle Challenge* |
 
@@ -1241,7 +1250,7 @@ This section outlines how electrical power is distributed across the robot and h
   - **Black** → extra ground, left unconnected  
 
     <div align="center">
-      <img src="robot-photos\pixy-cam-wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
+      <img src="robot-photos/pixy-cam-wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
       <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
     </div>
 
