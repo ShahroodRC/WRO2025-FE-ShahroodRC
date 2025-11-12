@@ -24,8 +24,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 ## Table of Contents
 
 - [The Team](#the-team)
-- [Achievements](#achievements)
-- [Mission Overview](#mission-overview)
+- [Mission Overview for WRO Future Engineers Rounds](#mission-overview-for-wro-future-engineers-rounds)
 - [Our Path – Platform Evolution](#our-path--platform-evolution)
 - [Pictures](#pictures)
 - [Videos](#videos)
@@ -158,14 +157,6 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
 ---
-
-## Achievements
-- 🥇 **1st Place, National WRO Competition 2025** (Rasht, Iran) – Qualified for WRO International Final in Singapore.
-- 🌍 Representing Iran at WRO 2025 International Final (November 26–28, Singapore).
-- 🛠 Previous: 3rd Place in Robo Mission category (prior season).
-
----
-
 
 ## National Championship Victory
 
