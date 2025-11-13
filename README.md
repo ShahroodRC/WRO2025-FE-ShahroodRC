@@ -47,14 +47,11 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 - [👥 The Team](#the-team)
 - [🏆 National Championship Victory](#national-championship-victory)
-- [💰 Bill of Materials & Cost Report](#-bill-of-materials--cost-report)
 - [🔌 Electrical Diagram & Hardware Specs](#-electrical-diagram--hardware-specs)
 - [🏗️ Robot Assembly Guide](#-robot-assembly-guide)
 - [📊 Performance Metrics & Statistics](#-performance-metrics--statistics)
-- [🎥 Video Documentation & Links](#-video-documentation--links)
 - [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
 - [🎯 Mission Overview for WRO Future Engineers Rounds](#mission-overview-for-wro-future-engineers-rounds)
-- [📂 Repository Navigation](#-repository-navigation)
 - [🛠️ Software Setup & Installation](#️-software-setup--installation)
   - [📋 Prerequisites](#prerequisites)
   - [💾 Step 1: Install ev3dev on EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
@@ -134,6 +131,49 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [📖 License](#-license)
 
 ---
+
+
+## Quick Start
+
+<div id="quick-start"></div>
+
+Short steps to get the robot running in 5 minutes:
+
+- **Flash ev3dev** to a microSD, insert into EV3 brick.
+- **Connect via USB** and `ssh robot@192.168.137.3` (password: `maker`).
+- **Install dependencies**: `pip3 install ev3dev2 opencv-python numpy`.
+- **Copy code** from `codes/` to the brick and run `python3 open-challenge-code.py` or `python3 obstacle-challenge-code.py`.
+
+For full setup instructions see the **Software Setup & Installation** section.
+
+
+<div id="-electrical-diagram--hardware-specs"></div>
+## 🔌 Electrical Diagram & Hardware Specs
+
+This section describes the high-level wiring and hardware specs used in the robot. For detailed mechanical layouts and STL/CAD files, see `3d-files/`.
+
+- **Power**: EV3 rechargeable battery (recommended) or 6×AA. Ensure voltage ≥ 7.2V for stable operation.
+- **Motor ports**: OUTPUT_B (steering motor `motor_a`), OUTPUT_D (drive motor `motor_b`), optional OUTPUT_C for second drive motor.
+- **Sensor ports**: INPUT_1 (Pixy 2.1 via I2C custom cable), INPUT_2 (right ultrasonic `rast`), INPUT_3 (left ultrasonic `chap`), INPUT_4 (color sensor).
+- **Diagrams**: The complete chassis and sensor mount files are in `3d-files/robot_complete.io` and the Pixy mount file in `3d-files/`.
+
+Notes:
+- Pixy 2.1 is connected via EV3 I2C using a custom cable; follow the PixyMon I2C setup steps before use.
+- Keep sensor cables short and secure to avoid I2C and ultrasonic noise.
+
+
+<div id="-robot-assembly-guide"></div>
+## 🏗️ Robot Assembly Guide
+
+A concise assembly guide and pointers to reproduce the robot:
+
+1. Start from `3d-files/robot_complete.io` for the overall chassis layout.
+2. Mount EV3 Brick centrally for balance; attach steering motor to OUTPUT_B and drive motor to OUTPUT_D as shown in the CAD.
+3. Install Pixy mount (see `3d-files/pixy-cam-mount.stl`) above the brick with vibration isolation.
+4. Mount ultrasonic sensors on the front left/right at approximately the same height and perpendicular to the expected wall surface.
+5. Place the color sensor 0.5–1 cm above the track surface, centered on the front of the chassis.
+
+For step-by-step photos and STL files, see the `3d-files/` and `robot-photos/` folders.
 
 
 ## The Team
@@ -247,7 +287,7 @@ The ShahroodRC team achieved a remarkable victory by securing **first place** in
 <p>ShahroodRC Team in National Final</p>
 </div>
 <div align="center">
-<img src="pictures\national-championship-robot.jpg" alt="Robot in Action" width="60%">
+<img src="pictures/national-championship-robot.jpg" alt="Robot in Action" width="60%">
 <p>Our robot in action during the National Championship</p>
 </div>
 
@@ -1097,7 +1137,7 @@ This section provides a detailed overview of the key hardware components used in
       <li>Modes: Color, Reflected Light Intensity, Ambient Light Intensity</li>
       <li>Colors Detected: 7 (black, blue, green, yellow, red, white, brown)</li>
       <li>Operating Voltage: 4.5V–5.5V</li>
-      <li>Interface: LEGO EV3 Sensor Port (INPUT_1)</li>
+    <li>Interface: LEGO EV3 Sensor Port (INPUT_4)</li>
       <li>Sampling Rate: ~1 kHz</li>
       <li>Optimal Distance: 0.5–1 cm from surface</li>
     </td>
@@ -1106,7 +1146,7 @@ This section provides a detailed overview of the key hardware components used in
 
 - **Type**: Light and Color Detection Sensor
 - **Feature**: Detects colors (e.g., blue=2, orange=5) and light intensity for navigation
-- **Interface**: LEGO EV3 Sensor Port (INPUT_1)
+- **Interface**: LEGO EV3 Sensor Port (INPUT_4)
 - **Use**: Enables line following and zone detection for Open and Obstacle Challenges
 - **Description**: The EV3 Color Sensor, mounted at the robot’s front center (included in `3d-files/robot_complete.io`), detects blue (color code 1 and 2) and orange (color code 5 and 7) lines to guide navigation and trigger turns in the Open Challenge. Operating in color mode with a 1 kHz sampling rate, it requires a 0.5–1 cm distance from the surface for accurate detection (95% accuracy in tests under 500–1000 lux lighting). Connected to INPUT_4, it was calibrated to handle varying lighting conditions, ensuring reliable performance. The sensor drives navigation logic, such as stopping and turning upon detecting a line (`cr1 == 2` or `cr1 == 5`), and supports parking alignment in the Obstacle Challenge.
 - **Lessons Learned**: Maintaining a 0.5–1 cm distance was critical for accurate color detection; variations in lighting required multiple calibration rounds. Future improvements could include adaptive thresholding for enhanced robustness.
@@ -1163,7 +1203,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
 - **Component Placement**: The EV3 Brick is centrally mounted for balance, with the Color Sensor at the front center (0.5–1 cm from the surface), Ultrasonic Sensors on the front left and right, and Pixy Cam elevated above the Brick for optimal obstacle detection.
 - **Component Selection**: The EV3 platform was chosen for its robust ecosystem and compatibility, replacing less reliable options like the HC-SR04 Ultrasonic Sensor. The Medium Motors’ lighter weight (120 g vs. 170 g for Large Motors) optimized the robot’s 1.2 kg design for agility.
-- **Custom Parts**: A custom 3D-printed mount for the Pixy 2.1 camera (`3d-files/pixy_mount.stl`) ensures optimal positioning and vibration isolation. All other components use standard LEGO pieces and connectors. The complete robot design, including LEGO chassis and component layout, is documented in `3d-files/robot_complete.io`.
+- **Custom Parts**: A custom 3D-printed mount for the Pixy 2.1 camera (`3d-files/pixy-cam-mount.stl`) ensures optimal positioning and vibration isolation. All other components use standard LEGO pieces and connectors. The complete robot design, including LEGO chassis and component layout, is documented in `3d-files/robot_complete.io`.
 - **Lessons Learned**: 
   - Precise alignment of Ultrasonic Sensors was critical to avoid false readings from reflective surfaces.
   - PixyMon v2 calibration for **Pixy 2.1** was efficient but still required manual tuning under competition lighting; future versions could integrate automated lighting-adaptive calibration.
@@ -1761,7 +1801,7 @@ The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-whee
 6. Connect motors to OUTPUT_B (`motor_a`), OUTPUT_D (`motor_b`), and sensors to INPUT_1–4.
 7. Upload scripts (`codes/open-challenge-code.py`, `codes/obstacle-challenge-code.py`) via USB/Bluetooth.
 
-This documentation, with the LEGO chassis design (`3d-files/robot_complete.io`), the Pixy mount (`3d-files/pixy_mount.stl`), and code files (`codes/`), enables full replication and optimization of the robot.
+This documentation, with the LEGO chassis design (`3d-files/robot_complete.io`), the Pixy mount (`3d-files/pixy-cam-mount.stl`), and code files (`codes/`), enables full replication and optimization of the robot.
 
 ---
 
