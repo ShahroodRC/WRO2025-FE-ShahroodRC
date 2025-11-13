@@ -7,9 +7,15 @@
 <img src="pictures/shahroodrc-logo.jpg" alt="ShahroodRC logo" width="80%"/>
 
 **ShahroodRC** – *Future Engineers 2025*  
-A self-driving robot built by three passionate students from Shahrood, Iran.  
-**1st place – Iran National WRO 2025** → **Qualified for the International Final in Singapore (26-28 Nov 2025)**
+🏆 **1st Place – Iran National WRO 2025**  
+🌍 **Heading to Singapore International Final (26-28 Nov 2025)**  
+A fully autonomous LEGO EV3 robot with vision-based obstacle avoidance and precision navigation.
 
+![Status](https://img.shields.io/badge/Status-Competition%20Ready-brightgreen?style=flat-square)
+![Platform](https://img.shields.io/badge/Platform-LEGO%20EV3%20%2B%20Python-blue?style=flat-square)
+![Team](https://img.shields.io/badge/Team%20Size-3%20Students-orange?style=flat-square)
+
+**📱 Connect with us:**
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/shahroodrc)
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtube.com/@shahroodrc)
 [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ShahroodRC)
@@ -18,6 +24,18 @@ A self-driving robot built by three passionate students from Shahrood, Iran.
 
 ---
 
+## 🎯 Key Features
+
+| Feature | Details |
+|---------|---------|
+| 🤖 **Platform** | LEGO EV3 Mindstorms with Python (ev3dev) |
+| 👁️ **Vision System** | Pixy 2.1 camera (60 fps, real-time obstacle detection) |
+| 🧭 **Navigation** | Dual ultrasonic sensors + color sensor for precision wall-following |
+| ⚡ **Performance** | 90% success rate in 50+ test runs; completes challenges in <2min |
+| 🔧 **Custom Parts** | 3D-printed Pixy 2.1 mount for optimal positioning |
+| 📦 **Components** | All standard LEGO pieces (100% WRO-compliant) |
+
+---
 
 ## The Meaning Behind ShahroodRC
 ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like its mountains) with "RC" (Robotics Club). Inspired by the story of iteration, teamwork, and turning "what if" into "we did it." Behind the code and gears? The quiet support of families – our real "power source," fueling late nights and breakthroughs. ShahroodRC isn't just a robot; it's proof that passion + persistence = global stage.
@@ -229,6 +247,22 @@ This national championship victory marks a significant milestone, qualifying Sha
 > [!IMPORTANT]
 > **WRO Future Engineers Rulebook**: Thoroughly read the rulebook for all guidelines. Official link: [WRO Future Engineers 2025 Rulebook](WRO-2025-Future-Engineers-Self-Driving-Cars-General-Rules.pdf). Key rules: Open – no obstacles, 3 laps; Obstacle – avoid pillars, park after laps.
 
+---
+
+## 📂 Repository Navigation
+
+> 🚀 **New to this project?** Start here:
+> - 📖 **[Quick Start Guide](#quick-start)** – Get up and running in 5 minutes
+> - 🏗️ **[Hardware Setup](#robot-components-overview)** – See what we used
+> - 💻 **[Code Overview](#code-for-each-component)** – Understand the algorithm
+> - 📹 **[Videos](#videos)** – Watch it in action
+
+**For specific details:**
+- 🔧 [Mobility System](#mobility-management) – Motor control & navigation algorithms
+- ⚡ [Power & Sensors](#power-and-sense-management) – Electrical architecture
+- 🤖 [Challenge Strategies](#obstacle-management-obstacle-avoidance-and-parking-management) – How we solve each task
+
+---
 
 ## Our Path – Platform Evolution
 
@@ -343,6 +377,18 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 ---
 
+## 📊 Performance Metrics
+
+| Metric | Result |
+|--------|--------|
+| **Wall-Following Accuracy** | ±2 cm @ 27 cm target distance |
+| **Obstacle Detection** | 97% accuracy with Pixy 2.1 |
+| **Turning Precision** | 90° turns in ~1.5 seconds |
+| **Lap Completion** | <2 minutes (all 3 laps) |
+| **Success Rate** | 90% across 50+ test runs |
+| **Power Efficiency** | 450 mA max load; 25+ min operation |
+
+---
 
 ## Videos
 You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/lM7wSyYANas) videos on Youtube. You can see them also here in [videos](videos/) folder.
@@ -2184,19 +2230,82 @@ motor_a.off()
 ---
 
 
-## Repository Structure
-- [`3d-files/`](/3d-files/): Contains `robot_complete.io` (LEGO chassis and component layout), `pixy_mount.stl` (3D-printable Pixy 2.1 mount), and rendered visualization images.
-- [`codes/`](/codes/): Contains Python scripts for Open Challenge and Obstacle Challenge.
-- [`pictures/`](/pictures/): Other pictures that used in repository like components pictures.
-- [`robot-photos/`](/robot-photos/): Images of robot from front, back, top, bottom, right and left.
-- [`team-photos/`](/team-photos/): Images of team members and the whole team.
-- [`videos/`](/videos/): Performance videos for both challenges.
-- [`randomizer.apk`](randomizer.apk): Android application for generating WRO 2025-compliant random track and obstacle configurations.
+---
+
+## 📁 Repository Structure
+
+```
+WRO2025-FE-ShahroodRC/
+├── 📄 README.md                          # Complete documentation (you are here!)
+├── 📄 LICENSE                            # MIT License
+│
+├── 📂 codes/                             # Python scripts (ev3dev)
+│   ├── open-challenge-code.py           # Qualification challenge (wall-follow + line detect)
+│   ├── obstacle-challenge-code.py       # Final challenge (obstacle avoidance + parking)
+│   └── codes.md                         # Code documentation
+│
+├── 📂 3d-files/                          # Design files & visualizations
+│   ├── robot_complete.io                # LEGO chassis design (all components)
+│   ├── pixy_mount.stl                   # 3D-printable Pixy 2.1 camera mount
+│   ├── 3d-files.md                      # Design notes
+│   ├── robot-front-3d.jpg               # 3D render (front view)
+│   └── robot-topright-3d.jpg            # 3D render (top-right view)
+│
+├── 📂 pictures/                          # Component diagrams & charts
+│   ├── shahroodrc-logo.jpg              # Team logo
+│   ├── randomizer-screenshots/          # App UI screenshots
+│   ├── robot-components/                # Component photos
+│   └── *.jpg                            # Various technical visualizations
+│
+├── 📂 robot-photos/                      # Physical robot images
+│   ├── robot-front.jpg, robot-back.jpg  # Front & back views
+│   ├── robot-left.jpg, robot-right.jpg  # Side views
+│   ├── robot-top.jpg, robot-bottom.jpg  # Top & bottom views
+│   └── robot.jpg                        # 3-quarter view
+│
+├── 📂 team-photos/                       # Team & achievement photos
+│   ├── [Team member photos]
+│   └── championship photos
+│
+├── 📂 videos/                            # Performance recordings
+│   ├── open-challenge.mp4               # Qualification run
+│   └── obstacle-challenge.mp4           # Final challenge run
+│
+└── 📦 randomizer.apk                     # Android app (track generator)
+```
+
+**📌 Key Files to Start With:**
+1. `README.md` (this file) – Overview & documentation
+2. `codes/open-challenge-code.py` & `codes/obstacle-challenge-code.py` – Main algorithms
+3. `3d-files/robot_complete.io` – Hardware design reference
 
 ---
 
+## 🤝 Contributing & Support
 
-## License
-This project is licensed under the MIT License, allowing free use, modification, and distribution with proper attribution. See the [LICENSE](LICENSE) file for full details.
+This project is **open-source** and welcomes:
+- 🐛 **Bug reports** – Found an issue? Let us know!
+- 💡 **Suggestions** – Have ideas for improvement? Share them!
+- 📚 **Documentation improvements** – Help make it clearer!
 
-© 2025 ShahroodRC
+### Quick Links
+- 📧 **Email**: sepehryavarzadeh@gmail.com (Project Manager)
+- 🌐 **Instagram**: [@shahroodrc](https://instagram.com/shahroodrc)
+- 📹 **YouTube**: [ShahroodRC Channel](https://youtube.com/@shahroodrc)
+
+---
+
+## 📖 License
+This project is licensed under the **MIT License**, allowing free use, modification, and distribution with proper attribution. See the [LICENSE](LICENSE) file for full details.
+
+---
+
+<div align="center">
+
+**Built with ❤️ by ShahroodRC Team**
+
+🚀 Representing Iran at WRO 2025 International Final in Singapore 🌍
+
+© 2025 ShahroodRC – All rights reserved.
+
+</div>
