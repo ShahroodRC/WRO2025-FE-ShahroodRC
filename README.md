@@ -302,24 +302,24 @@ This national championship victory marks a significant milestone, qualifying Sha
 | Item # | Component | Model/Spec | Qty | Unit Cost | Total | Supplier Link |
 |--------|-----------|-----------|-----|-----------|-------|----------------|
 | 1 | LEGO EV3 Core Set | 45544 | 1 | $350 | $350 | [LEGO Store](https://www.lego.com/en-us/product/lego-mindstorms-ev3-45544) |
-| 2 | LEGO Medium Motor | 45503 | 2 | $20 | $40 | [BrickLink](https://www.bricklink.com) |
-| 3 | LEGO Large Motor | 45502 | 2 | $25 | $50 | [BrickLink](https://www.bricklink.com) |
+| 2 | LEGO Medium Motor (Steering) | 45503 | 1 | $20 | $20 | [BrickLink](https://www.bricklink.com) |
+| 3 | LEGO Medium Motor (Drive) | 45503 | 1 | $20 | $20 | [BrickLink](https://www.bricklink.com) |
 | 4 | Pixy 2.1 Camera | CMUcam5 | 1 | $65 | $65 | [Charmed Labs](https://charmedlabs.com/products/pixy-2-1) |
-| 5 | Ultrasonic Sensor | 45504 | 2 | $30 | $60 | [LEGO Store](https://www.lego.com) |
-| 6 | Color Sensor | 45506 | 1 | $30 | $30 | [LEGO Store](https://www.lego.com) |
-| 7 | Touch Sensor | 45507 | 1 | $20 | $20 | [LEGO Store](https://www.lego.com) |
+| 5 | Ultrasonic Sensor (Right) | 45504 | 1 | $30 | $30 | [LEGO Store](https://www.lego.com) |
+| 6 | Ultrasonic Sensor (Left) | 45504 | 1 | $30 | $30 | [LEGO Store](https://www.lego.com) |
+| 7 | Color Sensor | 45506 | 1 | $30 | $30 | [LEGO Store](https://www.lego.com) |
 | 8 | Additional LEGO Bricks | Various | 300+ | $0.50 | $150 | [BrickLink](https://www.bricklink.com) |
 | 9 | Wheels (43.2mm) | Standard | 4 | $5 | $20 | [BrickLink](https://www.bricklink.com) |
 | 10 | Batteries (AA 6-Pack) | Rechargeable | 1 | $18 | $18 | [Amazon](https://www.amazon.com) |
-| 11 | USB Cables | Mini-B | 1 | $8 | $8 | [Amazon](https://www.amazon.com) |
+| 11 | USB Cables & Adapters | Mini-B | 1 | $8 | $8 | [Amazon](https://www.amazon.com) |
 | 12 | 3D Printed Pixy Mount | PLA | 1 | $5 | $5 | Custom Print |
-| **TOTAL COST** | | | | | **$716** | |
+| **TOTAL COST** | | | | | **$611** | |
 
 **💵 Cost Breakdown:**
-- Motors & Actuators: $150 (21%)
-- Sensors (Pixy + EV3): $175 (24%)
-- LEGO Components: $310 (43%)
-- Power & Cables: $81 (11%)
+- Motors & Actuators: $40 (6.5%) - 2x Medium Motors
+- Sensors (Pixy + EV3): $125 (20.5%) - Pixy, 2x Ultrasonic, Color
+- LEGO Components & Cables: $365 (59.7%) - Core, bricks, cables, wheels
+- Power & Batteries: $81 (13.2%)
 
 **✅ Advantages of Our BOM:**
 - ✅ Using LEGO instead of custom chassis saved ~$400
@@ -347,48 +347,41 @@ This national championship victory marks a significant milestone, qualifying Sha
            │
      ┌─────┴─────────────────────┐
      │                           │
-     ↓ OUT_A (4.5V PWM)         ↓ Sensor Power (3.3V)
-  ┌──────────┐            ┌──────────────┐
-  │ Large    │            │ Sensor Ports │
-  │ Motor    │            ├──────────────┤
-  │ (Drive)  │            │ INPUT_1: Touch
-  └──────────┘            │ INPUT_2: Ultrasonic L
-  ┌──────────┐            │ INPUT_3: Ultrasonic R
-  │ Medium   │ OUT_B      │ INPUT_4: Color
-  │ Motor    │            └──────────────┘
-  │ (Steer)  │            Pixy 2.1 Camera
-  └──────────┘            (I2C Bus, 5V)
+     ↓ OUTPUT_B/D (4.5V PWM)     ↓ Sensor Power (3.3V)
+  ┌──────────┐            ┌──────────────────┐
+  │ Medium   │            │ Sensor Ports     │
+  │ Motor    │            ├──────────────────┤
+  │ (Drive)  │            │ INPUT_1: Pixy 2.1
+  └──────────┘            │ INPUT_2: Ultrasonic
+  ┌──────────┐            │ INPUT_3: Ultrasonic
+  │ Medium   │ OUTPUT_B   │ INPUT_4: Color
+  │ Motor    │            └──────────────────┘
+  │ (Steer)  │            (I2C Bus, 5V)
+  └──────────┘
 ```
 
 ### Pin Configuration
 
 | Port | Device | Type | Voltage | Connection |
 |------|--------|------|---------|------------|
-| OUT_A | Large Motor (Drive) | Motor | 4.5V | 2-Pin EV3 Motor |
-| OUT_B | Medium Motor (Steer) | Motor | 4.5V | 2-Pin EV3 Motor |
-| INPUT_1 | Touch Sensor | Digital | 3.3V | 6-Pin EV3 Cable |
-| INPUT_2 | Ultrasonic Left | Digital | 3.3V | 6-Pin EV3 Cable |
-| INPUT_3 | Ultrasonic Right | Digital | 3.3V | 6-Pin EV3 Cable |
+| OUTPUT_B | Medium Motor (Steering) | Motor | 4.5V | 2-Pin EV3 Motor |
+| OUTPUT_D | Medium Motor (Drive) | Motor | 4.5V | 2-Pin EV3 Motor |
+| INPUT_1 | Pixy 2.1 Camera | I2C | 5V | Custom I2C Adapter |
+| INPUT_2 | Ultrasonic Sensor (Right) | Digital | 3.3V | 6-Pin EV3 Cable |
+| INPUT_3 | Ultrasonic Sensor (Left) | Digital | 3.3V | 6-Pin EV3 Cable |
 | INPUT_4 | Color Sensor | Analog | 3.3V | 6-Pin EV3 Cable |
-| I2C | Pixy 2.1 | I2C | 5V | Custom Adapter |
-
-**Pixy 2.1 I2C Connection:**
-- Default Address: 0x54
-- Protocol: I2C (400 kHz standard mode)
-- Requires: SDA/SCL pullup resistors (usually built-in to EV3)
-- Library: `smbus` or `ev3dev-python` I2C module
 
 ### Power Specifications
 
 | Component | Voltage | Current (Idle) | Current (Active) | Power |
 |-----------|---------|----------------|------------------|-------|
 | EV3 Brick | 9V | 50mA | 200mA | 1.8W |
-| Large Motor | 4.5V | 0A | 500-800mA | 2.25-3.6W |
-| Medium Motor | 4.5V | 0A | 300-500mA | 1.35-2.25W |
+| Medium Motor (Drive) | 4.5V | 0A | 400-600mA | 1.8-2.7W |
+| Medium Motor (Steer) | 4.5V | 0A | 300-500mA | 1.35-2.25W |
 | Pixy 2.1 | 5V | 80mA | 140mA | 0.7W |
-| Ultrasonic Sensors | 3.3V | 30mA | 40mA | 0.12W |
+| 2x Ultrasonic Sensors | 3.3V | 60mA | 80mA | 0.26W |
 | Color Sensor | 3.3V | 20mA | 35mA | 0.1W |
-| **TOTAL** | | **~180mA** | **~2000mA** | **~10W peak** |
+| **TOTAL** | | **~210mA** | **~1700mA** | **~8.8W peak** |
 
 **Battery Runtime:**
 - Battery Capacity: 6x AA (2500-2800 mAh typical)
@@ -407,7 +400,7 @@ This national championship victory marks a significant milestone, qualifying Sha
 **Step 1: Drive Base Assembly**
 1. Create 15L × 10W rectangular frame from LEGO beams
 2. Attach 4 wheels with rubber tires using 90-degree angle frames
-3. Mount Large Motor horizontally at rear center
+3. Mount Medium Motor (Drive) horizontally at rear center
 4. Connect motor to rear differential (1:1 gear ratio, 27mm axle)
 5. Result: Sturdy base, ~500g, 300mm wheelbase
 
@@ -423,7 +416,6 @@ This national championship victory marks a significant milestone, qualifying Sha
 2. Mount Pixy camera at 45° angle (top center - looking down)
 3. Mount ultrasonic sensors left/right (front face, level)
 4. Mount color sensor at bottom (track-facing, 5mm above surface)
-5. Mount touch sensor at rear (safety backup)
 
 #### **Phase 2: Electronics (25 min)**
 
@@ -434,18 +426,17 @@ This national championship victory marks a significant milestone, qualifying Sha
 4. Verify no cable pinching
 
 **Step 5: Motor Connections**
-1. Connect Large Motor → OUT_A (drive rear axle)
-2. Connect Medium Motor → OUT_B (steering linkage)
+1. Connect Medium Motor (Drive) → OUTPUT_D (drive rear axle)
+2. Connect Medium Motor (Steer) → OUTPUT_B (steering linkage)
 3. Secure cables with zip ties (no sharp bends)
 4. Label each cable endpoint
 
 **Step 6: Sensor Connections**
-1. Touch Sensor → INPUT_1 (6-pin cable)
+1. Pixy 2.1 → INPUT_1 (custom I2C adapter)
 2. Ultrasonic Left → INPUT_2 (6-pin cable)
 3. Ultrasonic Right → INPUT_3 (6-pin cable)
 4. Color Sensor → INPUT_4 (6-pin cable)
-5. Pixy 2.1 → I2C Bus (custom 4-wire adapter)
-6. Test each sensor individually
+5. Test each sensor individually
 
 #### **Phase 3: Power & Finalization (20 min)**
 
