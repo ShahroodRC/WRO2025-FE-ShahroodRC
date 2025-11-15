@@ -25,7 +25,6 @@ A fully autonomous LEGO EV3 robot with vision-based obstacle avoidance and preci
 ---
 
 ## 🎯 Key Features
-
 | Feature | Details |
 |---------|---------|
 | 🤖 **Platform** | LEGO EV3 Mindstorms with Python (ev3dev) |
@@ -42,35 +41,17 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 ---
 
-
 ## Table of Contents
-
 - [👥 The Team](#the-team)
 - [🏆 National Championship Victory](#national-championship-victory)
-- [🔌 Electrical Diagram & Hardware Specs](#-electrical-diagram--hardware-specs)
-- [🏗️ Robot Assembly Guide](#-robot-assembly-guide)
-- [📊 Performance Metrics & Statistics](#-performance-metrics--statistics)
-- [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
 - [🎯 Mission Overview for WRO Future Engineers Rounds](#mission-overview-for-wro-future-engineers-rounds)
-- [🛠️ Software Setup & Installation](#️-software-setup--installation)
-  - [📋 Prerequisites](#prerequisites)
-  - [💾 Step 1: Install ev3dev on EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
-  - [🔌 Step 2: Connect to EV3 Brick](#step-2-connect-to-ev3-brick)
-  - [📦 Step 3: Install Required Python Libraries](#step-3-install-required-python-libraries)
-  - [⬇️ Step 4: Clone and Deploy Code](#step-4-clone-and-deploy-code)
-  - [▶️ Step 5: Run Code on EV3](#step-5-run-code-on-ev3)
-  - [🐛 Step 6: Debugging & Troubleshooting](#step-6-debugging--troubleshooting)
-  - [⌨️ Useful Commands](#useful-commands)
-- [🔧 Sensor Calibration Guide](#-sensor-calibration-guide)
-  - [📷 Pixy 2.1 Camera Calibration](#pixy-21-camera-calibration)
-  - [📏 Ultrasonic Sensor Calibration](#ultrasonic-sensor-calibration)
-  - [🌈 Color Sensor Calibration](#color-sensor-calibration)
-  - [✅ Pre-Competition Checklist](#pre-competition-checklist)
-- [🔍 Testing & Validation](#-testing--validation)
-  - [📊 Test Results Summary](#test-results-summary)
-  - [🧪 Testing Methodology](#testing-methodology)
-  - [⚠️ Known Limitations & Workarounds](#known-limitations--workarounds)
-- [🔴 Problems and Solutions](#-problems-and-solutions)
+- [📸 Pictures](#pictures)
+- [🎬 Videos](#videos)
+- [📱 Randomizer App](#-randomizer-app)
+- [🔄 Our Path – Platform Evolution](#-our-path--platform-evolution)
+- [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
+- [📊 Performance Metrics & Statistics](#-performance-metrics--statistics)
+- [🔌 Electrical Diagram & Hardware Specs](#-electrical-diagram--hardware-specs)
   - [Problem 1: Pixy 2.1 False Positives in Low Light](#problem-1-pixy-21-false-positives-in-low-light)
   - [Problem 2: Ultrasonic Sensor Noise from Angled Walls](#problem-2-ultrasonic-sensor-noise-from-angled-walls)
   - [Problem 3: Color Sensor Inconsistency Under Vibration](#problem-3-color-sensor-inconsistency-under-vibration)
@@ -80,14 +61,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
   - [Problem 7: Battery Voltage Sag Under Load](#problem-7-battery-voltage-sag-under-load)
   - [Problem 8: ev3dev Package Version Conflicts](#problem-8-ev3dev-package-version-conflicts)
   - [🧠 Debugging Tips & Tricks](#debugging-tips--tricks)
-- [📊 Algorithm Flowcharts](#-algorithm-flowcharts)
-  - [Open Challenge Algorithm Flowchart](#open-challenge-algorithm-flowchart)
-  - [Obstacle Challenge Algorithm Flowchart](#obstacle-challenge-algorithm-flowchart)
-- [🔄 Our Path – Platform Evolution](#-our-path--platform-evolution)
-- [📸 Pictures](#pictures)
 - [📊 Performance Metrics](#-performance-metrics)
-- [🎬 Videos](#videos)
-- [📱 Randomizer App](#-randomizer-app)
 - [🤖 Robot Components Overview](#-robot-components-overview)
   - [🔧 Components Overview](#-components-overview)
     - [🧠 LEGO EV3 Mindstorms Control Brick](#lego-ev3-mindstorms-control-brick)
@@ -95,7 +69,6 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [📏 Ultrasonic Sensor EV3](#ultrasonic-sensor-ev3)
     - [🌈 Color Sensor EV3](#color-sensor-ev3)
     - [⚙️ Medium Motor EV3](#medium-motor-ev3)
-  - [📊 Bill of Materials (BOM)](#-bill-of-materials-bom)
   - [🛠️ Notes](#️-notes)
 - [💻 Code For Each Component](#-code-for-each-component)
   - [🔄 Drive Motor Code](#drive-motor-code)
@@ -126,15 +99,49 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [🚧 Obstacle Management](#obstacle-management-obstacle-avoidance-and-parking-management)
   - [🏁 Qualification Round (Open Challenge)](#qualification-round-open-challenge)
   - [🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
+- [🏗️ Robot Assembly Guide](#️-robot-assembly-guide)
+- [🛠️ Software Setup & Installation](#️-software-setup--installation)
+  - [📋 Prerequisites](#prerequisites)
+  - [💾 Step 1: Install ev3dev on EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
+  - [🔌 Step 2: Connect to EV3 Brick](#step-2-connect-to-ev3-brick)
+  - [📦 Step 3: Install Required Python Libraries](#step-3-install-required-python-libraries)
+  - [⬇️ Step 4: Clone and Deploy Code](#step-4-clone-and-deploy-code)
+  - [▶️ Step 5: Run Code on EV3](#step-5-run-code-on-ev3)
+  - [🐛 Step 6: Debugging & Troubleshooting](#step-6-debugging--troubleshooting)
+  - [⌨️ Useful Commands](#useful-commands)
+- [🔧 Sensor Calibration Guide](#-sensor-calibration-guide)
+  - [📷 Pixy 2.1 Camera Calibration](#pixy-21-camera-calibration)
+  - [📏 Ultrasonic Sensor Calibration](#ultrasonic-sensor-calibration)
+  - [🌈 Color Sensor Calibration](#color-sensor-calibration)
+  - [✅ Pre-Competition Checklist](#pre-competition-checklist)
+- [🔍 Testing & Validation](#-testing--validation)
+  - [📊 Test Results Summary](#test-results-summary)
+  - [🧪 Testing Methodology](#testing-methodology)
+  - [⚠️ Known Limitations & Workarounds](#known-limitations--workarounds)
+- [🔴 Problems and Solutions](#-problems-and-solutions)
+- [💰 Cost Report](#-cost-report)
 - [📁 Repository Structure](#-repository-structure)
 - [🤝 Contributing & Support](#-contributing--support)
 - [📖 License](#-license)
 
 ---
 
-<div id="-electrical-diagram--hardware-specs"></div>
-
 ## 🔌 Electrical Diagram & Hardware Specs
+
+### EV3 Brick Port Reference
+
+<div align="center">
+<img src="pictures/robot-components/ev3-brick-ports.jpg" alt="LEGO EV3 Brick Port Diagram" width="70%"/>
+<p><em>Official LEGO EV3 port diagram showing motor and sensor connections</em></p>
+</div>
+
+### Circuit & Wiring Diagram (Coming Soon)
+
+<div align="center">
+<!-- TODO: Insert robot wiring/circuit diagram image here -->
+<img src="pictures/robot-components/robot-wiring-diagram.jpg" alt="Robot Wiring & Circuit Diagram" width="70%"/>
+<p><em>Robot wiring and circuit layout (to be added)</em></p>
+</div>
 
 ### Power Distribution Architecture
 
@@ -152,7 +159,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
            │
      ┌─────┴─────────────────────┐
      │                           │
-     ↓ OUTPUT_B/D (4.5V PWM)     ↓ Sensor Power (3.3V)
+     ↓ OUTPUT_C/D (4.5V PWM)     ↓ Sensor Power (3.3V)
   ┌──────────┐            ┌──────────────────┐
   │ Medium   │            │ Sensor Ports     │
   │ Motor    │            ├──────────────────┤
@@ -196,8 +203,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 ---
 
-
-<div id="-robot-assembly-guide"></div>
+## 🏗️ Robot Assembly Guide
 
 ### 10-Step Construction Process (1.5-2 hours)
 
@@ -472,7 +478,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 
 ### ShahroodRC Team
 <div align="center">
-<img src="team-photos/team.jpg" alt="ShahroodRC" width="60%"> 
+<img src="team-photos/team-2.jpg" alt="ShahroodRC" width="60%"> 
 <p>The ShahroodRC Team</p>
 </div> 
 
@@ -1395,25 +1401,6 @@ This section provides a detailed overview of the key hardware components used in
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
 
----
-
-### 📊 Bill of Materials (BOM)
-| **Component** | **Quantity** | **Source** | **Purpose** | **Approx. Cost (USD)** | **Purchase Link** |
-|------------------------------|--------------|--------------------------------|------------------------------|------------------------|-------------------|
-| LEGO EV3 Control Brick | 1 | LEGO MINDSTORMS Core Set 45544 | Central processing and control | $150 | [Buy on Walmart](https://www.walmart.com/ip/LEGO-Mindstorms-EV3-Intelligent-Brick/450756441) |
-| Pixy 2.1 | 1 | Purchased separately | Obstacle and line detection | $70 | [Buy on RobotShop](https://www.robotshop.com/products/charmed-labs-pixy-21-robot-vision-image-sensor-rbc?qd=0f9af5b89bafa36ba5faaedb9b01fcd0) |
-| EV3 Ultrasonic Sensor | 2 | LEGO MINDSTORMS Core Set 45544 | Wall-following and distance | $35 each ($70 total) | [Buy on Walmart](https://www.walmart.com/ip/Lego-Mindstorms-Ev3-Ultrasonic-Sensor/612855102) |
-| EV3 Color Sensor | 1 | LEGO MINDSTORMS Core Set 45544 | Line following and zone detection | $30 each ($60 total) | [Buy on Walmart](https://www.walmart.com/ip/Mindstorms-EV3-Color-Sensor-45506-Program-Robot-Parts-Power-Functions-Compatible-with-LEGO/15817721064) |
-| EV3 Medium Motor | 3 | LEGO MINDSTORMS Core Set 45544 | Propulsion and steering | $25 each ($75 total) | [Buy on Walmart](https://www.walmart.com/ip/Electric-Motor-EV3-Medium/709251821) |
-| LEGO Tire 49.5 x 20 | 4 | LEGO MINDSTORMS Core Set 45544 | Wheels for traction | $5 each ($20 total) | [Buy on ToyPro](https://www.toypro.com/us/product/7953/tire-49-5-x-20/black?srsltid=AfmBOorr-6cqi7l8E_Rw6FM3TXYHy3gVoG3RpzxenvjeQpM_ZWOW59Z-) (~$2-5 each) |
-| LEGO EV3 Rechargeable Battery | 1 | LEGO MINDSTORMS Core Set 45544 | Power supply | $185 | [Buy on ElectricBricks](https://www.electricbricks.com/lego-lego-education-mindstorms-ev3-ev3-rechargeable-battery-p-6019.html?language=en) |
-
-**Grand Total:** **$630**
-
-**Note**: Approximate costs are based on standard market prices for LEGO MINDSTORMS components and Pixy Cam in 2025. Actual costs may vary depending on region and supplier.
-
----
-
 ### 🛠 Notes
 - **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
 - **Component Placement**: The EV3 Brick is centrally mounted for balance, with the Color Sensor at the front center (0.5–1 cm from the surface), Ultrasonic Sensors on the front left and right, and Pixy Cam elevated above the Brick for optimal obstacle detection.
@@ -1429,7 +1416,6 @@ This section provides a detailed overview of the key hardware components used in
   - Implementing automated sensor calibration to adapt to varying competition conditions (e.g., lighting, surface reflectivity).
 
 ---
-
 
 ## Code for Each Component
 
@@ -2127,194 +2113,6 @@ The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware 
 
 ---
 
-## 📊 Algorithm Flowcharts
-
-Visual representation of the decision-making logic for both challenges.
-
-### Open Challenge Algorithm Flowchart
-
-```
-┌─────────────────────────────────────────┐
-│  START                                  │
-└─────────────────┬───────────────────────┘
-                  │
-                  ▼
-         ┌───────────────────┐
-         │  Initialize EV3   │
-         │  Sensors & Motors │
-         └────────┬──────────┘
-                  │
-                  ▼
-         ┌───────────────────┐
-         │  Wait for Button  │
-         │  Press to Start   │
-         └────────┬──────────┘
-                  │
-                  ▼
-         ┌───────────────────┐
-         │  Read Color Line  │
-         └────────┬──────────┘
-                  │
-         ┌────────┴─────────┐
-         │                  │
-         ▼                  ▼
-    BLUE (2)          ORANGE (5)
-    Set Left          Set Right
-    Direction         Direction
-         │                  │
-         └────────┬─────────┘
-                  │
-                  ▼
-      ┌───────────────────────┐
-      │ Wall Following Loop   │
-      │ Read Ultrasonic       │
-      │ Left & Right          │
-      └───────┬───────────────┘
-              │
-              ▼
-      ┌──────────────────┐
-      │ Calculate Error  │
-      │ error = L - R    │
-      └───────┬──────────┘
-              │
-              ▼
-      ┌──────────────────────┐
-      │ Apply PID Correction │
-      │ to Steering Motor    │
-      └───────┬──────────────┘
-              │
-              ▼
-      ┌──────────────────────┐
-      │ Check for Color Line │
-      │ (Turn Indicator)     │
-      └───────┬──────────────┘
-              │
-         ┌────┴────┐
-         │          │
-         ▼          ▼
-    Line      No Line
-    Found     Found
-         │          │
-         ▼          ▼
-    Increment    Continue
-    Turn Cnt     Wall-Follow
-         │          │
-         └────┬─────┘
-              │
-              ▼
-      ┌──────────────────────┐
-      │ Turn Count = 11?     │
-      │ (3 laps complete)    │
-      └───────┬──────────────┘
-              │
-         ┌────┴────┐
-         │          │
-       YES         NO
-         │          │
-         ▼          │
-    ┌─────────┐     │
-    │ STOP    │     │
-    │ ROBOT   │     │
-    └─────────┘     │
-         │          │
-         └──────┬───┘
-                │
-                ▼
-           Loop Back
-           to Wall-Follow
-```
-
-### Obstacle Challenge Algorithm Flowchart
-
-```
-┌──────────────────────────────────┐
-│  START Obstacle Challenge        │
-└────────────────┬─────────────────┘
-                 │
-                 ▼
-        ┌────────────────────┐
-        │ Initialize All     │
-        │ Sensors (Pixy, US) │
-        └────────┬───────────┘
-                 │
-                 ▼
-        ┌────────────────────┐
-        │ Set Speed = 100%   │
-        │ Wall Distance = 27 │
-        └────────┬───────────┘
-                 │
-                 ▼
-      ┌──────────────────────┐
-      │ WALL FOLLOWING LOOP  │
-      └──────┬───────────────┘
-             │
-             ▼
-      ┌──────────────────────┐
-      │ Read Ultrasonic      │
-      │ & Pixy Camera        │
-      └──────┬───────────────┘
-             │
-             ▼
-      ┌──────────────────────┐
-      │ Pixy Detects         │
-      │ Green/Red Pillar?    │
-      └────┬────────────┬────┘
-           │            │
-         YES            NO
-           │            │
-           ▼            ▼
-      ┌────────┐  ┌───────────────┐
-      │Obstacle│  │ Continue Wall │
-      │Found   │  │ Following     │
-      └───┬────┘  └───────┬───────┘
-          │               │
-          ▼               ▼
-      ┌─────────────────┐ │
-      │ Calculate Steer │ │
-      │ Based on Pillar │ │
-      │ Position        │ │
-      └────┬────────────┘ │
-           │              │
-           ▼              │
-      ┌──────────────┐    │
-      │ Adjust Motor │    │
-      │ & Steering   │    │
-      └────┬─────────┘    │
-           │              │
-           └──────┬───────┘
-                  │
-                  ▼
-         ┌────────────────────┐
-         │ Check Lap Counter  │
-         │ 3 Laps Complete?   │
-         └────┬───────────┬───┘
-              │           │
-             YES          NO
-              │           │
-              ▼           │
-         ┌─────────────┐  │
-         │ PARKING SEQ │  │
-         └──────┬──────┘  │
-                │         │
-                ▼         │
-         ┌───────────────┐│
-         │ Align Robot   ││
-         │ in Zone       ││
-         └──────┬────────┘│
-                │         │
-                ▼         │
-         ┌─────────────┐  │
-         │ STOP ROBOT  │  │
-         └─────────────┘  │
-                          │
-                          └──────┐
-                                 │
-                                 ▼
-                          Loop Back
-```
-
----
-
 ## Obstacle Management (Obstacle Avoidance and Parking Management)
 
 The robot’s obstacle management and parking strategy is designed to handle both the Open Challenge and Obstacle Challenge in the WRO 2025 Future Engineers category. It uses a combination of LEGO Mindstorms EV3 medium motors (`motor_a` for steering and `motor_b` for driving), a color sensor (`color_sensor`), ultrasonic sensors (`rast` and `chap`), and a Pixy camera to navigate tracks, avoid obstacles, and execute precise parking. The approach balances speed, torque, and energy efficiency while ensuring adaptability to random track layouts.
@@ -2335,16 +2133,10 @@ The Obstacle Challenge strategy is built upon the logic of the Open Challenge, e
 
 In the Open Challenge, the robot navigates a random track using the color sensor to detect blue (`cr1=1,2`) or orange (`cr1=5,7`) lines and ultrasonic sensors for wall-following at 28 cm. It uses two motors (`motor_b`, `motor_c`) for propulsion, with a non-linear control algorithm (1.3 weighting) for initial alignment. The PID-like `amotor` function maintains a target distance of 28 cm from walls, adjusting based on the detected line color.
 
-#### Flow Diagram
-```
-[Start] --> [Detect Line Color (Blue/Orange including 1,7)] --> [Set Initial Direction]
-    --> [Follow Line with PID Control (28 cm)] --> [Detect Turn (Color Match)]
-    --> [Increment Turn Counter] --> [Repeat until 11 Turns]
-    --> [Final Straight Navigation (60 iterations)] --> [End]
-```
-
-
-
+#### Algorithm Flowchart
+<div align="center">
+    <img src="pictures/open-flowchart.svg" alt="Non Linear Function" width="90%">
+  </div>
 
 #### Pseudo Code
 ```
@@ -2523,39 +2315,10 @@ motor_c.off()
 [Full Obstacle Challenge Code](/codes/obstacle-challenge-code.py)
 The robot extends Open Challenge logic, adding Pixy Cam for obstacle detection (green: `sig=1`, red: `sig=2`) adjusting steering (`target`) based on their `x` position relative to offsets (`green` or `red`). It determines direction (`al`) over 100 iterations, uses color values (`rang`, `rangdovom`) for line detection, and adjusts distance (`fasele`, 40–55 cm). Parking aligns with `rangdovom` at 5–34 cm. LEDs provide visual feedback, and a parking sequence aligns the robot parallel to the wall.
 
-#### Flow Diagram
-```
-[Start]
-  │
-  ▼
-[Determine Direction (100 ultrasonic samples)]
-  │
-  ▼
-[Set al, green/red targets, rang/rangdovom]
-  │
-  ▼
-[Main Loop: while a < 12]
-  ├───▶ [Read Pixy block & filter y < 50]
-  ├───▶ [IF y < 70 → Center Obstacle (LEDs=ORANGE)]
-  ├───▶ [ELSE IF sig=1 → Green Avoidance (LEDs=GREEN)]
-  ├───▶ [ELSE IF sig=2 → Red Avoidance (LEDs=RED)]
-  └───▶ [ELSE → Wall Following (fasele = 40–55 cm)]
-        │
-        ▼
-        [IF rang detected → Turn Maneuver (max 4s)]
-        │
-        ▼
-        [Dynamic fasele Adjustment]
-        │
-        ▼
-        [Stall Detection → Reverse if stuck]
-  │
-  ▼
-[Parking Sequence (al-dependent)]
-  │
-  ▼
-[End]
-```
+#### Algorithm Flowchart
+<div align="center">
+    <img src="pictures/obstacle-flowchart.svg" alt="Obstacle Challenge Flowchart" width="90%">
+  </div>
 
 #### Pseudo Code
 ```
@@ -3205,6 +2968,122 @@ motor_a.off()
 
 ---
 
+## 💰 Cost Report
+| Component | Quantity | Unit Cost (USD) | Total Cost (USD) | Supplier |
+|-----------|----------|-----------------|-----------------|-----------|
+| LEGO EV3 Mindstorms Control Brick | 1 | $150.00 | $150.00 | LEGO Official / [Walmart](https://www.walmart.com/ip/LEGO-Mindstorms-EV3-Intelligent-Brick/450756441) |
+| Pixy 2.1 Vision Sensor | 1 | $70.00 | $70.00 | [RobotShop](https://www.robotshop.com/products/charmed-labs-pixy-21-robot-vision-image-sensor-rbc?qd=0f9af5b89bafa36ba5faaedb9b01fcd0) / CharmedLabs |
+| EV3 Ultrasonic Sensor | 2 | $35.00 | $70.00 | LEGO Official / [Walmart](https://www.walmart.com/ip/Lego-Mindstorms-Ev3-Ultrasonic-Sensor/612855102) |
+| EV3 Color Sensor | 1 | $30.00 | $30.00 | LEGO Official / [Walmart](https://www.walmart.com/ip/Mindstorms-EV3-Color-Sensor-45506-Program-Robot-Parts-Power-Functions-Compatible-with-LEGO/15817721064) |
+| EV3 Medium Motor | 3 | $25.00 | $75.00 | LEGO Official / [Walmart](https://www.walmart.com/ip/Electric-Motor-EV3-Medium/709251821) |
+| LEGO Tire 49.5 x 20 | 4 | $5.00 | $20.00 | BrickLink / [ToyPro](https://www.toypro.com/us/product/7953/tire-49-5-x-20/black?srsltid=AfmBOorr-6cqi7l8E_Rw6FM3TXYHy3gVoG3RpzxenvjeQpM_ZWOW59Z-) |
+| LEGO EV3 Rechargeable Battery Pack | 1 | $35.00 | $35.00 | LEGO Official |
+| LEGO Technic Beams & Connectors | Various | $2.00 | $15.00 | [LEGO Official](https://www.lego.com/en-us/pick-and-build/pick-a-brick/category/technic-beams?category=2) / BrickLink |
+| Miscellaneous LEGO Pieces | Various | $1.00 | $10.00 | BrickLink |
+| **Total Components** | | | **$475.00** | |
+
+### 3️⃣ 3D Printing Costs
+
+#### Materials
+| Material | Weight | Cost per kg (USD) | Total Cost (USD) | Purpose |
+|----------|--------|------------------|-----------------|---------|
+| PLA (Prototypes) | 250g | $20.00 | $5.00 | Testing and iteration |
+| PLA (Final Parts) | 120g | $20.00 | $2.40 | Pixy mount, sensor holders |
+| **Total 3D Printing Materials** | | | **$7.40** | |
+
+#### Equipment Costs
+- Access to 3D Printer (school/maker space): $0 (amortized)
+- Filament waste allowance (15%): $1.11
+
+#### Total 3D Printing
+**$8.51**
+
+### 🛠️ Tools & Equipment
+
+| Tool/Equipment | Cost (USD) | Notes |
+|---|---|---|
+| Soldering Iron & Solder | $25.00 | Custom I2C wiring for Pixy |
+| Multimeter | $15.00 | Testing I2C connections |
+| Wire Strippers | $8.00 | Custom cable preparation |
+| Hot Glue Gun & Glue | $10.00 | Sensor mounting |
+| USB Cable (multiple) | $20.00 | Programming and debugging |
+| Zip Ties & Cable Management | $5.00 | Organization |
+| Double-sided Tape & Velcro | $8.00 | Component mounting |
+| **Subtotal Tools** | **$91.00** | |
+
+#### One-Time Equipment (Depreciated)
+| Equipment | Cost (USD) | Depreciation | Amortized (USD) |
+|---|---|---|---|
+| Computer/Laptop | $1000.00 | 5 years | $0.40 (per robot) |
+| IDE Software (VSCode) | Free | N/A | $0.00 |
+| **Total Equipment** | | | **$91.40** |
+
+### 📊 Other Parts Tested (Experimental)
+
+During development, the team tested several alternative components that were not used in the final design:
+
+| Component | Cost (USD) | Reason for Non-Selection |
+|-----------|-----------|-------------------------|
+| Arduino Uno | $25.00 | Insufficient processing power for vision |
+| ESP32 | $12.00 | Signal interference with motors |
+| Raspberry Pi Zero | $15.00 | Power supply instability |
+| HC-SR04 Ultrasonic Sensor | $5.00 | Less reliable than EV3 native sensor |
+| Generic Servo Motor | $8.00 | Insufficient torque (switched to EV3 Medium Motor) |
+| **Total Experimental** | **$65.00** | |
+
+### 💼 Summary of All Costs
+
+| Category | Cost (USD) |
+|----------|-----------|
+| Components | $475.00 |
+| 3D Printing | $8.51 |
+| Tools & Equipment | $91.40 |
+| Experimental Parts (Non-Final) | $65.00 |
+| **Subtotal** | **$639.91** |
+| Shipping Estimation (15%) | $96.00 |
+| **GRAND TOTAL** | **$735.91** |
+
+### 📈 Cost Breakdown by Category
+
+- **Mechanical Components (LEGO)**: 65% (~$310)
+- **Electronics (EV3 + Sensors)**: 30% (~$175)
+- **Vision System (Pixy)**: 10% (~$70)
+- **Tools & Materials**: 12% (~$90)
+
+### 🎯 Cost-Effectiveness Analysis
+
+| Metric | Value |
+|--------|-------|
+| Cost per Robot | $735.91 |
+| Development Cost (amortized) | ~$800-900 |
+| Component to Total Ratio | 64.5% |
+| Reusability (for next year) | 85%+ |
+| Performance (90% success rate) | Excellent ROI |
+
+### 📝 Notes
+
+- All prices are approximate based on 2025 market rates (USD)
+- Prices may vary by region and supplier
+- Experimental component costs not included in final robot
+- Team members had access to school resources (3D printer, soldering equipment)
+- One-time equipment costs amortized across potential future robots
+- Shipping costs estimated at 15% of component costs
+- Educational discount available through institutional purchasing
+
+### ⚙️ Component Cost Sourcing Strategy
+
+#### Primary Suppliers
+1. **LEGO Official**: EV3 Brick, Motors, Sensors (~$350)
+2. **Specialty Robotics**: Pixy 2.1 (~$70)
+3. **Online Retailers**: BrickLink for rare LEGO pieces (~$25)
+4. **Electronics Suppliers**: Solder, connectors (~$50)
+
+#### Money-Saving Tips
+- Buy LEGO Education Core Sets (better value than retail)
+- Use institutional purchasing for bulk discounts
+- Share tools and equipment across multiple teams
+- Consider pre-owned LEGO components from reliable sellers
+- Source specialty components directly from manufacturers
 
 ---
 
