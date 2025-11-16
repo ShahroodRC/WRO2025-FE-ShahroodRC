@@ -59,6 +59,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [📏 Ultrasonic Sensor EV3](#-ultrasonic-sensor-ev3)
     - [🌈 Color Sensor EV3](#-color-sensor-ev3)
     - [⚙️ Medium Motor EV3](#️-medium-motor-ev3)
+  - [🔌 EV3 Motor Cable & Port Architecture](#-ev3-motor-cable--port-architecture)
   - [🛠️ Notes](#️-notes)
 - [💻 Code For Each Component](#-code-for-each-component)
   - [🔄 Drive Motor Code](#drive-motor-code)
@@ -84,6 +85,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [2. 📊 Power Consumption Overview](#2--power-consumption-overview)
     - [3. 📡 Sensor Architecture and Management](#3--sensor-architecture-and-management)
     - [4. 🔗 Wiring and Safety](#4--wiring-and-safety)
+        - [💡 Advanced Application: EV3 Motor Port for External LED Control](#-advanced-application-ev3-motor-port-for-external-led-control)
     - [5. 🔍 Diagnostics and Monitoring](#5--diagnostics-and-monitoring)
     - [6. ⚙️ Optimization Techniques](#6-️-optimization-techniques)
     - [7. ✅ Conclusion](#7--conclusion)
@@ -450,52 +452,6 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 ---
 
-## 📊 Performance Metrics & Statistics
-
-### Test Results from 50+ Runs
-
-**Open Challenge (Wall-Following):**
-
-| Metric | Target | Achieved | Consistency | Status |
-|--------|--------|----------|-------------|--------|
-| Wall Accuracy | ±3cm @ 27cm | ±2cm | 95% | ✅ Excellent |
-| Turn Execution | <2s/90° | 1.5s | 90% | ✅ Good |
-| Line Detection | >95% | 97% | 93% | ✅ Excellent |
-| Lap Completion | >85% | 90% | 92% | ✅ Good |
-| **Total 3 Laps** | <45s | **42s** | 88% | **✅ Optimal** |
-
-**Obstacle Challenge:**
-
-| Metric | Target | Achieved | Consistency | Status |
-|--------|--------|----------|-------------|--------|
-| Obstacle Detection | >90% | 97% | 95% | ✅ Excellent |
-| Obstacle Avoidance | >85% | 92% | 88% | ✅ Good |
-| Parking Accuracy | ±5cm | ±3cm | 85% | ✅ Good |
-| Complete Run | <60s | **58s** | 87% | **✅ Optimal** |
-| **Overall Success** | >80% | **87%** | - | **✅ Excellent** |
-
-### Performance Across Different Conditions
-
-**Lighting Variations:**
-- Bright (>1000 lux): 99% line detection ✅
-- Normal (500-1000 lux): 97% line detection ✅ ← **Competition standard**
-- Dim (<500 lux): 85% line detection ⚠️ (requires recalibration)
-
-**Surface Variations:**
-- Smooth mat: 95% line detection
-- Rough surface: 92% line detection
-- Color transitions: 88% detection (weakest)
-
-**Battery Performance vs. Runtime:**
-| Battery % | Hours Used | Speed Reduction | Steering Response | Status |
-|-----------|-----------|-----------------|------------------|--------|
-| 100% | 0h | 0% | Excellent | ✅ Optimal |
-| 75% | 2h | 0% | Excellent | ✅ Good |
-| 50% | 4h | 5% | Good | ⚠️ Acceptable |
-| 25% | 6h | 15% | Fair | ⚠️ Marginal |
-
----
-
 
 ## 🔄 Design Evolution & Iteration History
 
@@ -540,19 +496,49 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 ---
 
+## 📊 Performance Metrics & Statistics
 
-## 📂 Repository Navigation
+### Test Results from 50+ Runs
 
-> 🚀 **New to this project?** Start here:
-> - 📖 **[Quick Start Guide](#quick-start)** – Get up and running in 5 minutes
-> - 🏗️ **[Hardware Setup](#robot-components-overview)** – See what we used
-> - 💻 **[Code Overview](#code-for-each-component)** – Understand the algorithm
-> - 📹 **[Videos](#videos)** – Watch it in action
+**Open Challenge (Wall-Following):**
 
-**For specific details:**
-- 🔧 [Mobility System](#mobility-management) – Motor control & navigation algorithms
-- ⚡ [Power & Sensors](#power-and-sense-management) – Electrical architecture
-- 🤖 [Challenge Strategies](#obstacle-management-obstacle-avoidance-and-parking-management) – How we solve each task
+| Metric | Target | Achieved | Consistency | Status |
+|--------|--------|----------|-------------|--------|
+| Wall Accuracy | ±3cm @ 27cm | ±2cm | 95% | ✅ Excellent |
+| Turn Execution | <2s/90° | 1.5s | 90% | ✅ Good |
+| Line Detection | >95% | 97% | 93% | ✅ Excellent |
+| Lap Completion | >85% | 90% | 92% | ✅ Good |
+| **Total 3 Laps** | <45s | **42s** | 88% | **✅ Optimal** |
+
+**Obstacle Challenge:**
+
+| Metric | Target | Achieved | Consistency | Status |
+|--------|--------|----------|-------------|--------|
+| Obstacle Detection | >90% | 97% | 95% | ✅ Excellent |
+| Obstacle Avoidance | >85% | 92% | 88% | ✅ Good |
+| Parking Accuracy | ±5cm | ±3cm | 85% | ✅ Good |
+| Complete Run | <60s | **58s** | 87% | **✅ Optimal** |
+| **Overall Success** | >80% | **87%** | - | **✅ Excellent** |
+
+### Performance Across Different Conditions
+
+**Lighting Variations:**
+- Bright (>1000 lux): 99% line detection ✅
+- Normal (500-1000 lux): 97% line detection ✅ ← **Competition standard**
+- Dim (<500 lux): 85% line detection ⚠️ (requires recalibration)
+
+**Surface Variations:**
+- Smooth mat: 95% line detection
+- Rough surface: 92% line detection
+- Color transitions: 88% detection (weakest)
+
+**Battery Performance vs. Runtime:**
+| Battery % | Hours Used | Speed Reduction | Steering Response | Status |
+|-----------|-----------|-----------------|------------------|--------|
+| 100% | 0h | 0% | Excellent | ✅ Optimal |
+| 75% | 2h | 0% | Excellent | ✅ Good |
+| 50% | 4h | 5% | Good | ⚠️ Acceptable |
+| 25% | 6h | 15% | Fair | ⚠️ Marginal |
 
 ---
 
@@ -719,6 +705,118 @@ This section provides a detailed overview of the key hardware components used in
 - **Description**: Two EV3 Medium Motors power the ShahroodRC robot: the propulsion motor (`motor_b` on `OUTPUT_D`) drives the rear wheels through a differential, and the steering motor (`motor_a` on `OUTPUT_B`) adjusts the front wheels’ angle via a rack-and-pinion system. Motors were chosen for their lightweight and compatibility with the LEGO EV3 ecosystem. A 1:1.5 gear ratio for propulsion enhanced torque for parking maneuvers, reducing motor strain.
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
+
+### 🔌 EV3 Motor Cable & Port Architecture
+
+#### Understanding EV3 Cable Structure
+
+<table>
+  <tr>
+    <td width="50%" style="text-align: left;">
+      <img src="pictures/robot-components/ev3-cable.jpg" alt="EV3 Motor Cable" width="100%">
+    </td>
+    <td width="50%" style="text-align: left; vertical-align: top;">
+      <h3>Cable Overview:</h3>
+      <li><strong>Type:</strong> 6-pin RJ-type connector (standard LEGO EV3)</li>
+      <li><strong>Function:</strong> Connects motors and sensors to EV3 Brick ports</li>
+      <li><strong>Wire Count:</strong> 6 internal wires with distinct functions</li>
+      <li><strong>Cable Length:</strong> ~1 m (standard for EV3)</li>
+      <li><strong>Flexibility:</strong> Can be cut and modified for custom integrations</li>
+      <li><strong>Compatibility:</strong> Works with all EV3 motor and sensor ports</li>
+    </td>
+  </tr>
+</table>
+
+<div align="center">
+<img src="pictures/robot-components/ev3-cable-details.jpg" alt="EV3 Cable Pin Details" width="85%">
+<p><em>Detailed view of EV3 cable internal wires and their color-coded functions</em></p>
+</div>
+
+#### Motor Port Pin Functions
+
+<table>
+  <tr>
+    <td width="50%" style="text-align: left;">
+      <img src="pictures/robot-components/motor-ports-details.jpg" alt="EV3 Motor Port Pin Diagram" width="100%">
+    </td>
+    <td width="50%" style="text-align: left; vertical-align: top;">
+      <h3>Six Pin Configuration:</h3>
+      <li><strong>Pin 1:</strong> +9V Power (Red wire)</li>
+      <li><strong>Pin 2:</strong> Ground (Black wire)</li>
+      <li><strong>Pin 3:</strong> Motor Phase A (Yellow wire)</li>
+      <li><strong>Pin 4:</strong> Motor Phase B (Green wire)</li>
+      <li><strong>Pin 5:</strong> Encoder Feedback Channel A (White wire)</li>
+      <li><strong>Pin 6:</strong> Encoder Feedback Channel B (Blue wire)</li>
+    </td>
+  </tr>
+</table>
+
+**Detailed Pin Functionality:**
+
+**1. Power Distribution (Pins 1-2):**
+- **Red Wire (+9V)**: Delivers regulated power from EV3 battery to motors
+- **Black Wire (GND)**: Provides ground reference for complete circuit
+- **Voltage Regulation**: EV3 Brick includes internal voltage regulator maintaining stable 9-9.5V
+- **Short-Circuit Protection**: Prevents component damage if wires inadvertently touch
+
+**2. Motor Control (Pins 3-4):**
+- **Yellow Wire (Phase A)**: Drives motor in forward direction via PWM modulation
+- **Green Wire (Phase B)**: Drives motor in reverse direction via PWM modulation
+- **PWM Frequency**: ~10 kHz from EV3 ARM microcontroller
+- **Direction Control**: By energizing Phase A or Phase B exclusively, or with varying durations (PWM duty cycle)
+- **Speed Regulation**: Motor speed proportional to PWM duty cycle (0-100%)
+
+**3. Encoder Feedback (Pins 5-6):**
+- **White Wire (Channel A)**: Primary quadrature encoder signal from motor shaft
+- **Blue Wire (Channel B)**: Secondary quadrature encoder signal (90° phase shift)
+- **Resolution**: 360 encoder ticks per full motor rotation
+- **Position Tracking**: Enables `motor.position` in Python (absolute degrees)
+- **Advanced Control**: Enables precise movements like `on_for_degrees(50, 360)` for exact rotations
+- **Closed-Loop Feedback**: EV3 firmware uses encoder signals to regulate speed and detect stalls
+
+**Pin Layout Diagram:**
+```
+RJ6 Connector (viewed from front):
+   [1] [2] [3]
+   [4] [5] [6]
+
+Pin Assignment:
+1: Red   → +9V Power         3: Yellow → Motor Phase A     5: White  → Encoder A
+2: Black → Ground            4: Green  → Motor Phase B     6: Blue   → Encoder B
+```
+
+#### Wire Identification & Modification Guide
+
+**How to Identify Wires Before Cutting:**
+1. Use a **digital multimeter** in continuity/voltage mode
+2. Test against known references:
+   - Measure voltage with Black (GND) as reference
+   - Red wire should show ~9V
+   - Yellow/Green should float around 4.5V
+3. Mark wires with colored electrical tape before soldering
+4. **Always verify pinout** before connecting to EV3 to avoid damage
+
+**Cutting & Customizing EV3 Cables:**
+
+⚠️ **Safety First:**
+- Always power OFF the EV3 Brick before cutting cables
+- Use insulated wire strippers and soldering tools
+- Test connections with multimeter before power-on
+- Insulate unused wires with electrical tape to prevent shorts
+
+**Common Modifications:**
+- **Pixy 2.1 Integration**: Use Yellow (SDA) and Green (SCL) for I2C communication
+- **Relay Control**: Use Red/Black for relay coil, Yellow/Green for control signals
+- **Sensor Extensions**: Custom devices can tap into 9V power and control pins
+
+#### Applications of Motor Ports
+
+| Application | Wires Used | Purpose | Example |
+|---|---|---|---|
+| **Standard Motor** | All 6 | Full motor control with feedback | Drive/steering motors |
+| **I2C Sensors** | Red, Black, Yellow (SDA), Green (SCL) | Communication with smart sensors | Pixy Cam, advanced encoders |
+| **Power-Only Devices** | Red, Black | Supply 9V to external circuits | Relay coils, LED drivers |
+| **Custom Relay** | All 6 (2 unused) | Drive relay with motor port | LED control (see section below) |
 
 ### 🛠️ Notes
 - **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
@@ -1463,6 +1561,243 @@ This section merges the full electrical architecture, hardware specifications, a
   4. Test connections with a multimeter before powering on.
 > ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both multimeter and long-duration load testing.*
 - **Heat and Overload Protection**: The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
+
+### 💡 Advanced Application: EV3 Motor Port for External LED Control
+
+#### Overview: Using EV3 Motor Port with Relay for LED Control
+
+One of the unique innovations in the ShahroodRC design was the use of an EV3 motor port in combination with a relay circuit to control external LED lighting systems. This approach leverages the EV3 motor port's PWM and power capabilities to drive external devices without requiring additional hardware interfaces.
+
+#### The Challenge & Solution
+
+The robot needed to control external LED indicators powered by an independent 3-cell Li-Po battery pack. Instead of using a separate microcontroller, we connected an EV3 motor port to a relay that switches the LED circuit on and off.
+
+#### How It Works
+
+The EV3 motor port's phase pins (Yellow/Green) output 5V PWM signals that drive a relay coil:
+
+1. **Motor Port Output**: EV3 sends ~4.5V PWM on pins 3 (Yellow) and 4 (Green)
+2. **Relay Coil**: These signals drive a 5V relay coil
+3. **LED Power Switch**: Relay contacts connect LED circuit to battery
+4. **Result**: `motor.on()` in Python energizes relay → LEDs illuminate
+
+##### Circuit Diagram
+
+<div align="center">
+<img src="pictures/robot-components/custom-cable-detail-for-light.jpg" alt="Custom EV3 Cable for LED Control" width="80%">
+<p><em>Custom EV3 cable with relay for LED control showing wire connections and the relay integration for controlling external LED systems</em></p>
+</div>
+
+**Pin Connections:**
+- **Red (Pin 1)** → Relay common/power reference
+- **Black (Pin 2)** → Relay and LED ground
+- **Yellow (Pin 3)** → Relay coil positive (5V when motor active)
+- **Green (Pin 4)** → Relay coil negative/ground
+- **White/Blue (Pins 5-6)** → Insulated (unused encoder feedback wires)
+
+**Relay Output:**
+- Normally-Open contact → LED+ (battery positive terminal)
+- Common contact → LED- (battery ground terminal)
+
+**How the Relay Circuit Works:**
+When the Python code executes `motor.on()`, the EV3 Brick applies voltage to the motor control pins (Yellow goes HIGH at ~5V, Green goes LOW at 0V). This voltage difference across the relay coil creates an electromagnetic field that pulls the relay armature, closing the normally-open contacts. When the contacts close, they complete the circuit between the battery and the LEDs, illuminating them. When `motor.off()` is called, the voltage difference disappears, the electromagnet releases, and the contacts open, turning off the LEDs.
+
+#### Python Implementation
+
+```python
+from ev3dev2.motor import MediumMotor, OUTPUT_C
+from time import sleep
+
+# Initialize relay via motor port C
+led_relay = MediumMotor(OUTPUT_C)
+
+def led_on():
+    """Activate LEDs by energizing relay coil"""
+    led_relay.on(speed_percent=100)  # Full power to relay
+
+def led_off():
+    """Deactivate LEDs by de-energizing relay coil"""
+    led_relay.off()
+
+def led_blink(count=3, duration=0.5):
+    """Blink LEDs for visual feedback or status indication"""
+    for _ in range(count):
+        led_on()
+        sleep(duration)
+        led_off()
+        sleep(duration)
+
+# Usage example during robot operation
+if __name__ == "__main__":
+    # Turn on LEDs when robot starts
+    led_on()
+    print("LEDs activated - Robot starting operation")
+    
+    # ... main robot navigation code here ...
+    
+    # Blink LEDs 3 times when parking sequence completes
+    led_blink(count=3, duration=0.5)
+    print("Parking complete - LED confirmation blinks")
+    
+    # Turn off LEDs at end
+    led_off()
+```
+
+#### Hardware Assembly Guide
+
+**Components Needed:**
+
+| Component | Specification | Quantity | Purpose |
+|-----------|---|---|---|
+| 5V Relay | SPDT (Single-Pole Double-Throw) configuration | 1 | Switch LED power on and off |
+| EV3 Motor Cable | Standard 6-pin RJ connector cable | 1 | Carries control signals from EV3 |
+| 1N4007 Diode | Rectifier diode for back-EMF protection | 1 | Protects EV3 from voltage spikes |
+| Solid Wire | 22-24 AWG gauge, 5-10 meters | ~2m | Solder connections |
+| Lead-Free Solder | Standard electronics solder | Small roll | Permanent wire connections |
+| Electrical Tape | 18-19mm width, adhesive backed | 1 roll | Insulation of connections |
+| Multimeter | Digital for testing (optional) | 1 | Verify connections before use |
+
+**Step-by-Step Assembly Instructions:**
+
+**Step 1: Prepare the EV3 Motor Cable**
+- Carefully cut one EV3 motor cable at the RJ connector end with wire cutters
+- Use wire strippers to remove ~5-7mm of insulation from each of the 6 internal wires
+- Identify wires by color: Red (+9V), Black (GND), Yellow (Phase A), Green (Phase B), White (Encoder A), Blue (Encoder B)
+- Twist same-color wire pairs together if multiple connections to same signal are needed
+- Do NOT connect to EV3 yet - work on relay assembly first
+
+**Step 2: Connect Relay Coil**
+1. Solder the **Yellow wire to the relay coil positive terminal** (typically marked with + symbol)
+2. Solder the **Green wire to the relay coil negative terminal** (typically marked with - or COM symbol)
+3. **CRITICAL SAFETY STEP**: Add a 1N4007 diode across the relay coil terminals with the **cathode (marked band) on the positive side**. This diode protects the EV3 from dangerous voltage spikes when the relay de-energizes
+4. Verify all solder joints are clean and shiny (indicates good electrical contact)
+5. Wrap all solder joints and diode leads with electrical tape to prevent accidental short circuits
+
+**Step 3: Connect LED Power Circuit**
+1. Identify the relay's normally-open (NO) contact and common (C) contact terminals
+2. Solder the relay's **NO contact to the LED positive (RED) wire** from your LED array or indicator
+3. Solder the relay's **C contact to the LED common/ground (BLACK) wire**
+4. **Verification**: At this point, the LED circuit should be completely isolated from the EV3 Brick - current cannot flow until the relay energizes
+5. Connect the LED power source (battery pack) directly: Battery+ to LED+, Battery- to LED-
+
+**Step 4: Insulate Unused Encoder Wires**
+1. Take the **White and Blue wires** (encoder feedback wires - not needed for relay control)
+2. Twist them together loosely to group them
+3. Wrap them together with electrical tape, ensuring no exposed copper is visible
+4. This prevents accidental short circuits if these wires touch each other or other components
+
+**Step 5: Double-Check All Connections**
+Before powering on the EV3:
+- [ ] Yellow wire soldered to relay coil positive
+- [ ] Green wire soldered to relay coil negative
+- [ ] 1N4007 diode across coil (cathode on positive)
+- [ ] Relay NO contact connected to LED+
+- [ ] Relay C contact connected to LED-
+- [ ] White and Blue wires insulated
+- [ ] All solder joints shiny and secure
+- [ ] No exposed copper wires visible
+- [ ] LED circuit isolated from EV3 (not powered until relay activates)
+
+**Step 6: Test the Assembly**
+
+```python
+# Quick test before robot operation
+from ev3dev2.motor import MediumMotor, OUTPUT_C
+from time import sleep
+
+relay_test = MediumMotor(OUTPUT_C)
+
+print("Testing relay control...")
+relay_test.on()
+print("Relay should click - listen carefully for audible sound")
+sleep(1)
+# If you hear a distinct clicking sound, the relay is working correctly
+# If no sound, check for loose wire connections or cold solder joints
+
+relay_test.off()
+print("Relay should click again (de-energizing)")
+# Listen for a second click
+```
+
+#### Why This Design Works
+
+**Electrical Principles:**
+
+✅ **EV3 Motor Port Architecture** - The port provides isolated PWM outputs perfect for driving relay coils  
+✅ **Phase Pin Voltage** - Yellow and Green pins output 0-5V complementary signals when motor.on() is called  
+✅ **Relay Coil Design** - Standard 5V relay coils activate reliably with EV3's 4.5V PWM signals  
+✅ **Galvanic Isolation** - The relay's electromagnet operates independently from the LED circuit, protecting the EV3  
+✅ **Reverse Polarity Protection** - The 1N4007 diode prevents back-EMF voltage spikes that could damage the EV3  
+
+#### Applications Beyond LEDs
+
+This exact technique can control any 5-12V powered device:
+
+| Device | Typical Voltage | Application | Implementation |
+|--------|---|---|---|
+| **LED Arrays** | 3.7-12V | Status indication, visual feedback | Direct relay switching |
+| **Pump Motor** | 12V | Cooling water circulation, hydraulic systems | Relay switches motor supply |
+| **Solenoid Valve** | 5-12V | Mechanism actuation, gate control | Relay energizes solenoid coil |
+| **Electromagnet** | 6-12V | Magnetic coupling, object pickup | Relay controls magnet power |
+| **External Buzzer** | 5V | Audio feedback, alert system | Relay switches buzzer circuit |
+| **Camera Flash** | Variable | High-intensity lighting for vision | Relay triggers flash control |
+
+#### Advanced Programming Extensions
+
+**PWM-Based Brightness Control:**
+```python
+# Control LED brightness by varying PWM duty cycle
+led_relay.on(speed_percent=30)   # 30% brightness (dim)
+sleep(2)
+led_relay.on(speed_percent=100)  # 100% brightness (full)
+```
+
+**Status Indication Pattern:**
+```python
+def led_pattern_startup():
+    led_blink(count=1, duration=0.2)  # Single blink = initialization
+
+def led_pattern_navigating():
+    led_blink(count=2, duration=0.3)  # Double blink = navigation active
+
+def led_pattern_obstacle():
+    led_blink(count=3, duration=0.1)  # Triple blink = obstacle detected
+
+def led_pattern_parking():
+    led_blink(count=5, duration=0.2)  # Rapid blinks = parking sequence
+```
+
+#### Troubleshooting Common Issues
+
+| Problem | Likely Cause | Solution |
+|---------|---|---|
+| **Relay doesn't click** | Loose wire connection or poor solder joint | Use multimeter to test continuity between Yellow/Green and relay coil terminals |
+| **LEDs stay on permanently** | Relay contacts stuck in closed position | Clean relay contacts; if persistent, replace relay unit |
+| **Intermittent relay behavior** | Cold solder joint on relay coil wires | Re-solder connections with fresh solder and heat-shrink tubing |
+| **EV3 motor port not responding** | Cable not fully seated in motor port | Remove and reinsert cable firmly until you hear/feel a click |
+| **Relay chatters/vibrates** | PWM frequency causes mechanical vibration | Add 0.1-0.22µF capacitor across relay coil to dampen oscillations |
+| **LEDs dim when relay activates** | Relay coil drawing too much current from EV3 | Verify relay coil rating (should be 5V); may need higher-rated relay |
+
+#### Why ShahroodRC Used This Approach
+
+During the ShahroodRC design phase, the team needed external LED indicators for competition status feedback. Analysis of the EV3 motor port revealed that:
+
+1. **Phase pins output reliable 5V PWM signals** - sufficient to drive standard relay coils
+2. **Relay isolation prevents noise coupling** - external LED circuit doesn't interfere with EV3 operation
+3. **Simple Python motor control API** - no additional libraries or complex code needed
+4. **Cost-effective solution** - ~$3-5 relay vs $20-40 dedicated PWM drivers
+5. **Battle-tested technology** - relays are proven components in competitive robotics
+
+This innovation exemplifies how understanding platform architecture enables creative engineering. The ShahroodRC team leveraged standard LEGO EV3 components in an unconventional way to achieve advanced functionality - a key principle in WRO and educational robotics competitions.
+
+#### Performance Specifications
+
+- **Relay Response Time**: <5ms (virtually instantaneous)
+- **LED Control Frequency**: Up to 100 Hz (practical limit)
+- **Relay Contact Rating**: Typically 5-10A (more than sufficient for LEDs)
+- **EV3 Port Current Limit**: ~500mA per port (relay coil ~50-100mA)
+- **Reliability**: >1 million mechanical operations (typical relay spec)
+- **Operating Temperature**: 0°C to 50°C (relay rated), -20°C to 60°C (typical operating range)
 
 ---
 
