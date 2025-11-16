@@ -42,11 +42,11 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 ---
 
 ## Table of Contents
-- [👥 The Team](#the-team)
-- [🏆 National Championship Victory](#national-championship-victory)
-- [🎯 Mission Overview for WRO Future Engineers Rounds](#mission-overview-for-wro-future-engineers-rounds)
-- [📸 Pictures](#pictures)
-- [🎬 Videos](#videos)
+- [👥 The Team](#-the-team)
+- [🏆 National Championship Victory](#-national-championship-victory)
+- [🎯 Mission Overview for WRO Future Engineers Rounds](#-mission-overview-for-wro-future-engineers-rounds)
+- [📸 Pictures](#-pictures)
+- [🎬 Videos](#-videos)
 - [📱 Randomizer App](#-randomizer-app)
 - [🔄 Our Path – Platform Evolution](#-our-path--platform-evolution)
 - [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
@@ -54,11 +54,11 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [📊 Performance Metrics](#-performance-metrics)
 - [🤖 Robot Components Overview](#-robot-components-overview)
   - [🔧 Components Overview](#-components-overview)
-    - [🧠 LEGO EV3 Mindstorms Control Brick](#lego-ev3-mindstorms-control-brick)
-    - [👁️ Pixy 2.1](#pixy-21)
-    - [📏 Ultrasonic Sensor EV3](#ultrasonic-sensor-ev3)
-    - [🌈 Color Sensor EV3](#color-sensor-ev3)
-    - [⚙️ Medium Motor EV3](#medium-motor-ev3)
+    - [🧠 LEGO EV3 Mindstorms Control Brick](#-lego-ev3-mindstorms-control-brick)
+    - [👁️ Pixy 2.1](#️-pixy-21)
+    - [📏 Ultrasonic Sensor EV3](#-ultrasonic-sensor-ev3)
+    - [🌈 Color Sensor EV3](#-color-sensor-ev3)
+    - [⚙️ Medium Motor EV3](#️-medium-motor-ev3)
   - [🛠️ Notes](#️-notes)
 - [💻 Code For Each Component](#-code-for-each-component)
   - [🔄 Drive Motor Code](#drive-motor-code)
@@ -69,7 +69,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
   - [📏 Ultrasonic Sensor Code](#ultrasonic-sensor-code)
   - [🔘 Button Control Code](#button-control-code)
   - [⚡ Main Control Flow](#main-control-flow)
-- [🚗 Mobility Management](#mobility-management)
+- [🚗 Mobility Management](#-mobility-management)
   - [1. 📍 Introduction to Mobility System](#1-introduction-to-mobility-system)
   - [2. ⚙️ Motors and Actuators](#2-motors-and-actuators)
   - [3. 📡 Sensor Integration for Mobility](#3-sensor-integration-for-mobility)
@@ -87,7 +87,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [5. 🔍 Diagnostics and Monitoring](#5--diagnostics-and-monitoring)
     - [6. ⚙️ Optimization Techniques](#6-️-optimization-techniques)
     - [7. ✅ Conclusion](#7--conclusion)
-- [🚧 Obstacle Management](#obstacle-management-obstacle-avoidance-and-parking-management)
+- [🚧 Obstacle Management](#-obstacle-management)
   - [🏁 Qualification Round (Open Challenge)](#qualification-round-open-challenge)
   - [🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
 - [🏗️ Robot Assembly Guide](#️-robot-assembly-guide)
@@ -117,7 +117,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 ---
 
-## The Team
+## 👥 The Team
 
 We are the ShahroodRC team, a group of students passionate about robotics, electronics, and programming, working toward the WRO 2025 competition in the Future Engineers category.
 
@@ -206,7 +206,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 
 ---
 
-## National Championship Victory
+## 🏆 National Championship Victory
 
 ### Overview
 The ShahroodRC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this triumph highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
@@ -237,7 +237,7 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 ---
 
-## Mission Overview for WRO Future Engineers Rounds
+## 🎯 Mission Overview for WRO Future Engineers Rounds
 
 | Round | Goal | Key Tasks |
 |-------|------|-----------|
@@ -274,108 +274,181 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 ---
 
-## 🏗️ Robot Assembly Guide
+## 📸 Pictures
+| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="90%" /> | 
+| :--: | :--: | 
+| *Front* | *Back* |
+| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="90%" /> | 
+| *Left* | *Right* |
+| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="90%" /> | 
+| *Top* | *Bottom* |
 
-### 10-Step Construction Process (1.5-2 hours)
-
-#### **Phase 1: Chassis (30 min)**
-
-**Step 1: Drive Base Assembly**
-1. Create 15L × 10W rectangular frame from LEGO beams
-2. Attach 4 wheels with rubber tires using 90-degree angle frames
-3. Mount Medium Motor (Drive) horizontally at rear center
-4. Connect motor to rear differential (1:1 gear ratio, 27mm axle)
-5. Result: Sturdy base, ~500g, 300mm wheelbase
-
-**Step 2: Steering Mechanism**
-1. Build parallelogram linkage using LEGO technic connectors
-2. Mount Medium Motor vertically on front center
-3. Connect servo arm to left wheel via 90° linkage
-4. Calibrate: wheels should turn ±20° smoothly
-5. Test motor response with ev3 console
-
-**Step 3: Sensor Tower**
-1. Create vertical tower (4L × 2W beams, 120mm height)
-2. Mount Pixy camera at 45° angle (top center - looking down)
-3. Mount ultrasonic sensors left/right (front face, level)
-4. Mount color sensor at bottom (track-facing, 5mm above surface)
-
-#### **Phase 2: Electronics (25 min)**
-
-**Step 4: EV3 Brick Mounting**
-1. Position EV3 on top of sensor tower (centered, front-facing)
-2. Secure with double-sided tape + velcro strips
-3. Ensure LCD screen and buttons are accessible
-4. Verify no cable pinching
-
-**Step 5: Motor Connections**
-1. Connect Medium Motor (Drive) → OUTPUT_D (drive rear axle)
-2. Connect Medium Motor (Steer) → OUTPUT_B (steering linkage)
-3. Secure cables with zip ties (no sharp bends)
-4. Label each cable endpoint
-
-**Step 6: Sensor Connections**
-1. Pixy 2.1 → INPUT_1 (custom I2C adapter)
-2. Ultrasonic Left → INPUT_2 (6-pin cable)
-3. Ultrasonic Right → INPUT_3 (6-pin cable)
-4. Color Sensor → INPUT_4 (6-pin cable)
-5. Test each sensor individually
-
-#### **Phase 3: Power & Finalization (20 min)**
-
-**Step 7: Battery System**
-1. Mount 6x AA battery holder on chassis bottom
-2. Insert rechargeable batteries (correct polarity!)
-3. Connect to EV3 via power port
-4. Verify: EV3 LED turns green when powered
-
-**Step 8: Cable Management**
-1. Route all cables through cable trays or channels
-2. Use zip ties every 10cm (no loose segments)
-3. Keep motor power cables separate from sensor lines
-4. Total organized cable length: ~1.5m
-
-**Step 9: Structural Verification**
-1. Check center of gravity (should be centered)
-2. Add 50g ballast to rear if needed
-3. Final weight: 1.2-1.5 kg (WRO compliant <1.6kg)
-4. Test stability: no tipping at ±30° angles
-
-**Step 10: Pre-Competition Validation**
-
-Run these checks before competition:
-
-```
-✅ Hardware Checklist:
- ☐ All motors respond to test commands (ev3dev-shell)
- ☐ All sensors provide accurate readings
- ☐ No loose cables or components
- ☐ Battery fully charged (6+ hour endurance)
- ☐ Robot weight: 1.2-1.5 kg
- ☐ Chassis aligned (travels straight)
- ☐ Steering operates smoothly (no dead zones)
- ☐ Pixy camera mounted rigidly (no vibration)
- ☐ Sensor calibration values saved
- ☐ All LEDs function (visual feedback)
-
-✅ Software Checklist:
- ☐ Code uploaded and runs without errors
- ☐ ev3dev libraries installed correctly
- ☐ Pixy library initialized (I2C detected)
- ☐ Motor encoder calibration complete
- ☐ All sensor thresholds configured
- ☐ Test lap successful (>85% accuracy)
-
-✅ Final Checks (Day Before):
- ☐ Code reviewed by team
- ☐ Battery charged to 100%
- ☐ All cables secured and labeled
- ☐ Spare batteries & USB cable available
- ☐ Robot documentation printed
-```
+<div align="center">
+    <img src="robot-photos/robot.jpg" alt="Three-Quarter View of the Robot" width="60%">
+    <p>Three-Quarter View of the Robot (from front, left, and top)</p>
+</div>
 
 ---
 
+## 🎬 Videos
+You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/lM7wSyYANas) videos on Youtube. You can see them also here in [videos](videos/) folder.
+
+| Open Challenge | Obstacle Challenge |
+|----------------|--------------------|
+| [![Open](https://img.youtube.com/vi/Phpb0w_JzZM/hqdefault.jpg)](https://youtu.be/lM7wSyYANas) | [![Obstacle](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM) |
+
+---
+
+## 📱 Randomizer App
+
+> Generates **WRO-2025-compliant** random tracks for both challenges.
+
+To assist teams and judges in simulating the dynamic and unpredictable nature of the WRO 2025 Future Engineers challenges, the ShahroodRC team developed a custom **Randomizer Application** for Android devices. This app generates randomized track layouts and obstacle configurations that comply with official WRO 2025 rules for both the **Open Challenge** and the **Obstacle Challenge**.
+
+### App Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="pictures/randomizer-screenshots/welcome-screen.jpg" width="200"/></td>
+      <td><img src="pictures/randomizer-screenshots/main-menu.jpg" width="200"/></td>
+      <td><img src="pictures/randomizer-screenshots/challenge-selection.jpg" width="200"/></td>
+    </tr>
+    <tr>
+      <td align="center"><b>Welcome Screen</b></td>
+      <td align="center"><b>Main Menu</b></td>
+      <td align="center"><b>Challenge Selection</b></td>
+    </tr>
+    <tr>
+      <td><img src="pictures/randomizer-screenshots/obstacle-randomized.jpg" width="200"/></td>
+      <td><img src="pictures/randomizer-screenshots/open-randomized.jpg" width="200"/></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td align="center"><b>Obstacle Challenge</b></td>
+      <td align="center"><b>Open Challenge</b></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+### Features
+- **Dual Challenge Support**: Generates valid configurations for both Open and Obstacle rounds.
+- **Rule-Compliant Outputs**: Ensures all generated layouts adhere to WRO 2025 regulations.
+- **User-Friendly Interface**: Simple tap-to-generate design with clear visual feedback.
+- **Offline Functionality**: No internet required—ideal for competition environments.
+- **Export & Share**: Results can be viewed on-screen or shared as text.
+
+### Usage
+1. Install the APK file (`randomizer.apk`) on any Android device (min. Android 7.0 recommended).
+2. Open the app and select your desired challenge type (**Open** or **Obs**) to receive a randomized, competition-ready layout.
+3. Use the output to set up your practice arena or verify robot behavior.
+
+> **Note**: This tool was used internally during our development and testing phases to ensure our robot could handle any valid WRO 2025 scenario with robustness and adaptability.
+
+### Download
+The latest version of the Randomizer app is included directly in this repository:
+- [`randomizer.apk`](randomizer.apk)
+
+> **Security Note**: This APK is built and signed by the ShahroodRC team. Always scan files with your preferred antivirus before installation.
+
+---
+
+## 🔄 Our Path – Platform Evolution
+
+### Robot Development Process
+
+The ShahroodRC team embarked on a rigorous development process to identify the most efficient and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed account of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
+
+---
+
+### 🔁 1. Using Arduino Uno
+
+We initially chose the **Arduino Uno** (ATmega328P, 16 MHz, 32 KB Flash, 2 KB SRAM) for its simplicity, affordability, and compatibility with a wide range of sensors and actuators. Our prior experience with Arduino in smaller robotics projects made it an attractive starting point. However, scaling it to meet WRO 2025 requirements revealed critical limitations:
+
+- **Camera Limitations**: We tested the OV7670 camera module (640x480 resolution, ~5 fps) and attempted to relay data from an ESP32-CAM via serial communication. The Arduino’s limited SRAM (2 KB) and processing power couldn’t handle image processing, resulting in unreliable object detection and low frame rates, far below the ~30 fps needed for real-time obstacle avoidance.
+- **Limited Multitasking**: The single-threaded architecture and limited interrupt handling struggled with simultaneous sensor reading (e.g., ultrasonic) and motor control, causing delays of up to 100 ms in critical loops.
+- **No Native USB Support**: Integrating the Pixy Cam (USB-based) required additional hardware, increasing complexity and reducing reliability.
+
+**Lessons Learned**: Arduino is suitable for simple projects but lacks the computational capacity for vision-based robotics in dynamic environments like WRO. This prompted us to seek a platform with greater processing power and multitasking capabilities.
+
+---
+
+### 🔁 2. Switching to ESP32
+
+The **ESP32** (dual-core Xtensa LX6, 240 MHz, 520 KB SRAM) was our next choice, offering improved processing power, integrated Wi-Fi/Bluetooth, and better memory management. It seemed ideal for balancing sensor control and potential wireless debugging.
+
+- **Pros**:
+  - Dual-core processing enabled parallel tasks (e.g., sensor reading and motor control).
+  - Wi-Fi/Bluetooth allowed for remote monitoring, useful during testing.
+  - 4 MB Flash and 520 KB SRAM supported more complex algorithms than Arduino.
+- **Cons**:
+  - **Sensor Interference**: Simultaneous I2C (for sensors) and PWM (for motors) operations caused jitter, with signal delays up to 50 ms due to GPIO conflicts.
+  - **PWM Limitations**: Only 8 reliable PWM channels were available, and careful GPIO selection was needed to avoid timing mismatches.
+  - **Camera Challenges**: The ESP32-CAM module (OV2640, ~10 fps) struggled with RAM bottlenecks during image processing, and libraries like ESP-IDF were not optimized for real-time motor-sensor integration.
+  - **Library Limitations**: MicroPython and Arduino ESP32 cores lacked robust image processing libraries for WRO’s dynamic requirements.
+
+**Lessons Learned**: While ESP32 offered significant improvements over Arduino, its instability in real-time applications and limited library support for vision tasks made it unsuitable. We needed a platform with native sensor integration and robust libraries.
+
+---
+
+### 🔁 3. Adopting Raspberry Pi Zero
+
+The **Raspberry Pi Zero** (1 GHz single-core ARM11, 512 MB RAM, Linux-based) was our next attempt, chosen for its support for Python, OpenCV, and USB peripherals like the Pixy Cam or Pi Camera.
+
+- **Advantages**:
+  - Python and OpenCV enabled advanced image processing (~20 fps with optimized settings).
+  - Multi-threaded programming supported simultaneous sensor and motor tasks.
+  - USB and I2C interfaces allowed easy integration of the Pixy Cam.
+- **Challenges**:
+  - **Power Sensitivity**: The Pi Zero required a stable 5V/2A supply. Voltage drops below 4.8V during motor and camera operation caused brownouts.
+  - **Heat Issues**: Continuous operation (camera streaming at 20 fps and motor control) raised board temperatures to ~65°C, leading to thermal throttling.
+  - **Hardware Fragility**: We lost two boards—one due to a short circuit from an improperly grounded motor driver (TB6612FNG) drawing ~1.5A, and another from a current surge (~2A) when powering the camera and motors simultaneously.
+
+**Lessons Learned**: The Pi Zero’s processing power was promising, but its fragility and power demands were impractical for competition use. We needed a more robust platform designed for educational robotics.
+
+---
+
+### ✅ 4. Final Transition to LEGO EV3
+
+After facing challenges with previous platforms, we returned to the **LEGO EV3 Mindstorms** system (ARM9, 64 MB RAM, 16 MB Flash), leveraging our team’s prior WRO experience. The EV3 offered unmatched integration, safety, and reliability.
+
+- **Stability & Robustness**: The EV3 Intelligent Brick is built for rugged environments, handling two Medium Motors (20 N·cm, 160 rpm) and four sensors without external drivers.
+- **Built-in Ports**: Four motor ports and four sensor ports (e.g., INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor) simplified wiring and reduced failure risks.
+- **Pixy Cam Integration**: Using a custom I2C connection (via EV3 sensor port, 5V/120–160 mA), we integrated the Pixy Cam without USB host requirements, ensuring compatibility.
+- **Development Efficiency**: Python via ev3dev allowed rapid development, with libraries like `ev3dev2` supporting precise motor control (e.g., `on_for_degrees`) and sensor polling (10 ms for color sensor).
+- **Competition-Proven**: The EV3’s extensive use in WRO and availability of open-source libraries ensured reliable performance.
+
+**Implementation Impact**: The EV3’s stability influenced our code design, enabling a PID-like steering algorithm (`amotor`) and dynamic distance adjustment (`fasele`) for robust navigation. The I2C integration of Pixy Cam was inspired by ESP32 challenges, prioritizing simplicity and reliability.
+
+---
+
+### 📊 Platform Comparison
+
+| **Platform**      | **Processing Power** | **Sensor Integration** | **Power Consumption** | **Reliability** | **WRO Suitability** | **Approx. Cost (USD)** |
+|-------------------|----------------------|------------------------|-----------------------|-----------------|---------------------|------------------------|
+| **Arduino Uno**   | 16 MHz, 2 KB SRAM   | Limited (I2C, Analog)  | ~100 mA (base)        | Low (camera issues) | Poor                | $25                   |
+| **ESP32**         | 240 MHz, 520 KB SRAM| I2C, PWM, UART        | ~200 mA (with Wi-Fi)  | Medium (jitter)     | Moderate            | $10                   |
+| **Raspberry Pi Zero** | 1 GHz, 512 MB RAM | USB, I2C, GPIO        | ~300 mA (with camera) | Low (brownouts)     | Moderate            | $15                   |
+| **LEGO EV3**      | 300 MHz, 64 MB RAM  | 4 Motor, 4 Sensor Ports| ~500 mA (full load)   | High                | Excellent           | $100       |
+
+---
+
+### 📌 Final Summary & Reflection
+
+Each platform tested taught us critical lessons about system design, integration challenges, and performance trade-offs:
+- **Arduino Uno**: Highlighted the importance of processing power for vision tasks.
+- **ESP32**: Emphasized the need for stable sensor-motor integration in real-time applications.
+- **Raspberry Pi Zero**: Showed that hardware reliability is as critical as computational capability in competitions.
+- **LEGO EV3**: Proved that a balance of stability, native integration, and community support is key for WRO success.
+
+This journey was not a fallback but a strategic evolution, allowing us to focus on **strategy and performance** rather than hardware troubleshooting. For future projects, we plan to explore hybrid platforms (e.g., combining EV3 with a co-processor for advanced vision tasks) to further enhance performance while maintaining reliability.
+
+During testing, we used our in-house [**Randomizer App**](randomizer.apk) to validate performance across hundreds of randomized scenarios, ensuring reliability under competition conditions.
+
+> By choosing EV3, we ensured our robot could reliably execute complex tasks like line following, obstacle avoidance, and parking, meeting WRO 2025’s demanding requirements with confidence.
+
+---
 
 ## 📊 Performance Metrics & Statistics
 
@@ -483,607 +556,6 @@ Run these checks before competition:
 
 ---
 
-## 🛠️ Software Setup & Installation
-
-This section provides step-by-step instructions for setting up the development environment and deploying code to the EV3 robot.
-
-### Prerequisites
-- **EV3 Brick** with ev3dev Linux installed
-- **USB/Wi-Fi connection** to the EV3 brick
-- **Python 3.6+** installed on your development machine
-- **SSH client** (for remote access to EV3)
-
-### Step 1: Install ev3dev on EV3 Brick
-
-1. **Download ev3dev image** from [ev3dev.org](https://www.ev3dev.org/):
-   - Download the LEGO Mindstorms EV3 image (microSD version)
-   - Extract the `.img` file
-
-2. **Write image to microSD card** (8GB or larger):
-   - Windows: Use [Balena Etcher](https://www.balena.io/etcher/) or Win32DiskImager
-   - macOS/Linux: Use `dd` command or Etcher
-
-3. **Insert microSD card** into EV3 brick and power on
-   - Wait 2-3 minutes for first boot (LED will blink)
-   - Connect via USB or Wi-Fi
-
-### Step 2: Connect to EV3 Brick
-
-**Via USB (Recommended for initial setup):**
-```bash
-ssh robot@192.168.137.3
-# Password: maker
-```
-
-**Via Wi-Fi:**
-```bash
-# 1. Connect EV3 to your Wi-Fi network via web browser
-#    Navigate to http://ev3dev.local in your browser
-# 2. SSH into the robot
-ssh robot@<ev3-ip-address>
-```
-
-### Step 3: Install Required Python Libraries
-
-```bash
-# Update package manager
-sudo apt-get update
-sudo apt-get upgrade -y
-
-# Install Python development tools
-sudo apt-get install -y python3-pip python3-dev
-
-# Install ev3dev2 library
-pip3 install ev3dev2
-
-# Install additional dependencies
-pip3 install opencv-python numpy scipy
-```
-
-### Step 4: Clone and Deploy Code
-
-```bash
-# On your development machine
-# Clone the repository
-git clone https://github.com/ShahroodRC/WRO2025-FE-ShahroodRC.git
-cd WRO2025-FE-ShahroodRC/codes
-
-# Copy code to EV3
-scp open-challenge-code.py robot@192.168.137.3:/home/robot/
-scp obstacle-challenge-code.py robot@192.168.137.3:/home/robot/
-```
-
-### Step 5: Run Code on EV3
-
-```bash
-# SSH into EV3
-ssh robot@192.168.137.3
-
-# Navigate to home directory
-cd ~
-
-# Run the challenge code
-python3 open-challenge-code.py
-# or
-python3 obstacle-challenge-code.py
-
-# Stop execution: Ctrl+C
-```
-
-### Step 6: Debugging & Troubleshooting
-
-**Check sensor connections:**
-```python
-from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
-from ev3dev2.sensor.lego import UltrasonicSensor, ColorSensor, Sensor
-
-# Test ultrasonic sensors
-us_left = UltrasonicSensor(INPUT_3)
-us_right = UltrasonicSensor(INPUT_2)
-print(f"Left: {us_left.distance_centimeters} cm")
-print(f"Right: {us_right.distance_centimeters} cm")
-
-# Test color sensor
-cs = ColorSensor(INPUT_4)
-print(f"Color: {cs.color}")
-
-# Test Pixy (if connected)
-pixy = Sensor(INPUT_1)
-print(f"Pixy value: {pixy.value(0)}")
-```
-
-**View EV3 logs:**
-```bash
-# Check system logs
-journalctl -f
-
-# Monitor running processes
-top
-```
-
-### Useful Commands
-
-| Command | Purpose |
-|---------|---------|
-| `ssh robot@192.168.137.3` | Connect to EV3 |
-| `scp <file> robot@192.168.137.3:/home/robot/` | Copy file to EV3 |
-| `sudo shutdown -h now` | Shutdown EV3 safely |
-| `systemctl status ev3-mode` | Check ev3dev status |
-| `brickrun -c "python3 script.py"` | Run script via web browser |
-
----
-
-## 🔧 Sensor Calibration Guide
-
-Proper sensor calibration is critical for reliable robot performance. Follow these procedures before competition.
-
-### Pixy 2.1 Camera Calibration
-
-**Equipment Needed:**
-- PixyMon v2 software (USB connection to PC)
-- Competition track with green and red pillars
-- 500–1000 lux lighting (typical indoor competition setting)
-
-**Calibration Steps:**
-
-1. **Connect Pixy to PC via USB:**
-   - Install PixyMon v2 from [pixycam.com](https://pixycam.com)
-   - Launch PixyMon and connect Pixy camera
-
-2. **Train Color Signatures:**
-   - Click "Program" → "Blocks" → "Color Connected Components"
-   - Select "Signature 1" (Green pillars):
-     - Aim camera at green pillar from 0.5–1.5 m
-     - Click "Teach signature 1" and select green color
-     - Repeat 5–10 times from different angles/distances
-   - Select "Signature 2" (Red pillars):
-     - Repeat process for red color
-     - Ensure signatures are distinct (RGB ranges don't overlap)
-
-3. **Adjust Brightness Settings:**
-   - Aim camera at track under competition lighting
-   - If brightness is too high/low, adjust via "Settings" → "Camera"
-   - Target: Histogram shows balanced distribution
-
-4. **Test Detection:**
-   - Point camera at pillars and verify detection
-   - Verify X, Y coordinates are accurate in PixyMon display
-   - Adjust HSV ranges if false positives occur
-
-5. **Save Configuration:**
-   - Click "Program" → "Save to flash"
-   - Configuration persists even after power cycle
-
-### Ultrasonic Sensor Calibration
-
-**Procedure:**
-
-1. **Position sensors perpendicular to wall:**
-   - Mount on robot front (left and right)
-   - Ensure sensors face wall at 0° angle
-   - Deviation > 5° causes measurement errors
-
-2. **Test range accuracy:**
-   ```python
-   from ev3dev2.sensor.lego import UltrasonicSensor
-   from ev3dev2.sensor import INPUT_2, INPUT_3
-   
-   us_right = UltrasonicSensor(INPUT_2)
-   us_left = UltrasonicSensor(INPUT_3)
-   
-   # Measure at known distances: 20 cm, 30 cm, 40 cm, 50 cm
-   for distance_target in [20, 30, 40, 50]:
-       print(f"Target: {distance_target} cm, Measured: {us_right.distance_centimeters} cm")
-   ```
-
-3. **Verify accuracy:**
-   - Measurements should be ±2 cm of actual distance
-   - If error > 2 cm, check sensor alignment
-   - Clean sensor lens if covered with dust/debris
-
-### Color Sensor Calibration
-
-**Procedure:**
-
-1. **Set sensor position:**
-   - Mount 0.5–1 cm above track surface
-   - Ensure perpendicular alignment
-   - Stable mounting prevents vibration artifacts
-
-2. **Calibrate for blue and orange lines:**
-   ```python
-   from ev3dev2.sensor.lego import ColorSensor
-   from ev3dev2.sensor import INPUT_4
-   
-   cs = ColorSensor(INPUT_4)
-   
-   # Place sensor on blue line
-   print(f"Blue line color code: {cs.color}")
-   # Expected: 2 (blue)
-   
-   # Place sensor on orange line
-   print(f"Orange line color code: {cs.color}")
-   # Expected: 5 (orange)
-   ```
-
-3. **Test under competition lighting:**
-   - Test at 500–1000 lux (typical indoor venue)
-   - If color detection inconsistent, recalibrate via EV3 menu:
-     - Settings → Sensor → Color Sensor → Calibrate
-
-### Pre-Competition Checklist
-
-✅ **Day Before Competition:**
-- [ ] Test all sensors with calibration scripts
-- [ ] Verify motor responsiveness
-- [ ] Check battery voltage (should be 7.5V+ on fresh charge)
-- [ ] Review code for any hardcoded values that may need adjustment
-
-✅ **1 Hour Before Competition:**
-- [ ] Test on actual competition track (if available)
-- [ ] Verify Pixy signatures on actual pillars
-- [ ] Run 5 test laps to ensure stability
-- [ ] Check for any mechanical issues (wheel slippage, motor noise)
-
----
-
-## 🔍 Testing & Validation
-
-### Test Results Summary
-
-From 50+ test runs across varied track configurations:
-
-| Challenge | Metric | Result | Notes |
-|-----------|--------|--------|-------|
-| **Open** | Wall-follow accuracy | ±2 cm @ 27 cm target | Stable with 500–1000 lux lighting |
-| **Open** | Turn execution | 1.5 sec per 90° turn | Consistent steering response |
-| **Open** | Lap completion rate | 90% success | 45/50 runs completed |
-| **Obstacle** | Obstacle detection | 97% accuracy | Pixy 2.1 performs excellently |
-| **Obstacle** | Parking success | 85% accuracy | Zone detection improved with calibration |
-| **Overall** | Average time (3 laps) | <2 minutes | Meets competition time limit |
-
-### Testing Methodology
-
-**1. Track Simulation:**
-- Used WRO-compliant randomizer app (included in repo)
-- Generated 50 different track configurations
-- Tested both Open and Obstacle challenges
-
-**2. Sensor Validation:**
-- Ultrasonic: Tested at 20–250 cm range (±2 cm accuracy)
-- Color sensor: Tested blue/orange detection under varied lighting
-- Pixy 2.1: Tested green/red pillar detection at 0.5–1.5 m
-
-**3. Performance Metrics:**
-- **Lap completion time**: Measured from start to finish (all 3 laps)
-- **Success rate**: Percentage of runs completing without stalling
-- **Accuracy**: Precision of wall-following (target vs. actual distance)
-
-### Known Limitations & Workarounds
-
-| Issue | Cause | Workaround |
-|-------|-------|-----------|
-| Pixy false positives in low light | Insufficient lighting contrast | Ensure 500+ lux, adjust signature thresholds |
-| Ultrasonic noise from angled walls | Non-perpendicular reflections | Reposition sensors, use averaging filter |
-| Color sensor inconsistency | Mounting vibration | Secure mount with rigid frame |
-| Motor slippage on smooth surfaces | Low friction | Increase wheel contact pressure, optimize traction |
-
----
-
-## 🔴 Problems and Solutions
-
-Throughout development and competition, we encountered several challenges. Here's a comprehensive troubleshooting guide:
-
-### Problem 1: Pixy 2.1 False Positives in Low Light
-
-**Symptom:** Robot detects obstacles that don't exist, causing unexpected steering corrections
-
-**Root Cause:**
-- Pixy signatures trained in bright workshop lighting (1000+ lux) but competition venue had 500–600 lux
-- Lack of color saturation made it difficult to distinguish green/red pillars
-
-**Solution Implemented:**
-1. **Retrain signatures under competition lighting** – Calibrated Pixy in 500–1000 lux environment
-2. **Increase Y-position filtering** – Added condition `if y < 75` to ignore close/false detections
-3. **Use multiple signature frames** – Took 10+ samples of each color under different angles
-4. **Adjust HSV thresholds** – Widened acceptable ranges slightly to improve robustness
-
-**Prevention for Future Competitions:**
-- Carry calibration samples to venue
-- Test on actual track 1 hour before competition
-- Have backup Pixy signatures saved at different lighting levels
-
-### Problem 2: Ultrasonic Sensor Noise from Angled Walls
-
-**Symptom:** Wall-following becomes erratic with sudden distance jumps (5–10 cm variations)
-
-**Root Cause:**
-- Ultrasonic sensors not mounted perpendicular to walls
-- Sound waves reflected at angles caused inconsistent readings
-- Robot alignment tolerance was too loose
-
-**Solution Implemented:**
-1. **Precise sensor mounting** – Used reinforced LEGO beams to ensure ±1° alignment
-2. **Add reading averaging filter** – Take 5 consecutive readings and use median value
-3. **Implement hysteresis** – Only react to distance changes > 2 cm to filter noise
-4. **Adjust correction gains** – Reduced P gain in steering control from 1.0 to 0.7
-
-**Code Addition:**
-```python
-# Sensor noise filtering
-def filtered_distance(sensor, window_size=5):
-    readings = [sensor.distance_centimeters for _ in range(window_size)]
-    readings.sort()
-    return readings[window_size // 2]  # Median filter
-```
-
-### Problem 3: Color Sensor Inconsistency Under Vibration
-
-**Symptom:** Robot fails to detect blue/orange lines consistently, especially after turns
-
-**Root Cause:**
-- Color sensor mounted on flexible LEGO beam
-- Vibration caused sensor to move during turning maneuvers
-- Mounting distance from track surface varied (should be 0.5–1 cm)
-
-**Solution Implemented:**
-1. **Rigid mounting structure** – Replaced flexible beam with locked Technic beams
-2. **Add shim spacers** – Ensured consistent 0.8 cm distance from track
-3. **Increase detection threshold** – Required 2 consecutive color detections before registering turn
-
-### Problem 4: Motor Slippage During Sharp Turns
-
-**Symptom:** Robot loses traction on parking maneuvers, wheels slip without moving forward
-
-**Root Cause:**
-- EV3 tires have smooth rubber (designed for smooth surfaces)
-- Competition track has slightly inclined/uneven surface
-- Motor torque insufficient for combined steering + forward movement on slopes
-
-**Solution Implemented:**
-1. **Optimize gear ratio** – Changed from 1:1 to 1:1.5 reduction for increased torque
-2. **Add wheel grip** – Applied light adhesive tape to tire tread for improved friction
-3. **Reduce steering rate** – Limited front-wheel angle during forward motion to minimize drag
-4. **Two-motor setup in Open Challenge** – Used 2 motors for propulsion when needed for increased power
-
-### Problem 5: Pixy I2C Communication Timeouts
-
-**Symptom:** Pixy camera occasionally stops responding; code throws I2C bus error
-
-**Root Cause:**
-- EV3 I2C bus conflicts when multiple sensors polled simultaneously
-- Pixy initialization incomplete after power-on
-- Default I2C timeout too aggressive
-
-**Solution Implemented:**
-1. **Add initialization delay** – Wait 2 seconds after EV3 boot before I2C communication
-2. **Implement retry mechanism** – If I2C read fails, retry up to 3 times with 100 ms delay
-3. **Check data validity** – Verify parsed values are non-zero before using in calculations
-4. **Reduce polling frequency** – Check Pixy every 50 ms instead of every frame (less bus contention)
-
-**Code Addition:**
-```python
-def safe_pixy_read(max_retries=3):
-    for attempt in range(max_retries):
-        try:
-            block = read_pixy_block()
-            if block and block['signature'] != 0:
-                return block
-        except Exception as e:
-            time.sleep(0.1)
-    return None  # Return None if all attempts fail
-```
-
-### Problem 6: Line Detection Missing at Track Corners
-
-**Symptom:** Robot fails to detect turn lines when approaching perpendicular to line
-
-**Root Cause:**
-- Color sensor positioned too low, only sees paint edge not full line
-- Color value ambiguous between track surface and line
-- Detection logic too strict on color matching
-
-**Solution Implemented:**
-1. **Reposition sensor** – Raised color sensor by 0.5 cm to see more of line surface
-2. **Relax color thresholds** – Accepted both blue (1, 2) and orange (5, 7) codes
-3. **Add spatial filtering** – Ignore single-frame detections; require sustained detection
-4. **Fallback to dead reckoning** – If line not detected for 3 seconds, estimate turn based on timing
-
-### Problem 7: Battery Voltage Sag Under Load
-
-**Symptom:** Motor speed decreases noticeably after 10 minutes of operation; steering becomes sluggish
-
-**Root Cause:**
-- Battery voltage drops from 7.5V (full) to 5.8V (depleted) under 1.5A motor draw
-- EV3 voltage regulator has minimum input requirement (5.5V)
-- Peak current during acceleration/steering causes transient voltage dips
-
-**Solution Implemented:**
-1. **Use high-discharge Li-Po battery** – Chose 35C discharge rate (1500 mAh) for lower impedance
-2. **Add power conditioning** – Installed 100 µF capacitor on motor supply for surge buffering
-3. **Monitor battery voltage** – Added warning at <6V to stop before regulator dropout
-4. **Optimize motor usage** – Reduced acceleration ramps to minimize current peaks
-
-### Problem 8: ev3dev Package Version Conflicts
-
-**Symptom:** Code works on development PC but fails on EV3: `ImportError: No module named ev3dev2`
-
-**Root Cause:**
-- Installed `ev3dev` (v1) instead of `ev3dev2` (v2)
-- Python 2 vs Python 3 library mismatch
-- PATH environment variable not updated
-
-**Solution Implemented:**
-1. **Explicit pip3 install** – Always use `pip3 install ev3dev2` (not pip)
-2. **Verify installation** – Run `python3 -c "import ev3dev2; print(ev3dev2.__version__)"`
-3. **Create requirements.txt** – Document all dependencies for reproducible setup
-4. **Use virtual environment** – Set up isolated Python env to prevent conflicts
-
-**Prevention:**
-```bash
-# Create requirements.txt
-echo "ev3dev2==2.1.5" > requirements.txt
-pip3 install -r requirements.txt
-```
-
-### Debugging Tips & Tricks
-
-**Enable verbose logging:**
-```python
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
-# Log all EV3 sensor reads
-logger = logging.getLogger("ev3dev2.sensor")
-logger.setLevel(logging.DEBUG)
-```
-
-**Use EV3 LCD display for troubleshooting:**
-```python
-from ev3dev2.leds import Leds
-from ev3dev2.speaker import Speaker
-
-leds = Leds()
-speaker = Speaker()
-
-# Beep + LED indicator for state
-leds.set_color('LEFT', 'RED')
-speaker.beep(1, 200)  # 1 beep, 200 Hz
-```
-
-**Remote debugging via SSH:**
-```bash
-# Monitor code execution in real-time
-ssh robot@192.168.137.3 "tail -f /tmp/robot.log"
-
-# Kill stuck processes
-ssh robot@192.168.137.3 "killall python3"
-```
-
----
-
-**Get your robot running in 5 minutes:**
-
-1. **Flash ev3dev** on microSD card
-2. **Connect via USB**: `ssh robot@192.168.137.3`
-3. **Install libraries**: `pip3 install ev3dev2 opencv-python`
-4. **Copy code**: `scp open-challenge-code.py robot@192.168.137.3:/home/robot/`
-5. **Run**: `python3 open-challenge-code.py`
-
----
-
-## Our Path – Platform Evolution
-
-### Robot Development Process
-
-The ShahroodRC team embarked on a rigorous development process to identify the most efficient and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed account of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
-
----
-
-### 🔁 1. Using Arduino Uno
-
-We initially chose the **Arduino Uno** (ATmega328P, 16 MHz, 32 KB Flash, 2 KB SRAM) for its simplicity, affordability, and compatibility with a wide range of sensors and actuators. Our prior experience with Arduino in smaller robotics projects made it an attractive starting point. However, scaling it to meet WRO 2025 requirements revealed critical limitations:
-
-- **Camera Limitations**: We tested the OV7670 camera module (640x480 resolution, ~5 fps) and attempted to relay data from an ESP32-CAM via serial communication. The Arduino’s limited SRAM (2 KB) and processing power couldn’t handle image processing, resulting in unreliable object detection and low frame rates, far below the ~30 fps needed for real-time obstacle avoidance.
-- **Limited Multitasking**: The single-threaded architecture and limited interrupt handling struggled with simultaneous sensor reading (e.g., ultrasonic) and motor control, causing delays of up to 100 ms in critical loops.
-- **No Native USB Support**: Integrating the Pixy Cam (USB-based) required additional hardware, increasing complexity and reducing reliability.
-
-**Lessons Learned**: Arduino is suitable for simple projects but lacks the computational capacity for vision-based robotics in dynamic environments like WRO. This prompted us to seek a platform with greater processing power and multitasking capabilities.
-
----
-
-### 🔁 2. Switching to ESP32
-
-The **ESP32** (dual-core Xtensa LX6, 240 MHz, 520 KB SRAM) was our next choice, offering improved processing power, integrated Wi-Fi/Bluetooth, and better memory management. It seemed ideal for balancing sensor control and potential wireless debugging.
-
-- **Pros**:
-  - Dual-core processing enabled parallel tasks (e.g., sensor reading and motor control).
-  - Wi-Fi/Bluetooth allowed for remote monitoring, useful during testing.
-  - 4 MB Flash and 520 KB SRAM supported more complex algorithms than Arduino.
-- **Cons**:
-  - **Sensor Interference**: Simultaneous I2C (for sensors) and PWM (for motors) operations caused jitter, with signal delays up to 50 ms due to GPIO conflicts.
-  - **PWM Limitations**: Only 8 reliable PWM channels were available, and careful GPIO selection was needed to avoid timing mismatches.
-  - **Camera Challenges**: The ESP32-CAM module (OV2640, ~10 fps) struggled with RAM bottlenecks during image processing, and libraries like ESP-IDF were not optimized for real-time motor-sensor integration.
-  - **Library Limitations**: MicroPython and Arduino ESP32 cores lacked robust image processing libraries for WRO’s dynamic requirements.
-
-**Lessons Learned**: While ESP32 offered significant improvements over Arduino, its instability in real-time applications and limited library support for vision tasks made it unsuitable. We needed a platform with native sensor integration and robust libraries.
-
----
-
-### 🔁 3. Adopting Raspberry Pi Zero
-
-The **Raspberry Pi Zero** (1 GHz single-core ARM11, 512 MB RAM, Linux-based) was our next attempt, chosen for its support for Python, OpenCV, and USB peripherals like the Pixy Cam or Pi Camera.
-
-- **Advantages**:
-  - Python and OpenCV enabled advanced image processing (~20 fps with optimized settings).
-  - Multi-threaded programming supported simultaneous sensor and motor tasks.
-  - USB and I2C interfaces allowed easy integration of the Pixy Cam.
-- **Challenges**:
-  - **Power Sensitivity**: The Pi Zero required a stable 5V/2A supply. Voltage drops below 4.8V during motor and camera operation caused brownouts.
-  - **Heat Issues**: Continuous operation (camera streaming at 20 fps and motor control) raised board temperatures to ~65°C, leading to thermal throttling.
-  - **Hardware Fragility**: We lost two boards—one due to a short circuit from an improperly grounded motor driver (TB6612FNG) drawing ~1.5A, and another from a current surge (~2A) when powering the camera and motors simultaneously.
-
-**Lessons Learned**: The Pi Zero’s processing power was promising, but its fragility and power demands were impractical for competition use. We needed a more robust platform designed for educational robotics.
-
----
-
-### ✅ 4. Final Transition to LEGO EV3
-
-After facing challenges with previous platforms, we returned to the **LEGO EV3 Mindstorms** system (ARM9, 64 MB RAM, 16 MB Flash), leveraging our team’s prior WRO experience. The EV3 offered unmatched integration, safety, and reliability.
-
-- **Stability & Robustness**: The EV3 Intelligent Brick is built for rugged environments, handling two Medium Motors (20 N·cm, 160 rpm) and four sensors without external drivers.
-- **Built-in Ports**: Four motor ports and four sensor ports (e.g., INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor) simplified wiring and reduced failure risks.
-- **Pixy Cam Integration**: Using a custom I2C connection (via EV3 sensor port, 5V/120–160 mA), we integrated the Pixy Cam without USB host requirements, ensuring compatibility.
-- **Development Efficiency**: Python via ev3dev allowed rapid development, with libraries like `ev3dev2` supporting precise motor control (e.g., `on_for_degrees`) and sensor polling (10 ms for color sensor).
-- **Competition-Proven**: The EV3’s extensive use in WRO and availability of open-source libraries ensured reliable performance.
-
-**Implementation Impact**: The EV3’s stability influenced our code design, enabling a PID-like steering algorithm (`amotor`) and dynamic distance adjustment (`fasele`) for robust navigation. The I2C integration of Pixy Cam was inspired by ESP32 challenges, prioritizing simplicity and reliability.
-
----
-
-### 📊 Platform Comparison
-
-| **Platform**      | **Processing Power** | **Sensor Integration** | **Power Consumption** | **Reliability** | **WRO Suitability** | **Approx. Cost (USD)** |
-|-------------------|----------------------|------------------------|-----------------------|-----------------|---------------------|------------------------|
-| **Arduino Uno**   | 16 MHz, 2 KB SRAM   | Limited (I2C, Analog)  | ~100 mA (base)        | Low (camera issues) | Poor                | $25                   |
-| **ESP32**         | 240 MHz, 520 KB SRAM| I2C, PWM, UART        | ~200 mA (with Wi-Fi)  | Medium (jitter)     | Moderate            | $10                   |
-| **Raspberry Pi Zero** | 1 GHz, 512 MB RAM | USB, I2C, GPIO        | ~300 mA (with camera) | Low (brownouts)     | Moderate            | $15                   |
-| **LEGO EV3**      | 300 MHz, 64 MB RAM  | 4 Motor, 4 Sensor Ports| ~500 mA (full load)   | High                | Excellent           | $100       |
-
----
-
-### 📌 Final Summary & Reflection
-
-Each platform tested taught us critical lessons about system design, integration challenges, and performance trade-offs:
-- **Arduino Uno**: Highlighted the importance of processing power for vision tasks.
-- **ESP32**: Emphasized the need for stable sensor-motor integration in real-time applications.
-- **Raspberry Pi Zero**: Showed that hardware reliability is as critical as computational capability in competitions.
-- **LEGO EV3**: Proved that a balance of stability, native integration, and community support is key for WRO success.
-
-This journey was not a fallback but a strategic evolution, allowing us to focus on **strategy and performance** rather than hardware troubleshooting. For future projects, we plan to explore hybrid platforms (e.g., combining EV3 with a co-processor for advanced vision tasks) to further enhance performance while maintaining reliability.
-
-During testing, we used our in-house [**Randomizer App**](randomizer.apk) to validate performance across hundreds of randomized scenarios, ensuring reliability under competition conditions.
-
-> By choosing EV3, we ensured our robot could reliably execute complex tasks like line following, obstacle avoidance, and parking, meeting WRO 2025’s demanding requirements with confidence.
-
----
-
-
-## Pictures
-| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="90%" /> | 
-| :--: | :--: | 
-| *Front* | *Back* |
-| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="90%" /> | 
-| *Left* | *Right* |
-| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="90%" /> | 
-| *Top* | *Bottom* |
-
-<div align="center">
-    <img src="robot-photos/robot.jpg" alt="Three-Quarter View of the Robot" width="60%">
-    <p>Three-Quarter View of the Robot (from front, left, and top)</p>
-</div>
-
----
 
 ## 📊 Performance Metrics
 
@@ -1098,73 +570,7 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 ---
 
-## Videos
-You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/lM7wSyYANas) videos on Youtube. You can see them also here in [videos](videos/) folder.
-
-| Open Challenge | Obstacle Challenge |
-|----------------|--------------------|
-| [![Open](https://img.youtube.com/vi/Phpb0w_JzZM/hqdefault.jpg)](https://youtu.be/lM7wSyYANas) | [![Obstacle](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM) |
-
----
-
-
-## Randomizer App
-
-> Generates **WRO-2025-compliant** random tracks for both challenges.
-
-To assist teams and judges in simulating the dynamic and unpredictable nature of the WRO 2025 Future Engineers challenges, the ShahroodRC team developed a custom **Randomizer Application** for Android devices. This app generates randomized track layouts and obstacle configurations that comply with official WRO 2025 rules for both the **Open Challenge** and the **Obstacle Challenge**.
-
-### App Screenshots
-
-<div align="center">
-  <table>
-    <tr>
-      <td><img src="pictures/randomizer-screenshots/welcome-screen.jpg" width="200"/></td>
-      <td><img src="pictures/randomizer-screenshots/main-menu.jpg" width="200"/></td>
-      <td><img src="pictures/randomizer-screenshots/challenge-selection.jpg" width="200"/></td>
-    </tr>
-    <tr>
-      <td align="center"><b>Welcome Screen</b></td>
-      <td align="center"><b>Main Menu</b></td>
-      <td align="center"><b>Challenge Selection</b></td>
-    </tr>
-    <tr>
-      <td><img src="pictures/randomizer-screenshots/obstacle-randomized.jpg" width="200"/></td>
-      <td><img src="pictures/randomizer-screenshots/open-randomized.jpg" width="200"/></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td align="center"><b>Obstacle Challenge</b></td>
-      <td align="center"><b>Open Challenge</b></td>
-      <td></td>
-    </tr>
-  </table>
-</div>
-
-### Features
-- **Dual Challenge Support**: Generates valid configurations for both Open and Obstacle rounds.
-- **Rule-Compliant Outputs**: Ensures all generated layouts adhere to WRO 2025 regulations.
-- **User-Friendly Interface**: Simple tap-to-generate design with clear visual feedback.
-- **Offline Functionality**: No internet required—ideal for competition environments.
-- **Export & Share**: Results can be viewed on-screen or shared as text.
-
-### Usage
-1. Install the APK file (`randomizer.apk`) on any Android device (min. Android 7.0 recommended).
-2. Open the app and select your desired challenge type (**Open** or **Obs**) to receive a randomized, competition-ready layout.
-3. Use the output to set up your practice arena or verify robot behavior.
-
-> **Note**: This tool was used internally during our development and testing phases to ensure our robot could handle any valid WRO 2025 scenario with robustness and adaptability.
-
-### Download
-The latest version of the Randomizer app is included directly in this repository:
-- [`randomizer.apk`](randomizer.apk)
-
-> **Security Note**: This APK is built and signed by the ShahroodRC team. Always scan files with your preferred antivirus before installation.
-
----
-
-
-## Robot Components Overview
+## 🤖 Robot Components Overview
 
 This section provides a detailed overview of the key hardware components used in the ShahroodRC robot for the WRO 2025 Future Engineers category. Each component was carefully selected to ensure compatibility, reliability, and optimal performance for tasks like line following, obstacle avoidance, and precise parking. The components are seamlessly integrated with the LEGO EV3 platform, leveraging our team’s prior experience to streamline development and focus on competition performance.
 
@@ -1172,7 +578,7 @@ This section provides a detailed overview of the key hardware components used in
 
 ### 🔧 Components Overview
 
-#### **LEGO EV3 Mindstorms Control Brick**
+#### **🧠 LEGO EV3 Mindstorms Control Brick**
 
 <table>
   <tr>
@@ -1201,7 +607,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Lessons Learned**: The EV3’s robust port system and ev3dev’s Python support reduced development time compared to Arduino or Raspberry Pi setups. In future iterations, we could add a co-processor for enhanced vision processing while retaining EV3’s reliability.
 - **Implementation Impact**: The EV3’s stable power distribution and fast sensor polling (10 ms for Color Sensor, 50 ms for Pixy Cam) enabled precise navigation, such as maintaining a 27 cm wall distance in the Open Challenge and executing the parking sequence in under 10 seconds.
 
-#### **Pixy 2.1**
+#### **👁️ Pixy 2.1**
 
 <table>
   <tr>
@@ -1230,7 +636,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Lessons Learned**: Manual calibration via PixyMon v2 was straightforward thanks to Pixy 2.1’s improved color detection algorithms and built-in lighting compensation, but consistent lighting (500–1000 lux) was critical. Future improvements could leverage Pixy 2.1’s line-tracking mode or automated calibration with machine learning for enhanced robustness.
 - **Implementation Impact**: Pixy 2.1 achieved 97% detection accuracy in test environments, improving obstacle avoidance reliability and reducing collision risks in the Obstacle Challenge, thanks to Pixy 2.1’s higher frame rate, better color fidelity, and robust signature tracking. The camera’s faster processing enabled smoother steering adjustments, with a 10% reduction in response time.
 
-#### **Ultrasonic Sensor EV3**
+#### **📏 Ultrasonic Sensor EV3**
 
 <table>
   <tr>
@@ -1258,7 +664,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Lessons Learned**: Precise sensor alignment was critical to avoid erroneous readings from non-perpendicular walls. Future designs could incorporate multi-angle sensors for broader coverage.
 - **Implementation Impact**: The Ultrasonic Sensors’ accurate measurements enabled robust wall-following (e.g., `target = (fc * 1.3) - (fr * 1.7)`), ensuring stable navigation in both challenges.
 
-#### **Color Sensor EV3**
+#### **🌈 Color Sensor EV3**
 
 <table>
   <tr>
@@ -1286,7 +692,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Lessons Learned**: Maintaining a 0.5–1 cm distance was critical for accurate color detection; variations in lighting required multiple calibration rounds. Future improvements could include adaptive thresholding for enhanced robustness.
 - **Implementation Impact**: The Color Sensor’s fast response enabled precise line-following, completing 11 turns in the Open Challenge and aligning for parking within 2 seconds.
 
-#### **Medium Motor EV3**
+#### **⚙️ Medium Motor EV3**
 
 <table>
   <tr>
@@ -1314,7 +720,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
 
-### 🛠 Notes
+### 🛠️ Notes
 - **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
 - **Component Placement**: The EV3 Brick is centrally mounted for balance, with the Color Sensor at the front center (0.5–1 cm from the surface), Ultrasonic Sensors on the front left and right, and Pixy Cam elevated above the Brick for optimal obstacle detection.
 - **Component Selection**: The EV3 platform was chosen for its robust ecosystem and compatibility, replacing less reliable options like the HC-SR04 Ultrasonic Sensor. The Medium Motors’ lighter weight (120 g vs. 170 g for Large Motors) optimized the robot’s 1.2 kg design for agility.
@@ -1330,7 +736,7 @@ This section provides a detailed overview of the key hardware components used in
 
 ---
 
-## Code for Each Component
+## 💻 Code For Each Component
 
 This section details the code implementation for each major component of our robot, explaining how they work together to achieve the competition objectives.
 
@@ -1666,7 +1072,7 @@ This integrated approach ensures that all sensors and actuators work together ha
 ---
 
 
-## Mobility Management
+## 🚗 Mobility Management
 
 The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
 
@@ -2079,7 +1485,7 @@ The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware 
 
 ---
 
-## Obstacle Management (Obstacle Avoidance and Parking Management)
+## 🚧 Obstacle Management
 
 The robot’s obstacle management and parking strategy is designed to handle both the Open Challenge and Obstacle Challenge in the WRO 2025 Future Engineers category. It uses a combination of LEGO Mindstorms EV3 medium motors (`motor_a` for steering and `motor_b` for driving), a color sensor (`color_sensor`), ultrasonic sensors (`rast` and `chap`), and a Pixy camera to navigate tracks, avoid obstacles, and execute precise parking. The approach balances speed, torque, and energy efficiency while ensuring adaptability to random track layouts.
 
@@ -2931,6 +2337,597 @@ motor_a.off()
 - **Adaptability**: Dynamic `fasele` (40–55 cm) and direction (`al`) adapt to track orientation.
 - **Limitations**: The code assumes consistent lighting for color detection and reliable ultrasonic readings. Variations may require recalibration of thresholds (`green`, `red`, `fasele`).
 - **Calibration**: Before the competition, calibrate the color sensor and Pixy camera under expected lighting conditions.
+
+---
+
+## 🏗️ Robot Assembly Guide
+
+### 10-Step Construction Process (1.5-2 hours)
+
+#### **Phase 1: Chassis (30 min)**
+
+**Step 1: Drive Base Assembly**
+1. Create 15L × 10W rectangular frame from LEGO beams
+2. Attach 4 wheels with rubber tires using 90-degree angle frames
+3. Mount Medium Motor (Drive) horizontally at rear center
+4. Connect motor to rear differential (1:1 gear ratio, 27mm axle)
+5. Result: Sturdy base, ~500g, 300mm wheelbase
+
+**Step 2: Steering Mechanism**
+1. Build parallelogram linkage using LEGO technic connectors
+2. Mount Medium Motor vertically on front center
+3. Connect servo arm to left wheel via 90° linkage
+4. Calibrate: wheels should turn ±20° smoothly
+5. Test motor response with ev3 console
+
+**Step 3: Sensor Tower**
+1. Create vertical tower (4L × 2W beams, 120mm height)
+2. Mount Pixy camera at 45° angle (top center - looking down)
+3. Mount ultrasonic sensors left/right (front face, level)
+4. Mount color sensor at bottom (track-facing, 5mm above surface)
+
+#### **Phase 2: Electronics (25 min)**
+
+**Step 4: EV3 Brick Mounting**
+1. Position EV3 on top of sensor tower (centered, front-facing)
+2. Secure with double-sided tape + velcro strips
+3. Ensure LCD screen and buttons are accessible
+4. Verify no cable pinching
+
+**Step 5: Motor Connections**
+1. Connect Medium Motor (Drive) → OUTPUT_D (drive rear axle)
+2. Connect Medium Motor (Steer) → OUTPUT_B (steering linkage)
+3. Secure cables with zip ties (no sharp bends)
+4. Label each cable endpoint
+
+**Step 6: Sensor Connections**
+1. Pixy 2.1 → INPUT_1 (custom I2C adapter)
+2. Ultrasonic Left → INPUT_2 (6-pin cable)
+3. Ultrasonic Right → INPUT_3 (6-pin cable)
+4. Color Sensor → INPUT_4 (6-pin cable)
+5. Test each sensor individually
+
+#### **Phase 3: Power & Finalization (20 min)**
+
+**Step 7: Battery System**
+1. Mount 6x AA battery holder on chassis bottom
+2. Insert rechargeable batteries (correct polarity!)
+3. Connect to EV3 via power port
+4. Verify: EV3 LED turns green when powered
+
+**Step 8: Cable Management**
+1. Route all cables through cable trays or channels
+2. Use zip ties every 10cm (no loose segments)
+3. Keep motor power cables separate from sensor lines
+4. Total organized cable length: ~1.5m
+
+**Step 9: Structural Verification**
+1. Check center of gravity (should be centered)
+2. Add 50g ballast to rear if needed
+3. Final weight: 1.2-1.5 kg (WRO compliant <1.6kg)
+4. Test stability: no tipping at ±30° angles
+
+**Step 10: Pre-Competition Validation**
+
+Run these checks before competition:
+
+```
+✅ Hardware Checklist:
+ ☐ All motors respond to test commands (ev3dev-shell)
+ ☐ All sensors provide accurate readings
+ ☐ No loose cables or components
+ ☐ Battery fully charged (6+ hour endurance)
+ ☐ Robot weight: 1.2-1.5 kg
+ ☐ Chassis aligned (travels straight)
+ ☐ Steering operates smoothly (no dead zones)
+ ☐ Pixy camera mounted rigidly (no vibration)
+ ☐ Sensor calibration values saved
+ ☐ All LEDs function (visual feedback)
+
+✅ Software Checklist:
+ ☐ Code uploaded and runs without errors
+ ☐ ev3dev libraries installed correctly
+ ☐ Pixy library initialized (I2C detected)
+ ☐ Motor encoder calibration complete
+ ☐ All sensor thresholds configured
+ ☐ Test lap successful (>85% accuracy)
+
+✅ Final Checks (Day Before):
+ ☐ Code reviewed by team
+ ☐ Battery charged to 100%
+ ☐ All cables secured and labeled
+ ☐ Spare batteries & USB cable available
+ ☐ Robot documentation printed
+```
+
+---
+
+## 🛠️ Software Setup & Installation
+
+This section provides step-by-step instructions for setting up the development environment and deploying code to the EV3 robot.
+
+### Prerequisites
+- **EV3 Brick** with ev3dev Linux installed
+- **USB/Wi-Fi connection** to the EV3 brick
+- **Python 3.6+** installed on your development machine
+- **SSH client** (for remote access to EV3)
+
+### Step 1: Install ev3dev on EV3 Brick
+
+1. **Download ev3dev image** from [ev3dev.org](https://www.ev3dev.org/):
+   - Download the LEGO Mindstorms EV3 image (microSD version)
+   - Extract the `.img` file
+
+2. **Write image to microSD card** (8GB or larger):
+   - Windows: Use [Balena Etcher](https://www.balena.io/etcher/) or Win32DiskImager
+   - macOS/Linux: Use `dd` command or Etcher
+
+3. **Insert microSD card** into EV3 brick and power on
+   - Wait 2-3 minutes for first boot (LED will blink)
+   - Connect via USB or Wi-Fi
+
+### Step 2: Connect to EV3 Brick
+
+**Via USB (Recommended for initial setup):**
+```bash
+ssh robot@192.168.137.3
+# Password: maker
+```
+
+**Via Wi-Fi:**
+```bash
+# 1. Connect EV3 to your Wi-Fi network via web browser
+#    Navigate to http://ev3dev.local in your browser
+# 2. SSH into the robot
+ssh robot@<ev3-ip-address>
+```
+
+### Step 3: Install Required Python Libraries
+
+```bash
+# Update package manager
+sudo apt-get update
+sudo apt-get upgrade -y
+
+# Install Python development tools
+sudo apt-get install -y python3-pip python3-dev
+
+# Install ev3dev2 library
+pip3 install ev3dev2
+
+# Install additional dependencies
+pip3 install opencv-python numpy scipy
+```
+
+### Step 4: Clone and Deploy Code
+
+```bash
+# On your development machine
+# Clone the repository
+git clone https://github.com/ShahroodRC/WRO2025-FE-ShahroodRC.git
+cd WRO2025-FE-ShahroodRC/codes
+
+# Copy code to EV3
+scp open-challenge-code.py robot@192.168.137.3:/home/robot/
+scp obstacle-challenge-code.py robot@192.168.137.3:/home/robot/
+```
+
+### Step 5: Run Code on EV3
+
+```bash
+# SSH into EV3
+ssh robot@192.168.137.3
+
+# Navigate to home directory
+cd ~
+
+# Run the challenge code
+python3 open-challenge-code.py
+# or
+python3 obstacle-challenge-code.py
+
+# Stop execution: Ctrl+C
+```
+
+### Step 6: Debugging & Troubleshooting
+
+**Check sensor connections:**
+```python
+from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
+from ev3dev2.sensor.lego import UltrasonicSensor, ColorSensor, Sensor
+
+# Test ultrasonic sensors
+us_left = UltrasonicSensor(INPUT_3)
+us_right = UltrasonicSensor(INPUT_2)
+print(f"Left: {us_left.distance_centimeters} cm")
+print(f"Right: {us_right.distance_centimeters} cm")
+
+# Test color sensor
+cs = ColorSensor(INPUT_4)
+print(f"Color: {cs.color}")
+
+# Test Pixy (if connected)
+pixy = Sensor(INPUT_1)
+print(f"Pixy value: {pixy.value(0)}")
+```
+
+**View EV3 logs:**
+```bash
+# Check system logs
+journalctl -f
+
+# Monitor running processes
+top
+```
+
+### Useful Commands
+
+| Command | Purpose |
+|---------|---------|
+| `ssh robot@192.168.137.3` | Connect to EV3 |
+| `scp <file> robot@192.168.137.3:/home/robot/` | Copy file to EV3 |
+| `sudo shutdown -h now` | Shutdown EV3 safely |
+| `systemctl status ev3-mode` | Check ev3dev status |
+| `brickrun -c "python3 script.py"` | Run script via web browser |
+
+---
+
+## 🔧 Sensor Calibration Guide
+
+Proper sensor calibration is critical for reliable robot performance. Follow these procedures before competition.
+
+### Pixy 2.1 Camera Calibration
+
+**Equipment Needed:**
+- PixyMon v2 software (USB connection to PC)
+- Competition track with green and red pillars
+- 500–1000 lux lighting (typical indoor competition setting)
+
+**Calibration Steps:**
+
+1. **Connect Pixy to PC via USB:**
+   - Install PixyMon v2 from [pixycam.com](https://pixycam.com)
+   - Launch PixyMon and connect Pixy camera
+
+2. **Train Color Signatures:**
+   - Click "Program" → "Blocks" → "Color Connected Components"
+   - Select "Signature 1" (Green pillars):
+     - Aim camera at green pillar from 0.5–1.5 m
+     - Click "Teach signature 1" and select green color
+     - Repeat 5–10 times from different angles/distances
+   - Select "Signature 2" (Red pillars):
+     - Repeat process for red color
+     - Ensure signatures are distinct (RGB ranges don't overlap)
+
+3. **Adjust Brightness Settings:**
+   - Aim camera at track under competition lighting
+   - If brightness is too high/low, adjust via "Settings" → "Camera"
+   - Target: Histogram shows balanced distribution
+
+4. **Test Detection:**
+   - Point camera at pillars and verify detection
+   - Verify X, Y coordinates are accurate in PixyMon display
+   - Adjust HSV ranges if false positives occur
+
+5. **Save Configuration:**
+   - Click "Program" → "Save to flash"
+   - Configuration persists even after power cycle
+
+### Ultrasonic Sensor Calibration
+
+**Procedure:**
+
+1. **Position sensors perpendicular to wall:**
+   - Mount on robot front (left and right)
+   - Ensure sensors face wall at 0° angle
+   - Deviation > 5° causes measurement errors
+
+2. **Test range accuracy:**
+   ```python
+   from ev3dev2.sensor.lego import UltrasonicSensor
+   from ev3dev2.sensor import INPUT_2, INPUT_3
+   
+   us_right = UltrasonicSensor(INPUT_2)
+   us_left = UltrasonicSensor(INPUT_3)
+   
+   # Measure at known distances: 20 cm, 30 cm, 40 cm, 50 cm
+   for distance_target in [20, 30, 40, 50]:
+       print(f"Target: {distance_target} cm, Measured: {us_right.distance_centimeters} cm")
+   ```
+
+3. **Verify accuracy:**
+   - Measurements should be ±2 cm of actual distance
+   - If error > 2 cm, check sensor alignment
+   - Clean sensor lens if covered with dust/debris
+
+### Color Sensor Calibration
+
+**Procedure:**
+
+1. **Set sensor position:**
+   - Mount 0.5–1 cm above track surface
+   - Ensure perpendicular alignment
+   - Stable mounting prevents vibration artifacts
+
+2. **Calibrate for blue and orange lines:**
+   ```python
+   from ev3dev2.sensor.lego import ColorSensor
+   from ev3dev2.sensor import INPUT_4
+   
+   cs = ColorSensor(INPUT_4)
+   
+   # Place sensor on blue line
+   print(f"Blue line color code: {cs.color}")
+   # Expected: 2 (blue)
+   
+   # Place sensor on orange line
+   print(f"Orange line color code: {cs.color}")
+   # Expected: 5 (orange)
+   ```
+
+3. **Test under competition lighting:**
+   - Test at 500–1000 lux (typical indoor venue)
+   - If color detection inconsistent, recalibrate via EV3 menu:
+     - Settings → Sensor → Color Sensor → Calibrate
+
+### Pre-Competition Checklist
+
+✅ **Day Before Competition:**
+- [ ] Test all sensors with calibration scripts
+- [ ] Verify motor responsiveness
+- [ ] Check battery voltage (should be 7.5V+ on fresh charge)
+- [ ] Review code for any hardcoded values that may need adjustment
+
+✅ **1 Hour Before Competition:**
+- [ ] Test on actual competition track (if available)
+- [ ] Verify Pixy signatures on actual pillars
+- [ ] Run 5 test laps to ensure stability
+- [ ] Check for any mechanical issues (wheel slippage, motor noise)
+
+---
+
+## 🔍 Testing & Validation
+
+### Test Results Summary
+
+From 50+ test runs across varied track configurations:
+
+| Challenge | Metric | Result | Notes |
+|-----------|--------|--------|-------|
+| **Open** | Wall-follow accuracy | ±2 cm @ 27 cm target | Stable with 500–1000 lux lighting |
+| **Open** | Turn execution | 1.5 sec per 90° turn | Consistent steering response |
+| **Open** | Lap completion rate | 90% success | 45/50 runs completed |
+| **Obstacle** | Obstacle detection | 97% accuracy | Pixy 2.1 performs excellently |
+| **Obstacle** | Parking success | 85% accuracy | Zone detection improved with calibration |
+| **Overall** | Average time (3 laps) | <2 minutes | Meets competition time limit |
+
+### Testing Methodology
+
+**1. Track Simulation:**
+- Used WRO-compliant randomizer app (included in repo)
+- Generated 50 different track configurations
+- Tested both Open and Obstacle challenges
+
+**2. Sensor Validation:**
+- Ultrasonic: Tested at 20–250 cm range (±2 cm accuracy)
+- Color sensor: Tested blue/orange detection under varied lighting
+- Pixy 2.1: Tested green/red pillar detection at 0.5–1.5 m
+
+**3. Performance Metrics:**
+- **Lap completion time**: Measured from start to finish (all 3 laps)
+- **Success rate**: Percentage of runs completing without stalling
+- **Accuracy**: Precision of wall-following (target vs. actual distance)
+
+### Known Limitations & Workarounds
+
+| Issue | Cause | Workaround |
+|-------|-------|-----------|
+| Pixy false positives in low light | Insufficient lighting contrast | Ensure 500+ lux, adjust signature thresholds |
+| Ultrasonic noise from angled walls | Non-perpendicular reflections | Reposition sensors, use averaging filter |
+| Color sensor inconsistency | Mounting vibration | Secure mount with rigid frame |
+| Motor slippage on smooth surfaces | Low friction | Increase wheel contact pressure, optimize traction |
+
+---
+
+## 🔴 Problems and Solutions
+
+Throughout development and competition, we encountered several challenges. Here's a comprehensive troubleshooting guide:
+
+### Problem 1: Pixy 2.1 False Positives in Low Light
+
+**Symptom:** Robot detects obstacles that don't exist, causing unexpected steering corrections
+
+**Root Cause:**
+- Pixy signatures trained in bright workshop lighting (1000+ lux) but competition venue had 500–600 lux
+- Lack of color saturation made it difficult to distinguish green/red pillars
+
+**Solution Implemented:**
+1. **Retrain signatures under competition lighting** – Calibrated Pixy in 500–1000 lux environment
+2. **Increase Y-position filtering** – Added condition `if y < 75` to ignore close/false detections
+3. **Use multiple signature frames** – Took 10+ samples of each color under different angles
+4. **Adjust HSV thresholds** – Widened acceptable ranges slightly to improve robustness
+
+**Prevention for Future Competitions:**
+- Carry calibration samples to venue
+- Test on actual track 1 hour before competition
+- Have backup Pixy signatures saved at different lighting levels
+
+### Problem 2: Ultrasonic Sensor Noise from Angled Walls
+
+**Symptom:** Wall-following becomes erratic with sudden distance jumps (5–10 cm variations)
+
+**Root Cause:**
+- Ultrasonic sensors not mounted perpendicular to walls
+- Sound waves reflected at angles caused inconsistent readings
+- Robot alignment tolerance was too loose
+
+**Solution Implemented:**
+1. **Precise sensor mounting** – Used reinforced LEGO beams to ensure ±1° alignment
+2. **Add reading averaging filter** – Take 5 consecutive readings and use median value
+3. **Implement hysteresis** – Only react to distance changes > 2 cm to filter noise
+4. **Adjust correction gains** – Reduced P gain in steering control from 1.0 to 0.7
+
+**Code Addition:**
+```python
+# Sensor noise filtering
+def filtered_distance(sensor, window_size=5):
+    readings = [sensor.distance_centimeters for _ in range(window_size)]
+    readings.sort()
+    return readings[window_size // 2]  # Median filter
+```
+
+### Problem 3: Color Sensor Inconsistency Under Vibration
+
+**Symptom:** Robot fails to detect blue/orange lines consistently, especially after turns
+
+**Root Cause:**
+- Color sensor mounted on flexible LEGO beam
+- Vibration caused sensor to move during turning maneuvers
+- Mounting distance from track surface varied (should be 0.5–1 cm)
+
+**Solution Implemented:**
+1. **Rigid mounting structure** – Replaced flexible beam with locked Technic beams
+2. **Add shim spacers** – Ensured consistent 0.8 cm distance from track
+3. **Increase detection threshold** – Required 2 consecutive color detections before registering turn
+
+### Problem 4: Motor Slippage During Sharp Turns
+
+**Symptom:** Robot loses traction on parking maneuvers, wheels slip without moving forward
+
+**Root Cause:**
+- EV3 tires have smooth rubber (designed for smooth surfaces)
+- Competition track has slightly inclined/uneven surface
+- Motor torque insufficient for combined steering + forward movement on slopes
+
+**Solution Implemented:**
+1. **Optimize gear ratio** – Changed from 1:1 to 1:1.5 reduction for increased torque
+2. **Add wheel grip** – Applied light adhesive tape to tire tread for improved friction
+3. **Reduce steering rate** – Limited front-wheel angle during forward motion to minimize drag
+4. **Two-motor setup in Open Challenge** – Used 2 motors for propulsion when needed for increased power
+
+### Problem 5: Pixy I2C Communication Timeouts
+
+**Symptom:** Pixy camera occasionally stops responding; code throws I2C bus error
+
+**Root Cause:**
+- EV3 I2C bus conflicts when multiple sensors polled simultaneously
+- Pixy initialization incomplete after power-on
+- Default I2C timeout too aggressive
+
+**Solution Implemented:**
+1. **Add initialization delay** – Wait 2 seconds after EV3 boot before I2C communication
+2. **Implement retry mechanism** – If I2C read fails, retry up to 3 times with 100 ms delay
+3. **Check data validity** – Verify parsed values are non-zero before using in calculations
+4. **Reduce polling frequency** – Check Pixy every 50 ms instead of every frame (less bus contention)
+
+**Code Addition:**
+```python
+def safe_pixy_read(max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            block = read_pixy_block()
+            if block and block['signature'] != 0:
+                return block
+        except Exception as e:
+            time.sleep(0.1)
+    return None  # Return None if all attempts fail
+```
+
+### Problem 6: Line Detection Missing at Track Corners
+
+**Symptom:** Robot fails to detect turn lines when approaching perpendicular to line
+
+**Root Cause:**
+- Color sensor positioned too low, only sees paint edge not full line
+- Color value ambiguous between track surface and line
+- Detection logic too strict on color matching
+
+**Solution Implemented:**
+1. **Reposition sensor** – Raised color sensor by 0.5 cm to see more of line surface
+2. **Relax color thresholds** – Accepted both blue (1, 2) and orange (5, 7) codes
+3. **Add spatial filtering** – Ignore single-frame detections; require sustained detection
+4. **Fallback to dead reckoning** – If line not detected for 3 seconds, estimate turn based on timing
+
+### Problem 7: Battery Voltage Sag Under Load
+
+**Symptom:** Motor speed decreases noticeably after 10 minutes of operation; steering becomes sluggish
+
+**Root Cause:**
+- Battery voltage drops from 7.5V (full) to 5.8V (depleted) under 1.5A motor draw
+- EV3 voltage regulator has minimum input requirement (5.5V)
+- Peak current during acceleration/steering causes transient voltage dips
+
+**Solution Implemented:**
+1. **Use high-discharge Li-Po battery** – Chose 35C discharge rate (1500 mAh) for lower impedance
+2. **Add power conditioning** – Installed 100 µF capacitor on motor supply for surge buffering
+3. **Monitor battery voltage** – Added warning at <6V to stop before regulator dropout
+4. **Optimize motor usage** – Reduced acceleration ramps to minimize current peaks
+
+### Problem 8: ev3dev Package Version Conflicts
+
+**Symptom:** Code works on development PC but fails on EV3: `ImportError: No module named ev3dev2`
+
+**Root Cause:**
+- Installed `ev3dev` (v1) instead of `ev3dev2` (v2)
+- Python 2 vs Python 3 library mismatch
+- PATH environment variable not updated
+
+**Solution Implemented:**
+1. **Explicit pip3 install** – Always use `pip3 install ev3dev2` (not pip)
+2. **Verify installation** – Run `python3 -c "import ev3dev2; print(ev3dev2.__version__)"`
+3. **Create requirements.txt** – Document all dependencies for reproducible setup
+4. **Use virtual environment** – Set up isolated Python env to prevent conflicts
+
+**Prevention:**
+```bash
+# Create requirements.txt
+echo "ev3dev2==2.1.5" > requirements.txt
+pip3 install -r requirements.txt
+```
+
+### Debugging Tips & Tricks
+
+**Enable verbose logging:**
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+# Log all EV3 sensor reads
+logger = logging.getLogger("ev3dev2.sensor")
+logger.setLevel(logging.DEBUG)
+```
+
+**Use EV3 LCD display for troubleshooting:**
+```python
+from ev3dev2.leds import Leds
+from ev3dev2.speaker import Speaker
+
+leds = Leds()
+speaker = Speaker()
+
+# Beep + LED indicator for state
+leds.set_color('LEFT', 'RED')
+speaker.beep(1, 200)  # 1 beep, 200 Hz
+```
+
+**Remote debugging via SSH:**
+```bash
+# Monitor code execution in real-time
+ssh robot@192.168.137.3 "tail -f /tmp/robot.log"
+
+# Kill stuck processes
+ssh robot@192.168.137.3 "killall python3"
+```
+
+---
+
+**Get your robot running in 5 minutes:**
+
+1. **Flash ev3dev** on microSD card
+2. **Connect via USB**: `ssh robot@192.168.137.3`
+3. **Install libraries**: `pip3 install ev3dev2 opencv-python`
+4. **Copy code**: `scp open-challenge-code.py robot@192.168.137.3:/home/robot/`
+5. **Run**: `python3 open-challenge-code.py`
 
 ---
 
