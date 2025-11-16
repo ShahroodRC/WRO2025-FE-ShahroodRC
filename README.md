@@ -51,16 +51,6 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [🔄 Our Path – Platform Evolution](#-our-path--platform-evolution)
 - [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
 - [📊 Performance Metrics & Statistics](#-performance-metrics--statistics)
-- [🔌 Electrical Diagram & Hardware Specs](#-electrical-diagram--hardware-specs)
-  - [Problem 1: Pixy 2.1 False Positives in Low Light](#problem-1-pixy-21-false-positives-in-low-light)
-  - [Problem 2: Ultrasonic Sensor Noise from Angled Walls](#problem-2-ultrasonic-sensor-noise-from-angled-walls)
-  - [Problem 3: Color Sensor Inconsistency Under Vibration](#problem-3-color-sensor-inconsistency-under-vibration)
-  - [Problem 4: Motor Slippage During Sharp Turns](#problem-4-motor-slippage-during-sharp-turns)
-  - [Problem 5: Pixy I2C Communication Timeouts](#problem-5-pixy-i2c-communication-timeouts)
-  - [Problem 6: Line Detection Missing at Track Corners](#problem-6-line-detection-missing-at-track-corners)
-  - [Problem 7: Battery Voltage Sag Under Load](#problem-7-battery-voltage-sag-under-load)
-  - [Problem 8: ev3dev Package Version Conflicts](#problem-8-ev3dev-package-version-conflicts)
-  - [🧠 Debugging Tips & Tricks](#debugging-tips--tricks)
 - [📊 Performance Metrics](#-performance-metrics)
 - [🤖 Robot Components Overview](#-robot-components-overview)
   - [🔧 Components Overview](#-components-overview)
@@ -79,7 +69,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
   - [📏 Ultrasonic Sensor Code](#ultrasonic-sensor-code)
   - [🔘 Button Control Code](#button-control-code)
   - [⚡ Main Control Flow](#main-control-flow)
-- [🚗 Mobility Management](#-mobility-management)
+- [🚗 Mobility Management](#mobility-management)
   - [1. 📍 Introduction to Mobility System](#1-introduction-to-mobility-system)
   - [2. ⚙️ Motors and Actuators](#2-motors-and-actuators)
   - [3. 📡 Sensor Integration for Mobility](#3-sensor-integration-for-mobility)
@@ -89,13 +79,14 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
   - [7. 🧪 Testing and Optimization](#7-testing-and-optimization)
   - [8. ✅ Conclusion](#8-conclusion)
 - [⚡ Power and Sense Management](#-power-and-sense-management)
-  - [1. 🔋 Power Supply and Distribution](#1-power-supply-and-distribution)
-  - [2. 📊 Power Consumption Overview](#2-power-consumption-overview)
-  - [3. 📡 Sensor Architecture and Management](#3-sensor-architecture-and-management)
-  - [4. 🔗 Wiring and Safety](#4-wiring-and-safety)
-  - [5. 🔍 Diagnostics and Monitoring](#5-diagnostics-and-monitoring)
-  - [6. ⚙️ Optimization Techniques](#6-optimization-techniques)
-  - [7. ✅ Conclusion](#7-conclusion)
+    - [1. 🔋 Power Supply and Distribution](#1--power-supply-and-distribution)
+        - [Hardware Specifications & Electrical Diagram](#hardware-specifications--electrical-diagram)
+    - [2. 📊 Power Consumption Overview](#2--power-consumption-overview)
+    - [3. 📡 Sensor Architecture and Management](#3--sensor-architecture-and-management)
+    - [4. 🔗 Wiring and Safety](#4--wiring-and-safety)
+    - [5. 🔍 Diagnostics and Monitoring](#5--diagnostics-and-monitoring)
+    - [6. ⚙️ Optimization Techniques](#6-️-optimization-techniques)
+    - [7. ✅ Conclusion](#7--conclusion)
 - [🚧 Obstacle Management](#obstacle-management-obstacle-avoidance-and-parking-management)
   - [🏁 Qualification Round (Open Challenge)](#qualification-round-open-challenge)
   - [🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
@@ -126,80 +117,160 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 ---
 
-## 🔌 Electrical Diagram & Hardware Specs
+## The Team
 
-### EV3 Brick Port Reference
+We are the ShahroodRC team, a group of students passionate about robotics, electronics, and programming, working toward the WRO 2025 competition in the Future Engineers category.
+
+### 👨‍💼 Sepehr Yavarzadeh
+- **Role**: Project Manager and Software Engineer.
+- **Age**: 16
+- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year I won the third place in our national competition in Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing tennis. I'm passionate about programming, physics and math.  
+- sepehryavarzadeh@gmail.com
+
+- [Github](https://github.com/Sepehryy)
+- [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
+- [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
 
 <div align="center">
-<img src="pictures/robot-components/ev3-brick-ports.jpg" alt="LEGO EV3 Brick Port Diagram" width="70%"/>
-<p><em>Official LEGO EV3 port diagram showing motor and sensor connections</em></p>
+<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="60%"> 
+<p>Sepehr Yavarzadeh</p>
 </div>
 
-### Circuit & Wiring Diagram (Coming Soon)
+---
+
+### 👨🏼‍🔧 Nikan Bashiri
+- **Role**: Mechanical and Electronics Specialist.
+- **Age**: 17
+- **Description**: Hi everyone! I'm Nikan from Iran. I'm an advanced LEGO robotics instructor at a training center, with experience participating in 5 WRO (World Robot Olympiad) selection rounds. My expertise focuses on mechanical/electronic systems and LEGO set design.  
+- nikanbsr@gmail.com
+- [Instagram](https://www.instagram.com/nikanbsr/)
 
 <div align="center">
-<!-- TODO: Insert robot wiring/circuit diagram image here -->
-<img src="pictures/robot-components/robot-wiring-diagram.jpg" alt="Robot Wiring & Circuit Diagram" width="70%"/>
-<p><em>Robot wiring and circuit layout (to be added)</em></p>
+<img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="60%"> 
+<p>Nikan Bashiri</p>
 </div>
 
-### Power Distribution Architecture
+---
 
-```
-┌─────────────────────┐
-│  Battery (9V)       │  ← 6x AA batteries in series
-│  (6x AA, 1.5V each) │
-└──────────┬──────────┘
-           │
-           ↓
-   ┌───────────────────┐
-   │ EV3 Brick Port    │  ← Main Power Distribution
-   │ (45544 Core)      │
-   └───────────────────┘
-           │
-     ┌─────┴─────────────────────┐
-     │                           │
-     ↓ OUTPUT_C/D (4.5V PWM)     ↓ Sensor Power (3.3V)
-  ┌──────────┐            ┌──────────────────┐
-  │ Medium   │            │ Sensor Ports     │
-  │ Motor    │            ├──────────────────┤
-  │ (Drive)  │            │ INPUT_1: Pixy 2.1
-  └──────────┘            │ INPUT_2: Ultrasonic
-  ┌──────────┐            │ INPUT_3: Ultrasonic
-  │ Medium   │ OUTPUT_B   │ INPUT_4: Color
-  │ Motor    │            └──────────────────┘
-  │ (Steer)  │            (I2C Bus, 5V)
-  └──────────┘
-```
+### 🧑‍💻 Amirparsa Saemi
+- **Role**: Lead Developer and Algorithm Designer.
+- **Age**: 19
+- **Description**: Hey! I'm Amirparsa and this is my third year competing in WRO. I'm a professional ping-pong player and super passionate about math and physics. I'm studying computer science at university and love diving into programming challenges.
+- amirparsa.saemi2021@gmail.com
+- [Instagram](https://www.instagram.com/hotaru_tempest/)
 
-### Pin Configuration
+<div align="center">
+<img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="60%"> 
+<p>Amirparsa Saemi</p>
+</div>
 
-| Port | Device | Type | Voltage | Connection |
-|------|--------|------|---------|------------|
-| OUTPUT_B | Medium Motor (Steering) | Motor | 4.5V | 2-Pin EV3 Motor |
-| OUTPUT_D | Medium Motor (Drive) | Motor | 4.5V | 2-Pin EV3 Motor |
-| INPUT_1 | Pixy 2.1 Camera | I2C | 5V | Custom I2C Adapter |
-| INPUT_2 | Ultrasonic Sensor (Right) | Digital | 3.3V | 6-Pin EV3 Cable |
-| INPUT_3 | Ultrasonic Sensor (Left) | Digital | 3.3V | 6-Pin EV3 Cable |
-| INPUT_4 | Color Sensor | Analog | 3.3V | 6-Pin EV3 Cable |
+---
 
-### Power Specifications
+### 👨🏻‍🏫 Ali Raeesian
+- **Role**: Coach
+- **Age**: 24
+- **Description**: Ali Raeisian, a B.Sc. graduate in Computer Engineering, is currently pursuing a Master’s degree in Computer Science with a focus on software. A former WRO competitor, he participated in the 2016 WRO global competition in India in the robot soccer category. Now, he specializes in game development, contributing his expertise to both technical and creative aspects of the field.
 
-| Component | Voltage | Current (Idle) | Current (Active) | Power |
-|-----------|---------|----------------|------------------|-------|
-| EV3 Brick | 9V | 50mA | 200mA | 1.8W |
-| Medium Motor (Drive) | 4.5V | 0A | 400-600mA | 1.8-2.7W |
-| Medium Motor (Steer) | 4.5V | 0A | 300-500mA | 1.35-2.25W |
-| Pixy 2.1 | 5V | 80mA | 140mA | 0.7W |
-| 2x Ultrasonic Sensors | 3.3V | 60mA | 80mA | 0.26W |
-| Color Sensor | 3.3V | 20mA | 35mA | 0.1W |
-| **TOTAL** | | **~210mA** | **~1700mA** | **~8.8W peak** |
+- raeesianali@gmail.com
+- [Github](https://github.com/SheykhAlii)
+- [Instagram](https://www.instagram.com/ali_raeesiian/)
+  
+<div align="center">
+<img src="team-photos/Ali-Raeesian.jpg" alt="Ali Raeesian" width="60%"> 
+<p>Ali Raeesian</p>
+</div>
 
-**Battery Runtime:**
-- Battery Capacity: 6x AA (2500-2800 mAh typical)
-- Total: ~2650 mAh (9.6 Wh)
-- Runtime at peak (2A): ~1.3 hours
-- **Competition runtime (alternating low/peak)**: ~3-4 hours ✅
+---
+
+### 👨🏻‍🏫 Hossein Bagheri
+- **Role**: Manager
+- **Age**: 50
+- **Description**: He is the founder of Shahrood's educational Lego institute. 
+
+- [Instagram](https://www.instagram.com/ho.bagheri/)
+  
+<div align="center">
+<img src="team-photos/Hossein-Bagheri.jpg" alt="Hossein Bagheri" width="60%"> 
+<p>Hossein Bagheri</p>
+</div>
+
+---
+
+### ShahroodRC Team
+<div align="center">
+<img src="team-photos/team-2.jpg" alt="ShahroodRC" width="60%"> 
+<p>The ShahroodRC Team</p>
+</div> 
+
+> In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
+
+---
+
+## National Championship Victory
+
+### Overview
+The ShahroodRC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this triumph highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
+
+### Competition Highlights
+- **Event**: Iran National Robotics Competition (WRO 2025 Qualifier)
+- **Date**: August 2025
+- **Location**: Rasht, Iran
+- **Achievement**: 1st Place, qualifying for WRO 2025 International Final
+- **Key Moment**: Our robot successfully completed both the Open and Obstacle Challenges, demonstrating precision and reliability under competitive pressure.
+
+### Visuals
+<div align="center">
+<img src="team-photos/Shahrood_RC_first_place.jpg" alt="ShahroodRC Team championship" width="60%">
+<p>ShahroodRC’s championship victory at the National WRO Competition</p>
+<img src="team-photos/Shahrood_RC_with_medals.jpg" alt="ShahroodRC Team with Award" width="60%">
+<p>ShahroodRC Team celebrating their 1st Place victory</p>
+<img src="team-photos/Shahrood_RC_in_national_competition.jpg" alt="ShahroodRC Team in national competition" width="60%">
+<p>ShahroodRC Team in National Final</p>
+</div>
+<div align="center">
+<img src="pictures/national-championship-robot.jpg" alt="Robot in Action" width="60%">
+<p>Our robot in action during the National Championship</p>
+</div>
+
+### Path to WRO 2025
+This national championship victory marks a significant milestone, qualifying ShahroodRC for the WRO 2025 International Final in Singapore. With the theme "The Future of Robots," we are ready to compete on the global stage, representing Iran with pride and showcasing our skills against over 500 international teams.
+
+---
+
+## Mission Overview for WRO Future Engineers Rounds
+
+| Round | Goal | Key Tasks |
+|-------|------|-----------|
+| **Qualification – Open Challenge** | 3 laps, no obstacles | Wall-follow (27-28 cm), detect **blue/orange** lines, 11 turns |
+| **Final – Obstacle Challenge** | 3 laps + parking | Avoid **green (left)** & **red (right)** pillars, park in 25 × 25 cm zone |
+
+<table>
+  <tr>
+    <td width="50%" valign="top" align="left">
+      <h3>🏁 Qualification Round: Open Challenge</h3>
+      <p>Robot must complete laps on a track without obstacles, demonstrating precision in wall-following and line detection.</p>
+      <ul>
+        <li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 11 turns.</li>
+      </ul>
+      <div align="center">
+        <img src="pictures/open-challenge-track.jpg" alt="Open Challenge Track" width="250" />
+      </div>
+    </td>
+    <td width="50%" valign="top" align="left">
+      <h3>🏆 Final Round: Obstacle Challenge</h3>
+      <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in designated zone.</p>
+      <ul>
+        <li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li>
+      </ul>
+      <div align="center">
+        <img src="pictures/obstacle-challenge-track.jpg" alt="Obstacle Challenge Track" width="250" />
+      </div>
+    </td>
+  </tr>
+</table>
+
+> [!IMPORTANT]
+> **WRO Future Engineers Rulebook**: Thoroughly read the rulebook for all guidelines. Official link: [WRO Future Engineers 2025 Rulebook](WRO-2025-Future-Engineers-Self-Driving-Cars-General-Rules.pdf). Key rules: Open – no obstacles, 3 laps; Obstacle – avoid pillars, park after laps.
 
 ---
 
@@ -396,164 +467,6 @@ Run these checks before competition:
 
 ---
 
-
-## The Team
-
-We are the ShahroodRC team, a group of students passionate about robotics, electronics, and programming, working toward the WRO 2025 competition in the Future Engineers category.
-
-### 👨‍💼 Sepehr Yavarzadeh
-- **Role**: Project Manager and Software Engineer.
-- **Age**: 16
-- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year I won the third place in our national competition in Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing tennis. I'm passionate about programming, physics and math.  
-- sepehryavarzadeh@gmail.com
-
-- [Github](https://github.com/Sepehryy)
-- [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
-- [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
-
-<div align="center">
-<img src="team-photos/Sepehr-Yavarzadeh.jpg" alt="Sepehr Yavarzadeh" width="60%"> 
-<p>Sepehr Yavarzadeh</p>
-</div>
-
----
-
-### 👨🏼‍🔧 Nikan Bashiri
-- **Role**: Mechanical and Electronics Specialist.
-- **Age**: 17
-- **Description**: Hi everyone! I'm Nikan from Iran. I'm an advanced LEGO robotics instructor at a training center, with experience participating in 5 WRO (World Robot Olympiad) selection rounds. My expertise focuses on mechanical/electronic systems and LEGO set design.  
-- nikanbsr@gmail.com
-- [Instagram](https://www.instagram.com/nikanbsr/)
-
-<div align="center">
-<img src="team-photos/Nikan-Bashiri.jpg" alt="Nikan Bashiri" width="60%"> 
-<p>Nikan Bashiri</p>
-</div>
-
----
-
-### 🧑‍💻 Amirparsa Saemi
-- **Role**: Lead Developer and Algorithm Designer.
-- **Age**: 19
-- **Description**: Hey! I'm Amirparsa and this is my third year competing in WRO. I'm a professional ping-pong player and super passionate about math and physics. I'm studying computer science at university and love diving into programming challenges.
-- amirparsa.saemi2021@gmail.com
-- [Instagram](https://www.instagram.com/hotaru_tempest/)
-
-<div align="center">
-<img src="team-photos/Amirparsa-Saemi.jpg" alt="Amirparsa Saemi" width="60%"> 
-<p>Amirparsa Saemi</p>
-</div>
-
----
-
-### 👨🏻‍🏫 Ali Raeesian
-- **Role**: Coach
-- **Age**: 24
-- **Description**: Ali Raeisian, a B.Sc. graduate in Computer Engineering, is currently pursuing a Master’s degree in Computer Science with a focus on software. A former WRO competitor, he participated in the 2016 WRO global competition in India in the robot soccer category. Now, he specializes in game development, contributing his expertise to both technical and creative aspects of the field.
-
-- raeesianali@gmail.com
-- [Github](https://github.com/SheykhAlii)
-- [Instagram](https://www.instagram.com/ali_raeesiian/)
-  
-<div align="center">
-<img src="team-photos/Ali-Raeesian.jpg" alt="Ali Raeesian" width="60%"> 
-<p>Ali Raeesian</p>
-</div>
-
----
-
-### 👨🏻‍🏫 Hossein Bagheri
-- **Role**: Manager
-- **Age**: 50
-- **Description**: He is the founder of Shahrood's educational Lego institute. 
-
-- [Instagram](https://www.instagram.com/ho.bagheri/)
-  
-<div align="center">
-<img src="team-photos/Hossein-Bagheri.jpg" alt="Hossein Bagheri" width="60%"> 
-<p>Hossein Bagheri</p>
-</div>
-
----
-
-### ShahroodRC Team
-<div align="center">
-<img src="team-photos/team-2.jpg" alt="ShahroodRC" width="60%"> 
-<p>The ShahroodRC Team</p>
-</div> 
-
-> In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
-
----
-
-## National Championship Victory
-
-### Overview
-The ShahroodRC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this triumph highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
-
-### Competition Highlights
-- **Event**: Iran National Robotics Competition (WRO 2025 Qualifier)
-- **Date**: August 2025
-- **Location**: Rasht, Iran
-- **Achievement**: 1st Place, qualifying for WRO 2025 International Final
-- **Key Moment**: Our robot successfully completed both the Open and Obstacle Challenges, demonstrating precision and reliability under competitive pressure.
-
-### Visuals
-<div align="center">
-<img src="team-photos/Shahrood_RC_first_place.jpg" alt="ShahroodRC Team championship" width="60%">
-<p>ShahroodRC’s championship victory at the National WRO Competition</p>
-<img src="team-photos/Shahrood_RC_with_medals.jpg" alt="ShahroodRC Team with Award" width="60%">
-<p>ShahroodRC Team celebrating their 1st Place victory</p>
-<img src="team-photos/Shahrood_RC_in_national_competition.jpg" alt="ShahroodRC Team in national competition" width="60%">
-<p>ShahroodRC Team in National Final</p>
-</div>
-<div align="center">
-<img src="pictures/national-championship-robot.jpg" alt="Robot in Action" width="60%">
-<p>Our robot in action during the National Championship</p>
-</div>
-
-### Path to WRO 2025
-This national championship victory marks a significant milestone, qualifying ShahroodRC for the WRO 2025 International Final in Singapore. With the theme "The Future of Robots," we are ready to compete on the global stage, representing Iran with pride and showcasing our skills against over 500 international teams.
-
----
-
-
-## Mission Overview for WRO Future Engineers Rounds
-
-| Round | Goal | Key Tasks |
-|-------|------|-----------|
-| **Qualification – Open Challenge** | 3 laps, no obstacles | Wall-follow (27-28 cm), detect **blue/orange** lines, 11 turns |
-| **Final – Obstacle Challenge** | 3 laps + parking | Avoid **green (left)** & **red (right)** pillars, park in 25 × 25 cm zone |
-
-<table>
-  <tr>
-    <td width="50%" valign="top" align="left">
-      <h3>🏁 Qualification Round: Open Challenge</h3>
-      <p>Robot must complete laps on a track without obstacles, demonstrating precision in wall-following and line detection.</p>
-      <ul>
-        <li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 11 turns.</li>
-      </ul>
-      <div align="center">
-        <img src="pictures/open-challenge-track.jpg" alt="Open Challenge Track" width="250" />
-      </div>
-    </td>
-    <td width="50%" valign="top" align="left">
-      <h3>🏆 Final Round: Obstacle Challenge</h3>
-      <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in designated zone.</p>
-      <ul>
-        <li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li>
-      </ul>
-      <div align="center">
-        <img src="pictures/obstacle-challenge-track.jpg" alt="Obstacle Challenge Track" width="250" />
-      </div>
-    </td>
-  </tr>
-</table>
-
-> [!IMPORTANT]
-> **WRO Future Engineers Rulebook**: Thoroughly read the rulebook for all guidelines. Official link: [WRO Future Engineers 2025 Rulebook](WRO-2025-Future-Engineers-Self-Driving-Cars-General-Rules.pdf). Key rules: Open – no obstacles, 3 laps; Obstacle – avoid pillars, park after laps.
-
----
 
 ## 📂 Repository Navigation
 
@@ -2007,43 +1920,108 @@ This documentation, with the LEGO chassis design (`3d-files/robot_complete.io`),
 ---
 
 
-## Power and Sense Management
+## ⚡ Power and Sense Management
 
-This section outlines how electrical power is distributed across the robot and how all sensors — including a customized Pixy Cam integration — are managed to ensure efficient and stable performance during the WRO 2025 challenges.
+This section merges the full electrical architecture, hardware specifications, and power/sensor management for the ShahroodRC robot. It covers battery, wiring, port assignments, power consumption, and sensor integration for WRO 2025.
 
 ---
 
-### 1. **Power Supply and Distribution**
-
+### 1. 🔋 Power Supply and Distribution
 - **Primary Power Source**: The robot is powered by the official **LEGO EV3 Rechargeable Battery Pack**, delivering a stable **10V** to the EV3 Intelligent Brick and all peripherals.
 - **Secondary Power Pack**: A custom 3-cell battery pack (approximately 11.1V, 1000 mAh) is integrated below the EV3 Brick and above the differential, dedicated exclusively to powering two additional components:
-
     - **Cooling Fan**: A small fan (drawing ~50 mA) is positioned in front of the Pixy Cam to prevent overheating during prolonged operation, maintaining optimal performance (temperature kept below 45°C in tests).
     - **Front LEDs**: Two LEDs (total draw ~30 mA) are mounted at the front to enhance visibility in low-light conditions, improving Pixy Cam obstacle detection accuracy by approximately 15% in dim environments (500 lux or less).
     - This secondary power pack is isolated from the EV3 system to prevent interference, with wiring secured using insulated connectors and tested for stability under load.
 - **Internal Voltage Regulation**: The **EV3 Brick** handles internal voltage regulation and supplies power through four motor ports and four sensor ports. No external converters were required for standard LEGO components.
 - **Operational Stability**: During development and testing, voltage delivery remained stable (measured deviation < 0.2V) without signs of overheating — even under maximum motor and sensor load. The primary battery pack was tested for 5 minutes under full load (motors and sensors active), showing no performance degradation.
 
+### Hardware Specifications & Electrical Diagram
+
+#### EV3 Brick Port Reference
+<div align="center">
+<img src="pictures/robot-components/ev3-brick-ports.jpg" alt="LEGO EV3 Brick Port Diagram" width="70%"/>
+<p><em>Official LEGO EV3 port diagram showing motor and sensor connections</em></p>
+</div>
+
+#### Circuit & Wiring Diagram (Coming Soon)
+<div align="center">
+<!-- TODO: Insert robot wiring/circuit diagram image here -->
+<img src="pictures/robot-components/robot-wiring-diagram.jpg" alt="Robot Wiring & Circuit Diagram" width="70%"/>
+<p><em>Robot wiring and circuit layout (to be added)</em></p>
+</div>
+
+#### Power Distribution Architecture
+```
+┌─────────────────────┐
+│  Battery (9V)       │  ← 6x AA batteries in series
+│  (6x AA, 1.5V each) │
+└──────────┬──────────┘
+           │
+           ↓
+   ┌───────────────────┐
+   │ EV3 Brick Port    │  ← Main Power Distribution
+   │ (45544 Core)      │
+   └───────────────────┘
+           │
+     ┌─────┴─────────────────────┐
+     │                           │
+     ↓ OUTPUT_C/D (4.5V PWM)     ↓ Sensor Power (3.3V)
+  ┌──────────┐            ┌──────────────────┐
+  │ Medium   │            │ Sensor Ports     │
+  │ Motor    │            ├──────────────────┤
+  │ (Drive)  │            │ INPUT_1: Pixy 2.1
+  └──────────┘            │ INPUT_2: Ultrasonic
+  ┌──────────┐            │ INPUT_3: Ultrasonic
+  │ Medium   │ OUTPUT_B   │ INPUT_4: Color
+  │ Motor    │            └──────────────────┘
+  │ (Steer)  │            (I2C Bus, 5V)
+  └──────────┘
+```
+
+#### Pin Configuration
+| Port | Device | Type | Voltage | Connection |
+|------|--------|------|---------|------------|
+| OUTPUT_B | Medium Motor (Steering) | Motor | 4.5V | 2-Pin EV3 Motor |
+| OUTPUT_D | Medium Motor (Drive) | Motor | 4.5V | 2-Pin EV3 Motor |
+| INPUT_1 | Pixy 2.1 Camera | I2C | 5V | Custom I2C Adapter |
+| INPUT_2 | Ultrasonic Sensor (Right) | Digital | 3.3V | 6-Pin EV3 Cable |
+| INPUT_3 | Ultrasonic Sensor (Left) | Digital | 3.3V | 6-Pin EV3 Cable |
+| INPUT_4 | Color Sensor | Analog | 3.3V | 6-Pin EV3 Cable |
+
+#### Power Specifications
+| Component | Voltage | Current (Idle) | Current (Active) | Power |
+|-----------|---------|----------------|------------------|-------|
+| EV3 Brick | 9V | 50mA | 200mA | 1.8W |
+| Medium Motor (Drive) | 4.5V | 0A | 400-600mA | 1.8-2.7W |
+| Medium Motor (Steer) | 4.5V | 0A | 300-500mA | 1.35-2.25W |
+| Pixy 2.1 | 5V | 80mA | 140mA | 0.7W |
+| 2x Ultrasonic Sensors | 3.3V | 60mA | 80mA | 0.26W |
+| Color Sensor | 3.3V | 20mA | 35mA | 0.1W |
+| **TOTAL** | | **~210mA** | **~1700mA** | **~8.8W peak** |
+
+**Battery Runtime:**
+- Battery Capacity: 6x AA (2500-2800 mAh typical)
+- Total: ~2650 mAh (9.6 Wh)
+- Runtime at peak (2A): ~1.3 hours
+- **Competition runtime (alternating low/peak)**: ~3-4 hours ✅
+
 ---
 
-### 2. **Power Consumption Overview**
-
+### 2. 📊 Power Consumption Overview
 - **Motors**: In the **Open Challenge**, two **EV3 Medium Motors** for propulsion draw approximately **150–200 mA** each (total 300–400 mA) during standard operation, peaking at **500 mA** per motor under stall conditions. In the Obstacle Challenge, a single propulsion motor draws **150–200 mA**, peaking at **500 mA**. The steering motor draws approximately **100–150 mA**, peaking at **250 mA** for sharp turns.
 - **Sensors**: Built-in LEGO sensors (e.g., ultrasonic, color) typically consume under **100 mA**, remaining well within EV3’s supply limits.
 - **Pixy 2.1 (Direct EV3 Sensor Port Integration)**: Four EV3 internal wires were identified (via continuity testing) and connected to the Pixy Cam’s I2C port:
   - **Red** → 5V (Pixy power input)
   - **Blue** → GND
   - **Yellow** → SDA
-  - **Green** → SCL  
+  - **Green** → SCL
   The unused **white** and **black** wires were insulated and left unconnected. Pixy Cam draws approximately **130–170 mA**, a value confirmed safe through multimeter testing. Based on compatibility tests, no level shifters were required.
 
 ---
 
-### 3. **Sensor Architecture and Management**
-
+### 3. 📡 Sensor Architecture and Management
 - **Central Control Unit**: All sensors, including the non-standard Pixy Cam, interface directly with the EV3 Brick.
 - **Port Allocation Table**:
-
 | Port | Sensor             | Function                                                     |
 |------|--------------------|--------------------------------------------------------------|
 | 1    | Pixy 2.1           | Image processing / Obstacle detection                        |
@@ -2055,60 +2033,48 @@ This section outlines how electrical power is distributed across the robot and h
 
 ---
 
-### 4. **Wiring and Safety**
-
+### 4. 🔗 Wiring and Safety
 - **Standard Wiring**: All LEGO components are connected using official RJ-type sensor cables to maintain signal integrity and mechanical reliability.
-
-- **Pixy Cam Integration (Custom Wiring)**:  
+- **Pixy Cam Integration (Custom Wiring)**:
   To interface the Pixy 2.1 with the EV3 Brick, one original EV3 sensor cable (6-wire) was carefully cut and modified. The internal wires were accessed, and **four out of six** were soldered to the Pixy Cam's I2C interface:
-
   **Connected Wires**:
-  - **Red** → Pixy 5V  
-  - **Blue** → Pixy GND  
-  - **Yellow** → Pixy SDA  
+  - **Red** → Pixy 5V
+  - **Blue** → Pixy GND
+  - **Yellow** → Pixy SDA
   - **Green** → Pixy SCL
-
   **Unused**:
-  - **White** → not required  
-  - **Black** → extra ground, left unconnected  
-
+  - **White** → not required
+  - **Black** → extra ground, left unconnected
     <div align="center">
       <img src="robot-photos/pixy-cam-wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
       <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
     </div>
-
   This setup enabled direct power and I2C communication via EV3’s sensor port without needing external regulators or level converters. Continuity and voltage checks confirmed proper signal routing; runtime tests validated stable behavior in all modes.
-
   **Warning**: Cutting and soldering EV3 sensor cables requires caution to avoid electrical hazards. Ensure the EV3 Brick is powered off and use insulated tools.
   1. Cut one EV3 sensor cable and identify wires using a multimeter (Red=5V, Blue=GND, Yellow=SDA, Green=SCL).
   2. Solder Red to Pixy 5V, Blue to GND, Yellow to SDA, Green to SCL.
   3. Insulate White and Black wires with electrical tape.
   4. Test connections with a multimeter before powering on.
-
 > ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both multimeter and long-duration load testing.*
-
 - **Heat and Overload Protection**: The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
 
 ---
 
-### 5. **Diagnostics and Monitoring**
-
+### 5. 🔍 Diagnostics and Monitoring
 - **Battery Monitoring**: The EV3 firmware alerts users when battery voltage drops below approximately **6.5V**.
 - **Sensor Health Checks**: Custom scripts run background checks; if a sensor fails to respond within **500ms**, an error is logged and displayed.
 - **Low-Power Strategy**: If battery voltage becomes critically low, the robot disables non-essential functions (e.g., Pixy Cam video feedback) to preserve core operations.
 
 ---
 
-### 6. **Optimization Techniques**
-
+### 6. ⚙️ Optimization Techniques
 - **Idle Power Saving**: Motors and sensors enter low-power mode when not in use.
 - **Sensor Prioritization**: The color and primary ultrasonic sensors are prioritized in polling frequency for real-time decisions.
 - **Dynamic Resource Allocation**: System resources are reassigned dynamically based on active tasks, such as task-specific navigation.
 
 ---
 
-### 7. **Conclusion**
-
+### 7. ✅ Conclusion
 The ShahroodRC robot’s power and sensor systems demonstrate reliable hardware integration, clean custom wiring, and adaptive software routines. The direct EV3 port integration of the Pixy Cam without extra hardware, combined with the secondary battery pack for the cooling fan and front LEDs, shows that simple, well-tested solutions can achieve robust performance and maintain full compatibility for WRO 2025 challenges.
 
 ---
