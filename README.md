@@ -1182,7 +1182,7 @@ The **mobility system** integrates a **powertrain** (rear-wheel drive with a sim
 The complete LEGO chassis design, shown in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration.
 <br>
 <img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300">
-<img src="3d-files/robot-topright-3d.jpg" alt="3D Top Right View" width="300">
+<img src="3d-files/robot-topleft-3d.jpg" alt="3D Top Left View" width="300">
 
 **Overview**
 The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering) (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is shown in `3d-files/robot_complete.io`.
@@ -3390,7 +3390,6 @@ During development, the team tested several alternative components that were not
 ```
 WRO2025-FE-ShahroodRC/
 ├── 📄 README.md                          # Complete documentation (you are here!)
-├── 📄 LICENSE                            # MIT License
 │
 ├── 📂 codes/                             # Python scripts (ev3dev)
 │   ├── open-challenge-code.py           # Qualification challenge (wall-follow + line detect)
@@ -3400,31 +3399,37 @@ WRO2025-FE-ShahroodRC/
 ├── 📂 3d-files/                          # Design files & visualizations
 │   ├── robot_complete.io                # LEGO chassis design (all components)
 │   ├── pixy-cam-mount.stl               # 3D-printable Pixy 2.1 camera mount
-│   ├── 3d-files.md                      # Design notes
-│   ├── robot-front-3d.jpg               # 3D render (front view)
-│   └── robot-topright-3d.jpg            # 3D render (top-right view)
+│   ├── *.jpg                            # Various 3D renders
+│   └── 3d-files.md                      # Design notes
 │
 ├── 📂 pictures/                          # Component diagrams & charts
-│   ├── shahroodrc-logo.jpg              # Team logo
 │   ├── randomizer-screenshots/          # App UI screenshots
 │   ├── robot-components/                # Component photos
-│   └── *.jpg                            # Various technical visualizations
+│   ├── shahroodrc-logo.jpg              # Team logo
+│   ├── *.jpg, *.svg                     # Various technical visualizations
+|   └── 3d-files.md                      # 3D files and photos' notes
 │
 ├── 📂 robot-photos/                      # Physical robot images
 │   ├── robot-front.jpg, robot-back.jpg  # Front & back views
 │   ├── robot-left.jpg, robot-right.jpg  # Side views
 │   ├── robot-top.jpg, robot-bottom.jpg  # Top & bottom views
-│   └── robot.jpg                        # 3-quarter view
+│   ├── robot.jpg                        # 3-quarter view
+│   ├── *.jpg                            # Various photos of robot different parts
+|   └── robot-photos.md                  # Robot photos' notes
 │
 ├── 📂 team-photos/                       # Team & achievement photos
 │   ├── [Team member photos]
-│   └── championship photos
+│   ├── [championship photos]
+│   └── team-photos.md                   # Team photos folder notes
 │
 ├── 📂 videos/                            # Performance recordings
 │   ├── open-challenge.mp4               # Qualification run
-│   └── obstacle-challenge.mp4           # Final challenge run
+│   ├── obstacle-challenge.mp4           # Final challenge run
+│   └── videos.md                        # Videos description
 │
-└── 📦 randomizer.apk                     # Android app (track generator)
+├── 📄 WRO 2025 - Future Engineers rules  # Pdf of future engineers category rules
+├── 📦 randomizer.apk                     # Android app (track generator)
+└── 📄 LICENSE                            # MIT License
 ```
 
 **📌 Key Files to Start With:**
