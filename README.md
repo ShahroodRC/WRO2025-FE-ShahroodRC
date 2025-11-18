@@ -1447,40 +1447,37 @@ This section merges the full electrical architecture, hardware specifications, a
 <p><em>Official LEGO EV3 port diagram showing motor and sensor connections</em></p>
 </div>
 
-#### Circuit & Wiring Diagram (Coming Soon)
+#### Circuit & Wiring Diagram
+
+Below are the wiring diagrams for the battery, relay, and fan. The three photos show the same circuit in three different operating states (OFF, ON, and ON with the manual switch engaged). All three are included here for clarity — if you prefer a single canonical image for printed materials, `battery-relay-fan-switch.jpg` is recommended.
+
 <div align="center">
-<!-- TODO: Insert robot wiring/circuit diagram image here -->
-<img src="pictures/robot-components/robot-wiring-diagram.jpg" alt="Robot Wiring & Circuit Diagram" width="70%"/>
-<p><em>Robot wiring and circuit layout (to be added)</em></p>
+    <img src="pictures/electrical-diagram/battery-relay-fan-off.jpg" alt="Battery + Relay + Fan (OFF)" width="60%" />
+    <p>Battery → Relay → Fan — Circuit (State: OFF)</p>
+</div>
+
+<div align="center">
+    <img src="pictures/electrical-diagram/battery-relay-fan-on.jpg" alt="Battery + Relay + Fan (ON)" width="60%" />
+    <p>Battery → Relay → Fan — Circuit (State: ON)</p>
+</div>
+
+<div align="center">
+    <img src="pictures/electrical-diagram/battery-relay-fan-switch.jpg" alt="Battery + Relay + Fan (ON with switch)" width="60%" />
+    <p>Battery → Relay → Fan — Circuit (State: ON, manual switch shown) — recommended single reference image</p>
 </div>
 
 #### Power Distribution Architecture
-```
-┌─────────────────────┐
-│  Battery (9V)       │  ← 6x AA batteries in series
-│  (6x AA, 1.5V each) │
-└──────────┬──────────┘
-           │
-           ↓
-   ┌───────────────────┐
-   │ EV3 Brick Port    │  ← Main Power Distribution
-   │ (45544 Core)      │
-   └───────────────────┘
-           │
-     ┌─────┴─────────────────────┐
-     │                           │
-     ↓ OUTPUT_C/D (4.5V PWM)     ↓ Sensor Power (3.3V)
-  ┌──────────┐            ┌──────────────────┐
-  │ Medium   │            │ Sensor Ports     │
-  │ Motor    │            ├──────────────────┤
-  │ (Drive)  │            │ INPUT_1: Pixy 2.1
-  └──────────┘            │ INPUT_2: Ultrasonic
-  ┌──────────┐            │ INPUT_3: Ultrasonic
-  │ Medium   │ OUTPUT_B   │ INPUT_4: Color
-  │ Motor    │            └──────────────────┘
-  │ (Steer)  │            (I2C Bus, 5V)
-  └──────────┘
-```
+Below is the project power distribution architecture (SVG). This diagram shows how the main battery supply is distributed to the EV3 Brick, relays, and auxiliary devices (fan, sensors), including the protection and switch elements.
+
+<div align="center">
+    <img src="pictures/electrical-diagram/power-distribution-architecture.svg" alt="Power distribution architecture" width="80%" />
+    <p>Power Distribution Architecture — high-level schematic</p>
+</div>
+
+Notes:
+- **Components**: battery pack, relay module, fan (load), manual switch and wiring interconnects shown in the photos.
+- **State descriptions**: the three photos respectively illustrate the circuit when the relay coil is de-energized (OFF), energized (ON), and energized with the manual toggle shown (SWITCH engaged).
+- **Safety**: verify polarity before connecting the battery; add fusing if using non-EV3 batteries; use insulated connectors and ensure relay ratings match the fan load.
 
 #### Pin Configuration
 | Port | Device | Type | Voltage | Connection |
