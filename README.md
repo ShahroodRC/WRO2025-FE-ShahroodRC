@@ -200,9 +200,14 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 
 ### ShahroodRC Team
 <div align="center">
-<img src="team-photos/team-2.jpg" alt="ShahroodRC" width="60%"> 
+<img src="team-photos/team.jpg" alt="ShahroodRC" width="60%"> 
 <p>The ShahroodRC Team</p>
-</div> 
+</div>
+
+<div align="center">
+<img src="team-photos/team-funny.jpg" alt="Fun Team Moment" width="60%"> 
+<p>Fun Team Moments 🎉</p>
+</div>
 
 > In this project, we aimed to combine creativity, teamwork, and technical knowledge to build an efficient robot for the challenges of WRO 2025.
 
@@ -820,7 +825,7 @@ Pin Assignment:
 
 ### 🛠️ Notes
 - **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
-- **Component Placement**: The EV3 Brick is centrally mounted for balance, with the Color Sensor at the front center (0.5–1 cm from the surface), Ultrasonic Sensors on the front left and right, and Pixy Cam elevated above the Brick for optimal obstacle detection.
+- **Component Placement**: The EV3 Brick is centrally mounted for balance, with the Color Sensor at the front center (0.5–1 cm from the surface), Ultrasonic Sensors on the front left and right, Pixy Cam elevated above the Brick for optimal obstacle detection, and the two status LEDs mounted on the top of the robot on either side of the Pixy Camera.
 - **Component Selection**: The EV3 platform was chosen for its robust ecosystem and compatibility, replacing less reliable options like the HC-SR04 Ultrasonic Sensor. The Medium Motors’ lighter weight (120 g vs. 170 g for Large Motors) optimized the robot’s 1.2 kg design for agility.
 - **Custom Parts**: A custom 3D-printed mount for the Pixy 2.1 camera (`3d-files/pixy-cam-mount.stl`) ensures optimal positioning and vibration isolation. All other components use standard LEGO pieces and connectors. The complete robot design, including LEGO chassis and component layout, is documented in `3d-files/robot_complete.io`.
 - **Lessons Learned**: 
@@ -1498,7 +1503,7 @@ This section merges the full electrical architecture, hardware specifications, a
 - **Primary Power Source**: The robot is powered by the official **LEGO EV3 Rechargeable Battery Pack**, delivering a stable **10V** to the EV3 Intelligent Brick and all peripherals.
 - **Secondary Power Pack**: A custom 3-cell battery pack (approximately 11.1V, 1000 mAh) is integrated below the EV3 Brick and above the differential, dedicated exclusively to powering two additional components:
     - **Cooling Fan**: A small fan (drawing ~50 mA) is positioned in front of the Pixy Cam to prevent overheating during prolonged operation, maintaining optimal performance (temperature kept below 45°C in tests).
-    - **Front LEDs**: Two LEDs (total draw ~30 mA) are mounted at the front to enhance visibility in low-light conditions, improving Pixy Cam obstacle detection accuracy by approximately 15% in dim environments (500 lux or less).
+    - **Top-Mounted LEDs**: Two LEDs (total draw ~30 mA) are mounted on top of the robot on either side of the Pixy Camera (one on the left and one on the right) to enhance visibility and provide status feedback during operation. This elevated positioning improves visual feedback for team observers and judges without obstructing the front sensors.
     - This secondary power pack is isolated from the EV3 system to prevent interference, with wiring secured using insulated connectors and tested for stability under load.
 - **Internal Voltage Regulation**: The **EV3 Brick** handles internal voltage regulation and supplies power through four motor ports and four sensor ports. No external converters were required for standard LEGO components.
 - **Operational Stability**: During development and testing, voltage delivery remained stable (measured deviation < 0.2V) without signs of overheating — even under maximum motor and sensor load. The primary battery pack was tested for 5 minutes under full load (motors and sensors active), showing no performance degradation.
@@ -1622,6 +1627,15 @@ Notes:
   4. Test connections with a multimeter before powering on.
 > ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both multimeter and long-duration load testing.*
 - **Heat and Overload Protection**: The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
+
+#### 🌬️ Cooling System: Fan for Thermal Management
+
+<div align="center">
+<img src="robot-photos/fan-setup.jpg" alt="Fan Cooling System" width="60%">
+<p><em>Fan Installation for Heat Dissipation During Extended Operations (positioned in front of Pixy Cam)</em></p>
+</div>
+
+The robot includes an active cooling fan positioned in front of the Pixy Camera and connected via a relay circuit to maintain optimal operating temperatures during competition runs. This ensures sustained performance without thermal throttling, particularly during the three laps required in both Open and Obstacle challenges.
 
 ### 💡 Advanced Application: EV3 Motor Port for External LED Control
 
