@@ -51,7 +51,6 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [🔄 Our Path – Platform Evolution](#-our-path--platform-evolution)
 - [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
 - [📊 Performance Metrics & Statistics](#-performance-metrics--statistics)
-- [📊 Performance Metrics](#-performance-metrics)
 - [🤖 Robot Components Overview](#-robot-components-overview)
   - [🔧 Components Overview](#-components-overview)
     - [🧠 LEGO EV3 Mindstorms Control Brick](#-lego-ev3-mindstorms-control-brick)
@@ -545,10 +544,7 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 | 50% | 4h | 5% | Good | ⚠️ Acceptable |
 | 25% | 6h | 15% | Fair | ⚠️ Marginal |
 
----
-
-
-## 📊 Performance Metrics
+### Performance Metrics
 
 | Metric | Result |
 |--------|--------|
