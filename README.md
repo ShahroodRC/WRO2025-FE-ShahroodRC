@@ -249,13 +249,13 @@ This national championship victory marks a significant milestone, qualifying Sha
   <tr>
     <td width="50%" valign="top" align="left">
       <h3>🏁 Qualification Round: Open Challenge</h3>
-      <p>Robot must complete laps...</p>
+      <p>Robot must complete laps on a track without obstacles, demonstrating precision in wall-following and line detection.</p>
       <ul><li><strong>Goal</strong>: 3 laps, no obstacles.</li></ul>
       <ul><li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 12 turns.</li></ul>
     </td>
     <td width="50%" valign="top" align="left">
       <h3>🏆 Final Round: Obstacle Challenge</h3>
-      <p>Robot completes laps while avoiding...</p>
+      <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in designated zone.</p>
       <ul><li><strong>Goal</strong>: 3 laps + parking.</li></ul>
       <ul><li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li></ul>
     </td>
@@ -292,7 +292,7 @@ You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challen
 
 | Open Challenge | Obstacle Challenge |
 |----------------|--------------------|
-| [![Open](https://img.youtube.com/vi/Phpb0w_JzZM/hqdefault.jpg)](https://youtu.be/lM7wSyYANas) | [![Obstacle](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM) |
+| [![Open](https://img.youtube.com/vi/lM7wSyYANas/hqdefault.jpg)](https://youtu.be/lM7wSyYANas) | [![Obstacle](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM) |
 
 ---
 
