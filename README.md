@@ -245,33 +245,24 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 ## 🎯 Mission Overview for WRO Future Engineers Rounds
 
-| Round | Goal | Key Tasks |
-|-------|------|-----------|
-| **Qualification – Open Challenge** | 3 laps, no obstacles | Wall-follow (27-28 cm), detect **blue/orange** lines, 11 turns |
-| **Final – Obstacle Challenge** | 3 laps + parking | Avoid **green (left)** & **red (right)** pillars, park in 25 × 25 cm zone |
-
 <table>
   <tr>
     <td width="50%" valign="top" align="left">
       <h3>🏁 Qualification Round: Open Challenge</h3>
-      <p>Robot must complete laps on a track without obstacles, demonstrating precision in wall-following and line detection.</p>
-      <ul>
-        <li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 11 turns.</li>
-      </ul>
-      <div align="center">
-        <img src="pictures/open-challenge-track.jpg" alt="Open Challenge Track" width="250" />
-      </div>
+      <p>Robot must complete laps...</p>
+      <ul><li><strong>Goal</strong>: 3 laps, no obstacles.</li></ul>
+      <ul><li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 12 turns.</li></ul>
     </td>
     <td width="50%" valign="top" align="left">
       <h3>🏆 Final Round: Obstacle Challenge</h3>
-      <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in designated zone.</p>
-      <ul>
-        <li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li>
-      </ul>
-      <div align="center">
-        <img src="pictures/obstacle-challenge-track.jpg" alt="Obstacle Challenge Track" width="250" />
-      </div>
+      <p>Robot completes laps while avoiding...</p>
+      <ul><li><strong>Goal</strong>: 3 laps + parking.</li></ul>
+      <ul><li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li></ul>
     </td>
+  </tr>
+  <tr>
+    <td align="center"><img src="pictures/open-challenge-track.jpg" width="250" /></td>
+    <td align="center"><img src="pictures/obstacle-challenge-track.jpg" width="250" /></td>
   </tr>
 </table>
 
@@ -677,7 +668,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Use**: Enables line following and zone detection for Open and Obstacle Challenges
 - **Description**: The EV3 Color Sensor, mounted at the robot’s front center (included in `3d-files/robot_complete.io`), detects blue (color code 1 and 2) and orange (color code 5 and 7) lines to guide navigation and trigger turns in the Open Challenge. Operating in color mode with a 1 kHz sampling rate, it requires a 0.5–1 cm distance from the surface for accurate detection (95% accuracy in tests under 500–1000 lux lighting). Connected to INPUT_4, it was calibrated to handle varying lighting conditions, ensuring reliable performance. The sensor drives navigation logic, such as stopping and turning upon detecting a line (`cr1 == 2` or `cr1 == 5`), and supports parking alignment in the Obstacle Challenge.
 - **Lessons Learned**: Maintaining a 0.5–1 cm distance was critical for accurate color detection; variations in lighting required multiple calibration rounds. Future improvements could include adaptive thresholding for enhanced robustness.
-- **Implementation Impact**: The Color Sensor’s fast response enabled precise line-following, completing 11 turns in the Open Challenge and aligning for parking within 2 seconds.
+- **Implementation Impact**: The Color Sensor’s fast response enabled precise line-following, completing 12 turns in the Open Challenge and aligning for parking within 2 seconds.
 
 #### **⚙️ Medium Motor EV3**
 
@@ -1386,9 +1377,9 @@ The mobility system uses Python-based algorithms on **ev3dev** to manage:
   diff = diff - motor_a.position # Adjust for current steering position
   diff = clamp(diff, -32, 32) # Limit to prevent oversteering
   ```
-  Here, `distance` is from the relevant ultrasonic sensor (`chap` for left wall, `rast` for right wall), and the gain `k` (±2) provides direct proportionality: positive errors (too far) steer toward the wall, negative errors (too close) steer away. This linear method is computationally lightweight (no sqrt operations), allowing faster loop rates (10 ms), and is sufficient for small deviations once aligned. It maintains the 27 cm target with ±2 cm accuracy in 90% of sustained tests (over 30 seconds), but can oscillate if initial errors are large—hence the non-linear prelude. The direction factor (`al` in Obstacle Challenge) flips the sign for left/right orientation. In practice, this linear control enabled consistent speeds of 0.25 m/s without slippage, with dynamic adjustments during turns (e.g., reducing clamp to ±27 for finer control after 11 turns).
+  Here, `distance` is from the relevant ultrasonic sensor (`chap` for left wall, `rast` for right wall), and the gain `k` (±2) provides direct proportionality: positive errors (too far) steer toward the wall, negative errors (too close) steer away. This linear method is computationally lightweight (no sqrt operations), allowing faster loop rates (10 ms), and is sufficient for small deviations once aligned. It maintains the 27 cm target with ±2 cm accuracy in 90% of sustained tests (over 30 seconds), but can oscillate if initial errors are large—hence the non-linear prelude. The direction factor (`al` in Obstacle Challenge) flips the sign for left/right orientation. In practice, this linear control enabled consistent speeds of 0.25 m/s without slippage, with dynamic adjustments during turns (e.g., reducing clamp to ±27 for finer control after 12 turns).
 
-- **Zone Detection**: Color Sensor detects blue (`1,2`) or orange (`5,7`) lines, triggering 11 turns in ~30 seconds (Open Challenge).
+- **Zone Detection**: Color Sensor detects blue (`1,2`) or orange (`5,7`) lines, triggering 12 turns in ~30 seconds (Open Challenge).
 - **Obstacle Avoidance**: Pixy 2.1 adjusts steering for green (`sig=1`) or red (`sig=2`) pillars, maintaining 0.5 m clearance.
 
 **Lessons Learned**
