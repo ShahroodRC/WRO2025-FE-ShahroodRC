@@ -37,7 +37,8 @@ A fully autonomous LEGO EV3 robot with vision-based obstacle avoidance and preci
 ---
 
 ## The Meaning Behind ShahroodRC
-ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like its mountains) with "RC" (Robotics Club). Inspired by the story of iteration, teamwork, and turning "what if" into "we did it." Behind the code and gears? The quiet support of families – our real "power source," fueling late nights and breakthroughs. ShahroodRC isn't just a robot; it's proof that passion + persistence = global stage.
+
+ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like its mountains) with "RC" (Robotics Club). Inspired by the story of iteration, teamwork, and turning "what if" into "we did it." Behind the code and gears? The quiet support of families – our real "power source," fueling late nights and breakthroughs. ShahroodRC isn't just a robot; it's proof that passion and persistence lead to a global stage.
 
 ---
 
@@ -120,14 +121,13 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 ## 👥 The Team
 
-We are the ShahroodRC team, a group of students passionate about robotics, electronics, and programming, working toward the WRO 2025 competition in the Future Engineers category.
+We are the ShahroodRC team, a group of dedicated students from Iran with a passion for robotics, electronics, and programming. Our goal is to create an innovative robot for the WRO 2025 Future Engineers category, combining technical skills and collaboration to solve complex challenges.
 
 ### 👨‍💼 Sepehr Yavarzadeh
 - **Role**: Project Manager and Software Engineer.
 - **Age**: 16
-- **Description**: Hey! I'm Sepehr and this is my third WRO season. Last year I won the third place in our national competition in Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing tennis. I'm passionate about programming, physics and math.  
+- **Description**: Hey! I'm Sepehr, and this is my third WRO season. Last year, I won third place in our national competition in the Robo Mission category. This year I wanted to have a new experience. I'm interested in playing the piano and playing tennis. I'm passionate about programming, physics, and math.  
 - sepehryavarzadeh@gmail.com
-
 - [Github](https://github.com/Sepehryy)
 - [Instagram](https://www.instagram.com/sepehr.yavarzadeh/)
 - [Linkedin](https://www.linkedin.com/in/sepehr-yavarzadeh-9643252a3/)
@@ -142,7 +142,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ### 👨🏼‍🔧 Nikan Bashiri
 - **Role**: Mechanical and Electronics Specialist.
 - **Age**: 17
-- **Description**: Hi everyone! I'm Nikan from Iran. I'm an advanced LEGO robotics instructor at a training center, with experience participating in 5 WRO (World Robot Olympiad) selection rounds. My expertise focuses on mechanical/electronic systems and LEGO set design.  
+- **Description**: Hi everyone! I'm Nikan from Iran. I'm an advanced LEGO robotics instructor at a training center, with experience participating in 5 WRO national finals. My expertise focuses on mechanical/electronic systems, as well as LEGO set design.  
 - nikanbsr@gmail.com
 - [Instagram](https://www.instagram.com/nikanbsr/)
 
@@ -156,7 +156,7 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ### 🧑‍💻 Amirparsa Saemi
 - **Role**: Lead Developer and Algorithm Designer.
 - **Age**: 19
-- **Description**: Hey! I'm Amirparsa and this is my third year competing in WRO. I'm a professional ping-pong player and super passionate about math and physics. I'm studying computer science at university and love diving into programming challenges.
+- **Description**: Hey! I'm Amirparsa, and this is my third year competing in WRO. I'm a professional ping-pong player and super passionate about math and physics. I'm studying computer science at university and love diving into programming challenges.
 - amirparsa.saemi2021@gmail.com
 - [Instagram](https://www.instagram.com/hotaru_tempest/)
 
@@ -171,11 +171,10 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - **Role**: Coach
 - **Age**: 24
 - **Description**: Ali Raeisian, a B.Sc. graduate in Computer Engineering, is currently pursuing a Master’s degree in Computer Science with a focus on software. A former WRO competitor, he participated in the 2016 WRO global competition in India in the robot soccer category. Now, he specializes in game development, contributing his expertise to both technical and creative aspects of the field.
-
 - raeesianali@gmail.com
 - [Github](https://github.com/SheykhAlii)
 - [Instagram](https://www.instagram.com/ali_raeesiian/)
-  
+
 <div align="center">
 <img src="team-photos/Ali-Raeesian.jpg" alt="Ali Raeesian" width="60%"> 
 <p>Ali Raeesian</p>
@@ -187,9 +186,8 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 - **Role**: Manager
 - **Age**: 50
 - **Description**: He is the founder of Shahrood's educational Lego institute. 
-
 - [Instagram](https://www.instagram.com/ho.bagheri/)
-  
+
 <div align="center">
 <img src="team-photos/Hossein-Bagheri.jpg" alt="Hossein Bagheri" width="60%"> 
 <p>Hossein Bagheri</p>
@@ -215,14 +213,14 @@ We are the ShahroodRC team, a group of students passionate about robotics, elect
 ## 🏆 National Championship Victory
 
 ### Overview
-The ShahroodRC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this triumph highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
+The ShahroodRC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this success highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
 
 ### Competition Highlights
 - **Event**: Iran National Robotics Competition (WRO 2025 Qualifier)
 - **Date**: August 2025
 - **Location**: Rasht, Iran
 - **Achievement**: 1st Place, qualifying for WRO 2025 International Final
-- **Key Moment**: Our robot successfully completed both the Open and Obstacle Challenges, demonstrating precision and reliability under competitive pressure.
+- **Key Moment**: Our robot completed both the Open and Obstacle Challenges, demonstrating precision and reliability under competitive pressure.
 
 ### Visuals
 <div align="center">
@@ -255,7 +253,7 @@ This national championship victory marks a significant milestone, qualifying Sha
     </td>
     <td width="50%" valign="top" align="left">
       <h3>🏆 Final Round: Obstacle Challenge</h3>
-      <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in designated zone.</p>
+      <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in the designated zone.</p>
       <ul><li><strong>Goal</strong>: 3 laps + parking.</li></ul>
       <ul><li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li></ul>
     </td>
@@ -288,7 +286,8 @@ This national championship victory marks a significant milestone, qualifying Sha
 ---
 
 ## 🎬 Videos
-You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/lM7wSyYANas) videos on Youtube. You can see them also here in [videos](videos/) folder.
+
+You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/lM7wSyYANas) videos on YouTube. You can also see them here in [videos](videos/) folder.
 
 | Open Challenge | Obstacle Challenge |
 |----------------|--------------------|
@@ -303,7 +302,6 @@ You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challen
 To assist teams and judges in simulating the dynamic and unpredictable nature of the WRO 2025 Future Engineers challenges, the ShahroodRC team developed a custom **Randomizer Application** for Android devices. This app generates randomized track layouts and obstacle configurations that comply with official WRO 2025 rules for both the **Open Challenge** and the **Obstacle Challenge**.
 
 ### App Screenshots
-
 <div align="center">
   <table>
     <tr>
@@ -355,7 +353,7 @@ The latest version of the Randomizer app is included directly in this repository
 
 ### Robot Development Process
 
-The ShahroodRC team embarked on a rigorous development process to identify the most efficient and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed account of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
+The ShahroodRC team started a tough development process to find the best, most efficient, and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed story of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
 
 ---
 
@@ -398,7 +396,7 @@ The **Raspberry Pi Zero** (1 GHz single-core ARM11, 512 MB RAM, Linux-based) was
   - Multi-threaded programming supported simultaneous sensor and motor tasks.
   - USB and I2C interfaces allowed easy integration of the Pixy Cam.
 - **Challenges**:
-  - **Power Sensitivity**: The Pi Zero required a stable 5V/2A supply. Voltage drops below 4.8V during motor and camera operation caused brownouts.
+  - **Power Sensitivity**: The Pi Zero required a stable 5V/2A supply. Voltage drops below 4.8V during motor and camera operation, causing brownouts.
   - **Heat Issues**: Continuous operation (camera streaming at 20 fps and motor control) raised board temperatures to ~65°C, leading to thermal throttling.
   - **Hardware Fragility**: We lost two boards—one due to a short circuit from an improperly grounded motor driver (TB6612FNG) drawing ~1.5A, and another from a current surge (~2A) when powering the camera and motors simultaneously.
 
@@ -411,7 +409,7 @@ The **Raspberry Pi Zero** (1 GHz single-core ARM11, 512 MB RAM, Linux-based) was
 After facing challenges with previous platforms, we returned to the **LEGO EV3 Mindstorms** system (ARM9, 64 MB RAM, 16 MB Flash), leveraging our team’s prior WRO experience. The EV3 offered unmatched integration, safety, and reliability.
 
 - **Stability & Robustness**: The EV3 Intelligent Brick is built for rugged environments, handling two Medium Motors (20 N·cm, 160 rpm) and four sensors without external drivers.
-- **Built-in Ports**: Four motor ports and four sensor ports (e.g., INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor) simplified wiring and reduced failure risks.
+- **Built-in Ports**: Four motor ports and four sensor ports (e.g., INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor), simplified wiring, and reduced failure risks.
 - **Pixy Cam Integration**: Using a custom I2C connection (via EV3 sensor port, 5V/120–160 mA), we integrated the Pixy Cam without USB host requirements, ensuring compatibility.
 - **Development Efficiency**: Python via ev3dev allowed rapid development, with libraries like `ev3dev2` supporting precise motor control (e.g., `on_for_degrees`) and sensor polling (10 ms for color sensor).
 - **Competition-Proven**: The EV3’s extensive use in WRO and availability of open-source libraries ensured reliable performance.
@@ -581,7 +579,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Type**: Main Controller Unit
 - **Feature**: Central hub for processing, motor control, and sensor integration
 - **Use**: Manages all robot operations, including logic processing, sensor data handling, motor control, and communication
-- **Description**: The LEGO EV3 Mindstorms Control Brick is the heart of the ShahroodRC robot, powered by a 300 MHz ARM9 processor and running the ev3dev operating system for flexible Python-based programming. It processes sensor data (e.g., Pixy Cam I2C inputs at 50 ms intervals, Color Sensor at 1 kHz) and controls two Medium Motors for propulsion and steering, ensuring real-time responsiveness for WRO 2025 challenges like wall-following and obstacle avoidance. Mounted centrally on the chassis, it connects to all components via four motor and sensor ports, eliminating external drivers. The team’s familiarity with EV3 from prior WRO competitions enabled rapid setup, while Bluetooth and USB connectivity facilitated debugging and code deployment. The built-in LCD display provided real-time diagnostics (e.g., battery voltage, sensor status).
+- **Description**: The LEGO EV3 Mindstorms Control Brick is the heart of the ShahroodRC robot, powered by a 300 MHz ARM9 processor and running the ev3dev operating system for flexible Python-based programming. It processes sensor data (e.g., Pixy Cam I2C inputs at 50 ms intervals, Color Sensor at 1 kHz) and controls two Medium Motors for propulsion and steering, ensuring real-time responsiveness for WRO 2025 challenges like wall-following and obstacle avoidance. Mounted centrally on the chassis, it connects to all components via four motor and sensor ports, eliminating external drivers. The team’s familiarity with EV3 from prior WRO competitions enabled rapid setup, while Bluetooth and USB connectivity facilitated debugging and code deployment. The built-in LCD provided real-time diagnostics (e.g., battery voltage, sensor status).
 - **Lessons Learned**: The EV3’s robust port system and ev3dev’s Python support reduced development time compared to Arduino or Raspberry Pi setups. In future iterations, we could add a co-processor for enhanced vision processing while retaining EV3’s reliability.
 - **Implementation Impact**: The EV3’s stable power distribution and fast sensor polling (10 ms for Color Sensor, 50 ms for Pixy Cam) enabled precise navigation, such as maintaining a 27 cm wall distance in the Open Challenge and executing the parking sequence in under 10 seconds.
 
@@ -609,7 +607,7 @@ This section provides a detailed overview of the key hardware components used in
 - **Type**: Vision Sensor
 - **Feature**: Real-time object recognition, color tracking, and line tracking
 - **Interface**: Custom I2C connection via EV3 sensor port (INPUT_1)
-- **Use**: Detects green (signature 1), red (signature 2), and purple (signature 3 for parking zone) pillars for obstacle avoidance in the Obstacle Challenge; potential for line tracking in Open Challenge
+- **Use**: Detects green (signature 1), red (signature 2), and purple (signature 3 for parking zone) pillars for obstacle avoidance in the Obstacle Challenge; potential for line tracking in Open Challenge.
 - **Description**: The Pixy 2.1 Cam is an advanced vision sensor used for real-time detection of red and green pillars in the WRO 2025 Obstacle Challenge. Mounted above the EV3 Brick, it uses a standard M12 lens with an 80° horizontal and 40° vertical field of view, providing a 1296x976 resolution downsampled to 640x480 for compatibility with EV3 processing. Operating at up to 60 fps, it is optimized for WRO’s obstacle distances (0.5–1.5 m). Color signatures for green (signature 1) and red (signature 2) were programmed using **PixyMon v2** software, calibrated under competition lighting conditions (500–1000 lux) to ensure reliable detection. A custom I2C connection (Red=5V, Blue=GND, Yellow=SDA, Green=SCL) via a modified EV3 sensor cable ensures seamless integration with the EV3 Brick. Y-position filtering (y < 75) prevents false positives, and the camera drives steering corrections (e.g., `target = (x - green) * 0.5`). Pixy 2.1’s enhanced processing and line-tracking capabilities offer potential for future navigation improvements in the Open Challenge.
 - **Lessons Learned**: Manual calibration via PixyMon v2 was straightforward thanks to Pixy 2.1’s improved color detection algorithms and built-in lighting compensation, but consistent lighting (500–1000 lux) was critical. Future improvements could leverage Pixy 2.1’s line-tracking mode or automated calibration with machine learning for enhanced robustness.
 - **Implementation Impact**: Pixy 2.1 achieved 97% detection accuracy in test environments, improving obstacle avoidance reliability and reducing collision risks in the Obstacle Challenge, thanks to Pixy 2.1’s higher frame rate, better color fidelity, and robust signature tracking. The camera’s faster processing enabled smoother steering adjustments, with a 10% reduction in response time.
@@ -693,8 +691,8 @@ This section provides a detailed overview of the key hardware components used in
 - **Feature**: Provides propulsion (rear wheels) and steering (front wheels)
 - **Interface**: LEGO EV3 Motor Port (OUTPUT_D for drive, OUTPUT_B for steering)
 - **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation
-- **Configuration for Challenges**: The robot uses two EV3 Medium Motors in our configuration: one steering motor on `OUTPUT_B` and one drive motor on `OUTPUT_D`. In alternative setups a second drive motor can be added to the differential for extra torque, but our submitted code and hardware use a single drive motor on `OUTPUT_D`.
-- **Description**: Two EV3 Medium Motors power the ShahroodRC robot: the propulsion motor (`motor_b` on `OUTPUT_D`) drives the rear wheels through a differential, and the steering motor (`motor_a` on `OUTPUT_B`) adjusts the front wheels’ angle via a rack-and-pinion system. Motors were chosen for their lightweight and compatibility with the LEGO EV3 ecosystem. A 1:1.5 gear ratio for propulsion enhanced torque for parking maneuvers, reducing motor strain.
+- **Configuration for Challenges**: The robot uses two EV3 Medium Motors in our configuration: one steering motor on `OUTPUT_B` and one drive motor on `OUTPUT_D`. In alternative setups, a second drive motor can be added to the differential for extra torque, but our submitted code and hardware use a single drive motor on `OUTPUT_D`.
+- **Description**: Two EV3 Medium Motors power the ShahroodRC robot: the propulsion motor (`motor_b` on `OUTPUT_D`) drives the rear wheels through a differential, and the steering motor (`motor_a` on `OUTPUT_B`) adjusts the front wheels’ angle via a rack-and-pinion system. Motors were chosen for their lightweight and compatibility with the LEGO EV3 ecosystem. A 1:1.5 gear ratio for propulsion enhances torque for parking maneuvers, reducing motor strain.
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
 
@@ -793,7 +791,7 @@ Pin Assignment:
 ⚠️ **Safety First:**
 - Always power OFF the EV3 Brick before cutting cables
 - Use insulated wire strippers and soldering tools
-- Test connections with multimeter before power-on
+- Test connections with a multimeter before powering on
 - Insulate unused wires with electrical tape to prevent shorts
 
 **Common Modifications:**
@@ -866,7 +864,7 @@ def stop_drive():
 
 **Implementation Notes:**
 - Speed set to 100% in Open Challenge for optimal performance, adjustable to 40% in Obstacle Challenge for precise maneuvers.
-- In Obstacle Challenge, `motor_c` is disconnected, and only `motor_b` drives the differential to can to move more accurately.
+- In Obstacle Challenge, `motor_c` is disconnected, and only `motor_b` drives the differential to be able to move more accurately.
 - For precise maneuvers, we use `on_for_degrees()` or `on_for_rotations()` methods
 
 ---
@@ -898,7 +896,7 @@ def clamp(value, minimum, maximum):
 
 def amotor(degrees, cl=50):
     """
-    Function to control steering motor with proportional control.
+    Function to control the steering motor with proportional control.
     Args:
         degrees: Target position in degrees
         cl: Control limit for maximum power (default 50)
@@ -910,7 +908,7 @@ def amotor(degrees, cl=50):
 - **Note:** Unlike the Obstacle Challenge, this version does not use a gain factor (e.g., *0.7), as wall-following requires direct response.
 
 **Control Algorithm Explanation:**
-The steering system uses a proportional control algorithm where the motor power is directly proportional to the difference between the target angle and current position. This provides smooth, oscillation-free steering adjustments.
+The steering system uses a proportional control algorithm where the motor power is directly proportional to the difference between the target angle and the current position. This provides smooth, oscillation-free steering adjustments.
 
 ---
 
@@ -1097,7 +1095,7 @@ def wall_following_control():
 ```
 
 **Wall Following Algorithm:**
-- Our wall following system uses a non-linear control function that provides more sensitive response at closer distances. The square root function in our correction algorithm ensures that small distance changes near the wall result in larger steering corrections, while larger distances result in more gradual adjustments.
+- Our wall following system uses a non-linear control function that provides a more sensitive response at closer distances. The square root function in our correction algorithm ensures that small distance changes near the wall result in larger steering corrections, while larger distances result in more gradual adjustments.
 - Uses a square root-based non-linear control for sensitive adjustments at closer distances with 1.3 weighting for improved stability.
 - Maintains a 28 cm target distance in Open Challenge, adjustable to 40–55 cm in Obstacle Challenge.
 
@@ -1114,7 +1112,7 @@ btn = Button()
 
 def wait_for_start():
     """
-    Wait for user to press the center button to start.
+    Wait for the user to press the center button to start.
     """
     btn.wait_for_bump('enter')
 ```
@@ -1231,7 +1229,7 @@ def amotor(degrese, cl=50):
 ```
 
 **Motor Integration**
-- **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b` on `OUTPUT_D` and another on `OUTPUT_C`) are coupled to a single gear, which connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
+- **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b` on `OUTPUT_D` and another on `OUTPUT_C`) are coupled to a single gear, which is connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
 - **Steering**: The steering motor (`motor_a`) drives a rack-and-pinion system, adjusting the front wheels with 1° precision. The system is mounted with LEGO Technic beams for rigidity.
 - **Mechanical Stability**: The LEGO chassis, shown in `3d-files/robot_complete.io`, secures motors to minimize vibration at 0.25 m/s. Weight symmetry (50% front, 50% rear) ensures balance during sharp turns.
 
@@ -1240,12 +1238,12 @@ def amotor(degrese, cl=50):
 **Problem Identified**
 During testing, we discovered that the **axle of the rear wheels was occasionally loosening** and shifting from its position in the differential. This caused:
 - Inconsistent wheel power transmission
-- Wheels sometimes ceasing to move despite motor engagement
+- Wheels sometimes cease to move despite motor engagement
 - Reduced reliability during high-torque maneuvers (especially parking)
 - Performance degradation after multiple competition runs
 
 **Root Cause**
-The standard LEGO differential uses a simple axle design that, under vibration and repeated acceleration/deceleration cycles, allowed the axle to slip sideways within the differential housing. This was particularly problematic during:
+The standard LEGO differential uses a simple axle design that, under vibration and repeated acceleration/deceleration cycles, allows the axle to slip sideways within the differential housing. This was particularly problematic during:
 - Sudden acceleration when exiting turns
 - High-torque parking maneuvers (when motors stall)
 - Tight corner navigation with rapid steering adjustments
@@ -1264,11 +1262,11 @@ To permanently solve this issue, we implemented a modification to the differenti
    - They allow smooth rotation while preventing slippage
 
 4. **Assembly Order**:
-   - Disassemble original differential
-   - Cut center section carefully to create clean mating surfaces
-   - Install first half-bush on left side of axle
+   - Disassemble the original differential
+   - Cut the center section carefully to create clean mating surfaces
+   - Install the first half-bush on the left side of the axle
    - Position differential halves
-   - Install second half-bush on right side of axle
+   - Install the second half-bush on the right side of the axle
    - Secure with standard LEGO connectors
 
 **Performance Impact**
@@ -1446,7 +1444,7 @@ Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/
 **Challenges and Solutions**
 - **Challenge**: Minor steering lag at 0.25 m/s.
   - **Solution**: Reduced gain in `amotor`, achieving 90% stability.
-- **Challenge**: Lighting variations affected Color Sensor.
+- **Challenge**: Lighting variations affected the Color Sensor.
   - **Solution**: Calibrated for 500–1000 lux, ensuring 90% accuracy.
 
 ---
@@ -1531,7 +1529,7 @@ Below is the project power distribution architecture (SVG). This diagram shows h
 </div>
 
 Notes:
-- **Components**: battery pack, relay module, fan (load), manual switch and wiring interconnects shown in the photos.
+- **Components**: battery pack, relay module, fan (load), manual switch, and wiring interconnects shown in the photos.
 - **State descriptions**: the three photos respectively illustrate the circuit when the relay coil is de-energized (OFF), energized (ON), and energized with the manual toggle shown (SWITCH engaged).
 - **Safety**: verify polarity before connecting the battery; add fusing if using non-EV3 batteries; use insulated connectors and ensure relay ratings match the fan load.
 
@@ -1612,7 +1610,7 @@ Notes:
   2. Solder Red to Pixy 5V, Blue to GND, Yellow to SDA, Green to SCL.
   3. Insulate White and Black wires with electrical tape.
   4. Test connections with a multimeter before powering on.
-> ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both multimeter and long-duration load testing.*
+> ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both a multimeter and long-duration load testing.*
 - **Heat and Overload Protection**: The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
 
 #### 🌬️ Cooling System: Fan for Thermal Management
@@ -1691,7 +1689,7 @@ def led_blink(count=3, duration=0.5):
 
 # Usage example during robot operation
 if __name__ == "__main__":
-    # Turn on LEDs when robot starts
+    # Turn on LEDs when the robot starts
     led_on()
     print("LEDs activated - Robot starting operation")
     
@@ -1701,7 +1699,7 @@ if __name__ == "__main__":
     led_blink(count=3, duration=0.5)
     print("Parking complete - LED confirmation blinks")
     
-    # Turn off LEDs at end
+    # Turn off LEDs at the end
     led_off()
 ```
 
@@ -1725,7 +1723,7 @@ if __name__ == "__main__":
 - Carefully cut one EV3 motor cable at the RJ connector end with wire cutters
 - Use wire strippers to remove ~5-7mm of insulation from each of the 6 internal wires
 - Identify wires by color: Red (+9V), Black (GND), Yellow (Phase A), Green (Phase B), White (Encoder A), Blue (Encoder B)
-- Twist same-color wire pairs together if multiple connections to same signal are needed
+- Twist same-color wire pairs together if multiple connections to the same signal are needed
 - Do NOT connect to EV3 yet - work on relay assembly first
 
 **Step 2: Connect Relay Coil**
@@ -1833,7 +1831,7 @@ def led_pattern_parking():
 
 | Problem | Likely Cause | Solution |
 |---------|---|---|
-| **Relay doesn't click** | Loose wire connection or poor solder joint | Use multimeter to test continuity between Yellow/Green and relay coil terminals |
+| **Relay doesn't click** | Loose wire connection or poor solder joint | Use a multimeter to test continuity between the Yellow/Green and relay coil terminals |
 | **LEDs stay on permanently** | Relay contacts stuck in closed position | Clean relay contacts; if persistent, replace relay unit |
 | **Intermittent relay behavior** | Cold solder joint on relay coil wires | Re-solder connections with fresh solder and heat-shrink tubing |
 | **EV3 motor port not responding** | Cable not fully seated in motor port | Remove and reinsert cable firmly until you hear/feel a click |
@@ -1850,7 +1848,7 @@ During the ShahroodRC design phase, the team needed external LED indicators for 
 4. **Cost-effective solution** - ~$3-5 relay vs $20-40 dedicated PWM drivers
 5. **Battle-tested technology** - relays are proven components in competitive robotics
 
-This innovation exemplifies how understanding platform architecture enables creative engineering. The ShahroodRC team leveraged standard LEGO EV3 components in an unconventional way to achieve advanced functionality - a key principle in WRO and educational robotics competitions.
+This innovation exemplifies how understanding platform architecture enables creative engineering. The ShahroodRC team unconventionally leveraged standard LEGO EV3 components to achieve advanced functionality - a key principle in WRO and educational robotics competitions.
 
 #### Performance Specifications
 
