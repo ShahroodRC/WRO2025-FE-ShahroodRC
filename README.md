@@ -459,12 +459,11 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 - Upgraded the camera from the original Pixy to **Pixy 2.1** to gain a higher frame rate and better color/signature detection.
 - Raised the camera mounting height and increased its downward tilt toward the ground to improve target visibility at competition distances.
 - Added a second motor to the drive system (for the Open Challenge) to increase torque and speed in the Open Challenge.
-- Reinforced and slightly redesigned key structural elements of the chassis to improve rigidity and durability under repeated competition runs.
-- Impact: improved obstacle detection, greater mechanical robustness, and more consistent performance across runs.
+- Reinforced and slightly redesigned key structural elements of the chassis to improve stiffness and durability under repeated competition runs.
 - Relocated the LED indicators from the front of the robot to a new mount above and beside the Pixy camera to keep status LEDs visible to judges and to reduce front-facing interference during runs.
 - Added a relay circuit controlled via an EV3 motor port to switch the LEDs on/off from code (relay connected and driven using a spare motor output), enabling power-efficient LED control and a clean integration without extra power modules.
 - Designed and fitted a protective Pixy cover (3D-printed) to shield the lens from impacts and to lock the camera into the new elevated mount.
-- Impact: improved visual feedback, easier LED control from the EV3, and increased protection and stability for the Pixy mount.
+- Impact: improved obstacle detection, greater mechanical robustness, more consistent performance across runs, visual feedback, easier LED control from the EV3, and increased protection and stability for the Pixy mount.
 
 ### Key Improvements (Post-Nationals)
 - **Vision**: Pixy 2.1 delivers higher FPS and more reliable signature tracking, reducing false positives in variable lighting.
@@ -573,7 +572,7 @@ A concise table of the robot's physical dimensions.
 - **Type**: Main Controller Unit
 - **Feature**: Central hub for processing, motor control, and sensor integration
 - **Use**: Manages all robot operations, including logic processing, sensor data handling, motor control, and communication
-- **Description**: The LEGO EV3 Mindstorms Control Brick is the heart of the ShahroodRC robot, powered by a 300 MHz ARM9 processor and running the ev3dev operating system for flexible Python-based programming. It processes sensor data (e.g., Pixy Cam I2C inputs at 50 ms intervals, Color Sensor at 1 kHz) and controls two Medium Motors for propulsion and steering, ensuring real-time responsiveness for WRO 2025 challenges like wall-following and obstacle avoidance. Mounted centrally on the chassis, it connects to all components via four motor and sensor ports, eliminating external drivers. The team’s familiarity with EV3 from prior WRO competitions enabled rapid setup, while Bluetooth and USB connectivity facilitated debugging and code deployment. The built-in LCD provided real-time diagnostics (e.g., battery voltage, sensor status).
+- **Description**: The LEGO EV3 Mindstorms Control Brick is the heart of the ShahroodRC robot, powered by a 300 MHz ARM9 processor and running the ev3dev operating system for flexible Python-based programming. It processes sensor data (e.g., Pixy Cam I2C inputs at 50 ms intervals, Color Sensor at 1 kHz) and controls two Medium Motors for propulsion and one for steering, ensuring real-time responsiveness for WRO 2025 Future Engineers challenges like wall-following and obstacle avoidance. Mounted centrally on the chassis, it connects to all components via four motor and sensor ports, eliminating external drivers. The team’s familiarity with EV3 from prior WRO competitions enabled rapid setup, while Bluetooth and USB connectivity facilitated debugging and code deployment. The built-in LCD provided real-time diagnostics (e.g., battery voltage, sensor status).
 - **Lessons Learned**: The EV3’s robust port system and ev3dev’s Python support reduced development time compared to Arduino or Raspberry Pi setups. In future iterations, we could add a co-processor for enhanced vision processing while retaining EV3’s reliability.
 - **Implementation Impact**: The EV3’s stable power distribution and fast sensor polling (10 ms for Color Sensor, 50 ms for Pixy Cam) enabled precise navigation, such as maintaining a 27 cm wall distance in the Open Challenge and executing the parking sequence in under 10 seconds.
 
@@ -679,12 +678,17 @@ A concise table of the robot's physical dimensions.
 
 - **Type**: DC Motor (Medium)
 - **Feature**: Provides propulsion (rear wheels) and steering (front wheels)
-- **Interface**: LEGO EV3 Motor Port (OUTPUT_D for drive, OUTPUT_B for steering)
-- **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation.
-- **Configuration for Challenges**: The robot uses two EV3 Medium Motors in our configuration: one steering motor on `OUTPUT_B` and one drive motor on `OUTPUT_D`. In alternative setups, a second drive motor can be added to the differential for extra torque; however, our submitted code and hardware utilize a single drive motor on `OUTPUT_D`.
-- **Description**: Two EV3 Medium Motors power the ShahroodRC robot: the propulsion motor (`motor_b` on `OUTPUT_D`) drives the rear wheels through a differential, and the steering motor (`motor_a` on `OUTPUT_B`) adjusts the front wheels’ angle via a rack-and-pinion system. Motors were chosen for their lightweight and compatibility with the LEGO EV3 ecosystem. A 1:1.5 gear ratio for propulsion enhances torque for parking maneuvers, reducing motor strain.
-- **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
-- **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
+- **Interface**: 
+  - Steering motor → `OUTPUT_B`
+  - Primary drive motor → `OUTPUT_D`
+  - Secondary drive motor (Open Challenge only) → `OUTPUT_C`
+- **Use**: Drives rear wheels through a differential and controls front-wheel steering via rack-and-pinion system.
+- **Configuration for Challenges**:
+  - **Obstacle Challenge (final submitted version)**: Only **one** Medium Motor on `OUTPUT_D` drives the differential (the gear of the second motor is physically removed).
+  - **Open Challenge**: A **second** Medium Motor can be connected to `OUTPUT_C` and mechanically coupled to the same differential gear for extra torque and higher speed (both motors synchronized in code). This configuration is fully WRO-compliant because the two motors drive a single mechanical output (the differential).
+- **Description**: The ShahroodRC robot uses **one or two** EV3 Medium Motors for propulsion (`motor_b` on `OUTPUT_D`, and optionally `motor_c` on `OUTPUT_C` in Open Challenge) that drive the rear wheels via a reinforced LEGO differential. The steering is performed by a single Medium Motor (`motor_a` on `OUTPUT_B`) connected to a rack-and-pinion mechanism. Medium Motors were chosen over Large Motors because of their significantly lower weight (120 g vs 170 g) and sufficient torque for our 1.0–1.2 kg robot. A **1:1.5 gear reduction** (20-tooth → 12-tooth + 36-tooth gear) on the propulsion side increases effective torque during low-speed parking maneuvers and reduces motor stalling.
+- **Lessons Learned**: Initial 1:1 direct drive caused excessive motor strain and stalling during sharp parking turns. Switching to a 1:1.5 reduction ratio dramatically improved reliability and reduced current spikes from ~600 mA to ~400 mA during parking. Adding the second drive motor (Open Challenge only) further eliminated any remaining strain at higher speeds.
+- **Implementation Impact**: Precise encoder-based control (`on_for_degrees`, `on_for_rotations`) enabled the parking sequence to complete in **under 10 seconds** with almost zero slippage. The modular drive design (single/dual motor) allowed us to optimize separately for torque (Obstacle) and speed (Open) without hardware redesign.
 
 ### 🔌 EV3 Motor Cable & Port Architecture
 
