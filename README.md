@@ -56,11 +56,11 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [🔁 3. Adopting Raspberry Pi Zero](#-3-adopting-raspberry-pi-zero)
     - [✅ 4. Final Transition to LEGO EV3](#-4-final-transition-to-lego-ev3)
     - [📊 Platform Comparison](#-platform-comparison)
-    -[📌 Final Summary & Reflection](#-final-summary--reflection)
+    - [📌 Final Summary & Reflection](#-final-summary--reflection)
 - [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
 - [📊 Performance Metrics & Statistics](#-performance-metrics--statistics)
 - [🤖 Robot Components Overview](#-robot-components-overview)
-    -[📐 Dimensions](#-dimensions)
+    - [📐 Dimensions](#-dimensions)
     - [🔧 Components Overview](#-components-overview)
         - [🧠 LEGO EV3 Mindstorms Control Brick](#-lego-ev3-mindstorms-control-brick)
         - [👁️ Pixy 2.1](#️-pixy-21)
@@ -450,41 +450,30 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 ## 🔄 Design Evolution & Iteration History
 
 ### Version Timeline
-**v1.0 - Initial Design (August 2024)**
-- Basic LEGO chassis with 2 motors
-- Simple wall-following PID
-- Performance: 60% success
-- Issue: No obstacle detection
+**v1.0 — EV3 Transition & Competition Robot (post-platform change)**
+- After switching our platform to LEGO EV3 the first EV3-based robot we built was essentially complete and performed reliably with no major issues.
+- We entered the same robot in the Iran National WRO (August 2025) and secured **1st Place** using that build.
+- Status: Competition-proven — served as the stable baseline for subsequent improvements.
 
-**v1.5 - Pixy Integration (September 2024)**
-- Added Pixy 2.1 camera (I2C)
-- Improved obstacle detection
-- Performance: 75% success
-- Issue: Mounting instability
+**Post-Nationals Update (Aug–Nov 2025)**
+- Upgraded the camera from the original Pixy to **Pixy 2.1** to gain higher frame rate and better color/signature detection.
+- Raised the camera mounting height and increased its downward tilt toward the ground to improve target visibility at competition distances.
+- Added a second motor to the drive system (for the Open Challenge) to increase torque and speed in the Open Challenge.
+- Reinforced and slightly redesigned key structural elements of the chassis to improve rigidity and durability under repeated competition runs.
+- Impact: improved obstacle detection, greater mechanical robustness, and more consistent performance across runs.
+- Relocated the LED indicators from the front of the robot to a new mount above and beside the Pixy camera to keep status LEDs visible to judges and to reduce front-facing interference during runs.
+- Added a relay circuit controlled via an EV3 motor port to switch the LEDs on/off from code (relay connected and driven using a spare motor output), enabling power-efficient LED control and a clean integration without extra power modules.
+- Designed and fitted a protective Pixy cover (3D-printed) to shield the lens from impacts and to lock the camera into the new elevated mount.
+- Impact: improved visual feedback, easier LED control from the EV3, and increased protection and stability for the Pixy mount.
 
-**v2.0 - Mechanical Redesign (October 2024)**
-- 3D-printed Pixy mount (rigid)
-- Improved steering linkage
-- Added second ultrasonic sensor
-- Performance: 85% success
-- Issue: Color sensor vibration errors
-
-**v2.5 - Final Optimization (Nov 1-10, 2025)**
-- Fine-tuned all sensor thresholds
-- Added vibration dampening
-- Sensor fusion (Pixy + ultrasonic)
-- Performance: **90% success** ← **FINAL**
-- Status: Ready for WRO 2025 International
-
-
-### Key Improvements Per Version
-| Aspect | v1.0 | v1.5 | v2.0 | v2.5 |
-|--------|------|------|------|------|
-| Wall Following | 60% | 70% | 80% | 92% |
-| Line Detection | 70% | 80% | 88% | 97% |
-| Obstacle Detection | N/A | 50% | 75% | 92% |
-| Parking | N/A | N/A | 40% | 85% |
-| Overall Success | 60% | 75% | 85% | **90%** |
+### Key Improvements (Post-Nationals)
+- **Vision**: Pixy 2.1 delivers higher FPS and more reliable signature tracking, reducing false positives in variable lighting.
+- **Mounting & Field of View**: Higher mount + steeper downward angle improved detection of pillars and track features at close distances.
+- **Mobility**: Second motor increased traction and reduced motor load during the Open Challenge.
+- **Structure**: Strengthened frame decreased vibrations and mounting failures, improving sensor stability and repeatability.
+- **LEDs & Indicators**: LEDs moved to an elevated position beside the Pixy for better visibility and reduced interference.
+- **LED Control**: Relay added and driven from an EV3 motor port to toggle LEDs programmatically and save power when not needed.
+- **Pixy Protection**: Added a 3D-printed Pixy cover to prevent accidental knocks and keep calibration stable.
 
 ---
 
@@ -1157,7 +1146,7 @@ This integrated approach ensures that all sensors and actuators work together ha
 
 ## 🚗 Mobility Management
 
-The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **20 cm (length)**, **13.5 cm (width)**, and **17.5 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
+The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **26 cm (length)**, **16 cm (width)**, and **29 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
 
 The **mobility system** integrates a **powertrain** (rear-wheel drive with a simple differential), **steering mechanism** (front-wheel rack-and-pinion), and a **modular LEGO chassis**, designed to balance speed, torque, and stability while maintaining weight symmetry for optimal performance. This section provides comprehensive details on the system’s design, implementation, testing, and lessons learned, enabling another team to replicate the system and offering insights for further optimization.
 
@@ -1748,8 +1737,8 @@ Before powering on the EV3:
 - [ ] 1N4007 diode across coil (cathode on positive)
 - [ ] Relay NO contact connected to LED+
 - [ ] Relay C contact connected to LED-
-- [ ] White and Blue wires insulated
-- [ ] All solder joints shiny and secure
+- [ ] White and Blue wires are insulated
+- [ ] All solder joints are shiny and secure
 - [ ] No exposed copper wires visible
 - [ ] LED circuit isolated from EV3 (not powered until relay activates)
 
@@ -1838,7 +1827,7 @@ def led_pattern_parking():
 During the ShahroodRC design phase, the team needed external LED indicators for competition status feedback. Analysis of the EV3 motor port revealed that:
 
 1. **Phase pins output reliable 5V PWM signals** - sufficient to drive standard relay coils
-2. **Relay isolation prevents noise coupling** - external LED circuit doesn't interfere with EV3 operation
+2. **Relay isolation prevents noise coupling** - the external LED circuit doesn't interfere with EV3 operation
 3. **Simple Python motor control API** - no additional libraries or complex code needed
 4. **Cost-effective solution** - ~$3-5 relay vs $20-40 dedicated PWM drivers
 5. **Battle-tested technology** - relays are proven components in competitive robotics
