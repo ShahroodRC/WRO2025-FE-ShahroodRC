@@ -70,23 +70,23 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [🔌 EV3 Motor Cable & Port Architecture](#-ev3-motor-cable--port-architecture)
     - [🛠️ Notes](#️-notes)
 - [💻 Code For Each Component](#-code-for-each-component)
-    - [🔄 Drive Motor Code](#drive-motor-code)
-    - [🎯 Steering Motor Code](#steering-motor-code)
-    - [📷 Pixy Camera Code](#pixy-camera-code)
-    - [🌈 Color Sensor Code](#color-sensor-code)
-    - [💡 LED Indicator Code](#led-indicator-code)
-    - [📏 Ultrasonic Sensor Code](#ultrasonic-sensor-code)
-    - [🔘 Button Control Code](#button-control-code)
-    - [⚡ Main Control Flow](#main-control-flow)
+    - [🔄 Drive Motor Code](#-drive-motor-code)
+    - [🎯 Steering Motor Code](#-steering-motor-code)
+    - [📷 Pixy Camera Code](#-pixy-camera-code)
+    - [🌈 Color Sensor Code](#-color-sensor-code)
+    - [💡 LED Indicator Code](#-led-indicator-code)
+    - [📏 Ultrasonic Sensor Code](#-ultrasonic-sensor-code)
+    - [🔘 Button Control Code](#-button-control-code)
+    - [⚡ Main Control Flow](#-main-control-flow)
 - [🚗 Mobility Management](#-mobility-management)
-    - [1. 📍 Introduction to Mobility System](#1-introduction-to-mobility-system)
-    - [2. ⚙️ Motors and Actuators](#2-motors-and-actuators)
-    - [3. 📡 Sensor Integration for Mobility](#3-sensor-integration-for-mobility)
-    - [4. 🎮 Mobility Control Algorithms](#4-mobility-control-algorithms)
-    - [5. ⚡ Energy Management for Mobility](#5-energy-management-for-mobility)
-    - [6. 🔗 System Integration for Mobility](#6-system-integration-for-mobility)
-    - [7. 🧪 Testing and Optimization](#7-testing-and-optimization)
-    - [8. ✅ Conclusion](#8-conclusion)
+    - [1. 📍 Introduction to Mobility System](#1--introduction-to-mobility-system)
+    - [2. ⚙️ Motors and Actuators](#2-️-motors-and-actuators)
+    - [3. 📡 Sensor Integration for Mobility](#3--sensor-integration-for-mobility)
+    - [4. 🎮 Mobility Control Algorithms](#4--mobility-control-algorithms)
+    - [5. ⚡ Energy Management for Mobility](#5--energy-management-for-mobility)
+    - [6. 🔗 System Integration for Mobility](#6--system-integration-for-mobility)
+    - [7. 🧪 Testing and Optimization](#7--testing-and-optimization)
+    - [8. ✅ Conclusion](#8--conclusion)
 - [⚡ Power and Sense Management](#-power-and-sense-management)
     - [1. 🔋 Power Supply and Distribution](#1--power-supply-and-distribution)
         - [Hardware Specifications & Electrical Diagram](#hardware-specifications--electrical-diagram)
@@ -682,7 +682,7 @@ A concise table of the robot's physical dimensions.
   - Steering motor → `OUTPUT_B`
   - Primary drive motor → `OUTPUT_D`
   - Secondary drive motor (Open Challenge only) → `OUTPUT_C`
-- **Use**: Drives rear wheels through a differential and controls front-wheel steering via rack-and-pinion system.
+- **Use**: Drives rear wheels through a differential and controls front-wheel steering via a rack-and-pinion system.
 - **Configuration for Challenges**:
   - **Obstacle Challenge (final submitted version)**: Only **one** Medium Motor on `OUTPUT_D` drives the differential (the gear of the second motor is physically removed).
   - **Open Challenge**: A **second** Medium Motor can be connected to `OUTPUT_C` and mechanically coupled to the same differential gear for extra torque and higher speed (both motors synchronized in code). This configuration is fully WRO-compliant because the two motors drive a single mechanical output (the differential).
@@ -818,7 +818,7 @@ Pin Assignment:
 
 This section details the code implementation for each major component of our robot, explaining how they work together to achieve the competition objectives.
 
-### Drive Motor Code
+### 🔄 Drive Motor Code
 The drive motors (`motor_b` on OUTPUT_D and `motor_c` on OUTPUT_C for Open Challenge; `motor_b` on OUTPUT_D for Obstacle Challenge) propel the robot. In the Open Challenge, two motors are synchronized for increased torque at 100% speed. In the Obstacle Challenge, a single motor is used for simplicity.
 
 ```python
@@ -859,7 +859,7 @@ def stop_drive():
 
 ---
 
-### Steering Motor Code
+### 🎯 Steering Motor Code
 The steering motor (`motor_a` on OUTPUT_B) controls the robot's direction by adjusting the front wheels. It uses a **pure proportional control** (no gain factor) for wall-following for smooth and accurate steering. The target angle is directly compared to the current position.
 ```python
 from ev3dev2.motor import MediumMotor, OUTPUT_B
@@ -902,7 +902,7 @@ The steering system uses a proportional control algorithm where the motor power 
 
 ---
 
-### Pixy Camera Code
+### 📷 Pixy Camera Code
 The Pixy 2.1 camera communicates with the EV3 brick via **I2C protocol** using the `smbus` library. Unlike Pixy 1, Pixy 2.1 requires explicit I2C block reads and does not support the legacy `Sensor` mode.
 
 ```python
@@ -954,7 +954,7 @@ def detect_pillar():
 ```
 
 **Key Notes:**
-- Pixy 2.1 must be configured in "I2C mode" using PixyMon before use.
+- Pixy 2.1 must be configured in "I2C mode" using PixyMon v2 before use.
 - The I2C address is 0x54 by default.
 - Data is read in 20-byte blocks; fields are little-endian.
 - Y-position filtering (y > 70) avoids ground-level noise.
@@ -974,7 +974,7 @@ def detect_pillar():
 
 ---
 
-### Color Sensor Code
+### 🌈 Color Sensor Code
 The color sensor detects **blue lines** (`color in [1, 2]`, stored as `abi`) and **orange lines** (`color in [5, 7]`, stored as `narengi`) on the track, which determine the robot's turning direction in the open challenge.
 
 ```python
@@ -1013,7 +1013,7 @@ def wait_for_color(target_color):
 
 ---
 
-### LED Indicator Code
+### 💡 LED Indicator Code
 The EV3 brick's LEDs provide visual feedback about the robot's state and detected obstacles.
 ```python
 from ev3dev2.led import Leds
@@ -1048,7 +1048,7 @@ def set_led_state(state):
 
 ---
 
-### Ultrasonic Sensor Code
+### 📏 Ultrasonic Sensor Code
 Two ultrasonic sensors (`rast` on INPUT_2, `chap` on INPUT_3) manage wall-following with a non-linear control algorithm.
 
 ```python
@@ -1090,7 +1090,7 @@ def wall_following_control():
 
 ---
 
-### Button Control Code
+### 🔘 Button Control Code
 The EV3 button is used to start the robot after manual positioning.
 
 ```python
@@ -1113,8 +1113,8 @@ def wait_for_start():
 
 ---
 
-### Main Control Flow
-The main program integrates all components into a cohesive system:
+### ⚡ Main Control Flow
+The main program integrates all components into a smooth-working system:
 ```python
 # Initialize all components
 initialize_components()
@@ -1144,19 +1144,19 @@ while not challenge_complete:
     steering_correction = wall_following_control()
     amotor(steering_correction)
 ```
-This integrated approach ensures that all sensors and actuators work together harmoniously to navigate the competition course successfully.
+This integrated approach ensures that all sensors and actuators work together smoothly to navigate the competition course successfully.
 
 ---
 
 ## 🚗 Mobility Management
 
-The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the World Robot Olympiad (WRO) 2025 Future Engineers category. The robot’s dimensions are **26 cm (length)**, **16 cm (width)**, and **29 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
+The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the WRO 2025 Future Engineers category. The robot’s dimensions are **26 cm (length)**, **16 cm (width)**, and **29 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
 
 The **mobility system** integrates a **powertrain** (rear-wheel drive with a simple differential), **steering mechanism** (front-wheel rack-and-pinion), and a **modular LEGO chassis**, designed to balance speed, torque, and stability while maintaining weight symmetry for optimal performance. This section provides comprehensive details on the system’s design, implementation, testing, and lessons learned, enabling another team to replicate the system and offering insights for further optimization.
 
 ---
 
-### 1. Introduction to Mobility System
+### 1. 📍 Introduction to Mobility System
 The complete LEGO chassis design, shown in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration.
 <br>
 <img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300">
@@ -1190,7 +1190,7 @@ The mobility system was designed and built by the team’s mechanical specialist
 
 ---
 
-### 2. Motors and Actuators
+### 2. ⚙️ Motors and Actuators
 **Motor Types**  
 Three **LEGO EV3 Medium Motors** are used in the mobility system (depending on the challenge configuration):
 - **Propulsion Motor(s) (`motor_b` on OUTPUT_D and `motor_c` on OUTPUT_C)**: In the Open Challenge, two motors (connected to OUTPUT_D and OUTPUT_C) drive the rear wheels via a single gear connected to differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
@@ -1292,7 +1292,7 @@ After implementing this modification:
 
 ---
 
-### 3. Sensor Integration for Mobility
+### 3. 📡 Sensor Integration for Mobility
 **Sensors Used**  
 The mobility system integrates:
 - **EV3 Color Sensor (INPUT_4)**: Detects blue (`cr1=2`) and orange (`cr1=5`) lines for zone detection and turn triggers (1 kHz sampling, 0.5–1 cm distance).
@@ -1329,7 +1329,7 @@ Achieved 90% success in 50 test runs on a mock WRO track.
 
 ---
 
-### 4. Mobility Control Algorithms
+### 4. 🎮 Mobility Control Algorithms
 **Control Algorithms**
 The mobility system uses Python-based algorithms on **ev3dev** to manage:
 - **Speed Control**: In Open Challenge, `motor_b` and `motor_c` operate at 100% speed (0.25 m/s) for navigation, reduced to 20% during parking. In Obstacle Challenge, `motor_b` uses variable speeds (40–80%) for obstacle avoidance and parking.
@@ -1374,7 +1374,7 @@ The mobility system uses Python-based algorithms on **ev3dev** to manage:
 
 ---
 
-### 5. Energy Management for Mobility
+### 5. ⚡ Energy Management for Mobility
 **Power Consumption**
 - **Propulsion Motor(s)**: In the Open Challenge, two motors draw 150–200 mA each at 60% speed, peaking at 450 mA during parking. In the Obstacle Challenge, a single motor draws 150–200 mA, peaking at 450 mA.
 - **Steering Motor**: 100–150 mA, peaking at 250 mA for sharp turns.
@@ -1394,7 +1394,7 @@ The **LEGO EV3 Rechargeable Battery Pack** (10V, 2050 mAh) ensures stable 9.8–
 
 ---
 
-### 6. System Integration for Mobility
+### 6. 🔗 System Integration for Mobility
 **Integration with Other Systems**  
 The mobility system integrates with:
 - **Sensors**: Color Sensor, Ultrasonic Sensors, and Pixy Cam adjust `motor_b` and `motor_a` in real-time.
@@ -1410,7 +1410,7 @@ The **EV3 Control Brick** (ARM9, 300 MHz, 64 MB RAM) runs **ev3dev**, coordinati
 
 ---
 
-### 7. Testing and Optimization
+### 7. 🧪 Testing and Optimization
 Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.
 <br>
 <img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">
@@ -1437,7 +1437,7 @@ Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/
 
 ---
 
-### 8. Conclusion
+### 8. ✅ Conclusion
 **Summary**  
 The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** for propulsion (depending on the challenge), plus one for steering, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (design shown in `3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
 

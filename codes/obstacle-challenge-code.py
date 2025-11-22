@@ -44,7 +44,7 @@ leds.set_color('LEFT', 'ORANGE')
 leds.set_color('RIGHT', 'ORANGE')
 
 
-#btn.wait_for_bump('enter')
+btn.wait_for_bump('enter')
 leds.set_color('LEFT', 'GREEN')
 leds.set_color('RIGHT', 'GREEN')
 
