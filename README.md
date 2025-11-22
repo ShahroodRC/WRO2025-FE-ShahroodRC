@@ -129,7 +129,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 
 ## 👥 The Team
 
-We are the ShahroodRC team, a group of dedicated students from Iran with a passion for robotics, electronics, and programming. Our goal is to create an innovative robot for the WRO 2025 Future Engineers category, combining technical skills and collaboration to solve complex challenges.
+We are the ShahroodRC team, a group of dedicated students from Iran with a passion for robotics, electronics, and programming. Our goal is to design an innovative robot for the WRO 2025 Future Engineers category, leveraging technical skills and collaboration to tackle complex challenges.
 
 ### 👨‍💼 Sepehr Yavarzadeh
 - **Role**: Project Manager and Software Engineer.
@@ -361,7 +361,7 @@ The latest version of the Randomizer app is included directly in this repository
 ## 🔄 Our Path – Platform Evolution
 
 ### Robot Development Process
-The ShahroodRC team started a tough development process to find the best, most efficient, and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed story of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
+The ShahroodRC team started a tough development process to find the most suitable, efficient, and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed story of our journey, including the challenges faced and the lessons that guided us to our final platform choice.
 
 ---
 
@@ -451,12 +451,12 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 ### Version Timeline
 **v1.0 — EV3 Transition & Competition Robot (post-platform change)**
-- After switching our platform to LEGO EV3 the first EV3-based robot we built was essentially complete and performed reliably with no major issues.
+- After switching our platform to LEGO EV3, the first EV3-based robot we built was essentially complete and performed reliably with no major issues.
 - We entered the same robot in the Iran National WRO (August 2025) and secured **1st Place** using that build.
 - Status: Competition-proven — served as the stable baseline for subsequent improvements.
 
 **Post-Nationals Update (Aug–Nov 2025)**
-- Upgraded the camera from the original Pixy to **Pixy 2.1** to gain higher frame rate and better color/signature detection.
+- Upgraded the camera from the original Pixy to **Pixy 2.1** to gain a higher frame rate and better color/signature detection.
 - Raised the camera mounting height and increased its downward tilt toward the ground to improve target visibility at competition distances.
 - Added a second motor to the drive system (for the Open Challenge) to increase torque and speed in the Open Challenge.
 - Reinforced and slightly redesigned key structural elements of the chassis to improve rigidity and durability under repeated competition runs.
@@ -469,7 +469,7 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 ### Key Improvements (Post-Nationals)
 - **Vision**: Pixy 2.1 delivers higher FPS and more reliable signature tracking, reducing false positives in variable lighting.
 - **Mounting & Field of View**: Higher mount + steeper downward angle improved detection of pillars and track features at close distances.
-- **Mobility**: Second motor increased traction and reduced motor load during the Open Challenge.
+- **Mobility**: The second motor increased traction and reduced motor load during the Open Challenge.
 - **Structure**: Strengthened frame decreased vibrations and mounting failures, improving sensor stability and repeatability.
 - **LEDs & Indicators**: LEDs moved to an elevated position beside the Pixy for better visibility and reduced interference.
 - **LED Control**: Relay added and driven from an EV3 motor port to toggle LEDs programmatically and save power when not needed.
@@ -681,7 +681,7 @@ A concise table of the robot's physical dimensions.
 - **Feature**: Provides propulsion (rear wheels) and steering (front wheels)
 - **Interface**: LEGO EV3 Motor Port (OUTPUT_D for drive, OUTPUT_B for steering)
 - **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation.
-- **Configuration for Challenges**: The robot uses two EV3 Medium Motors in our configuration: one steering motor on `OUTPUT_B` and one drive motor on `OUTPUT_D`. In alternative setups, a second drive motor can be added to the differential for extra torque, however our submitted code and hardware utilits a single drive motor on `OUTPUT_D`.
+- **Configuration for Challenges**: The robot uses two EV3 Medium Motors in our configuration: one steering motor on `OUTPUT_B` and one drive motor on `OUTPUT_D`. In alternative setups, a second drive motor can be added to the differential for extra torque; however, our submitted code and hardware utilize a single drive motor on `OUTPUT_D`.
 - **Description**: Two EV3 Medium Motors power the ShahroodRC robot: the propulsion motor (`motor_b` on `OUTPUT_D`) drives the rear wheels through a differential, and the steering motor (`motor_a` on `OUTPUT_B`) adjusts the front wheels’ angle via a rack-and-pinion system. Motors were chosen for their lightweight and compatibility with the LEGO EV3 ecosystem. A 1:1.5 gear ratio for propulsion enhances torque for parking maneuvers, reducing motor strain.
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
@@ -1922,7 +1922,7 @@ BEGIN
 
     // Final straight segment (60 iterations)
     FOR i = 0 TO 59
-        maintain 28 cm distance with linear control
+        Maintain a 28 cm distance with linear control
     END FOR
 END
 ```
@@ -2064,7 +2064,7 @@ motor_c.off()
 ### Final Round with Obstacle Avoidance (Obstacle Challenge)
 
 [Full Obstacle Challenge Code](/codes/obstacle-challenge-code.py)
-The robot extends Open Challenge logic, adding Pixy Cam for obstacle detection (green: `sig=1`, red: `sig=2`) adjusting steering (`target`) based on their `x` position relative to offsets (`green` or `red`). It determines direction (`al`) over 100 iterations, uses color values (`rang`, `rangdovom`) for line detection, and adjusts distance (`fasele`, 40–55 cm). Parking aligns with `rangdovom` at 5–34 cm. LEDs provide visual feedback, and a parking sequence aligns the robot parallel to the wall.
+The robot extends Open Challenge logic, adding Pixy Cam for obstacle detection (green: `sig=1`, red: `sig=2`), adjusting steering (`target`) based on their `x` position relative to offsets (`green` or `red`). It determines direction (`al`) over 100 iterations, uses color values (`rang`, `rangdovom`) for line detection, and adjusts distance (`fasele`, 40–55 cm). Parking aligns with `rangdovom` at 5–34 cm. LEDs provide visual feedback, and a parking sequence aligns the robot parallel to the wall.
 
 #### Algorithm Flowchart
 <div align="center">
@@ -2177,7 +2177,7 @@ def clamp(value, minimum, maximum):
 # Proportional steering control with gain factor (0.7)
 def amotor(target_degrees, clamp_limit=50):
     """
-    Adjust steering motor position using proportional control.
+    Adjust the steering motor position using proportional control.
     Args:
         target_degrees (float): Desired steering angle in degrees.
         clamp_limit (int): Maximum power limit for motor (default: 50).
@@ -2210,7 +2210,7 @@ def get_block(field_type):
 # Line detection and turn counter logic
 def lineChek():
     """
-    Detect track lines and increment turn counter when a valid line is found.
+    Detect track lines and increment the turn counter when a valid line is found.
     Uses color codes: 1=Black, 2=Blue, 5=Orange.
     """
     global a
@@ -2431,7 +2431,7 @@ while True:
     else:
         fasele = 40
 
-    # Stall detection: if drive motor is stuck, reverse and retry
+    # Stall detection: if the drive motor is stuck, reverse and retry
     if lastpos == motor_b.position:
         if b_timer == 0:
             b_timer = time.time()
@@ -2486,7 +2486,7 @@ if al < 0:
 
     motor_a.on_for_degrees(90, -motor_a.position)  # Reset steering
 
-    # Approach right wall using ultrasonic sensor
+    # Approach the right wall using the ultrasonic sensor
     r = rast.distance_centimeters
     timeRang = time.time()
     speed = 10
@@ -2508,7 +2508,7 @@ if al < 0:
     motor_a.on_for_degrees(-60, 150)
     motor_a.stop()
 
-    # Reverse into parking spot
+    # Reverse into the parking spot
     motor_b.on_for_degrees(-30, 1100)
     motor_a.on_for_degrees(60, 150)
     motor_b.on_for_degrees(-20, 260)
@@ -2582,7 +2582,7 @@ if al < 0:
     motor_a.on_for_degrees(60, -motor_a.position)
     motor_a.stop()
 
-    # Reverse into final parking position
+    # Reverse into the final parking position
     motor_b.reset()
     mp = 0
     while mp > -530:
@@ -2630,7 +2630,7 @@ elif al > 0:
 
     motor_a.on_for_degrees(90, -motor_a.position)  # Reset steering
 
-    # Approach left wall using ultrasonic sensor
+    # Approach the left wall using the ultrasonic sensor
     c = chap.distance_centimeters
     timeRang = time.time()
     speed = 10
@@ -2662,7 +2662,7 @@ elif al > 0:
     motor_b.on_for_degrees(50, 500)
     motor_b.stop()
 
-    # Wall-follow toward parking zone
+    # Wall-follow toward the parking zone
     fasele = 34
     r = rast.distance_centimeters
     motor_b.reset()
@@ -2728,27 +2728,27 @@ motor_a.off()
 **Step 1: Drive Base Assembly**
 1. Create 15L × 10W rectangular frame from LEGO beams
 2. Attach 4 wheels with rubber tires using 90-degree angle frames
-3. Mount Medium Motor (Drive) horizontally at rear center
+3. Mount the Medium Motor (Drive) horizontally at the rear center
 4. Connect motor to rear differential (1:1 gear ratio, 27mm axle)
 5. Result: Sturdy base, ~500g, 300mm wheelbase
 
 **Step 2: Steering Mechanism**
-1. Build parallelogram linkage using LEGO technic connectors
-2. Mount Medium Motor vertically on front center
-3. Connect servo arm to left wheel via 90° linkage
+1. Build a parallelogram linkage using LEGO Technic connectors
+2. Mount the Medium Motor vertically on the front center
+3. Connect the servo arm to the left wheel via a 90° linkage
 4. Calibrate: wheels should turn ±20° smoothly
-5. Test motor response with ev3 console
+5. Test motor response with the EV3 console
 
 **Step 3: Sensor Tower**
 1. Create vertical tower (4L × 2W beams, 120mm height)
-2. Mount Pixy camera at 45° angle (top center - looking down)
+2. Mount Pixy camera at a 45° angle (top center - looking down)
 3. Mount ultrasonic sensors left/right (front face, level)
-4. Mount color sensor at bottom (track-facing, 5mm above surface)
+4. Mount the color sensor at the bottom (track-facing, 5mm above the surface)
 
 #### **Phase 2: Electronics (25 min)**
 
 **Step 4: EV3 Brick Mounting**
-1. Position EV3 on top of sensor tower (centered, front-facing)
+1. Position EV3 on top of the sensor tower (centered, front-facing)
 2. Secure with double-sided tape + velcro strips
 3. Ensure LCD screen and buttons are accessible
 4. Verify no cable pinching
@@ -2769,9 +2769,9 @@ motor_a.off()
 #### **Phase 3: Power & Finalization (20 min)**
 
 **Step 7: Battery System**
-1. Mount 6x AA battery holder on chassis bottom
+1. Mount the 6x AA battery holder on the chassis bottom
 2. Insert rechargeable batteries (correct polarity!)
-3. Connect to EV3 via power port
+3. Connect to EV3 via the power port
 4. Verify: EV3 LED turns green when powered
 
 **Step 8: Cable Management**
@@ -2781,8 +2781,8 @@ motor_a.off()
 4. Total organized cable length: ~1.5m
 
 **Step 9: Structural Verification**
-1. Check center of gravity (should be centered)
-2. Add 50g ballast to rear if needed
+1. Check the center of gravity (should be centered)
+2. Add 50g ballast to the rear if needed
 3. Final weight: 1.2-1.5 kg (WRO compliant <1.6kg)
 4. Test stability: no tipping at ±30° angles
 
@@ -2839,7 +2839,7 @@ This section provides step-by-step instructions for setting up the development e
 
 2. **Write image to microSD card** (8GB or larger):
    - Windows: Use [Balena Etcher](https://www.balena.io/etcher/) or Win32DiskImager
-   - macOS/Linux: Use `dd` command or Etcher
+   - macOS/Linux: Use the `dd` command or Etcher
 
 3. **Insert microSD card** into EV3 brick and power on
    - Wait 2-3 minutes for first boot (LED will blink)
@@ -2855,7 +2855,7 @@ ssh robot@192.168.137.3
 
 **Via Wi-Fi:**
 ```bash
-# 1. Connect EV3 to your Wi-Fi network via web browser
+# 1. Connect EV3 to your Wi-Fi network via a web browser
 #    Navigate to http://ev3dev.local in your browser
 # 2. SSH into the robot
 ssh robot@<ev3-ip-address>
@@ -2953,7 +2953,7 @@ top
 
 ## 🔧 Sensor Calibration Guide
 
-Proper sensor calibration is critical for reliable robot performance. Follow these procedures before competition.
+Proper sensor calibration is critical for reliable robot performance. Follow these procedures before the competition.
 
 ### Pixy 2.1 Camera Calibration
 
@@ -2966,39 +2966,39 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
 
 1. **Connect Pixy to PC via USB:**
    - Install PixyMon v2 from [pixycam.com](https://pixycam.com)
-   - Launch PixyMon and connect Pixy camera
+   - Launch PixyMon and connect the Pixy camera
 
 2. **Train Color Signatures:**
    - Click "Program" → "Blocks" → "Color Connected Components"
    - Select "Signature 1" (Green pillars):
-     - Aim camera at green pillar from 0.5–1.5 m
+     - Aim the camera at the green pillar from 0.5–1.5 m
      - Click "Teach signature 1" and select green color
      - Repeat 5–10 times from different angles/distances
    - Select "Signature 2" (Red pillars):
-     - Repeat process for red color
+     - Repeat the process for the red color
      - Ensure signatures are distinct (RGB ranges don't overlap)
 
 3. **Adjust Brightness Settings:**
-   - Aim camera at track under competition lighting
+   - Aim the camera at the track under competition lighting
    - If brightness is too high/low, adjust via "Settings" → "Camera"
    - Target: Histogram shows balanced distribution
 
 4. **Test Detection:**
-   - Point camera at pillars and verify detection
+   - Point the camera at the pillars and verify detection
    - Verify X, Y coordinates are accurate in PixyMon display
    - Adjust HSV ranges if false positives occur
 
 5. **Save Configuration:**
    - Click "Program" → "Save to flash"
-   - Configuration persists even after power cycle
+   - Configuration persists even after a power cycle
 
 ### Ultrasonic Sensor Calibration
 
 **Procedure:**
 
-1. **Position sensors perpendicular to wall:**
-   - Mount on robot front (left and right)
-   - Ensure sensors face wall at 0° angle
+1. **Position sensors perpendicular to the wall:**
+   - Mount on the robot front (left and right)
+   - Ensure sensors face the wall at a 0° angle
    - Deviation > 5° causes measurement errors
 
 2. **Test range accuracy:**
@@ -3015,16 +3015,16 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
    ```
 
 3. **Verify accuracy:**
-   - Measurements should be ±2 cm of actual distance
+   - Measurements should be ±2 cm of the actual distance
    - If error > 2 cm, check sensor alignment
-   - Clean sensor lens if covered with dust/debris
+   - Clean the sensor lens if covered with dust/debris
 
 ### Color Sensor Calibration
 
 **Procedure:**
 
 1. **Set sensor position:**
-   - Mount 0.5–1 cm above track surface
+   - Mount 0.5–1 cm above the track surface
    - Ensure perpendicular alignment
    - Stable mounting prevents vibration artifacts
 
@@ -3046,7 +3046,7 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
 
 3. **Test under competition lighting:**
    - Test at 500–1000 lux (typical indoor venue)
-   - If color detection inconsistent, recalibrate via EV3 menu:
+   - If color detection is inconsistent, recalibrate via EV3 menu:
      - Settings → Sensor → Color Sensor → Calibrate
 
 ### Pre-Competition Checklist
@@ -3117,7 +3117,7 @@ Throughout development and competition, we encountered several challenges. Here'
 **Symptom:** Robot detects obstacles that don't exist, causing unexpected steering corrections
 
 **Root Cause:**
-- Pixy signatures trained in bright workshop lighting (1000+ lux) but competition venue had 500–600 lux
+- Pixy signatures trained in bright workshop lighting (1000+ lux), but the competition venue had 500–600 lux
 - Lack of color saturation made it difficult to distinguish green/red pillars
 
 **Solution Implemented:**
@@ -3127,8 +3127,8 @@ Throughout development and competition, we encountered several challenges. Here'
 4. **Adjust HSV thresholds** – Widened acceptable ranges slightly to improve robustness
 
 **Prevention for Future Competitions:**
-- Carry calibration samples to venue
-- Test on actual track 1 hour before competition
+- Carry calibration samples to the venue
+- Test on the actual track 1 hour before the competition
 - Have backup Pixy signatures saved at different lighting levels
 
 ### Problem 2: Ultrasonic Sensor Noise from Angled Walls
@@ -3160,14 +3160,14 @@ def filtered_distance(sensor, window_size=5):
 **Symptom:** Robot fails to detect blue/orange lines consistently, especially after turns
 
 **Root Cause:**
-- Color sensor mounted on flexible LEGO beam
-- Vibration caused sensor to move during turning maneuvers
+- Color sensor mounted on a flexible LEGO beam
+- Vibration caused the sensor to move during turning maneuvers
 - Mounting distance from track surface varied (should be 0.5–1 cm)
 
 **Solution Implemented:**
 1. **Rigid mounting structure** – Replaced flexible beam with locked Technic beams
 2. **Add shim spacers** – Ensured consistent 0.8 cm distance from track
-3. **Increase detection threshold** – Required 2 consecutive color detections before registering turn
+3. **Increase detection threshold** – Required 2 consecutive color detections before registering a turn
 
 ### Problem 4: Motor Slippage During Sharp Turns
 
@@ -3175,7 +3175,7 @@ def filtered_distance(sensor, window_size=5):
 
 **Root Cause:**
 - EV3 tires have smooth rubber (designed for smooth surfaces)
-- Competition track has slightly inclined/uneven surface
+- Competition track has a slightly inclined/uneven surface
 - Motor torque insufficient for combined steering + forward movement on slopes
 
 **Solution Implemented:**
@@ -3189,9 +3189,9 @@ def filtered_distance(sensor, window_size=5):
 **Symptom:** Pixy camera occasionally stops responding; code throws I2C bus error
 
 **Root Cause:**
-- EV3 I2C bus conflicts when multiple sensors polled simultaneously
-- Pixy initialization incomplete after power-on
-- Default I2C timeout too aggressive
+- EV3 I2C bus conflicts when multiple sensors are polled simultaneously
+- Pixy initialization is incomplete after power-on
+- Default I2C timeout is too aggressive
 
 **Solution Implemented:**
 1. **Add initialization delay** – Wait 2 seconds after EV3 boot before I2C communication
@@ -3214,18 +3214,18 @@ def safe_pixy_read(max_retries=3):
 
 ### Problem 6: Line Detection Missing at Track Corners
 
-**Symptom:** Robot fails to detect turn lines when approaching perpendicular to line
+**Symptom:** Robot fails to detect turn lines when approaching perpendicular to the line
 
 **Root Cause:**
-- Color sensor positioned too low, only sees paint edge not full line
-- Color value ambiguous between track surface and line
-- Detection logic too strict on color matching
+- Color sensor positioned too low, only sees the paint edge, not the full line
+- Color value is ambiguous between the track surface and the line
+- Detection logic is too strict on color matching
 
 **Solution Implemented:**
-1. **Reposition sensor** – Raised color sensor by 0.5 cm to see more of line surface
+1. **Reposition sensor** – Raised the color sensor by 0.5 cm to see more of the line surface
 2. **Relax color thresholds** – Accepted both blue (1, 2) and orange (5, 7) codes
 3. **Add spatial filtering** – Ignore single-frame detections; require sustained detection
-4. **Fallback to dead reckoning** – If line not detected for 3 seconds, estimate turn based on timing
+4. **Fallback to dead reckoning** – If the line is not detected for 3 seconds, estimate the turn based on timing
 
 ### Problem 7: Battery Voltage Sag Under Load
 
@@ -3233,7 +3233,7 @@ def safe_pixy_read(max_retries=3):
 
 **Root Cause:**
 - Battery voltage drops from 7.5V (full) to 5.8V (depleted) under 1.5A motor draw
-- EV3 voltage regulator has minimum input requirement (5.5V)
+- EV3 voltage regulator has a minimum input requirement (5.5V)
 - Peak current during acceleration/steering causes transient voltage dips
 
 **Solution Implemented:**
@@ -3255,7 +3255,7 @@ def safe_pixy_read(max_retries=3):
 1. **Explicit pip3 install** – Always use `pip3 install ev3dev2` (not pip)
 2. **Verify installation** – Run `python3 -c "import ev3dev2; print(ev3dev2.__version__)"`
 3. **Create requirements.txt** – Document all dependencies for reproducible setup
-4. **Use virtual environment** – Set up isolated Python env to prevent conflicts
+4. **Use virtual environment** – Set up an isolated Python env to prevent conflicts
 
 **Prevention:**
 ```bash
@@ -3406,7 +3406,7 @@ During development, the team tested several alternative components that were not
 
 - All prices are approximate based on 2025 market rates (USD)
 - Prices may vary by region and supplier
-- Experimental component costs not included in final robot
+- Experimental component costs are not included in the final robot
 - Team members had access to school resources (3D printer, soldering equipment)
 - One-time equipment costs amortized across potential future robots
 - Shipping costs estimated at 15% of component costs
@@ -3458,7 +3458,7 @@ WRO2025-FE-ShahroodRC/
 │   ├── robot-left.jpg, robot-right.jpg  # Side views
 │   ├── robot-top.jpg, robot-bottom.jpg  # Top & bottom views
 │   ├── robot.jpg                        # 3-quarter view
-│   ├── *.jpg                            # Various photos of robot different parts
+│   ├── *.jpg                            # Various photos of the robot's different parts
 |   └── robot-photos.md                  # Robot photos' notes
 │
 ├── 📂 team-photos/                       # Team & achievement photos
