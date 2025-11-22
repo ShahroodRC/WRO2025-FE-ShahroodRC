@@ -43,6 +43,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 ---
 
 ## Table of Contents
+
 - [👥 The Team](#-the-team)
 - [🏆 National Championship Victory](#-national-championship-victory)
 - [🎯 Mission Overview for WRO Future Engineers Rounds](#-mission-overview-for-wro-future-engineers-rounds)
@@ -50,35 +51,42 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [🎬 Videos](#-videos)
 - [📱 Randomizer App](#-randomizer-app)
 - [🔄 Our Path – Platform Evolution](#-our-path--platform-evolution)
+    - [🔁 1. Using Arduino Uno](#-1-using-arduino-uno)
+    - [🔁 2. Switching to ESP32](#-2-switching-to-esp32)
+    - [🔁 3. Adopting Raspberry Pi Zero](#-3-adopting-raspberry-pi-zero)
+    - [✅ 4. Final Transition to LEGO EV3](#-4-final-transition-to-lego-ev3)
+    - [📊 Platform Comparison](#-platform-comparison)
+    -[📌 Final Summary & Reflection](#-final-summary--reflection)
 - [🔄 Design Evolution & Iteration History](#-design-evolution--iteration-history)
 - [📊 Performance Metrics & Statistics](#-performance-metrics--statistics)
 - [🤖 Robot Components Overview](#-robot-components-overview)
-  - [🔧 Components Overview](#-components-overview)
-    - [🧠 LEGO EV3 Mindstorms Control Brick](#-lego-ev3-mindstorms-control-brick)
-    - [👁️ Pixy 2.1](#️-pixy-21)
-    - [📏 Ultrasonic Sensor EV3](#-ultrasonic-sensor-ev3)
-    - [🌈 Color Sensor EV3](#-color-sensor-ev3)
-    - [⚙️ Medium Motor EV3](#️-medium-motor-ev3)
-  - [🔌 EV3 Motor Cable & Port Architecture](#-ev3-motor-cable--port-architecture)
-  - [🛠️ Notes](#️-notes)
+    -[📐 Dimensions](#-dimensions)
+    - [🔧 Components Overview](#-components-overview)
+        - [🧠 LEGO EV3 Mindstorms Control Brick](#-lego-ev3-mindstorms-control-brick)
+        - [👁️ Pixy 2.1](#️-pixy-21)
+        - [📏 Ultrasonic Sensor EV3](#-ultrasonic-sensor-ev3)
+        - [🌈 Color Sensor EV3](#-color-sensor-ev3)
+        - [⚙️ Medium Motor EV3](#️-medium-motor-ev3)
+    - [🔌 EV3 Motor Cable & Port Architecture](#-ev3-motor-cable--port-architecture)
+    - [🛠️ Notes](#️-notes)
 - [💻 Code For Each Component](#-code-for-each-component)
-  - [🔄 Drive Motor Code](#drive-motor-code)
-  - [🎯 Steering Motor Code](#steering-motor-code)
-  - [📷 Pixy Camera Code](#pixy-camera-code)
-  - [🌈 Color Sensor Code](#color-sensor-code)
-  - [💡 LED Indicator Code](#led-indicator-code)
-  - [📏 Ultrasonic Sensor Code](#ultrasonic-sensor-code)
-  - [🔘 Button Control Code](#button-control-code)
-  - [⚡ Main Control Flow](#main-control-flow)
+    - [🔄 Drive Motor Code](#drive-motor-code)
+    - [🎯 Steering Motor Code](#steering-motor-code)
+    - [📷 Pixy Camera Code](#pixy-camera-code)
+    - [🌈 Color Sensor Code](#color-sensor-code)
+    - [💡 LED Indicator Code](#led-indicator-code)
+    - [📏 Ultrasonic Sensor Code](#ultrasonic-sensor-code)
+    - [🔘 Button Control Code](#button-control-code)
+    - [⚡ Main Control Flow](#main-control-flow)
 - [🚗 Mobility Management](#-mobility-management)
-  - [1. 📍 Introduction to Mobility System](#1-introduction-to-mobility-system)
-  - [2. ⚙️ Motors and Actuators](#2-motors-and-actuators)
-  - [3. 📡 Sensor Integration for Mobility](#3-sensor-integration-for-mobility)
-  - [4. 🎮 Mobility Control Algorithms](#4-mobility-control-algorithms)
-  - [5. ⚡ Energy Management for Mobility](#5-energy-management-for-mobility)
-  - [6. 🔗 System Integration for Mobility](#6-system-integration-for-mobility)
-  - [7. 🧪 Testing and Optimization](#7-testing-and-optimization)
-  - [8. ✅ Conclusion](#8-conclusion)
+    - [1. 📍 Introduction to Mobility System](#1-introduction-to-mobility-system)
+    - [2. ⚙️ Motors and Actuators](#2-motors-and-actuators)
+    - [3. 📡 Sensor Integration for Mobility](#3-sensor-integration-for-mobility)
+    - [4. 🎮 Mobility Control Algorithms](#4-mobility-control-algorithms)
+    - [5. ⚡ Energy Management for Mobility](#5-energy-management-for-mobility)
+    - [6. 🔗 System Integration for Mobility](#6-system-integration-for-mobility)
+    - [7. 🧪 Testing and Optimization](#7-testing-and-optimization)
+    - [8. ✅ Conclusion](#8-conclusion)
 - [⚡ Power and Sense Management](#-power-and-sense-management)
     - [1. 🔋 Power Supply and Distribution](#1--power-supply-and-distribution)
         - [Hardware Specifications & Electrical Diagram](#hardware-specifications--electrical-diagram)
@@ -90,27 +98,27 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [6. ⚙️ Optimization Techniques](#6-️-optimization-techniques)
     - [7. ✅ Conclusion](#7--conclusion)
 - [🚧 Obstacle Management](#-obstacle-management)
-  - [🏁 Qualification Round (Open Challenge)](#qualification-round-open-challenge)
-  - [🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
+    - [🏁 Qualification Round (Open Challenge)](#qualification-round-open-challenge)
+    - [🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
 - [🏗️ Robot Assembly Guide](#️-robot-assembly-guide)
 - [🛠️ Software Setup & Installation](#️-software-setup--installation)
-  - [📋 Prerequisites](#prerequisites)
-  - [💾 Step 1: Install ev3dev on EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
-  - [🔌 Step 2: Connect to EV3 Brick](#step-2-connect-to-ev3-brick)
-  - [📦 Step 3: Install Required Python Libraries](#step-3-install-required-python-libraries)
-  - [⬇️ Step 4: Clone and Deploy Code](#step-4-clone-and-deploy-code)
-  - [▶️ Step 5: Run Code on EV3](#step-5-run-code-on-ev3)
-  - [🐛 Step 6: Debugging & Troubleshooting](#step-6-debugging--troubleshooting)
-  - [⌨️ Useful Commands](#useful-commands)
+    - [📋 Prerequisites](#prerequisites)
+    - [💾 Step 1: Install ev3dev on EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
+    - [🔌 Step 2: Connect to EV3 Brick](#step-2-connect-to-ev3-brick)
+    - [📦 Step 3: Install Required Python Libraries](#step-3-install-required-python-libraries)
+    - [⬇️ Step 4: Clone and Deploy Code](#step-4-clone-and-deploy-code)
+    - [▶️ Step 5: Run Code on EV3](#step-5-run-code-on-ev3)
+    - [🐛 Step 6: Debugging & Troubleshooting](#step-6-debugging--troubleshooting)
+    - [⌨️ Useful Commands](#useful-commands)
 - [🔧 Sensor Calibration Guide](#-sensor-calibration-guide)
-  - [📷 Pixy 2.1 Camera Calibration](#pixy-21-camera-calibration)
-  - [📏 Ultrasonic Sensor Calibration](#ultrasonic-sensor-calibration)
-  - [🌈 Color Sensor Calibration](#color-sensor-calibration)
-  - [✅ Pre-Competition Checklist](#pre-competition-checklist)
+    - [📷 Pixy 2.1 Camera Calibration](#pixy-21-camera-calibration)
+    - [📏 Ultrasonic Sensor Calibration](#ultrasonic-sensor-calibration)
+    - [🌈 Color Sensor Calibration](#color-sensor-calibration)
+    - [✅ Pre-Competition Checklist](#pre-competition-checklist)
 - [🔍 Testing & Validation](#-testing--validation)
-  - [📊 Test Results Summary](#test-results-summary)
-  - [🧪 Testing Methodology](#testing-methodology)
-  - [⚠️ Known Limitations & Workarounds](#known-limitations--workarounds)
+    - [📊 Test Results Summary](#test-results-summary)
+    - [🧪 Testing Methodology](#testing-methodology)
+    - [⚠️ Known Limitations & Workarounds](#known-limitations--workarounds)
 - [🔴 Problems and Solutions](#-problems-and-solutions)
 - [💰 Cost Report](#-cost-report)
 - [📁 Repository Structure](#-repository-structure)
@@ -270,6 +278,7 @@ This national championship victory marks a significant milestone, qualifying Sha
 ---
 
 ## 📸 Pictures
+
 | <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="90%" /> | 
 | :--: | :--: | 
 | *Front* | *Back* |
@@ -352,13 +361,11 @@ The latest version of the Randomizer app is included directly in this repository
 ## 🔄 Our Path – Platform Evolution
 
 ### Robot Development Process
-
 The ShahroodRC team started a tough development process to find the best, most efficient, and reliable platform for our WRO 2025 Future Engineers robot. We tested multiple hardware platforms—Arduino Uno, ESP32, Raspberry Pi Zero, and LEGO EV3—evaluating each based on **processing power**, **sensor integration**, **power consumption**, **real-time performance**, and **reliability** in competition environments. Below is a detailed story of our journey, the challenges faced, and the lessons that guided us to our final platform choice.
 
 ---
 
 ### 🔁 1. Using Arduino Uno
-
 We initially chose the **Arduino Uno** (ATmega328P, 16 MHz, 32 KB Flash, 2 KB SRAM) for its simplicity, affordability, and compatibility with a wide range of sensors and actuators. Our prior experience with Arduino in smaller robotics projects made it an attractive starting point. However, scaling it to meet WRO 2025 requirements revealed critical limitations:
 
 - **Camera Limitations**: We tested the OV7670 camera module (640x480 resolution, ~5 fps) and attempted to relay data from an ESP32-CAM via serial communication. The Arduino’s limited SRAM (2 KB) and processing power couldn’t handle image processing, resulting in unreliable object detection and low frame rates, far below the ~30 fps needed for real-time obstacle avoidance.
@@ -370,7 +377,6 @@ We initially chose the **Arduino Uno** (ATmega328P, 16 MHz, 32 KB Flash, 2 KB SR
 ---
 
 ### 🔁 2. Switching to ESP32
-
 The **ESP32** (dual-core Xtensa LX6, 240 MHz, 520 KB SRAM) was our next choice, offering improved processing power, integrated Wi-Fi/Bluetooth, and better memory management. It seemed ideal for balancing sensor control and potential wireless debugging.
 
 - **Pros**:
@@ -388,15 +394,14 @@ The **ESP32** (dual-core Xtensa LX6, 240 MHz, 520 KB SRAM) was our next choice, 
 ---
 
 ### 🔁 3. Adopting Raspberry Pi Zero
-
-The **Raspberry Pi Zero** (1 GHz single-core ARM11, 512 MB RAM, Linux-based) was our next attempt, chosen for its support for Python, OpenCV, and USB peripherals like the Pixy Cam or Pi Camera.
+The **Raspberry Pi Zero** (1 GHz single-core ARM11, 512 MB RAM, Linux-based) was our next attempt, chosen for its support for Python, OpenCV, and USB add-ons like the Pixy Cam or Pi Camera.
 
 - **Advantages**:
   - Python and OpenCV enabled advanced image processing (~20 fps with optimized settings).
   - Multi-threaded programming supported simultaneous sensor and motor tasks.
   - USB and I2C interfaces allowed easy integration of the Pixy Cam.
 - **Challenges**:
-  - **Power Sensitivity**: The Pi Zero required a stable 5V/2A supply. Voltage drops below 4.8V during motor and camera operation, causing brownouts.
+  - **Power Sensitivity**: The Pi Zero required a stable 5V/2A supply. Voltage drops below 4.8V during motor and camera use caused sudden shutdowns.
   - **Heat Issues**: Continuous operation (camera streaming at 20 fps and motor control) raised board temperatures to ~65°C, leading to thermal throttling.
   - **Hardware Fragility**: We lost two boards—one due to a short circuit from an improperly grounded motor driver (TB6612FNG) drawing ~1.5A, and another from a current surge (~2A) when powering the camera and motors simultaneously.
 
@@ -405,11 +410,10 @@ The **Raspberry Pi Zero** (1 GHz single-core ARM11, 512 MB RAM, Linux-based) was
 ---
 
 ### ✅ 4. Final Transition to LEGO EV3
-
 After facing challenges with previous platforms, we returned to the **LEGO EV3 Mindstorms** system (ARM9, 64 MB RAM, 16 MB Flash), leveraging our team’s prior WRO experience. The EV3 offered unmatched integration, safety, and reliability.
 
 - **Stability & Robustness**: The EV3 Intelligent Brick is built for rugged environments, handling two Medium Motors (20 N·cm, 160 rpm) and four sensors without external drivers.
-- **Built-in Ports**: Four motor ports and four sensor ports (e.g., INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor), simplified wiring, and reduced failure risks.
+- **Built-in Ports**: Four motor ports and four sensor ports (e.g., INPUT_1 for the Pixy Cam, INPUT_2/3 for the Ultrasonic Sensors, INPUT_4 for the Color Sensor), simplified wiring, and reduced failure risks.
 - **Pixy Cam Integration**: Using a custom I2C connection (via EV3 sensor port, 5V/120–160 mA), we integrated the Pixy Cam without USB host requirements, ensuring compatibility.
 - **Development Efficiency**: Python via ev3dev allowed rapid development, with libraries like `ev3dev2` supporting precise motor control (e.g., `on_for_degrees`) and sensor polling (10 ms for color sensor).
 - **Competition-Proven**: The EV3’s extensive use in WRO and availability of open-source libraries ensured reliable performance.
@@ -419,18 +423,16 @@ After facing challenges with previous platforms, we returned to the **LEGO EV3 M
 ---
 
 ### 📊 Platform Comparison
-
 | **Platform**      | **Processing Power** | **Sensor Integration** | **Power Consumption** | **Reliability** | **WRO Suitability** | **Approx. Cost (USD)** |
 |-------------------|----------------------|------------------------|-----------------------|-----------------|---------------------|------------------------|
 | **Arduino Uno**   | 16 MHz, 2 KB SRAM   | Limited (I2C, Analog)  | ~100 mA (base)        | Low (camera issues) | Poor                | $25                   |
 | **ESP32**         | 240 MHz, 520 KB SRAM| I2C, PWM, UART        | ~200 mA (with Wi-Fi)  | Medium (jitter)     | Moderate            | $10                   |
 | **Raspberry Pi Zero** | 1 GHz, 512 MB RAM | USB, I2C, GPIO        | ~300 mA (with camera) | Low (brownouts)     | Moderate            | $15                   |
-| **LEGO EV3**      | 300 MHz, 64 MB RAM  | 4 Motor, 4 Sensor Ports| ~500 mA (full load)   | High                | Excellent           | $100       |
+| **LEGO EV3**      | 300 MHz, 64 MB RAM  | 4 Motor, 4 Sensor Ports| ~500 mA (full load)   | High                | Excellent           | $150       |
 
 ---
 
 ### 📌 Final Summary & Reflection
-
 Each platform tested taught us critical lessons about system design, integration challenges, and performance trade-offs:
 - **Arduino Uno**: Highlighted the importance of processing power for vision tasks.
 - **ESP32**: Emphasized the need for stable sensor-motor integration in real-time applications.
@@ -445,11 +447,9 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 ---
 
-
 ## 🔄 Design Evolution & Iteration History
 
 ### Version Timeline
-
 **v1.0 - Initial Design (August 2024)**
 - Basic LEGO chassis with 2 motors
 - Simple wall-following PID
@@ -478,7 +478,6 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 
 ### Key Improvements Per Version
-
 | Aspect | v1.0 | v1.5 | v2.0 | v2.5 |
 |--------|------|------|------|------|
 | Wall Following | 60% | 70% | 80% | 92% |
@@ -492,7 +491,6 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 ## 📊 Performance Metrics & Statistics
 
 ### Test Results from 50+ Runs
-
 **Open Challenge (Wall-Following):**
 
 | Metric | Target | Achieved | Consistency | Status |
@@ -514,7 +512,6 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 | **Overall Success** | >80% | **87%** | - | **✅ Excellent** |
 
 ### Performance Across Different Conditions
-
 **Lighting Variations:**
 - Bright (>1000 lux): 99% line detection ✅
 - Normal (500-1000 lux): 97% line detection ✅ ← **Competition standard**
@@ -534,7 +531,6 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 | 25% | 6h | 15% | Fair | ⚠️ Marginal |
 
 ### Performance Metrics
-
 | Metric | Result |
 |--------|--------|
 | **Wall-Following Accuracy** | ±2 cm @ 27 cm target distance |
@@ -550,12 +546,21 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 This section provides a detailed overview of the key hardware components used in the ShahroodRC robot for the WRO 2025 Future Engineers category. Each component was carefully selected to ensure compatibility, reliability, and optimal performance for tasks like line following, obstacle avoidance, and precise parking. The components are seamlessly integrated with the LEGO EV3 platform, leveraging our team’s prior experience to streamline development and focus on competition performance.
 
+### 📐 Dimensions
+
+A concise table of the robot's physical dimensions.
+
+| Dimension | Measurement |
+|---|---:|
+| Length | 26 cm |
+| Width | 16 cm |
+| Height | 29 cm |
+
 ---
 
 ### 🔧 Components Overview
 
 #### **🧠 LEGO EV3 Mindstorms Control Brick**
-
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
@@ -584,7 +589,6 @@ This section provides a detailed overview of the key hardware components used in
 - **Implementation Impact**: The EV3’s stable power distribution and fast sensor polling (10 ms for Color Sensor, 50 ms for Pixy Cam) enabled precise navigation, such as maintaining a 27 cm wall distance in the Open Challenge and executing the parking sequence in under 10 seconds.
 
 #### **👁️ Pixy 2.1**
-
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
@@ -613,7 +617,6 @@ This section provides a detailed overview of the key hardware components used in
 - **Implementation Impact**: Pixy 2.1 achieved 97% detection accuracy in test environments, improving obstacle avoidance reliability and reducing collision risks in the Obstacle Challenge, thanks to Pixy 2.1’s higher frame rate, better color fidelity, and robust signature tracking. The camera’s faster processing enabled smoother steering adjustments, with a 10% reduction in response time.
 
 #### **📏 Ultrasonic Sensor EV3**
-
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
@@ -641,7 +644,6 @@ This section provides a detailed overview of the key hardware components used in
 - **Implementation Impact**: The Ultrasonic Sensors’ accurate measurements enabled robust wall-following (e.g., `target = (fc * 1.3) - (fr * 1.7)`), ensuring stable navigation in both challenges.
 
 #### **🌈 Color Sensor EV3**
-
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
@@ -669,7 +671,6 @@ This section provides a detailed overview of the key hardware components used in
 - **Implementation Impact**: The Color Sensor’s fast response enabled precise line-following, completing 12 turns in the Open Challenge and aligning for parking within 2 seconds.
 
 #### **⚙️ Medium Motor EV3**
-
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
@@ -690,8 +691,8 @@ This section provides a detailed overview of the key hardware components used in
 - **Type**: DC Motor (Medium)
 - **Feature**: Provides propulsion (rear wheels) and steering (front wheels)
 - **Interface**: LEGO EV3 Motor Port (OUTPUT_D for drive, OUTPUT_B for steering)
-- **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation
-- **Configuration for Challenges**: The robot uses two EV3 Medium Motors in our configuration: one steering motor on `OUTPUT_B` and one drive motor on `OUTPUT_D`. In alternative setups, a second drive motor can be added to the differential for extra torque, but our submitted code and hardware use a single drive motor on `OUTPUT_D`.
+- **Use**: Drives rear wheels via a differential and controls front-wheel steering for navigation.
+- **Configuration for Challenges**: The robot uses two EV3 Medium Motors in our configuration: one steering motor on `OUTPUT_B` and one drive motor on `OUTPUT_D`. In alternative setups, a second drive motor can be added to the differential for extra torque, however our submitted code and hardware utilits a single drive motor on `OUTPUT_D`.
 - **Description**: Two EV3 Medium Motors power the ShahroodRC robot: the propulsion motor (`motor_b` on `OUTPUT_D`) drives the rear wheels through a differential, and the steering motor (`motor_a` on `OUTPUT_B`) adjusts the front wheels’ angle via a rack-and-pinion system. Motors were chosen for their lightweight and compatibility with the LEGO EV3 ecosystem. A 1:1.5 gear ratio for propulsion enhances torque for parking maneuvers, reducing motor strain.
 - **Lessons Learned**: Initial gear ratios caused motor strain during parking; optimization to 1:1.5 improved performance. Future designs could explore brushless motors for higher efficiency and durability.
 - **Implementation Impact**: The motors’ precise control (e.g., `on_for_degrees` for parking) ensured accurate navigation, completing the parking sequence in under 10 seconds with minimal slippage.
@@ -699,7 +700,6 @@ This section provides a detailed overview of the key hardware components used in
 ### 🔌 EV3 Motor Cable & Port Architecture
 
 #### Understanding EV3 Cable Structure
-
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
@@ -723,7 +723,6 @@ This section provides a detailed overview of the key hardware components used in
 </div>
 
 #### Motor Port Pin Functions
-
 <table>
   <tr>
     <td width="50%" style="text-align: left;">
@@ -744,9 +743,9 @@ This section provides a detailed overview of the key hardware components used in
 **Detailed Pin Functionality:**
 
 **1. Power Distribution (Pins 1-2):**
-- **Red Wire (+9V)**: Delivers regulated power from EV3 battery to motors
-- **Black Wire (GND)**: Provides ground reference for complete circuit
-- **Voltage Regulation**: EV3 Brick includes internal voltage regulator maintaining stable 9-9.5V
+- **Red Wire (+9V)**: Delivers regulated power from the EV3 battery to the motors
+- **Black Wire (GND)**: Provides a ground reference for the complete circuit
+- **Voltage Regulation**: EV3 Brick includes an internal voltage regulator maintaining a stable 9-9.5V
 - **Short-Circuit Protection**: Prevents component damage if wires inadvertently touch
 
 **2. Motor Control (Pins 3-4):**
@@ -776,7 +775,6 @@ Pin Assignment:
 ```
 
 #### Wire Identification & Modification Guide
-
 **How to Identify Wires Before Cutting:**
 1. Use a **digital multimeter** in continuity/voltage mode
 2. Test against known references:
@@ -784,7 +782,7 @@ Pin Assignment:
    - Red wire should show ~9V
    - Yellow/Green should float around 4.5V
 3. Mark wires with colored electrical tape before soldering
-4. **Always verify pinout** before connecting to EV3 to avoid damage
+4. **Always verify the pinout** before connecting to the EV3 to avoid damage
 
 **Cutting & Customizing EV3 Cables:**
 
@@ -800,7 +798,6 @@ Pin Assignment:
 - **Sensor Extensions**: Custom devices can tap into 9V power and control pins
 
 #### Applications of Motor Ports
-
 | Application | Wires Used | Purpose | Example |
 |---|---|---|---|
 | **Standard Motor** | All 6 | Full motor control with feedback | Drive/steering motors |
@@ -809,7 +806,7 @@ Pin Assignment:
 | **Custom Relay** | All 6 (2 unused) | Drive relay with motor port | LED control (see section below) |
 
 ### 🛠️ Notes
-- **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for Pixy Cam, INPUT_2/3 for Ultrasonic Sensors, INPUT_4 for Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
+- **Integration Details**: The EV3 Control Brick manages all components via four motor ports (OUTPUT_B for steering, OUTPUT_C and OUTPUT_D for propulsion) and four sensor ports (INPUT_1 for the Pixy Cam, INPUT_2/3 for the Ultrasonic Sensors, INPUT_4 for the Color Sensor). The Pixy Cam’s custom I2C connection, using a modified EV3 sensor cable (Red=5V, Blue=GND, Yellow=SDA, Green=SCL), eliminated external hardware, simplifying integration.
 - **Component Placement**: The EV3 Brick is centrally mounted for balance, with the Color Sensor at the front center (0.5–1 cm from the surface), Ultrasonic Sensors on the front left and right, Pixy Cam elevated above the Brick for optimal obstacle detection, and the two status LEDs mounted on the top of the robot on either side of the Pixy Camera.
 - **Component Selection**: The EV3 platform was chosen for its robust ecosystem and compatibility, replacing less reliable options like the HC-SR04 Ultrasonic Sensor. The Medium Motors’ lighter weight (120 g vs. 170 g for Large Motors) optimized the robot’s 1.2 kg design for agility.
 - **Custom Parts**: A custom 3D-printed mount for the Pixy 2.1 camera (`3d-files/pixy-cam-mount.stl`) ensures optimal positioning and vibration isolation. All other components use standard LEGO pieces and connectors. The complete robot design, including LEGO chassis and component layout, is documented in `3d-files/robot_complete.io`.
@@ -913,7 +910,6 @@ The steering system uses a proportional control algorithm where the motor power 
 ---
 
 ### Pixy Camera Code
-
 The Pixy 2.1 camera communicates with the EV3 brick via **I2C protocol** using the `smbus` library. Unlike Pixy 1, Pixy 2.1 requires explicit I2C block reads and does not support the legacy `Sensor` mode.
 
 ```python
@@ -973,8 +969,8 @@ def detect_pillar():
 
 **Detection Strategy:**
 - The Pixy is programmed to recognize two color signatures: green (signature 1) and red (signature 2)
-- We filter detections based on Y-position to avoid false positives from distant objects
-- The X-position is used to calculate steering corrections
+- We filter detections based on Y-position to avoid false positives from distant objects.
+- The X-position is used to calculate steering corrections.
 
 - **Calibration**: The Pixy Cam was trained using **PixyMon v2** software to recognize green (signature 1) and red (signature 2) pillars under competition lighting (500–1000 lux), ensuring reliable detection.
 
@@ -1014,7 +1010,7 @@ def wait_for_color(target_color):
 ```
 
 **Color Detection Logic:**
-- Detects blue (`1,2`) for left turns and orange (`5,7`) for right turns in Open Challenge.
+- Detects blue (`1,2`) for left turns and orange (`5,7`) for right turns in the Open Challenge.
 - Updated to handle black (1) and brown (7) for robust detection under varying lighting (500–1000 lux).
 
 **Calibration Step By Step**:
@@ -1118,9 +1114,9 @@ def wait_for_start():
 ```
 
 **Start Procedure:**
-- The robot waits in a holding pattern until the center button is pressed
-- This allows for precise manual positioning before autonomous operation begins
-- After button press, the robot changes LED color to green to indicate readiness
+- The robot waits in a holding pattern until the center button is pressed.
+- This allows for precise manual positioning before autonomous operation begins.
+- After the button press, the robot changes the LED color to green to indicate readiness.
 
 ---
 
@@ -1158,7 +1154,6 @@ while not challenge_complete:
 This integrated approach ensures that all sensors and actuators work together harmoniously to navigate the competition course successfully.
 
 ---
-
 
 ## 🚗 Mobility Management
 
@@ -1203,7 +1198,7 @@ The mobility system was designed and built by the team’s mechanical specialist
 ---
 
 ### 2. Motors and Actuators
-**Motor Types**
+**Motor Types**  
 Three **LEGO EV3 Medium Motors** are used in the mobility system (depending on the challenge configuration):
 - **Propulsion Motor(s) (`motor_b` on OUTPUT_D and `motor_c` on OUTPUT_C)**: In the Open Challenge, two motors (connected to OUTPUT_D and OUTPUT_C) drive the rear wheels via a single gear connected to differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
 - **Steering Motor (`motor_a`, OUTPUT_B)**: Controls the front wheels’ angle via a rack-and-pinion system, offering a ±45° steering range with 1° resolution.
@@ -1235,20 +1230,20 @@ def amotor(degrese, cl=50):
 
 #### 🔧 Differential Modification: Half-Bush Integration
 
-**Problem Identified**
+**Problem Identified**  
 During testing, we discovered that the **axle of the rear wheels was occasionally loosening** and shifting from its position in the differential. This caused:
 - Inconsistent wheel power transmission
-- Wheels sometimes cease to move despite motor engagement
+- Wheels sometimes cease to move despite motor engagement.
 - Reduced reliability during high-torque maneuvers (especially parking)
 - Performance degradation after multiple competition runs
 
-**Root Cause**
+**Root Cause**  
 The standard LEGO differential uses a simple axle design that, under vibration and repeated acceleration/deceleration cycles, allows the axle to slip sideways within the differential housing. This was particularly problematic during:
 - Sudden acceleration when exiting turns
 - High-torque parking maneuvers (when motors stall)
 - Tight corner navigation with rapid steering adjustments
 
-**Solution Implemented: Half-Bush Installation**
+**Solution Implemented: Half-Bush Installation**  
 To permanently solve this issue, we implemented a modification to the differential assembly:
 
 1. **Center Cut**: We carefully cut the middle section of the differential housing, creating a precise joint between the two halves of the differential.
@@ -1256,17 +1251,17 @@ To permanently solve this issue, we implemented a modification to the differenti
 2. **Half-Bush Placement**: We installed two **Half-Bush components** (LEGO part #32124 or equivalent) at the center joint of the differential, positioned on opposite sides of the axle.
 
 3. **Mechanical Benefit**: 
-   - The half-bushes create a **tight mechanical constraint** that prevents axle lateral movement
-   - They distribute stress evenly across the joint
-   - They maintain proper axle alignment under load
-   - They allow smooth rotation while preventing slippage
+   - The half-bushes create a **tight mechanical constraint** that prevents axle lateral movement.
+   - They distribute stress evenly across the joint.
+   - They maintain proper axle alignment under load.
+   - They allow smooth rotation while preventing slippage.
 
 4. **Assembly Order**:
-   - Disassemble the original differential
-   - Cut the center section carefully to create clean mating surfaces
-   - Install the first half-bush on the left side of the axle
+   - Disassemble the original differential.
+   - Cut the center section carefully to create clean mating surfaces.
+   - Install the first half-bush on the left side of the axle.
    - Position differential halves
-   - Install the second half-bush on the right side of the axle
+   - Install the second half-bush on the right side of the axle.
    - Secure with standard LEGO connectors
 
 **Performance Impact**
@@ -1287,8 +1282,8 @@ After implementing this modification:
 - **Quantity**: 2 per differential (one on each side)
 - **Material**: Standard ABS plastic (same as other LEGO parts)
 - **Cost**: Negligible (standard LEGO component, ~$0.05 per piece)
-- **Installation Time**: ~15 minutes (requires careful cutting of differential center)
-- **Reversibility**: Can be undone if needed; no permanent damage to original differential
+- **Installation Time**: ~15 minutes (requires careful cutting of the differential center)
+- **Reversibility**: Can be undone if needed; no permanent damage to the original differential
 
 **Recommendations for Future Teams**
 1. **Preventive Implementation**: Install half-bushes during initial assembly rather than waiting for problems
@@ -1305,7 +1300,7 @@ After implementing this modification:
 ---
 
 ### 3. Sensor Integration for Mobility
-**Sensors Used**
+**Sensors Used**  
 The mobility system integrates:
 - **EV3 Color Sensor (INPUT_4)**: Detects blue (`cr1=2`) and orange (`cr1=5`) lines for zone detection and turn triggers (1 kHz sampling, 0.5–1 cm distance).
 - **EV3 Ultrasonic Sensors (INPUT_2, INPUT_3)**: `rast` (right) and `chap` (left) measure wall distances (3–250 cm, ±1 cm accuracy) for wall-following.
@@ -1313,7 +1308,7 @@ The mobility system integrates:
 
 **Sensor Placement**
 - **Color Sensor**: Mounted at the front center, 0.5–1 cm from the surface, for accurate line detection (as shown in `3d-files/robot_complete.io`).
-- **Ultrasonic Sensors**: Positioned at the front (left and right, 5 cm apart), angled 90° to walls for reliable distance measurement.
+- **Ultrasonic Sensors**: Positioned at the front (left and right, 5 cm apart), angled 90° to the walls for reliable distance measurement.
 - **Pixy Cam**: Elevated above the EV3 Brick, angled 10° downward for obstacle detection at 0.5–1.5 m.
 
 **Real-time Feedback**
@@ -1407,7 +1402,7 @@ The **LEGO EV3 Rechargeable Battery Pack** (10V, 2050 mAh) ensures stable 9.8–
 ---
 
 ### 6. System Integration for Mobility
-**Integration with Other Systems**
+**Integration with Other Systems**  
 The mobility system integrates with:
 - **Sensors**: Color Sensor, Ultrasonic Sensors, and Pixy Cam adjust `motor_b` and `motor_a` in real-time.
 - **EV3 Brick**: Processes data in 10 ms loops, sending PWM signals to motors.
@@ -1450,7 +1445,7 @@ Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/
 ---
 
 ### 8. Conclusion
-**Summary**
+**Summary**  
 The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** for propulsion (depending on the challenge), plus one for steering, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (design shown in `3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
 
 **Lessons Learned**
@@ -1599,7 +1594,7 @@ Notes:
   - **Green** → Pixy SCL
   **Unused**:
   - **White** → not required
-  - **Black** → extra ground, left unconnected
+  - **Black** → extra ground, left unconnected.
     <div align="center">
       <img src="robot-photos/pixy-cam-wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
       <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
@@ -1638,7 +1633,7 @@ The EV3 motor port's phase pins (Yellow/Green) output 5V PWM signals that drive 
 
 1. **Motor Port Output**: EV3 sends ~4.5V PWM on pins 3 (Yellow) and 4 (Green)
 2. **Relay Coil**: These signals drive a 5V relay coil
-3. **LED Power Switch**: Relay contacts connect LED circuit to battery
+3. **LED Power Switch**: Relay contacts connect the LED circuit to the battery
 4. **Result**: `motor.on()` in Python energizes relay → LEDs illuminate
 
 ##### Circuit Diagram
@@ -1649,9 +1644,9 @@ The EV3 motor port's phase pins (Yellow/Green) output 5V PWM signals that drive 
 </div>
 
 **Pin Connections:**
-- **Red (Pin 1)** → Relay common/power reference
-- **Black (Pin 2)** → Relay and LED ground
-- **Yellow (Pin 3)** → Relay coil positive (5V when motor active)
+- **Red (Pin 1)** → Relay common/power reference.
+- **Black (Pin 2)** → Relay and LED ground.
+- **Yellow (Pin 3)** → Relay coil positive (5V when motor is active)
 - **Green (Pin 4)** → Relay coil negative/ground
 - **White/Blue (Pins 5-6)** → Insulated (unused encoder feedback wires)
 
@@ -1723,7 +1718,7 @@ if __name__ == "__main__":
 - Carefully cut one EV3 motor cable at the RJ connector end with wire cutters
 - Use wire strippers to remove ~5-7mm of insulation from each of the 6 internal wires
 - Identify wires by color: Red (+9V), Black (GND), Yellow (Phase A), Green (Phase B), White (Encoder A), Blue (Encoder B)
-- Twist same-color wire pairs together if multiple connections to the same signal are needed
+- Twist the same-color wire pairs together if multiple connections to the same signal are needed
 - Do NOT connect to EV3 yet - work on relay assembly first
 
 **Step 2: Connect Relay Coil**
@@ -1731,12 +1726,12 @@ if __name__ == "__main__":
 2. Solder the **Green wire to the relay coil negative terminal** (typically marked with - or COM symbol)
 3. **CRITICAL SAFETY STEP**: Add a 1N4007 diode across the relay coil terminals with the **cathode (marked band) on the positive side**. This diode protects the EV3 from dangerous voltage spikes when the relay de-energizes
 4. Verify all solder joints are clean and shiny (indicates good electrical contact)
-5. Wrap all solder joints and diode leads with electrical tape to prevent accidental short circuits
+5. Wrap all solder joints and diode leads with electrical tape to prevent accidental short circuits.
 
-**Step 3: Connect LED Power Circuit**
+**Step 3: Connect the LED Power Circuit**
 1. Identify the relay's normally-open (NO) contact and common (C) contact terminals
-2. Solder the relay's **NO contact to the LED positive (RED) wire** from your LED array or indicator
-3. Solder the relay's **C contact to the LED common/ground (BLACK) wire**
+2. Solder the relay's **NO contact to the LED positive (RED) wire** from your LED array or indicator.
+3. Solder the relay's **C contact to the LED common/ground (BLACK) wire**.
 4. **Verification**: At this point, the LED circuit should be completely isolated from the EV3 Brick - current cannot flow until the relay energizes
 5. Connect the LED power source (battery pack) directly: Battery+ to LED+, Battery- to LED-
 
@@ -1748,8 +1743,8 @@ if __name__ == "__main__":
 
 **Step 5: Double-Check All Connections**
 Before powering on the EV3:
-- [ ] Yellow wire soldered to relay coil positive
-- [ ] Green wire soldered to relay coil negative
+- [ ] Yellow wire soldered to the relay coil positive
+- [ ] Green wire soldered to the relay coil negative
 - [ ] 1N4007 diode across coil (cathode on positive)
 - [ ] Relay NO contact connected to LED+
 - [ ] Relay C contact connected to LED-
