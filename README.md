@@ -281,17 +281,21 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 ## 📸 Pictures
 
-| <img src="robot-photos/robot-front.jpg" width="90%" /> | <img src="robot-photos/robot-back.jpg" width="90%" /> | 
-| :--: | :--: | 
-| *Front* | *Back* |
-| <img src="robot-photos/robot-left.jpg" width="90%" /> | <img src="robot-photos/robot-right.jpg" width="90%" /> | 
-| *Left* | *Right* |
-| <img src="robot-photos/robot-top.jpg" width="90%" /> | <img src="robot-photos/robot-bottom.jpg" width="90%" /> | 
-| *Top* | *Bottom* |
+| Front | Back |
+|:-----:|:----:|
+| ![Front View](robot-photos/robot-front.jpg) | ![Back View](robot-photos/robot-back.jpg) |
+
+| Left | Right |
+|:----:|:-----:|
+| ![Left View](robot-photos/robot-left.jpg) | ![Right View](robot-photos/robot-right.jpg) |
+
+| Top | Bottom |
+|:---:|:------:|
+| ![Top View](robot-photos/robot-top.jpg) | ![Bottom View](robot-photos/robot-bottom.jpg) |
 
 <div align="center">
     <img src="robot-photos/robot.jpg" alt="Three-Quarter View of the Robot" width="60%">
-    <p>Three-Quarter View of the Robot (from front, left, and top)</p>
+    <p><em>Three-Quarter View of the Robot (from front, left, and top)</em></p>
 </div>
 
 ---
