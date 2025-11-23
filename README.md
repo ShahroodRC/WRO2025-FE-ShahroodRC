@@ -103,7 +103,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [🏗️ Robot Assembly Guide](#️-robot-assembly-guide)
 - [🛠️ Software Setup & Installation](#️-software-setup--installation)
     - [📋 Prerequisites](#prerequisites)
-    - [💾 Step 1: Install ev3dev on EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
+    - [💾 Step 1: Install ev3dev on the EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
     - [🔌 Step 2: Connect to EV3 Brick](#step-2-connect-to-ev3-brick)
     - [📦 Step 3: Install Required Python Libraries](#step-3-install-required-python-libraries)
     - [⬇️ Step 4: Clone and Deploy Code](#step-4-clone-and-deploy-code)
@@ -557,7 +557,7 @@ A concise table of the robot's physical dimensions.
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
       <li>Type: Main Controller</li>
-      <li>Power: 10V (LEGO EV3 Rechargeable Battery Pack, 2050 mAh)</li>
+      <li>Power: 9V (LEGO EV3 Rechargeable Battery Pack, 2050 mAh)</li>
       <li>CPU: ARM9 Processor, 300 MHz</li>
       <li>Memory: 64 MB RAM, 16 MB Flash</li>
       <li>Ports: 4 Motor Ports, 4 Sensor Ports, USB 2.0, Bluetooth, Wi-Fi (via dongle)</li>
@@ -1150,7 +1150,7 @@ This integrated approach ensures that all sensors and actuators work together sm
 
 ## 🚗 Mobility Management
 
-The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the WRO 2025 Future Engineers category. The robot’s dimensions are **26 cm (length)**, **16 cm (width)**, and **29 cm (height)**, optimized for agility within the competition’s 25 cm x 25 cm parking area and stability during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
+The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the WRO 2025 Future Engineers category. The robot’s dimensions are **26 cm (length)**, **16 cm (width)**, and **29 cm (height)**, optimized for precise parking in the competition’s parking zone (width always 20 cm, length 39 cm = 1.5 × robot length) while maintaining excellent stability and agility during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
 
 The **mobility system** integrates a **powertrain** (rear-wheel drive with a simple differential), **steering mechanism** (front-wheel rack-and-pinion), and a **modular LEGO chassis**, designed to balance speed, torque, and stability while maintaining weight symmetry for optimal performance. This section provides comprehensive details on the system’s design, implementation, testing, and lessons learned, enabling another team to replicate the system and offering insights for further optimization.
 
@@ -1159,11 +1159,11 @@ The **mobility system** integrates a **powertrain** (rear-wheel drive with a sim
 ### 1. 📍 Introduction to Mobility System
 The complete LEGO chassis design, shown in `3d-files/robot_complete.io`, is visualized below, showcasing the rear-wheel drive and front-wheel steering configuration.
 <br>
-<img src="3d-files/robot-front-3d.jpg" alt="3D Front View" width="300">
+<img src="3d-files/robot-bottom-3d.jpg" alt="3D Bottom View" width="300">
 <img src="3d-files/robot-topleft-3d.jpg" alt="3D Top Left View" width="300">
 
-**Overview**
-The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 tasks, including wall-following, obstacle avoidance, and parking. The system is powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering) (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is shown in `3d-files/robot_complete.io`.
+**Overview**  
+The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 Future Engineers tasks, including wall-following, obstacle avoidance, and parking. The system is powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering) (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is shown in `3d-files/robot_complete.io`.
 
 **Types of Movement**
 - **Linear Motion**: The rear wheels, driven by one or two EV3 Medium Motors (depending on the challenge) through a direct-coupled differential, provide forward and backward movement at adjustable speeds (20–80%, 0.1–0.25 m/s).
@@ -1172,7 +1172,7 @@ The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** confi
 
 **Design Choices**
 - **Rear-Wheel Drive**: A simple LEGO differential (1:1 ratio) ensures balanced torque distribution to the rear wheels, maintaining traction on competition surfaces (coefficient of friction ~0.7).
-- **Front-Wheel Steering**: Provides precise directional control with a ±45° steering range, optimized for WRO’s curved tracks and parking tasks.
+- **Front-Wheel Steering**: Provides precise directional control with a ±45° steering range, optimized for Future Engineers’ curved tracks and parking tasks.
 - **LEGO Tire 49.5 x 20**: Chosen for their 49.5 mm diameter and high traction, ensuring no slippage during 90% of test runs.
 - **Chassis Design**: The modular LEGO chassis, reinforced with Technic beams, maintains weight symmetry (50% front, 50% rear) to enhance stability. The design, shown in `3d-files/robot_complete.io`, integrates motors, sensors, and the EV3 Brick securely.
 - **Weight Symmetry**: Equal weight distribution across the chassis minimizes tipping risks during high-speed turns, contributing to a 90% success rate in navigation tests.
@@ -1203,8 +1203,7 @@ Three **LEGO EV3 Medium Motors** are used in the mobility system (depending on t
   - Weight: 120 g
 - **Selection Rationale**: Medium Motors were chosen over Large Motors (170 g, 40 N·cm) for their lighter weight, reducing the robot’s mass by ~10% and energy consumption by ~15% (150–200 mA vs. 250–300 mA).
 
-**Motor Control Mechanism**
-The motors are controlled by the **LEGO EV3 Mindstorms Control Brick** running **ev3dev** with Python scripts. The propulsion motor(s) use `motor_b.on(speed)` for variable speed control (20–80%) and `on_for_degrees` for precise movements (e.g., 70° rotation during line detection). The steering motor employs a PID-like algorithm (`amotor`) to adjust the front wheels’ angle based on sensor feedback (e.g., `target = (fc * 1.3) - (fr * 1.7)` for wall-following). The `clamp` function limits steering to ±50° to prevent oversteering. Code snippet from `codes/open-challenge-code.py`:
+**Motor Control Mechanism**: The motors are controlled by the **LEGO EV3 Mindstorms Control Brick** running **ev3dev** with Python scripts. The propulsion motor(s) use `motor_b.on(speed)` for variable speed control (20–80%) and `on_for_degrees` for precise movements (e.g., 70° rotation during line detection). The steering motor employs a PID-like algorithm (`amotor`) to adjust the front wheels’ angle based on sensor feedback (e.g., `target = (fc * 1.3) - (fr * 1.7)` for wall-following). The `clamp` function limits steering to ±50° to prevent oversteering. Code snippet from `codes/open-challenge-code.py`:
 ```python
 def clamp(value, minimum, maximum):
     if value > maximum: value = maximum
@@ -2730,10 +2729,10 @@ motor_a.off()
 #### **Phase 1: Chassis (30 min)**
 
 **Step 1: Drive Base Assembly**
-1. Create 15L × 10W rectangular frame from LEGO beams
-2. Attach 4 wheels with rubber tires using 90-degree angle frames
-3. Mount the Medium Motor (Drive) horizontally at the rear center
-4. Connect motor to rear differential (1:1 gear ratio, 27mm axle)
+1. Create a 15L × 10W rectangular frame from LEGO beams.
+2. Attach 4 wheels with rubber tires using 90-degree angle frames.
+3. Mount the Medium Motor (Drive) horizontally at the rear center.
+4. Connect motor to rear differential (1:1 gear ratio, 27mm axle).
 5. Result: Sturdy base, ~500g, 300mm wheelbase
 
 **Step 2: Steering Mechanism**
@@ -2786,7 +2785,7 @@ motor_a.off()
 
 **Step 9: Structural Verification**
 1. Check the center of gravity (should be centered)
-2. Add 50g ballast to the rear if needed
+2. Add a 50g ballast to the rear if needed
 3. Final weight: 1.2-1.5 kg (WRO compliant <1.6kg)
 4. Test stability: no tipping at ±30° angles
 
@@ -2835,7 +2834,7 @@ This section provides step-by-step instructions for setting up the development e
 - **Python 3.6+** installed on your development machine
 - **SSH client** (for remote access to EV3)
 
-### Step 1: Install ev3dev on EV3 Brick
+### Step 1: Install ev3dev on the EV3 Brick
 
 1. **Download ev3dev image** from [ev3dev.org](https://www.ev3dev.org/):
    - Download the LEGO Mindstorms EV3 image (microSD version)
@@ -2845,7 +2844,7 @@ This section provides step-by-step instructions for setting up the development e
    - Windows: Use [Balena Etcher](https://www.balena.io/etcher/) or Win32DiskImager
    - macOS/Linux: Use the `dd` command or Etcher
 
-3. **Insert microSD card** into EV3 brick and power on
+3. **Insert a microSD card** into the EV3 brick and power on
    - Wait 2-3 minutes for first boot (LED will blink)
    - Connect via USB or Wi-Fi
 
@@ -2976,7 +2975,7 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
    - Click "Program" → "Blocks" → "Color Connected Components"
    - Select "Signature 1" (Green pillars):
      - Aim the camera at the green pillar from 0.5–1.5 m
-     - Click "Teach signature 1" and select green color
+     - Click "Teach signature 1" and select the green color
      - Repeat 5–10 times from different angles/distances
    - Select "Signature 2" (Red pillars):
      - Repeat the process for the red color
@@ -3019,7 +3018,7 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
    ```
 
 3. **Verify accuracy:**
-   - Measurements should be ±2 cm of the actual distance
+   - Measurements should be ±2 cm from the actual distance
    - If error > 2 cm, check sensor alignment
    - Clean the sensor lens if covered with dust/debris
 
@@ -3121,7 +3120,7 @@ Throughout development and competition, we encountered several challenges. Here'
 **Symptom:** Robot detects obstacles that don't exist, causing unexpected steering corrections
 
 **Root Cause:**
-- Pixy signatures trained in bright workshop lighting (1000+ lux), but the competition venue had 500–600 lux
+- Pixy signatures were trained in bright workshop lighting (1000+ lux), but the competition venue had 500–600 lux
 - Lack of color saturation made it difficult to distinguish green/red pillars
 
 **Solution Implemented:**
@@ -3140,13 +3139,13 @@ Throughout development and competition, we encountered several challenges. Here'
 **Symptom:** Wall-following becomes erratic with sudden distance jumps (5–10 cm variations)
 
 **Root Cause:**
-- Ultrasonic sensors not mounted perpendicular to walls
+- Ultrasonic sensors are not mounted perpendicular to the walls
 - Sound waves reflected at angles caused inconsistent readings
 - Robot alignment tolerance was too loose
 
 **Solution Implemented:**
 1. **Precise sensor mounting** – Used reinforced LEGO beams to ensure ±1° alignment
-2. **Add reading averaging filter** – Take 5 consecutive readings and use median value
+2. **Add reading averaging filter** – Take 5 consecutive readings and use the median value
 3. **Implement hysteresis** – Only react to distance changes > 2 cm to filter noise
 4. **Adjust correction gains** – Reduced P gain in steering control from 1.0 to 0.7
 
@@ -3179,8 +3178,8 @@ def filtered_distance(sensor, window_size=5):
 
 **Root Cause:**
 - EV3 tires have smooth rubber (designed for smooth surfaces)
-- Competition track has a slightly inclined/uneven surface
-- Motor torque insufficient for combined steering + forward movement on slopes
+- The competition track has a slightly inclined/uneven surface
+- Motor torque is not enough for combined steering + forward movement on slopes
 
 **Solution Implemented:**
 1. **Optimize gear ratio** – Changed from 1:1 to 1:1.5 reduction for increased torque
@@ -3195,11 +3194,11 @@ def filtered_distance(sensor, window_size=5):
 **Root Cause:**
 - EV3 I2C bus conflicts when multiple sensors are polled simultaneously
 - Pixy initialization is incomplete after power-on
-- Default I2C timeout is too aggressive
+- The default I2C timeout is too aggressive
 
 **Solution Implemented:**
 1. **Add initialization delay** – Wait 2 seconds after EV3 boot before I2C communication
-2. **Implement retry mechanism** – If I2C read fails, retry up to 3 times with 100 ms delay
+2. **Implement a retry mechanism** – If the I2C read fails, retry up to 3 times with 100 ms delay
 3. **Check data validity** – Verify parsed values are non-zero before using in calculations
 4. **Reduce polling frequency** – Check Pixy every 50 ms instead of every frame (less bus contention)
 
@@ -3221,9 +3220,9 @@ def safe_pixy_read(max_retries=3):
 **Symptom:** Robot fails to detect turn lines when approaching perpendicular to the line
 
 **Root Cause:**
-- Color sensor positioned too low, only sees the paint edge, not the full line
+- The color sensor is positioned too low, and it only sees the paint edge, not the full line
 - Color value is ambiguous between the track surface and the line
-- Detection logic is too strict on color matching
+- The detection logic is too strict on color matching
 
 **Solution Implemented:**
 1. **Reposition sensor** – Raised the color sensor by 0.5 cm to see more of the line surface
@@ -3241,7 +3240,7 @@ def safe_pixy_read(max_retries=3):
 - Peak current during acceleration/steering causes transient voltage dips
 
 **Solution Implemented:**
-1. **Use high-discharge Li-Po battery** – Chose 35C discharge rate (1500 mAh) for lower impedance
+1. **Use a high-discharge Li-Po battery** – Choose a 35C discharge rate (1500 mAh) for lower impedance
 2. **Add power conditioning** – Installed 100 µF capacitor on motor supply for surge buffering
 3. **Monitor battery voltage** – Added warning at <6V to stop before regulator dropout
 4. **Optimize motor usage** – Reduced acceleration ramps to minimize current peaks
@@ -3259,7 +3258,7 @@ def safe_pixy_read(max_retries=3):
 1. **Explicit pip3 install** – Always use `pip3 install ev3dev2` (not pip)
 2. **Verify installation** – Run `python3 -c "import ev3dev2; print(ev3dev2.__version__)"`
 3. **Create requirements.txt** – Document all dependencies for reproducible setup
-4. **Use virtual environment** – Set up an isolated Python env to prevent conflicts
+4. **Use a virtual environment** – Set up an isolated Python env to prevent conflicts
 
 **Prevention:**
 ```bash
@@ -3412,8 +3411,8 @@ During development, the team tested several alternative components that were not
 - Prices may vary by region and supplier
 - Experimental component costs are not included in the final robot
 - Team members had access to school resources (3D printer, soldering equipment)
-- One-time equipment costs amortized across potential future robots
-- Shipping costs estimated at 15% of component costs
+- One-time equipment costs are amortized across potential future robots
+- Shipping costs are estimated at 15% of component costs
 - Educational discount available through institutional purchasing
 
 ### ⚙️ Component Cost Sourcing Strategy
