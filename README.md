@@ -688,8 +688,14 @@ A concise table of the robot's physical dimensions.
 - **Configuration for Challenges**:
   - **Obstacle Challenge (final submitted version)**: Only **one** Medium Motor on `OUTPUT_D` drives the differential (the gear of the second motor is physically removed).
   - **Open Challenge**: A **second** Medium Motor can be connected to `OUTPUT_C` and mechanically coupled to the same differential gear for extra torque and higher speed (both motors synchronized in code). This configuration is fully WRO-compliant because the two motors drive a single mechanical output (the differential).
-- **Description**: The ShahroodRC robot uses **one or two** EV3 Medium Motors for propulsion (`motor_b` on `OUTPUT_D`, and optionally `motor_c` on `OUTPUT_C` in Open Challenge) that drive the rear wheels via a reinforced LEGO differential. The steering is performed by a single Medium Motor (`motor_a` on `OUTPUT_B`) connected to a rack-and-pinion mechanism. Medium Motors were chosen over Large Motors because of their significantly lower weight (120 g vs 170 g) and sufficient torque for our 1.0–1.2 kg robot. A **1:1.5 gear reduction** (20-tooth → 12-tooth + 36-tooth gear) on the propulsion side increases effective torque during low-speed parking maneuvers and reduces motor stalling.
-- **Lessons Learned**: Initial 1:1 direct drive caused excessive motor strain and stalling during sharp parking turns. Switching to a 1:1.5 reduction ratio dramatically improved reliability and reduced current spikes from ~600 mA to ~400 mA during parking. Adding the second drive motor (Open Challenge only) further eliminated any remaining strain at higher speeds.
+- **Description**: The ShahroodRC robot uses **one or two** EV3 Medium Motors for propulsion  
+  (`motor_b` on `OUTPUT_D`, and `motor_c` on `OUTPUT_C` **only in the Open Challenge**).  
+  Both 20-tooth gears of the motors drive a **shared 12-tooth gear**.  
+  A 20-tooth gear on the same axle as the 12-tooth gear then drives the 24-tooth differential gear.  
+  **Final gear ratio = (20:12) × (20:24) = 25:18 ≈ 1.39:1**  
+  (≈39% speed reduction, ≈39% torque increase vs direct drive).  
+  This compound reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed. The steering is performed by a single Medium Motor (`motor_a` on `OUTPUT_B`) connected to a rack-and-pinion mechanism. Medium Motors were chosen over Large Motors because of their significantly lower weight (120 g vs 170 g) and sufficient torque for our 1.0–1.2 kg robot. This modest reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed.
+- **Lessons Learned**: Early tests with near-direct drive showed occasional motor strain/stalling during tight parking maneuvers. The final 20-12-20-24 compound gear train + dual-motor option in the Open Challenge dramatically increased available torque, reducing peak current from ≈600 mA to ≈400 mA during parking and completely eliminating stalling. Adding the second drive motor (Open Challenge only) further eliminated any remaining strain at higher speeds.
 - **Implementation Impact**: Precise encoder-based control (`on_for_degrees`, `on_for_rotations`) enabled the parking sequence to complete in **under 10 seconds** with almost zero slippage. The modular drive design (single/dual motor) allowed us to optimize separately for torque (Obstacle) and speed (Open) without hardware redesign.
 
 ### 🔌 EV3 Motor Cable & Port Architecture
@@ -1243,6 +1249,9 @@ The ShahroodRC robot uses a compact, high-torque rear-wheel-drive powertrain bui
 | 2     | Two 20-tooth gears → common 12-tooth gear | 20:12 = 5:3 | In Open Challenge, **both motors simultaneously drive a single 12-tooth gear** – a legal mechanical combination that effectively adds torque |
 | 3     | 12-tooth → 20-tooth (on same axle) → 24-tooth differential gear | 20:24 = 5:6 | Final reduction ≈ 39% speed decrease, ≈ 67% torque increase compared to direct drive |
 | 4     | Differential → rear wheels | 1:1 | Reinforced LEGO differential evenly distributes power to both rear wheels |
+| **Overall** | | **25:18 ≈ 1.39:1** | **≈39% speed reduction, ≈39% torque increase** |
+
+Overall gear ratio: 25:18 ≈ 1.39:1 (≈39% slower, ≈39% more torque than direct drive)
 
 **Challenge-Specific Configurations (Fully WRO-Compliant):**
 - **Open Challenge**: Both propulsion motors active (C + D) → maximum speed and torque
@@ -1324,14 +1333,14 @@ After implementing this modification:
 The mobility system integrates:
 - **EV3 Color Sensor (INPUT_4)**: Detects blue (`cr1=2`) and orange (`cr1=5`) lines for zone detection and turn triggers (1 kHz sampling, 0.5–1 cm distance).
 - **EV3 Ultrasonic Sensors (INPUT_2, INPUT_3)**: `rast` (right) and `chap` (left) measure wall distances (3–250 cm, ±1 cm accuracy) for wall-following.
-- **Pixy Cam (INPUT_1)**: Detects red (`sig=1`) and green (`sig=2`) pillars for obstacle avoidance (60 fps, 75° field of view).
+- **Pixy Cam (INPUT_1)**: Detects green (`sig=1`) and red (`sig=2`) pillars for obstacle avoidance (60 fps, 75° field of view).
 
 **Sensor Placement**
 - **Color Sensor**: Mounted at the front center, 0.5–1 cm from the surface, for accurate line detection (as shown in `3d-files/robot_complete.io`).
 - **Ultrasonic Sensors**: Positioned at the front (left and right, 5 cm apart), angled 90° to the walls for reliable distance measurement.
-- **Pixy Cam**: Elevated above the EV3 Brick, angled 10° downward for obstacle detection at 0.5–1.5 m.
+- **Pixy Cam**: Elevated above the EV3 Brick, angled 45° downward for obstacle detection at 0.5–1.5 m.
 
-**Real-time Feedback**
+**Real-time Feedback**  
 The **EV3 Control Brick** processes sensor data every 10 ms (Color Sensor, Ultrasonic Sensors) and 50 ms (Pixy Cam) via **ev3dev** Python scripts. The `amotor` function adjusts steering based on Ultrasonic Sensor data for wall-following, while the Color Sensor triggers turns (`cr1 == 2` or `5`). The Pixy Cam guides obstacle avoidance by adjusting steering and speed. Example from `codes/obstacle-challenge-code.py`:
 
 ```python
