@@ -550,6 +550,8 @@ A concise table of the robot's physical dimensions.
 | Width | 16 cm |
 | Height | 29 cm |
 
+**Total Weight**: 1.2 kg
+
 ---
 
 ### 🔧 Components Overview
@@ -698,7 +700,7 @@ A concise table of the robot's physical dimensions.
   A 20-tooth gear on the same axle as the 12-tooth gear then drives the 24-tooth differential gear.  
   **Final gear ratio = (20:12) × (20:24) = 25:18 ≈ 1.39:1**  
   (≈39% speed reduction, ≈39% torque increase vs direct drive).  
-  This compound reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed. The steering is performed by a single Medium Motor (`motor_a` on `OUTPUT_B`) connected to a rack-and-pinion mechanism. Medium Motors were chosen over Large Motors because of their significantly lower weight (120 g vs 170 g) and sufficient torque for our 1.0–1.2 kg robot. This modest reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed.
+  This compound reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed. The steering is performed by a single Medium Motor (`motor_a` on `OUTPUT_B`) connected to a rack-and-pinion mechanism. Medium Motors were chosen over Large Motors because of their significantly lower weight (120 g vs 170 g) and sufficient torque for our 1.1–1.2 kg robot. This modest reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed.
 - **Lessons Learned**: Early tests with near-direct drive showed occasional motor strain/stalling during tight parking maneuvers. The final 20-12-20-24 compound gear train + dual-motor option in the Open Challenge dramatically increased available torque, reducing peak current from ≈600 mA to ≈400 mA during parking and completely eliminating stalling. Adding the second drive motor (Open Challenge only) further eliminated any remaining strain at higher speeds.
 - **Implementation Impact**: Precise encoder-based control (`on_for_degrees`, `on_for_rotations`) enabled the parking sequence to complete in **under 10 seconds** with almost zero slippage. The modular drive design (single/dual motor) allowed us to optimize separately for torque (Obstacle) and speed (Open) without hardware redesign.
 
@@ -1162,7 +1164,7 @@ This integrated approach ensures that all sensors and actuators work together sm
 
 ## 🚗 Mobility Management
 
-The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the WRO 2025 Future Engineers category. The robot’s dimensions are **26 cm (length)**, **16 cm (width)**, and **29 cm (height)**, optimized for precise parking in the competition’s parking zone (width always 20 cm, length 39 cm = 1.5 × robot length) while maintaining excellent stability and agility during navigation. Weighing **1 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
+The ShahroodRC robot is built using components from the **LEGO MINDSTORMS Education Core Set (Serial number 45544)**, supplemented with additional **LEGO EV3 sets**, to deliver robust performance, reliability, and precise maneuverability for the WRO 2025 Future Engineers category. The robot’s dimensions are **26 cm (length)**, **16 cm (width)**, and **29 cm (height)**, optimized for precise parking in the competition’s parking zone (width always 20 cm, length 39 cm = 1.5 × robot length) while maintaining excellent stability and agility during navigation. Weighing **1.2 kg**, the robot employs a **rear-wheel drive system with front-wheel steering**, powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering), enabling smooth movement and precise directional control across WRO 2025 challenges like wall-following, obstacle avoidance, and precise parking.
 
 The **mobility system** integrates a **powertrain** (rear-wheel drive with a simple differential), **steering mechanism** (front-wheel rack-and-pinion), and a **modular LEGO chassis**, designed to balance speed, torque, and stability while maintaining weight symmetry for optimal performance. This section provides comprehensive details on the system’s design, implementation, testing, and lessons learned, enabling another team to replicate the system and offering insights for further optimization.
 
@@ -1175,7 +1177,7 @@ The complete LEGO chassis design, shown in `3d-files/robot_complete.io`, is visu
 <img src="3d-files/robot-topleft-3d.jpg" alt="3D Top Left View" width="300">
 
 **Overview**  
-The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 Future Engineers tasks, including wall-following, obstacle avoidance, and parking. The system is powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering) (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is shown in `3d-files/robot_complete.io`.
+The ShahroodRC robot uses a **rear-wheel drive with front-wheel steering** configuration, featuring two powered rear **LEGO Tire 49.5 x 20** wheels driven by a simple differential and two steerable front wheels controlled by a rack-and-pinion mechanism. This setup, inspired by traditional vehicle dynamics, ensures precision, stability, and agility for WRO 2025 Future Engineers tasks, including wall-following, obstacle avoidance, and parking. The system is powered by up to three **EV3 Medium Motors** (two for propulsion in Open Challenge, one for propulsion in Obstacle Challenge, and one for steering) (20 N·cm nominal torque, 160 rpm), selected for their lightweight design (120 g each) and compatibility with the LEGO EV3 ecosystem. The 1.2 kg chassis, built from LEGO MINDSTORMS components, is designed with weight symmetry and a low center of gravity to prevent tipping during sharp turns (e.g., 90° turns in 1.5 seconds) and maintain stability at speeds up to 0.25 m/s. The complete chassis design is shown in `3d-files/robot_complete.io`.
 
 **Types of Movement**
 - **Linear Motion**: The rear wheels, driven by one or two EV3 Medium Motors (depending on the challenge) through a direct-coupled differential, provide forward and backward movement at adjustable speeds (20–80%, 0.1–0.25 m/s).
@@ -1221,7 +1223,7 @@ Three **LEGO EV3 Medium Motors** power the mobility system, with configuration v
 - Weight: 120 g  
 
 **Selection Rationale**  
-Medium Motors were chosen over Large Motors (170 g, 40 N·cm) because their **lower weight reduces total robot mass by ~10 %** and **energy consumption by ~15 %** (150–200 mA vs. 250–300 mA), while still providing sufficient torque for the 1–1.2 kg robot on the competition surface.
+Medium Motors were chosen over Large Motors (170 g, 40 N·cm) because their **lower weight reduces total robot mass by ~10 %** and **energy consumption by ~15 %** (150–200 mA vs. 250–300 mA), while still providing sufficient torque for the 1.2 kg robot on the competition surface.
 
 **Motor Control Mechanism**  
 All motors are controlled by the EV3 Brick running **ev3dev** with Python scripts:  
@@ -1462,14 +1464,13 @@ The **EV3 Control Brick** (ARM9, 300 MHz, 64 MB RAM) runs **ev3dev**, coordinati
 
 ### 7. 🧪 Testing and Optimization
 Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.
-<br></br>
-<div style="display: flex; gap: 10px; align-items: flex-start;">
-  <img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">
-  <img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">
-</div>
+
+| Front View | Left View |
+|-----------------|----------------|
+| <img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300"> | <img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300"> |
 
 **Testing Methodology**
-Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/obstacles):
+Tested over 50 trials on a mock Future Engineers track (smooth surface with walls/obstacles):
 - **Wall-Following**: Maintained 27 cm ± 2 cm distance, 90% success (48/50 trials).
 - **Obstacle Avoidance**: Avoided pillars in 90% of tests (46/50).
 - **Parking**: Completed in 8–10 seconds, 90% accuracy (42/50).
@@ -1484,14 +1485,14 @@ Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/
 **Challenges and Solutions**
 - **Challenge**: Minor steering lag at 0.25 m/s.
   - **Solution**: Reduced gain in `amotor`, achieving 90% stability.
-- **Challenge**: Lighting variations affected the Color Sensor.
+- **Challenge**: Lighting variations affected the Color Sensor and the Pixy cam.
   - **Solution**: Calibrated for 500–1000 lux, ensuring 90% accuracy.
 
 ---
 
 ### 8. ✅ Conclusion
 **Summary**  
-The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** for propulsion (depending on the challenge), plus one for steering, achieves precise navigation for WRO 2025. The 1 kg **LEGO chassis** (design shown in `3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
+The ShahroodRC robot’s mobility system, with **rear-wheel drive and front-wheel steering**, powered by one or two **EV3 Medium Motors** for propulsion (depending on the challenge), plus one for steering, achieves precise navigation for the WRO 2025 Future Engineers category. The 1.2 kg **LEGO chassis** (design shown in `3d-files/robot_complete.io`) with weight symmetry ensures stability at 0.25 m/s and a 25 cm turning radius. Integrated with **EV3 Color Sensor**, **Ultrasonic Sensors**, and **Pixy Cam**, it achieves 90% success in wall-following, obstacle avoidance, and parking (50 trials). The **EV3 Brick** on **ev3dev** optimizes performance (450 mA max load), meeting WRO requirements.
 
 **Lessons Learned**
 - **Weight Symmetry**: Critical for 100% stability in turns.
@@ -2839,7 +2840,7 @@ motor_a.off()
 **Step 9: Structural Verification**
 1. Check the center of gravity (should be centered)
 2. Add a 50g ballast to the rear if needed
-3. Final weight: 1.2-1.5 kg (WRO compliant <1.6kg)
+3. Final weight: 1.1-1.3 kg (WRO compliant <1.5 kg)
 4. Test stability: no tipping at ±30° angles
 
 **Step 10: Pre-Competition Validation**
@@ -2852,7 +2853,7 @@ Run these checks before competition:
  ☐ All sensors provide accurate readings
  ☐ No loose cables or components
  ☐ Battery fully charged (6+ hour endurance)
- ☐ Robot weight: 1.2-1.5 kg
+ ☐ Robot weight: 1.1-1.3 kg
  ☐ Chassis aligned (travels straight)
  ☐ Steering operates smoothly (no dead zones)
  ☐ Pixy camera mounted rigidly (no vibration)
