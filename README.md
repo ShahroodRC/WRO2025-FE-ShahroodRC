@@ -295,7 +295,7 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 <div align="center">
     <img src="robot-photos/robot.jpg" alt="Three-Quarter View of the Robot" width="60%">
-    <p><em>Three-Quarter View of the Robot (from front, left, and top)</em></p>
+    <p>Three-Quarter View of the Robot (from front, left, and top)</p>
 </div>
 
 ---
@@ -1462,9 +1462,11 @@ The **EV3 Control Brick** (ARM9, 300 MHz, 64 MB RAM) runs **ev3dev**, coordinati
 
 ### 7. 🧪 Testing and Optimization
 Testing was conducted over 50 trials, with real-world performance captured below, demonstrating stability during wall-following and parking.
-<br>
-<img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">
-<img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">
+<br></br>
+<div style="display: flex; gap: 10px; align-items: flex-start;">
+  <img src="robot-photos/robot-front.jpg" alt="Real Front View" width="300">
+  <img src="robot-photos/robot-left.jpg" alt="Real Left View" width="300">
+</div>
 
 **Testing Methodology**
 Tested over 50 trials on a mock WRO track (1 m x 1 m, smooth surface with walls/obstacles):
