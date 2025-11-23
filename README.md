@@ -81,6 +81,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [🚗 Mobility Management](#-mobility-management)
     - [1. 📍 Introduction to Mobility System](#1--introduction-to-mobility-system)
     - [2. ⚙️ Motors and Actuators](#2-️-motors-and-actuators)
+        - [🔧 Differential Modification: Half-Bush Integration](#-differential-modification-half-bush-integration)
     - [3. 📡 Sensor Integration for Mobility](#3--sensor-integration-for-mobility)
     - [4. 🎮 Mobility Control Algorithms](#4--mobility-control-algorithms)
     - [5. ⚡ Energy Management for Mobility](#5--energy-management-for-mobility)
@@ -1191,19 +1192,30 @@ The mobility system was designed and built by the team’s mechanical specialist
 ---
 
 ### 2. ⚙️ Motors and Actuators
-**Motor Types**  
-Three **LEGO EV3 Medium Motors** are used in the mobility system (depending on the challenge configuration):
-- **Propulsion Motor(s) (`motor_b` on OUTPUT_D and `motor_c` on OUTPUT_C)**: In the Open Challenge, two motors (connected to OUTPUT_D and OUTPUT_C) drive the rear wheels via a single gear connected to differential (1:1 ratio), delivering an effective torque of ~12 N·cm under the 1 kg load and a maximum speed of 160 rpm (0.25 m/s linear speed). In the Obstacle Challenge, only one motor is used, with the second motor’s gear removed for simplicity.
-- **Steering Motor (`motor_a`, OUTPUT_B)**: Controls the front wheels’ angle via a rack-and-pinion system, offering a ±45° steering range with 1° resolution.
-- **Specifications**:
-  - Voltage: 9V
-  - Nominal Torque: 20 N·cm
-  - Effective Torque: ~12 N·cm
-  - Speed: 160 rpm
-  - Weight: 120 g
-- **Selection Rationale**: Medium Motors were chosen over Large Motors (170 g, 40 N·cm) for their lighter weight, reducing the robot’s mass by ~10% and energy consumption by ~15% (150–200 mA vs. 250–300 mA).
 
-**Motor Control Mechanism**: The motors are controlled by the **LEGO EV3 Mindstorms Control Brick** running **ev3dev** with Python scripts. The propulsion motor(s) use `motor_b.on(speed)` for variable speed control (20–80%) and `on_for_degrees` for precise movements (e.g., 70° rotation during line detection). The steering motor employs a PID-like algorithm (`amotor`) to adjust the front wheels’ angle based on sensor feedback (e.g., `target = (fc * 1.3) - (fr * 1.7)` for wall-following). The `clamp` function limits steering to ±50° to prevent oversteering. Code snippet from `codes/open-challenge-code.py`:
+Three **LEGO EV3 Medium Motors** power the mobility system, with configuration varying by challenge:
+
+- **Propulsion Motor(s)**  
+  - **Open Challenge**: Two Medium Motors (`motor_b` on **OUTPUT_D**, `motor_c` on **OUTPUT_C**) are mechanically coupled to a single gear that drives a LEGO differential (1:1 ratio). This delivers higher torque and a maximum linear speed of **0.25 m/s** (160 rpm) with the robot’s ~1 kg load.  
+  - **Obstacle Challenge**: Only one Medium Motor (`motor_b` on **OUTPUT_D**) is used; the second motor’s gear is physically removed for simplicity and lower power consumption.
+
+- **Steering Motor** (`motor_a` on **OUTPUT_B**)  
+  Controls the front wheels via a rack-and-pinion system, providing a **±45° steering range** with **1° resolution**.
+
+**Specifications (EV3 Medium Motor)**  
+- Voltage: 9 V  
+- Nominal torque: 20 N·cm  
+- Effective torque under load: ~12–15 N·cm  
+- No-load speed: 160 rpm  
+- Weight: 120 g  
+
+**Selection Rationale**  
+Medium Motors were chosen over Large Motors (170 g, 40 N·cm) because their **lower weight reduces total robot mass by ~10 %** and **energy consumption by ~15 %** (150–200 mA vs. 250–300 mA), while still providing sufficient torque for the 1–1.2 kg robot on the competition surface.
+
+**Motor Control Mechanism**  
+All motors are controlled by the EV3 Brick running **ev3dev** with Python scripts:  
+- Propulsion uses variable speed (`SpeedPercent(20–100)`) and precise encoder commands (`on_for_degrees`, `on_for_rotations`).  
+- Steering uses a simple proportional controller (`amotor`) with clamping to prevent oversteering.
 ```python
 def clamp(value, minimum, maximum):
     if value > maximum: value = maximum
@@ -1212,7 +1224,7 @@ def clamp(value, minimum, maximum):
 def amotor(degrese, cl=50):
     diff = degrese - motor_a.position
     diff = clamp(diff, -cl, cl)
-    motor_a.on(diff)
+    motor_a.on(diff)          # In Obstacle Challenge a 0.7 gain is added
 ```
 
 **Motor Integration**
@@ -1256,7 +1268,7 @@ To permanently solve this issue, we implemented a modification to the differenti
    - Install the second half-bush on the right side of the axle.
    - Secure with standard LEGO connectors
 
-**Performance Impact**
+**Performance Impact**  
 After implementing this modification:
 - **Reliability**: Eliminated 100% of axle-slippage incidents
 - **Consistency**: Achieved 99% consistent power transmission across all test runs
