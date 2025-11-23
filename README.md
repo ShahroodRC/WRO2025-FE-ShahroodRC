@@ -81,6 +81,7 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
 - [🚗 Mobility Management](#-mobility-management)
     - [1. 📍 Introduction to Mobility System](#1--introduction-to-mobility-system)
     - [2. ⚙️ Motors and Actuators](#2-️-motors-and-actuators)
+        - [⚙️ Powertrain & Gear System (Gears and Differential)](#️-powertrain--gear-system-gears-and-differential)
         - [🔧 Differential Modification: Half-Bush Integration](#-differential-modification-half-bush-integration)
     - [3. 📡 Sensor Integration for Mobility](#3--sensor-integration-for-mobility)
     - [4. 🎮 Mobility Control Algorithms](#4--mobility-control-algorithms)
@@ -1231,6 +1232,21 @@ def amotor(degrese, cl=50):
 - **Propulsion**: In the Open Challenge, two propulsion motors (`motor_b` on `OUTPUT_D` and another on `OUTPUT_C`) are coupled to a single gear, which is connected to a LEGO differential (1:1 ratio), powering two rear **LEGO Tire 49.5 x 20** wheels. In the Obstacle Challenge, the second motor’s gear is removed, and a single motor drives the differential directly, ensuring reliable torque transfer with no slippage in 90% of tests.
 - **Steering**: The steering motor (`motor_a`) drives a rack-and-pinion system, adjusting the front wheels with 1° precision. The system is mounted with LEGO Technic beams for rigidity.
 - **Mechanical Stability**: The LEGO chassis, shown in `3d-files/robot_complete.io`, secures motors to minimize vibration at 0.25 m/s. Weight symmetry (50% front, 50% rear) ensures balance during sharp turns.
+
+#### ⚙️ Powertrain & Gear System (Gears and Differential)
+
+The ShahroodRC robot uses a compact, high-torque rear-wheel-drive powertrain built entirely with standard LEGO parts:
+
+| Stage | Motor → Gear | Gear Ratio | Description |
+|-------|--------------|------------|-------------|
+| 1     | Drive motor(s) → 20-tooth gear | — | Each propulsion motor (OUTPUT_D, and in Open Challenge also OUTPUT_C) directly drives its own **20-tooth gear** |
+| 2     | Two 20-tooth gears → common 12-tooth gear | 20:12 = 5:3 | In Open Challenge, **both motors simultaneously drive a single 12-tooth gear** – a legal mechanical combination that effectively adds torque |
+| 3     | 12-tooth → 20-tooth (on same axle) → 24-tooth differential gear | 20:24 = 5:6 | Final reduction ≈ 39% speed decrease, ≈ 67% torque increase compared to direct drive |
+| 4     | Differential → rear wheels | 1:1 | Reinforced LEGO differential evenly distributes power to both rear wheels |
+
+**Challenge-Specific Configurations (Fully WRO-Compliant):**
+- **Open Challenge**: Both propulsion motors active (C + D) → maximum speed and torque
+- **Obstacle Challenge**: The 20-tooth gear of the second motor (OUTPUT_C) is physically removed → only motor D drives the system → lower power consumption and higher precision during parking
 
 #### 🔧 Differential Modification: Half-Bush Integration
 
@@ -3270,7 +3286,7 @@ def safe_pixy_read(max_retries=3):
 1. **Explicit pip3 install** – Always use `pip3 install ev3dev2` (not pip)
 2. **Verify installation** – Run `python3 -c "import ev3dev2; print(ev3dev2.__version__)"`
 3. **Create requirements.txt** – Document all dependencies for reproducible setup
-4. **Use a virtual environment** – Set up an isolated Python env to prevent conflicts
+4. **Use a virtual environment** – Set up an isolated Python environment to prevent conflicts
 
 **Prevention:**
 ```bash
