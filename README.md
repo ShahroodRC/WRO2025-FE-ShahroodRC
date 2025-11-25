@@ -120,10 +120,6 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [📏 Ultrasonic Sensor Calibration](#-ultrasonic-sensor-calibration)
     - [🌈 Color Sensor Calibration](#-color-sensor-calibration)
     - [✅ Pre-Competition Checklist](#-pre-competition-checklist)
-- [🔍 Testing & Validation](#-testing--validation)
-    - [📊 Test Results Summary](#-test-results-summary)
-    - [🧪 Testing Methodology](#-testing-methodology)
-    - [⚠️ Known Limitations & Workarounds](#️-known-limitations--workarounds)
 - [🔴 Problems and Solutions](#-problems-and-solutions)
 - [💰 Cost Report](#-cost-report)
 - [📁 Repository Structure](#-repository-structure)
@@ -226,7 +222,7 @@ We are the ShahroodRC team, a group of dedicated students from Iran with a passi
 ## 🏆 National Championship Victory
 
 ### Overview
-The ShahroodRC team achieved a remarkable victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this success highlighted our team’s dedication, teamwork, and innovative approach. Competing against numerous talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
+The ShahroodRC team achieved a impressive victory by securing **first place** in the **National WRO Competition**, the official qualifying event for the World Robot Olympiad (WRO) 2025 in the Future Engineers category. Held in **August 2025** in **Rasht, Iran**, this success highlighted our team’s dedication, teamwork, and innovative approach. Competing against many talented teams, we excelled in navigating challenging tracks, earning our qualification for the WRO 2025 International Final in Singapore (26–28 November 2025).
 
 ### Competition Highlights
 - **Event**: Iran National Robotics Competition (WRO 2025 Qualifier)
@@ -260,7 +256,7 @@ This national championship victory marks a significant milestone, qualifying Sha
   <tr>
     <td width="50%" valign="top" align="left">
       <h3>🏁 Qualification Round: Open Challenge</h3>
-      <p>Robot must complete laps on a track without obstacles, demonstrating precision in wall-following and line detection.</p>
+      <p>The robot must complete laps on a track without obstacles, demonstrating precision in wall-following and line detection.</p>
       <ul><li><strong>Goal</strong>: 3 laps, no obstacles.</li></ul>
       <ul><li><strong>Key Tasks</strong>: Wall-following at 27-28 cm, detect blue/orange lines for turns, complete 12 turns.</li></ul>
     </td>
@@ -268,7 +264,7 @@ This national championship victory marks a significant milestone, qualifying Sha
       <h3>🏆 Final Round: Obstacle Challenge</h3>
       <p>Robot completes laps while avoiding green (left) and red (right) pillars, then parks in the designated zone.</p>
       <ul><li><strong>Goal</strong>: 3 laps + parking.</li></ul>
-      <ul><li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), precise parking.</li></ul>
+      <ul><li><strong>Key Tasks</strong>: Obstacle detection with Pixy, dynamic distance (40-55 cm), and precise parking.</li></ul>
     </td>
   </tr>
   <tr>
@@ -305,7 +301,7 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 ## 🎬 Videos
 
-You can see the [Obstacle Challenge](https://youtu.be/SnwjbTBg8ZY), [Open Challenge](https://youtu.be/YG6ZxuxHtCI), and [Explaining](https://youtu.be/0DZZhJmp3i8) videos on YouTube. You can also see them here in the [videos](videos/) folder.
+You can watch the [Obstacle Challenge](https://youtu.be/SnwjbTBg8ZY), [Open Challenge](https://youtu.be/YG6ZxuxHtCI), and [Explaining](https://youtu.be/0DZZhJmp3i8) videos on YouTube. You can also watch them here in the [videos](videos/) folder.
 
 | Open Challenge | Obstacle Challenge | Explaining Video |
 |----------------|--------------------|------------------|
@@ -476,7 +472,7 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 
 ### Key Improvements (Post-Nationals)
 - **Vision**: Pixy 2.1 delivers higher FPS and more reliable signature tracking, reducing false positives in variable lighting.
-- **Mounting & Field of View**: Higher mount + steeper downward angle improved detection of pillars and track features at close distances.
+- **Mounting & Field of View**: A higher mount with a steeper downward angle improved detection of pillars and track features at close distances.
 - **Mobility**: The second motor increased traction and reduced motor load during the Open Challenge.
 - **Structure**: Strengthened frame decreased vibrations and mounting failures, improving sensor stability and repeatability.
 - **LEDs & Indicators**: LEDs moved to an elevated position beside the Pixy for better visibility and reduced interference.
@@ -488,25 +484,45 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 ## 📊 Performance Metrics & Statistics
 
 ### Test Results from 50+ Runs
+
+From 50+ test runs across varied track configurations:
+
 **Open Challenge (Wall-Following):**
 
-| Metric | Target | Achieved | Consistency | Status |
+| Metric | Target | Achieved | Notes | Status |
 |--------|--------|----------|-------------|--------|
-| Wall Accuracy | ±3cm @ 27cm | ±2cm | 95% | ✅ Excellent |
-| Turn Execution | <2s/90° | 1.5s | 90% | ✅ Good |
-| Line Detection | >95% | 97% | 93% | ✅ Excellent |
-| Lap Completion | >85% | 90% | 92% | ✅ Good |
-| **Total 3 Laps** | <45s | **42s** | 88% | **✅ Optimal** |
+| Wall-follow accuracy | ±3cm @ 27cm | ±2cm | Stable with 500–1000 lux lighting | ✅ Excellent |
+| Turn Execution | <2 sec per 90° turn | 1.5s | Consistent steering response | ✅ Good |
+| Line Detection | >95% | 97% | Confident in line detection | ✅ Excellent |
+| Lap Completion | 90% success | 90% | 45/50 runs completed | ✅ Good |
+| **Total 3 Laps** | <45s | **42s** | Ready for competition | **✅ Optimal** |
 
 **Obstacle Challenge:**
 
-| Metric | Target | Achieved | Consistency | Status |
+| Metric | Target | Achieved | Notes | Status |
 |--------|--------|----------|-------------|--------|
-| Obstacle Detection | >90% | 97% | 95% | ✅ Excellent |
+| Obstacle Detection | >90% accuracy | 97% | Pixy 2.1 performs excellently | ✅ Excellent |
 | Obstacle Avoidance | >85% | 92% | 88% | ✅ Good |
-| Parking Accuracy | ±5cm | ±3cm | 85% | ✅ Good |
-| Complete Run | <60s | **58s** | 87% | **✅ Optimal** |
-| **Overall Success** | >80% | **87%** | - | **✅ Excellent** |
+| Parking Accuracy | ±5cm | ±3cm | Zone detection improved with calibration | ✅ Good |
+| Complete Run | <60s | **58s** | Meets competition time limit | **✅ Optimal** |
+| **Overall Success** | >80% | **87%** | Accurate at the right time | **✅ Excellent** |
+
+### Testing Methodology
+
+**1. Track Simulation:**
+- Used WRO-compliant randomizer app (included in repo)
+- Generated 50 different track configurations
+- Tested both Open and Obstacle challenges
+
+**2. Sensor Validation:**
+- Ultrasonic: Tested at 20–250 cm range (±2 cm accuracy)
+- Color sensor: Tested blue/orange detection under varied lighting
+- Pixy 2.1: Tested green/red pillar detection at 0.5–1.5 m
+
+**3. Performance Metrics:**
+- **Lap completion time**: Measured from start to finish (all 3 laps)
+- **Success rate**: Percentage of runs completing without stalling
+- **Accuracy**: Precision of wall-following (target vs. actual distance)
 
 ### Performance Across Different Conditions
 **Lighting Variations:**
@@ -518,6 +534,15 @@ During testing, we used our in-house [**Randomizer App**](randomizer.apk) to val
 - Smooth mat: 95% line detection
 - Rough surface: 92% line detection
 - Color transitions: 88% detection (weakest)
+
+### Known Limitations & Workarounds
+
+| Issue | Cause | Workaround |
+|-------|-------|-----------|
+| Pixy false positives in low light | Insufficient lighting contrast | Ensure 500+ lux, adjust signature thresholds |
+| Ultrasonic noise from angled walls | Non-perpendicular reflections | Reposition sensors, use averaging filter |
+| Color sensor inconsistency | Mounting vibration | Secure mount with rigid frame |
+| Motor slippage on smooth surfaces | Low friction | Increase wheel contact pressure, optimize traction |
 
 **Battery Performance vs. Runtime:**
 | Battery % | Hours Used | Speed Reduction | Steering Response | Status |
@@ -610,7 +635,7 @@ A concise table of the robot's physical dimensions.
 - **Type**: Vision Sensor
 - **Feature**: Real-time object recognition, color tracking, and line tracking
 - **Interface**: Custom I2C connection via EV3 sensor port (INPUT_1)
-- **Use**: Detects green (signature 1), red (signature 2), and purple (signature 3 for parking zone) pillars for obstacle avoidance in the Obstacle Challenge; potential for line tracking in Open Challenge.
+- **Use**: Detects green (signature 1), red (signature 2), and purple (signature 3 for parking zone) pillars for obstacle avoidance in the Obstacle Challenge; potential for line tracking in the Open Challenge.
 - **Description**: The Pixy 2.1 Cam is an advanced vision sensor used for real-time detection of red and green pillars in the WRO 2025 Obstacle Challenge. Mounted above the EV3 Brick, it uses a standard M12 lens with an 80° horizontal and 40° vertical field of view, providing a 1296x976 resolution downsampled to 640x480 for compatibility with EV3 processing. Operating at up to 60 fps, it is optimized for WRO’s obstacle distances (0.5–1.5 m). Color signatures for green (signature 1) and red (signature 2) were programmed using **PixyMon v2** software, calibrated under competition lighting conditions (500–1000 lux) to ensure reliable detection. A custom I2C connection (Red=5V, Blue=GND, Yellow=SDA, Green=SCL) via a modified EV3 sensor cable ensures seamless integration with the EV3 Brick. Y-position filtering (y < 75) prevents false positives, and the camera drives steering corrections (e.g., `target = (x - green) * 0.5`). Pixy 2.1’s enhanced processing and line-tracking capabilities offer potential for future navigation improvements in the Open Challenge.
 - **Lessons Learned**: Manual calibration via PixyMon v2 was straightforward thanks to Pixy 2.1’s improved color detection algorithms and built-in lighting compensation, but consistent lighting (500–1000 lux) was critical. Future improvements could leverage Pixy 2.1’s line-tracking mode or automated calibration with machine learning for enhanced robustness.
 - **Implementation Impact**: Pixy 2.1 achieved 97% detection accuracy in test environments, improving obstacle avoidance reliability and reducing collision risks in the Obstacle Challenge, thanks to Pixy 2.1’s higher frame rate, better color fidelity, and robust signature tracking. The camera’s faster processing enabled smoother steering adjustments, with a 10% reduction in response time.
@@ -704,7 +729,7 @@ A concise table of the robot's physical dimensions.
   **Final gear ratio = (20:12) × (20:24) = 25:18 ≈ 1.39:1**  
   (≈39% speed reduction, ≈39% torque increase vs direct drive).  
   This compound reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed. The steering is performed by a single Medium Motor (`motor_a` on `OUTPUT_B`) connected to a rack-and-pinion mechanism. Medium Motors were chosen over Large Motors because of their significantly lower weight (120 g vs 170 g) and sufficient torque for our 1.1–1.2 kg robot. This modest reduction, combined with dual synchronized motors in the Open Challenge, provides ample torque for precise parking while maintaining high top speed.
-- **Lessons Learned**: Early tests with near-direct drive showed occasional motor strain/stalling during tight parking maneuvers. The final 20-12-20-24 compound gear train + dual-motor option in the Open Challenge dramatically increased available torque, reducing peak current from ≈600 mA to ≈400 mA during parking and completely eliminating stalling. Adding the second drive motor (Open Challenge only) further eliminated any remaining strain at higher speeds.
+- **Lessons Learned**: Early tests with near-direct drive showed occasional motor strain/stalling during tight parking maneuvers. The final 20-12-20-24 compound gear train, combined with the dual-motor option in the Open Challenge, dramatically increased available torque, reducing peak current from ≈approximately 600 mA to ≈approximately 400 mA during parking and completely eliminating stalling. Adding the second drive motor (Open Challenge only) further eliminated any remaining strain at higher speeds.
 - **Implementation Impact**: Precise encoder-based control (`on_for_degrees`, `on_for_rotations`) enabled the parking sequence to complete in **under 10 seconds** with almost zero slippage. The modular drive design (single/dual motor) allowed us to optimize separately for torque (Obstacle) and speed (Open) without hardware redesign.
 
 ### 🔌 EV3 Motor Cable & Port Architecture
@@ -753,10 +778,10 @@ A concise table of the robot's physical dimensions.
 **Detailed Pin Functionality:**
 
 **1. Power Distribution (Pins 1-2):**
-- **Red Wire (+9V)**: Delivers regulated power from the EV3 battery to the motors
-- **Black Wire (GND)**: Provides a ground reference for the complete circuit
-- **Voltage Regulation**: EV3 Brick includes an internal voltage regulator maintaining a stable 9-9.5V
-- **Short-Circuit Protection**: Prevents component damage if wires inadvertently touch
+- **Red Wire (+9V)**: Delivers regulated power from the EV3 battery to the motors.
+- **Black Wire (GND)**: Provides a ground reference for the complete circuit.
+- **Voltage Regulation**: EV3 Brick includes an internal voltage regulator maintaining a stable 9-9.5V.
+- **Short-Circuit Protection**: Prevents component damage if wires inadvertently touch.
 
 **2. Motor Control (Pins 3-4):**
 - **Yellow Wire (Phase A)**: Drives motor in forward direction via PWM modulation
@@ -1608,20 +1633,25 @@ Notes:
 ---
 
 ### 2. 📊 Power Consumption Overview
-- **Motors**: In the **Open Challenge**, two **EV3 Medium Motors** for propulsion draw approximately **150–200 mA** each (total 300–400 mA) during standard operation, peaking at **500 mA** per motor under stall conditions. In the Obstacle Challenge, a single propulsion motor draws **150–200 mA**, peaking at **500 mA**. The steering motor draws approximately **100–150 mA**, peaking at **250 mA** for sharp turns.
-- **Sensors**: Built-in LEGO sensors (e.g., ultrasonic, color) typically consume under **100 mA**, remaining well within EV3’s supply limits.
-- **Pixy 2.1 (Direct EV3 Sensor Port Integration)**: Four EV3 internal wires were identified (via continuity testing) and connected to the Pixy Cam’s I2C port:
+- **Motors**:  
+In the **Open Challenge**, two **EV3 Medium Motors** for propulsion draw approximately **150–200 mA** each (total 300–400 mA) during standard operation, peaking at **500 mA** per motor under stall conditions. In the Obstacle Challenge, a single propulsion motor draws **150–200 mA**, peaking at **500 mA**. The steering motor draws approximately **100–150 mA**, peaking at **250 mA** for sharp turns.
+- **Sensors**:  
+Built-in LEGO sensors (e.g., ultrasonic, color) typically consume under **100 mA**, remaining well within EV3’s supply limits.
+- **Pixy 2.1 (Direct EV3 Sensor Port Integration)**:  
+Four EV3 internal wires were identified (via continuity testing) and connected to the Pixy Cam’s I2C port:
   - **Red** → 5V (Pixy power input)
   - **Blue** → GND
   - **Yellow** → SDA
-  - **Green** → SCL
+  - **Green** → SCL  
   The unused **white** and **black** wires were insulated and left unconnected. Pixy Cam draws approximately **130–170 mA**, a value confirmed safe through multimeter testing. Based on compatibility tests, no level shifters were required.
 
 ---
 
 ### 3. 📡 Sensor Architecture and Management
-- **Central Control Unit**: All sensors, including the non-standard Pixy Cam, interface directly with the EV3 Brick.
+- **Central Control Unit**:  
+All sensors, including the non-standard Pixy Cam, interface directly with the EV3 Brick.
 - **Port Allocation Table**:
+
 | Port | Sensor             | Function                                                     |
 |------|--------------------|--------------------------------------------------------------|
 | 1    | Pixy 2.1           | Image processing / Obstacle detection                        |
@@ -1629,14 +1659,16 @@ Notes:
 | 3    | Ultrasonic Sensor  | Secondary wall following / open challenge                    |
 | 4    | Color Sensor       | Blue and orange lines for task-specific navigation detection |
 
-- **Polling Strategy**: Critical sensors like the color sensor are polled every **10ms**, while secondary inputs (e.g., Pixy or second ultrasonic) are polled at **50ms**.
+- **Polling Strategy**:  
+Critical sensors like the color sensor are polled every **10ms**, while secondary inputs (e.g., Pixy or second ultrasonic) are polled at **50ms**.
 
 ---
 
 ### 4. 🔗 Wiring and Safety
-- **Standard Wiring**: All LEGO components are connected using official RJ-type sensor cables to maintain signal integrity and mechanical reliability.
-- **Pixy Cam Integration (Custom Wiring)**:
-  To interface the Pixy 2.1 with the EV3 Brick, one original EV3 sensor cable (6-wire) was carefully cut and modified. The internal wires were accessed, and **four out of six** were soldered to the Pixy Cam's I2C interface:
+- **Standard Wiring**:  
+All LEGO components are connected using official RJ-type sensor cables to maintain signal integrity and mechanical reliability.
+- **Pixy Cam Integration (Custom Wiring)**:  
+  To interface the Pixy 2.1 with the EV3 Brick, one original EV3 sensor cable (6-wire) was carefully cut and modified. The internal wires were accessed, and **four out of six** were soldered to the Pixy Cam's I2C interface:  
   **Connected Wires**:
   - **Red** → Pixy 5V
   - **Blue** → Pixy GND
@@ -1649,14 +1681,16 @@ Notes:
       <img src="robot-photos/pixy-cam-wiring.jpg" alt="Pixy Cam Wiring Diagram" width="70%">
       <p>Custom wiring of Pixy 2.1 to EV3 sensor port (INPUT_1)</p>
     </div>
-  This setup enabled direct power and I2C communication via EV3’s sensor port without needing external regulators or level converters. Continuity and voltage checks confirmed proper signal routing; runtime tests validated stable behavior in all modes.
+  This setup enabled direct power and I2C communication via EV3’s sensor port without needing external regulators or level converters. Continuity and voltage checks confirmed proper signal routing; runtime tests validated stable behavior in all modes.  
   **Warning**: Cutting and soldering EV3 sensor cables requires caution to avoid electrical hazards. Ensure the EV3 Brick is powered off and use insulated tools.
-  1. Cut one EV3 sensor cable and identify wires using a multimeter (Red=5V, Blue=GND, Yellow=SDA, Green=SCL).
-  2. Solder Red to Pixy 5V, Blue to GND, Yellow to SDA, Green to SCL.
-  3. Insulate White and Black wires with electrical tape.
-  4. Test connections with a multimeter before powering on.
+1. Cut one EV3 sensor cable and identify wires using a multimeter (Red=5V, Blue=GND, Yellow=SDA, Green=SCL).
+2. Solder Red to Pixy 5V, Blue to GND, Yellow to SDA, Green to SCL.
+3. Insulate White and Black wires with electrical tape.
+4. Test connections with a multimeter before powering on.
+
 > ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both a multimeter and long-duration load testing.*
-- **Heat and Overload Protection**: The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
+- **Heat and Overload Protection**:  
+The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
 
 ### 🌬️ Cooling System: Fan for Thermal Management
 
@@ -1679,7 +1713,7 @@ The robot needed to control external LED indicators powered by an independent 3-
 
 #### How It Works
 
-The EV3 motor port's phase pins (White/Black) output 5V PWM signals that drive a relay coil:
+The EV3 motor port's phase pins (White/Black) output 9V signals that drive a relay coil:
 
 1. **Motor Port Output**: EV3 sends 9V PWM on pins 1 (White) and 2 (Black)
 2. **Relay Coil**: These signals drive a 9V relay coil
@@ -1705,7 +1739,7 @@ The EV3 motor port's phase pins (White/Black) output 5V PWM signals that drive a
 - Normally-Open contact → LED+ (battery positive terminal)
 - Common contact → LED- (battery ground terminal)
 
-**How the Relay Circuit Works:**
+**How the Relay Circuit Works:**  
 When the Python code executes `motor.on()`, the EV3 Brick applies voltage to the motor control pins (White goes HIGH at 9V, Black goes LOW at 0V). This voltage difference across the relay coil creates an electromagnetic field that pulls the relay armature, closing the normally-open contacts. When the contacts close, they complete the circuit between the battery and the LEDs, illuminating them. When `motor.off()` is called, the voltage difference disappears, the electromagnet releases, and the contacts open, turning off the LEDs.
 
 #### Python Implementation
@@ -1757,7 +1791,6 @@ if __name__ == "__main__":
 |-----------|---|---|---|
 | 5V Relay | NONC (Normal-Open Normal-Close) configuration | 1 | Switch LED power on and off |
 | EV3 Motor Cable | Standard 6-pin RJ connector cable | 1 | Carries control signals from EV3 |
-| 1N4007 Diode | Rectifier diode for back-EMF protection | 1 | Protects EV3 from voltage spikes |
 | Solid Wire | 22-24 AWG gauge, 5-10 meters | ~2m | Solder connections |
 | Lead-Free Solder | Standard electronics solder | Small roll | Permanent wire connections |
 | Electrical Tape | 18-19mm width, adhesive backed | 1 roll | Insulation of connections |
@@ -1775,9 +1808,8 @@ if __name__ == "__main__":
 **Step 2: Connect Relay Coil**
 1. Solder the **White wire to the relay coil positive terminal** (typically marked with + symbol)
 2. Solder the **Black wire to the relay coil negative terminal** (typically marked with - or COM symbol)
-3. **CRITICAL SAFETY STEP**: Add a 1N4007 diode across the relay coil terminals with the **cathode (marked band) on the positive side**. This diode protects the EV3 from dangerous voltage spikes when the relay de-energizes
-4. Verify all solder joints are clean and shiny (indicates good electrical contact)
-5. Wrap all solder joints and diode leads with electrical tape to prevent accidental short circuits.
+3. Verify all solder joints are clean and shiny (indicates good electrical contact)
+4. Wrap all solder joints with electrical tape to prevent accidental short circuits.
 
 **Step 3: Connect the LED Power Circuit**
 1. Identify the relay's normally-open (NO) contact and common (C) contact terminals
@@ -1786,20 +1818,12 @@ if __name__ == "__main__":
 4. **Verification**: At this point, the LED circuit should be completely isolated from the EV3 Brick - current cannot flow until the relay energizes
 5. Connect the LED power source (battery pack) directly: Battery+ to LED+, Battery- to LED-
 
-**Step 4: Insulate Unused Encoder Wires**
-1. Take the **White and Blue wires** (encoder feedback wires - not needed for relay control)
-2. Twist them together loosely to group them
-3. Wrap them together with electrical tape, ensuring no exposed copper is visible
-4. This prevents accidental short circuits if these wires touch each other or other components
-
-**Step 5: Double-Check All Connections**
+**Step 4: Double-Check All Connections**
 Before powering on the EV3:
 - [ ] White wire soldered to the relay coil positive
 - [ ] Black wire soldered to the relay coil negative
-- [ ] 1N4007 diode across coil (cathode on positive)
 - [ ] Relay NO contact connected to LED+
 - [ ] Relay C contact connected to LED-
-- [ ] White and Blue wires are insulated
 - [ ] All solder joints are shiny and secure
 - [ ] No exposed copper wires visible
 - [ ] LED circuit isolated from EV3 (not powered until relay activates)
@@ -1835,64 +1859,14 @@ print("Relay should click again (de-energizing)")
 ✅ **Galvanic Isolation** - The relay's electromagnet operates independently from the LED circuit, protecting the EV3  
 ✅ **Reverse Polarity Protection** - The 1N4007 diode prevents back-EMF voltage spikes that could damage the EV3  
 
-#### Applications Beyond LEDs
-
-This exact technique can control any 5-12V powered device:
-
-| Device | Typical Voltage | Application | Implementation |
-|--------|---|---|---|
-| **LED Arrays** | 3.7-12V | Status indication, visual feedback | Direct relay switching |
-| **Pump Motor** | 12V | Cooling water circulation, hydraulic systems | Relay switches motor supply |
-| **Solenoid Valve** | 5-12V | Mechanism actuation, gate control | Relay energizes solenoid coil |
-| **Electromagnet** | 6-12V | Magnetic coupling, object pickup | Relay controls magnet power |
-| **External Buzzer** | 5V | Audio feedback, alert system | Relay switches buzzer circuit |
-| **Camera Flash** | Variable | High-intensity lighting for vision | Relay triggers flash control |
-
-#### Advanced Programming Extensions
-
-**PWM-Based Brightness Control:**
-```python
-# Control LED brightness by varying PWM duty cycle
-led_relay.on(speed_percent=30)   # 30% brightness (dim)
-sleep(2)
-led_relay.on(speed_percent=100)  # 100% brightness (full)
-```
-
-**Status Indication Pattern:**
-```python
-def led_pattern_startup():
-    led_blink(count=1, duration=0.2)  # Single blink = initialization
-
-def led_pattern_navigating():
-    led_blink(count=2, duration=0.3)  # Double blink = navigation active
-
-def led_pattern_obstacle():
-    led_blink(count=3, duration=0.1)  # Triple blink = obstacle detected
-
-def led_pattern_parking():
-    led_blink(count=5, duration=0.2)  # Rapid blinks = parking sequence
-```
-
-#### Troubleshooting Common Issues
-
-| Problem | Likely Cause | Solution |
-|---------|---|---|
-| **Relay doesn't click** | Loose wire connection or poor solder joint | Use a multimeter to test continuity between the Yellow/Green and relay coil terminals |
-| **LEDs stay on permanently** | Relay contacts stuck in closed position | Clean relay contacts; if persistent, replace relay unit |
-| **Intermittent relay behavior** | Cold solder joint on relay coil wires | Re-solder connections with fresh solder and heat-shrink tubing |
-| **EV3 motor port not responding** | Cable not fully seated in motor port | Remove and reinsert cable firmly until you hear/feel a click |
-| **Relay chatters/vibrates** | PWM frequency causes mechanical vibration | Add 0.1-0.22µF capacitor across relay coil to dampen oscillations |
-| **LEDs dim when relay activates** | Relay coil drawing too much current from EV3 | Verify relay coil rating (should be 5V); may need higher-rated relay |
-
 #### Why ShahroodRC Used This Approach
 
 During the ShahroodRC design phase, the team needed external LED indicators for competition status feedback. Analysis of the EV3 motor port revealed that:
 
-1. **Phase pins output reliable 5V PWM signals** - sufficient to drive standard relay coils
-2. **Relay isolation prevents noise coupling** - the external LED circuit doesn't interfere with EV3 operation
-3. **Simple Python motor control API** - no additional libraries or complex code needed
-4. **Cost-effective solution** - ~$3-5 relay vs $20-40 dedicated PWM drivers
-5. **Battle-tested technology** - relays are proven components in competitive robotics
+1. **Relay isolation prevents noise coupling** - the external LED circuit doesn't interfere with EV3 operation
+2. **Simple Python motor control API** - no additional libraries or complex code needed
+3. **Cost-effective solution** - ~$3-5 relay vs $20-40 dedicated PWM drivers
+4. **Battle-tested technology** - relays are proven components in competitive robotics
 
 This innovation exemplifies how understanding platform architecture enables creative engineering. The ShahroodRC team unconventionally leveraged standard LEGO EV3 components to achieve advanced functionality - a key principle in WRO and educational robotics competitions.
 
@@ -1942,8 +1916,7 @@ The Obstacle Challenge strategy is built upon the logic of the Open Challenge, e
 
 ### 🏁 Qualification Round (Open Challenge)
 
-[Full Open Challenge Code](/codes/open-challenge-code.py)
-
+[Full Open Challenge Code](/codes/open-challenge-code.py)  
 In the Open Challenge, the robot navigates a random track using the color sensor to detect blue (`cr1=1,2`) or orange (`cr1=5,7`) lines and ultrasonic sensors for wall-following at 28 cm. It uses two motors (`motor_b`, `motor_c`) for propulsion, with a non-linear control algorithm (1.3 weighting) for initial alignment. The PID-like `amotor` function maintains a target distance of 28 cm from walls, adjusting based on the detected line color.
 
 #### Algorithm Flowchart
@@ -2801,16 +2774,16 @@ motor_a.off()
 4. Calibrate: wheels should turn ±20° smoothly
 5. Test motor response with the EV3 console
 
-**Step 3: Sensor Tower**
+**Step 3: Pixy Tower and Sensors Mounting**
 1. Create vertical tower (4L × 2W beams, 120mm height)
 2. Mount Pixy camera at a 45° angle (top center - looking down)
-3. Mount ultrasonic sensors left/right (front face, level)
-4. Mount the color sensor at the bottom (track-facing, 5mm above the surface)
+3. Mount ultrasonic sensors on the robot’s front left/right (front face, level)
+4. Mount the color sensor at the robot’s front center at the bottom (track-facing, 5mm above the surface)
 
 #### **Phase 2: Electronics (25 min)**
 
 **Step 4: EV3 Brick Mounting**
-1. Position EV3 on top of the sensor tower (centered, front-facing)
+1. Position EV3 under the pixy tower (centered, front-facing)
 2. Secure with double-sided tape + velcro strips
 3. Ensure LCD screen and buttons are accessible
 4. Verify no cable pinching
@@ -2831,8 +2804,8 @@ motor_a.off()
 #### **Phase 3: Power & Finalization (20 min)**
 
 **Step 7: Battery System**
-1. Mount the 6x AA battery holder on the chassis bottom
-2. Insert rechargeable batteries (correct polarity!)
+1. Mount the 3-cell Li-Ion battery pack holder on the chassis bottom
+2. Insert the EV3 Rechargeable Battery Pack (correct polarity!)
 3. Connect to EV3 via the power port
 4. Verify: EV3 LED turns green when powered
 
@@ -3032,11 +3005,11 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
 
 2. **Train Color Signatures:**
    - Click "Program" → "Blocks" → "Color Connected Components"
-   - Select "Signature 1" (Green pillars):
-     - Aim the camera at the green pillar from 0.5–1.5 m
+   - Select "Signature 1" (Green obstacles):
+     - Aim the camera at the green obstacle from 0.5–1.5 m
      - Click "Teach signature 1" and select the green color
      - Repeat 5–10 times from different angles/distances
-   - Select "Signature 2" (Red pillars):
+   - Select "Signature 2" (Red obstacles):
      - Repeat the process for the red color
      - Ensure signatures are distinct (RGB ranges don't overlap)
 
@@ -3124,49 +3097,6 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
 - [ ] Verify Pixy signatures on actual pillars
 - [ ] Run 5 test laps to ensure stability
 - [ ] Check for any mechanical issues (wheel slippage, motor noise)
-
----
-
-## 🔍 Testing & Validation
-
-### 📊 Test Results Summary
-
-From 50+ test runs across varied track configurations:
-
-| Challenge | Metric | Result | Notes |
-|-----------|--------|--------|-------|
-| **Open** | Wall-follow accuracy | ±2 cm @ 27 cm target | Stable with 500–1000 lux lighting |
-| **Open** | Turn execution | 1.5 sec per 90° turn | Consistent steering response |
-| **Open** | Lap completion rate | 90% success | 45/50 runs completed |
-| **Obstacle** | Obstacle detection | 97% accuracy | Pixy 2.1 performs excellently |
-| **Obstacle** | Parking success | 85% accuracy | Zone detection improved with calibration |
-| **Overall** | Average time (3 laps) | <2 minutes | Meets competition time limit |
-
-### 🧪 Testing Methodology
-
-**1. Track Simulation:**
-- Used WRO-compliant randomizer app (included in repo)
-- Generated 50 different track configurations
-- Tested both Open and Obstacle challenges
-
-**2. Sensor Validation:**
-- Ultrasonic: Tested at 20–250 cm range (±2 cm accuracy)
-- Color sensor: Tested blue/orange detection under varied lighting
-- Pixy 2.1: Tested green/red pillar detection at 0.5–1.5 m
-
-**3. Performance Metrics:**
-- **Lap completion time**: Measured from start to finish (all 3 laps)
-- **Success rate**: Percentage of runs completing without stalling
-- **Accuracy**: Precision of wall-following (target vs. actual distance)
-
-### ⚠️ Known Limitations & Workarounds
-
-| Issue | Cause | Workaround |
-|-------|-------|-----------|
-| Pixy false positives in low light | Insufficient lighting contrast | Ensure 500+ lux, adjust signature thresholds |
-| Ultrasonic noise from angled walls | Non-perpendicular reflections | Reposition sensors, use averaging filter |
-| Color sensor inconsistency | Mounting vibration | Secure mount with rigid frame |
-| Motor slippage on smooth surfaces | Low friction | Increase wheel contact pressure, optimize traction |
 
 ---
 
@@ -3289,7 +3219,7 @@ def safe_pixy_read(max_retries=3):
 3. **Add spatial filtering** – Ignore single-frame detections; require sustained detection
 4. **Fallback to dead reckoning** – If the line is not detected for 3 seconds, estimate the turn based on timing
 
-### Problem 7: Battery Voltage Sag Under Load
+### Problem 7: Battery Voltage Drop Under Load
 
 **Symptom:** Motor speed decreases noticeably after 10 minutes of operation; steering becomes sluggish
 
@@ -3391,8 +3321,8 @@ ssh robot@192.168.137.3 "killall python3"
 #### Materials
 | Material | Weight | Cost per kg (USD) | Total Cost (USD) | Purpose |
 |----------|--------|------------------|-----------------|---------|
-| PLA (Prototypes) | 250g | $20.00 | $5.00 | Testing and iteration |
-| PLA (Final Parts) | 120g | $20.00 | $2.40 | Pixy mount, sensor holders |
+| ABS (Prototypes) | 250g | $20.00 | $5.00 | Testing and iteration |
+| ABS (Final Parts) | 120g | $20.00 | $2.40 | Pixy mount, sensor holders |
 | **Total 3D Printing Materials** | | | **$7.40** | |
 
 #### Equipment Costs
@@ -3513,7 +3443,7 @@ WRO2025-FE-ShahroodRC/
 │   ├── robot-components/                # Component photos
 │   ├── shahroodrc-logo.jpg              # Team logo
 │   ├── *.jpg, *.svg                     # Various technical visualizations
-|   └── 3d-files.md                      # 3D files and photos' notes
+│   └── pictures.md                      # Picture notes
 │
 ├── 📂 robot-photos/                      # Physical robot images
 │   ├── robot-front.jpg, robot-back.jpg  # Front & back views
@@ -3531,6 +3461,7 @@ WRO2025-FE-ShahroodRC/
 ├── 📂 videos/                            # Performance recordings
 │   ├── open-challenge.mp4               # Qualification run
 │   ├── obstacle-challenge.mp4           # Final challenge run
+│   ├── explaining.mp4                   # Explanation video
 │   └── videos.md                        # Videos description
 │
 ├── 📄 WRO 2025 - Future Engineers rules  # Pdf of future engineers category rules
@@ -3569,6 +3500,8 @@ This project is licensed under the **MIT License**, allowing free use, modificat
 **Built with ❤️ by ShahroodRC Team**
 
 🚀 Representing Iran at WRO 2025 International Final in Singapore 🌍
+
+See you in Singapore!
 
 © 2025 ShahroodRC – All rights reserved.
 
