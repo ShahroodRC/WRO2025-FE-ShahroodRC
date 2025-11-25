@@ -3461,7 +3461,7 @@ WRO2025-FE-ShahroodRC/
 ├── 📂 videos/                            # Performance recordings
 │   ├── open-challenge.mp4               # Qualification run
 │   ├── obstacle-challenge.mp4           # Final challenge run
-│   ├── explaining.mp4                   # Explanation video
+│   ├── Explaining.mp4                   # Explanation video
 │   └── videos.md                        # Videos description
 │
 ├── 📄 WRO 2025 - Future Engineers rules  # Pdf of future engineers category rules
