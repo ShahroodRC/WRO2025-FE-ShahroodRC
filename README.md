@@ -85,6 +85,8 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
         - [🔧 Differential Modification: Half-Bush Integration](#-differential-modification-half-bush-integration)
     - [3. 📡 Sensor Integration for Mobility](#3--sensor-integration-for-mobility)
     - [4. 🎮 Mobility Control Algorithms](#4--mobility-control-algorithms)
+        - [Non-Linear Control for Initial Alignment](#non-linear-control-for-initial-alignment)
+        - [Linear Control for Sustained Navigation](#linear-control-for-sustained-navigation)
     - [5. ⚡ Energy Management for Mobility](#5--energy-management-for-mobility)
     - [6. 🔗 System Integration for Mobility](#6--system-integration-for-mobility)
     - [7. 🧪 Testing and Optimization](#7--testing-and-optimization)
@@ -95,32 +97,33 @@ ShahroodRC blends "Shahrood" (our hometown in Iran, symbolizing resilience like 
     - [2. 📊 Power Consumption Overview](#2--power-consumption-overview)
     - [3. 📡 Sensor Architecture and Management](#3--sensor-architecture-and-management)
     - [4. 🔗 Wiring and Safety](#4--wiring-and-safety)
+        - [🌬️ Cooling System: Fan for Thermal Management](#️-cooling-system-fan-for-thermal-management)    
         - [💡 Advanced Application: EV3 Motor Port for External LED Control](#-advanced-application-ev3-motor-port-for-external-led-control)
     - [5. 🔍 Diagnostics and Monitoring](#5--diagnostics-and-monitoring)
     - [6. ⚙️ Optimization Techniques](#6-️-optimization-techniques)
     - [7. ✅ Conclusion](#7--conclusion)
 - [🚧 Obstacle Management](#-obstacle-management)
-    - [🏁 Qualification Round (Open Challenge)](#qualification-round-open-challenge)
-    - [🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)](#final-round-with-obstacle-avoidance-obstacle-challenge)
+    - [🏁 Qualification Round (Open Challenge)](#-qualification-round-open-challenge)
+    - [🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)](#-final-round-with-obstacle-avoidance-obstacle-challenge)
 - [🏗️ Robot Assembly Guide](#️-robot-assembly-guide)
 - [🛠️ Software Setup & Installation](#️-software-setup--installation)
-    - [📋 Prerequisites](#prerequisites)
-    - [💾 Step 1: Install ev3dev on the EV3 Brick](#step-1-install-ev3dev-on-ev3-brick)
-    - [🔌 Step 2: Connect to EV3 Brick](#step-2-connect-to-ev3-brick)
-    - [📦 Step 3: Install Required Python Libraries](#step-3-install-required-python-libraries)
-    - [⬇️ Step 4: Clone and Deploy Code](#step-4-clone-and-deploy-code)
-    - [▶️ Step 5: Run Code on EV3](#step-5-run-code-on-ev3)
-    - [🐛 Step 6: Debugging & Troubleshooting](#step-6-debugging--troubleshooting)
-    - [⌨️ Useful Commands](#useful-commands)
+    - [📋 Prerequisites](#-prerequisites)
+    - [💾 Step 1: Install ev3dev on the EV3 Brick](#-step-1-install-ev3dev-on-the-ev3-brick)
+    - [🔌 Step 2: Connect to EV3 Brick](#-step-2-connect-to-ev3-brick)
+    - [📦 Step 3: Install Required Python Libraries](#-step-3-install-required-python-libraries)
+    - [⬇️ Step 4: Clone and Deploy Code](#️-step-4-clone-and-deploy-code)
+    - [▶️ Step 5: Run Code on EV3](#️-step-5-run-code-on-ev3)
+    - [🐛 Step 6: Debugging & Troubleshooting](#-step-6-debugging--troubleshooting)
+    - [⌨️ Useful Commands](#️-useful-commands)
 - [🔧 Sensor Calibration Guide](#-sensor-calibration-guide)
-    - [📷 Pixy 2.1 Camera Calibration](#pixy-21-camera-calibration)
-    - [📏 Ultrasonic Sensor Calibration](#ultrasonic-sensor-calibration)
-    - [🌈 Color Sensor Calibration](#color-sensor-calibration)
-    - [✅ Pre-Competition Checklist](#pre-competition-checklist)
+    - [📷 Pixy 2.1 Camera Calibration](#-pixy-21-camera-calibration)
+    - [📏 Ultrasonic Sensor Calibration](#-ultrasonic-sensor-calibration)
+    - [🌈 Color Sensor Calibration](#-color-sensor-calibration)
+    - [✅ Pre-Competition Checklist](#-pre-competition-checklist)
 - [🔍 Testing & Validation](#-testing--validation)
-    - [📊 Test Results Summary](#test-results-summary)
-    - [🧪 Testing Methodology](#testing-methodology)
-    - [⚠️ Known Limitations & Workarounds](#known-limitations--workarounds)
+    - [📊 Test Results Summary](#-test-results-summary)
+    - [🧪 Testing Methodology](#-testing-methodology)
+    - [⚠️ Known Limitations & Workarounds](#️-known-limitations--workarounds)
 - [🔴 Problems and Solutions](#-problems-and-solutions)
 - [💰 Cost Report](#-cost-report)
 - [📁 Repository Structure](#-repository-structure)
@@ -302,11 +305,11 @@ This national championship victory marks a significant milestone, qualifying Sha
 
 ## 🎬 Videos
 
-You can see [Obstacle Challenge](https://youtu.be/onJv0w_JzZM) and [Open Challenge](https://youtu.be/lM7wSyYANas) videos on YouTube. You can also see them here in [videos](videos/) folder.
+You can see the [Obstacle Challenge](https://youtu.be/SnwjbTBg8ZY), [Open Challenge](https://youtu.be/YG6ZxuxHtCI), and [Explaining](https://youtu.be/0DZZhJmp3i8) videos on YouTube. You can also see them here in the [videos](videos/) folder.
 
-| Open Challenge | Obstacle Challenge |
-|----------------|--------------------|
-| [![Open](https://img.youtube.com/vi/lM7wSyYANas/hqdefault.jpg)](https://youtu.be/lM7wSyYANas) | [![Obstacle](https://img.youtube.com/vi/onJv0w_JzZM/hqdefault.jpg)](https://youtu.be/onJv0w_JzZM) |
+| Open Challenge | Obstacle Challenge | Explaining Video |
+|----------------|--------------------|------------------|
+| [![Open](https://img.youtube.com/vi/YG6ZxuxHtCI/hqdefault.jpg)](https://youtu.be/YG6ZxuxHtCI) | [![Obstacle](https://img.youtube.com/vi/SnwjbTBg8ZY/hqdefault.jpg)](https://youtu.be/SnwjbTBg8ZY) | [![Explaining Video](https://img.youtube.com/vi/0DZZhJmp3i8/hqdefault.jpg)](https://youtu.be/0DZZhJmp3i8) |
 
 ---
 
@@ -1527,7 +1530,7 @@ This section merges the full electrical architecture, hardware specifications, a
 
 ### 1. 🔋 Power Supply and Distribution
 - **Primary Power Source**: The robot is powered by the official **LEGO EV3 Rechargeable Battery Pack**, delivering a stable **9V** to the EV3 Intelligent Brick and all peripherals.
-- **Secondary Power Pack**: A custom 3-cell battery pack (approximately 11.1V, 1000 mAh) is integrated below the EV3 Brick and above the differential, dedicated exclusively to powering two additional components:
+- **Secondary Power Pack**: A custom 3-cell battery pack (approximately 11.1V, 3000 mAh) is integrated below the EV3 Brick and above the differential, dedicated exclusively to powering two additional components:
     - **Cooling Fan**: A small fan (drawing ~50 mA) is positioned in front of the Pixy Cam to prevent overheating during prolonged operation, maintaining optimal performance (temperature kept below 45°C in tests).
     - **Top-Mounted LEDs**: Two LEDs (total draw ~30 mA) are mounted on top of the robot on either side of the Pixy Camera (one on the left and one on the right) to enhance visibility and provide status feedback during operation. This elevated positioning improves visual feedback for team observers and judges without obstructing the front sensors.
     - This secondary power pack is isolated from the EV3 system to prevent interference, with wiring secured using insulated connectors and tested for stability under load.
@@ -1577,8 +1580,9 @@ Notes:
 #### Pin Configuration
 | Port | Device | Type | Voltage | Connection |
 |------|--------|------|---------|------------|
-| OUTPUT_B | Medium Motor (Steering) | Motor | 4.5V | 2-Pin EV3 Motor |
-| OUTPUT_D | Medium Motor (Drive) | Motor | 4.5V | 2-Pin EV3 Motor |
+| OUTPUT_B | Medium Motor (Steering) | Motor | 4.5V | 6-Pin EV3 Motor |
+| OUTPUT_D | Medium Motor (Drive) | Motor | 4.5V | 6-Pin EV3 Motor |
+| OUTPUT_C | Second Medium Motor (Drive) | Motor | 4.5V | 6-Pin EV3 Motor |
 | INPUT_1 | Pixy 2.1 Camera | I2C | 5V | Custom I2C Adapter |
 | INPUT_2 | Ultrasonic Sensor (Right) | Digital | 3.3V | 6-Pin EV3 Cable |
 | INPUT_3 | Ultrasonic Sensor (Left) | Digital | 3.3V | 6-Pin EV3 Cable |
@@ -1596,9 +1600,9 @@ Notes:
 | **TOTAL** | | **~210mA** | **~1700mA** | **~8.8W peak** |
 
 **Battery Runtime:**
-- Battery Capacity: 6x AA (2500-2800 mAh typical)
-- Total: ~2650 mAh (9.6 Wh)
-- Runtime at peak (2A): ~1.3 hours
+- Battery Capacity: EV3 Rechargeable Battery Pack (2050 mAh)
+- Total: ~2050 mAh
+- Runtime at peak (2A): ~2 hours
 - **Competition runtime (alternating low/peak)**: ~3-4 hours ✅
 
 ---
@@ -1654,7 +1658,7 @@ Notes:
 > ⚠️ *All unused wires were safely insulated to prevent short circuits. The electrical integrity of the system was validated using both a multimeter and long-duration load testing.*
 - **Heat and Overload Protection**: The EV3 Brick includes internal thermal sensors and current-limiting features, protecting against overheating or short circuits during prolonged operation.
 
-#### 🌬️ Cooling System: Fan for Thermal Management
+### 🌬️ Cooling System: Fan for Thermal Management
 
 <div align="center">
 <img src="robot-photos/fan-setup.jpg" alt="Fan Cooling System" width="60%">
@@ -1671,14 +1675,14 @@ One of the unique innovations in the ShahroodRC design was the use of an EV3 mot
 
 #### The Challenge & Solution
 
-The robot needed to control external LED indicators powered by an independent 3-cell Li-Po battery pack. Instead of using a separate microcontroller, we connected an EV3 motor port to a relay that switches the LED circuit on and off.
+The robot needed to control external LED indicators powered by an independent 3-cell Li-Ion battery pack. Instead of using a separate microcontroller, we connected an EV3 motor port to a relay that switches the LED circuit on and off.
 
 #### How It Works
 
-The EV3 motor port's phase pins (Yellow/Green) output 5V PWM signals that drive a relay coil:
+The EV3 motor port's phase pins (White/Black) output 5V PWM signals that drive a relay coil:
 
-1. **Motor Port Output**: EV3 sends ~4.5V PWM on pins 3 (Yellow) and 4 (Green)
-2. **Relay Coil**: These signals drive a 5V relay coil
+1. **Motor Port Output**: EV3 sends 9V PWM on pins 1 (White) and 2 (Black)
+2. **Relay Coil**: These signals drive a 9V relay coil
 3. **LED Power Switch**: Relay contacts connect the LED circuit to the battery
 4. **Result**: `motor.on()` in Python energizes relay → LEDs illuminate
 
@@ -1690,18 +1694,19 @@ The EV3 motor port's phase pins (Yellow/Green) output 5V PWM signals that drive 
 </div>
 
 **Pin Connections:**
-- **Red (Pin 1)** → Relay common/power reference.
+- **White (Pin 1)** → Relay coil positive (9V when motor is active).
 - **Black (Pin 2)** → Relay and LED ground.
-- **Yellow (Pin 3)** → Relay coil positive (5V when motor is active)
+- **Red (Pin 3)** → Relay common/power reference.
 - **Green (Pin 4)** → Relay coil negative/ground
-- **White/Blue (Pins 5-6)** → Insulated (unused encoder feedback wires)
+- **Yellow (Pin 5)** → Insulated (unused encoder feedback wires).
+- **Blue (Pin 6)** → Insulated (unused encoder feedback wires).
 
 **Relay Output:**
 - Normally-Open contact → LED+ (battery positive terminal)
 - Common contact → LED- (battery ground terminal)
 
 **How the Relay Circuit Works:**
-When the Python code executes `motor.on()`, the EV3 Brick applies voltage to the motor control pins (Yellow goes HIGH at ~5V, Green goes LOW at 0V). This voltage difference across the relay coil creates an electromagnetic field that pulls the relay armature, closing the normally-open contacts. When the contacts close, they complete the circuit between the battery and the LEDs, illuminating them. When `motor.off()` is called, the voltage difference disappears, the electromagnet releases, and the contacts open, turning off the LEDs.
+When the Python code executes `motor.on()`, the EV3 Brick applies voltage to the motor control pins (White goes HIGH at 9V, Black goes LOW at 0V). This voltage difference across the relay coil creates an electromagnetic field that pulls the relay armature, closing the normally-open contacts. When the contacts close, they complete the circuit between the battery and the LEDs, illuminating them. When `motor.off()` is called, the voltage difference disappears, the electromagnet releases, and the contacts open, turning off the LEDs.
 
 #### Python Implementation
 
@@ -1750,7 +1755,7 @@ if __name__ == "__main__":
 
 | Component | Specification | Quantity | Purpose |
 |-----------|---|---|---|
-| 5V Relay | SPDT (Single-Pole Double-Throw) configuration | 1 | Switch LED power on and off |
+| 5V Relay | NONC (Normal-Open Normal-Close) configuration | 1 | Switch LED power on and off |
 | EV3 Motor Cable | Standard 6-pin RJ connector cable | 1 | Carries control signals from EV3 |
 | 1N4007 Diode | Rectifier diode for back-EMF protection | 1 | Protects EV3 from voltage spikes |
 | Solid Wire | 22-24 AWG gauge, 5-10 meters | ~2m | Solder connections |
@@ -1763,13 +1768,13 @@ if __name__ == "__main__":
 **Step 1: Prepare the EV3 Motor Cable**
 - Carefully cut one EV3 motor cable at the RJ connector end with wire cutters
 - Use wire strippers to remove ~5-7mm of insulation from each of the 6 internal wires
-- Identify wires by color: Red (+9V), Black (GND), Yellow (Phase A), Green (Phase B), White (Encoder A), Blue (Encoder B)
+- Identify wires by color: White (+9V), Black (GND), Red (Phase A), Green (Phase B), Yellow (Encoder A), Blue (Encoder B)
 - Twist the same-color wire pairs together if multiple connections to the same signal are needed
 - Do NOT connect to EV3 yet - work on relay assembly first
 
 **Step 2: Connect Relay Coil**
-1. Solder the **Yellow wire to the relay coil positive terminal** (typically marked with + symbol)
-2. Solder the **Green wire to the relay coil negative terminal** (typically marked with - or COM symbol)
+1. Solder the **White wire to the relay coil positive terminal** (typically marked with + symbol)
+2. Solder the **Black wire to the relay coil negative terminal** (typically marked with - or COM symbol)
 3. **CRITICAL SAFETY STEP**: Add a 1N4007 diode across the relay coil terminals with the **cathode (marked band) on the positive side**. This diode protects the EV3 from dangerous voltage spikes when the relay de-energizes
 4. Verify all solder joints are clean and shiny (indicates good electrical contact)
 5. Wrap all solder joints and diode leads with electrical tape to prevent accidental short circuits.
@@ -1789,8 +1794,8 @@ if __name__ == "__main__":
 
 **Step 5: Double-Check All Connections**
 Before powering on the EV3:
-- [ ] Yellow wire soldered to the relay coil positive
-- [ ] Green wire soldered to the relay coil negative
+- [ ] White wire soldered to the relay coil positive
+- [ ] Black wire soldered to the relay coil negative
 - [ ] 1N4007 diode across coil (cathode on positive)
 - [ ] Relay NO contact connected to LED+
 - [ ] Relay C contact connected to LED-
@@ -1825,8 +1830,8 @@ print("Relay should click again (de-energizing)")
 **Electrical Principles:**
 
 ✅ **EV3 Motor Port Architecture** - The port provides isolated PWM outputs perfect for driving relay coils  
-✅ **Phase Pin Voltage** - Yellow and Green pins output 0-5V complementary signals when motor.on() is called  
-✅ **Relay Coil Design** - Standard 5V relay coils activate reliably with EV3's 4.5V PWM signals  
+✅ **Phase Pin Voltage** - White and Black pins output 0-9V complementary when motor.on() is called  
+✅ **Relay Coil Design** - Standard 9V relay coils activate reliably with EV3's 9V PWM signals  
 ✅ **Galvanic Isolation** - The relay's electromagnet operates independently from the LED circuit, protecting the EV3  
 ✅ **Reverse Polarity Protection** - The 1N4007 diode prevents back-EMF voltage spikes that could damage the EV3  
 
@@ -1935,7 +1940,7 @@ The Obstacle Challenge strategy is built upon the logic of the Open Challenge, e
 
 ---
 
-### Qualification Round (Open Challenge)
+### 🏁 Qualification Round (Open Challenge)
 
 [Full Open Challenge Code](/codes/open-challenge-code.py)
 
@@ -2118,7 +2123,7 @@ motor_c.off()
 
 ---
 
-### Final Round with Obstacle Avoidance (Obstacle Challenge)
+### 🏆 Final Round with Obstacle Avoidance (Obstacle Challenge)
 
 [Full Obstacle Challenge Code](/codes/obstacle-challenge-code.py)
 The robot extends Open Challenge logic, adding Pixy Cam for obstacle detection (green: `sig=1`, red: `sig=2`), adjusting steering (`target`) based on their `x` position relative to offsets (`green` or `red`). It determines direction (`al`) over 100 iterations, uses color values (`rang`, `rangdovom`) for line detection, and adjusts distance (`fasele`, 40–55 cm). Parking aligns with `rangdovom` at 5–34 cm. LEDs provide visual feedback, and a parking sequence aligns the robot parallel to the wall.
@@ -2882,13 +2887,13 @@ Run these checks before competition:
 
 This section provides step-by-step instructions for setting up the development environment and deploying code to the EV3 robot.
 
-### Prerequisites
+### 📋 Prerequisites
 - **EV3 Brick** with ev3dev Linux installed
 - **USB/Wi-Fi connection** to the EV3 brick
 - **Python 3.6+** installed on your development machine
 - **SSH client** (for remote access to EV3)
 
-### Step 1: Install ev3dev on the EV3 Brick
+### 💾 Step 1: Install ev3dev on the EV3 Brick
 
 1. **Download ev3dev image** from [ev3dev.org](https://www.ev3dev.org/):
    - Download the LEGO Mindstorms EV3 image (microSD version)
@@ -2902,7 +2907,7 @@ This section provides step-by-step instructions for setting up the development e
    - Wait 2-3 minutes for first boot (LED will blink)
    - Connect via USB or Wi-Fi
 
-### Step 2: Connect to EV3 Brick
+### 🔌 Step 2: Connect to EV3 Brick
 
 **Via USB (Recommended for initial setup):**
 ```bash
@@ -2918,7 +2923,7 @@ ssh robot@192.168.137.3
 ssh robot@<ev3-ip-address>
 ```
 
-### Step 3: Install Required Python Libraries
+### 📦 Step 3: Install Required Python Libraries
 
 ```bash
 # Update package manager
@@ -2935,7 +2940,7 @@ pip3 install ev3dev2
 pip3 install opencv-python numpy scipy
 ```
 
-### Step 4: Clone and Deploy Code
+### ⬇️ Step 4: Clone and Deploy Code
 
 ```bash
 # On your development machine
@@ -2948,7 +2953,7 @@ scp open-challenge-code.py robot@192.168.137.3:/home/robot/
 scp obstacle-challenge-code.py robot@192.168.137.3:/home/robot/
 ```
 
-### Step 5: Run Code on EV3
+### ▶️ Step 5: Run Code on EV3
 
 ```bash
 # SSH into EV3
@@ -2965,7 +2970,7 @@ python3 obstacle-challenge-code.py
 # Stop execution: Ctrl+C
 ```
 
-### Step 6: Debugging & Troubleshooting
+### 🐛 Step 6: Debugging & Troubleshooting
 
 **Check sensor connections:**
 ```python
@@ -2996,7 +3001,7 @@ journalctl -f
 top
 ```
 
-### Useful Commands
+### ⌨️ Useful Commands
 
 | Command | Purpose |
 |---------|---------|
@@ -3012,7 +3017,7 @@ top
 
 Proper sensor calibration is critical for reliable robot performance. Follow these procedures before the competition.
 
-### Pixy 2.1 Camera Calibration
+### 📷 Pixy 2.1 Camera Calibration
 
 **Equipment Needed:**
 - PixyMon v2 software (USB connection to PC)
@@ -3049,7 +3054,7 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
    - Click "Program" → "Save to flash"
    - Configuration persists even after a power cycle
 
-### Ultrasonic Sensor Calibration
+### 📏 Ultrasonic Sensor Calibration
 
 **Procedure:**
 
@@ -3076,7 +3081,7 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
    - If error > 2 cm, check sensor alignment
    - Clean the sensor lens if covered with dust/debris
 
-### Color Sensor Calibration
+### 🌈 Color Sensor Calibration
 
 **Procedure:**
 
@@ -3106,7 +3111,7 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
    - If color detection is inconsistent, recalibrate via EV3 menu:
      - Settings → Sensor → Color Sensor → Calibrate
 
-### Pre-Competition Checklist
+### ✅ Pre-Competition Checklist
 
 ✅ **Day Before Competition:**
 - [ ] Test all sensors with calibration scripts
@@ -3124,7 +3129,7 @@ Proper sensor calibration is critical for reliable robot performance. Follow the
 
 ## 🔍 Testing & Validation
 
-### Test Results Summary
+### 📊 Test Results Summary
 
 From 50+ test runs across varied track configurations:
 
@@ -3137,7 +3142,7 @@ From 50+ test runs across varied track configurations:
 | **Obstacle** | Parking success | 85% accuracy | Zone detection improved with calibration |
 | **Overall** | Average time (3 laps) | <2 minutes | Meets competition time limit |
 
-### Testing Methodology
+### 🧪 Testing Methodology
 
 **1. Track Simulation:**
 - Used WRO-compliant randomizer app (included in repo)
@@ -3154,7 +3159,7 @@ From 50+ test runs across varied track configurations:
 - **Success rate**: Percentage of runs completing without stalling
 - **Accuracy**: Precision of wall-following (target vs. actual distance)
 
-### Known Limitations & Workarounds
+### ⚠️ Known Limitations & Workarounds
 
 | Issue | Cause | Workaround |
 |-------|-------|-----------|
